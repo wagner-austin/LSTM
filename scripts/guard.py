@@ -11,6 +11,9 @@ Checks for violations:
 - No silent exception handling (except: pass)
 - Broad exceptions (Exception/BaseException) must log AND re-raise
 - Specific exceptions must log OR re-raise
+- No `print()` in src/ (use _console module instead)
+- Weak test assertions (is not None, isinstance, hasattr, len > 0)
+- ML test quality (training tests must verify loss, forward tests must check values)
 
 Run with: python -m scripts.guard
 """
@@ -24,23 +27,9 @@ import tokenize
 from collections.abc import Generator, Sequence
 from io import StringIO
 from pathlib import Path
-from typing import NamedTuple
 
-
-class Violation(NamedTuple):
-    """A single guard violation."""
-
-    file: Path
-    line_no: int
-    kind: str
-    line: str
-
-
-class RuleReport(NamedTuple):
-    """Summary of violations for a rule."""
-
-    name: str
-    violations: int
+from char_lstm.guards import RuleReport, Violation
+from char_lstm.guards.test_quality_rules import MLTestQualityRule, WeakAssertionRule
 
 
 def _iter_py_files(root: Path) -> Generator[Path, None, None]:
@@ -210,6 +199,39 @@ def _run_suppress_rule(path: Path, tree: ast.AST, lines: list[str]) -> list[Viol
 
 
 # =============================================================================
+# Logging Rules
+# =============================================================================
+
+
+def _run_logging_rule(path: Path, tree: ast.AST) -> list[Violation]:
+    """Check for print() usage in src/ files.
+
+    print() is forbidden in src/ - use _console module instead.
+    Tests and scripts are allowed to use print().
+    """
+    # Only check src/ files
+    if "src" not in path.parts:
+        return []
+
+    violations: list[Violation] = []
+    for node in ast.walk(tree):
+        if (
+            isinstance(node, ast.Call)
+            and isinstance(node.func, ast.Name)
+            and node.func.id == "print"
+        ):
+            violations.append(
+                Violation(
+                    file=path,
+                    line_no=node.lineno,
+                    kind="print-usage",
+                    line="Use _console module instead of print()",
+                )
+            )
+    return violations
+
+
+# =============================================================================
 # Exception Rules
 # =============================================================================
 
@@ -353,11 +375,14 @@ def run_guards(root: Path) -> int:
     comments_violations: list[Violation] = []
     suppress_violations: list[Violation] = []
     exceptions_violations: list[Violation] = []
+    logging_violations: list[Violation] = []
 
-    for path in _iter_py_files(root):
+    all_files: list[Path] = list(_iter_py_files(root))
+
+    for path in all_files:
+        source = path.read_text(encoding="utf-8")
+        lines = source.splitlines()
         try:
-            source = path.read_text(encoding="utf-8")
-            lines = source.splitlines()
             tree = ast.parse(source, filename=str(path))
         except SyntaxError as exc:
             raise RuntimeError(f"Failed to parse {path}: {exc}") from exc
@@ -366,16 +391,31 @@ def run_guards(root: Path) -> int:
         comments_violations.extend(_run_comments_rule(path, source))
         suppress_violations.extend(_run_suppress_rule(path, tree, lines))
         exceptions_violations.extend(_run_exceptions_rule(path, lines))
+        logging_violations.extend(_run_logging_rule(path, tree))
+
+    weak_assertion_rule = WeakAssertionRule()
+    ml_test_quality_rule = MLTestQualityRule()
+    weak_assertion_violations = weak_assertion_rule.run(all_files)
+    ml_test_quality_violations = ml_test_quality_rule.run(all_files)
 
     reports = [
         RuleReport(name="typing", violations=len(typing_violations)),
         RuleReport(name="comments", violations=len(comments_violations)),
         RuleReport(name="suppress", violations=len(suppress_violations)),
         RuleReport(name="exceptions", violations=len(exceptions_violations)),
+        RuleReport(name="logging", violations=len(logging_violations)),
+        RuleReport(name="test-quality", violations=len(weak_assertion_violations)),
+        RuleReport(name="ml-test-quality", violations=len(ml_test_quality_violations)),
     ]
 
     all_violations = (
-        typing_violations + comments_violations + suppress_violations + exceptions_violations
+        typing_violations
+        + comments_violations
+        + suppress_violations
+        + exceptions_violations
+        + logging_violations
+        + weak_assertion_violations
+        + ml_test_quality_violations
     )
 
     print("Guard rule summary:")
