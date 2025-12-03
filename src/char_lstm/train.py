@@ -14,6 +14,20 @@ import wandb
 from torch import Tensor
 from torch.utils.data import DataLoader
 
+from char_lstm._console import (
+    log_config,
+    log_early_stopping,
+    log_epoch_result,
+    log_epoch_start,
+    log_epoch_val,
+    log_final_results,
+    log_header,
+    log_info,
+    log_no_improvement,
+    log_progress,
+    log_saved,
+    log_subheader,
+)
 from char_lstm._types import _get_torch_load
 from char_lstm.data import CharDataset, build_vocab_with_unk, load_vocab_json, save_vocab_json
 from char_lstm.model import CharLSTM
@@ -102,6 +116,50 @@ class TrainConfig(TypedDict):
     val_ratio: float
     num_workers: int
     pin_memory: bool
+
+
+class WandbConfig(TypedDict):
+    """Configuration logged to Weights & Biases."""
+
+    # Model architecture
+    vocab_size: int
+    embed_dim: int
+    hidden_dim: int
+    num_layers: int
+    dropout: float
+
+    # Training settings
+    seq_len: int
+    batch_size: int
+    num_epochs: int
+    learning_rate: float
+    patience: int
+
+    # Data splits
+    train_ratio: float
+    val_ratio: float
+    test_ratio: float
+
+    # Experiment metadata
+    language: str
+    language_code: str
+    is_finetune: bool
+    source_checkpoint: str
+    freeze_embed: bool
+    device: str
+
+
+class EpochMetrics(TypedDict):
+    """Metrics for a single epoch."""
+
+    epoch: int
+    train_loss: float
+    train_ppl: float
+    val_loss: float
+    val_ppl: float
+    best_val_loss: float
+    learning_rate: float
+    epochs_no_improve: int
 
 
 class RunPaths(TypedDict):
@@ -294,6 +352,85 @@ def wb_log(data: dict[str, float | int]) -> None:
         wandb.log(data)
 
 
+def wb_config(config: WandbConfig) -> None:
+    """Log configuration to Weights & Biases if active."""
+    if wandb.run is None:
+        return
+    # Use setattr to avoid untyped wandb.config.update() call
+    for key, value in config.items():
+        setattr(wandb.config, key, value)
+
+
+def compute_gradient_norm(model: CharLSTM) -> float:
+    """Compute total gradient norm across all parameters.
+
+    Args:
+        model: Model with computed gradients.
+
+    Returns:
+        L2 norm of all gradients concatenated.
+    """
+    total_norm_sq = 0.0
+    for p in model.parameters():
+        if p.grad is not None:
+            param_norm = p.grad.data.norm(2).item()
+            total_norm_sq += param_norm * param_norm
+    return math.sqrt(total_norm_sq)
+
+
+def get_learning_rate(optimizer: OptimizerProtocol) -> float:
+    """Extract current learning rate from optimizer.
+
+    Args:
+        optimizer: Optimizer with param_groups.
+
+    Returns:
+        Learning rate from first param group.
+    """
+    param_groups = optimizer.param_groups
+    first_group: dict[str, float] = param_groups[0]
+    lr: float = first_group["lr"]
+    return lr
+
+
+def wb_log_epoch_table(epoch_history: list[EpochMetrics]) -> None:
+    """Log epoch summary table to Weights & Biases.
+
+    Args:
+        epoch_history: List of metrics for each completed epoch.
+    """
+    if wandb.run is None or len(epoch_history) == 0:
+        return
+
+    columns = [
+        "epoch",
+        "train_loss",
+        "train_ppl",
+        "val_loss",
+        "val_ppl",
+        "best_val_loss",
+        "learning_rate",
+        "epochs_no_improve",
+    ]
+
+    data: list[list[float | int]] = []
+    for metrics in epoch_history:
+        row: list[float | int] = [
+            metrics["epoch"],
+            metrics["train_loss"],
+            metrics["train_ppl"],
+            metrics["val_loss"],
+            metrics["val_ppl"],
+            metrics["best_val_loss"],
+            metrics["learning_rate"],
+            metrics["epochs_no_improve"],
+        ]
+        data.append(row)
+
+    table = wandb.Table(columns=columns, data=data)
+    wandb.log({"epoch_summary": table})
+
+
 def next_checkpoint_path(base: Path) -> Path:
     """Find next available checkpoint path with .ft{n} suffix.
 
@@ -408,20 +545,18 @@ def print_config(
     output_path: Path,
 ) -> None:
     """Print training configuration."""
-    print(f"\n{'=' * 60}", flush=True)
-    print("Training config:", flush=True)
-    print(f"  Language:     {lang_name} ({lang_code})", flush=True)
+    log_header("Training config")
+    log_config("Language", f"{lang_name} ({lang_code})")
     mode = f"Fine-tune from {checkpoint_path}" if is_finetune else "Train from scratch"
-    print(f"  Mode:         {mode}", flush=True)
-    print(f"  Device:       {device}", flush=True)
-    print(f"  Batch size:   {config['batch_size']}", flush=True)
-    print(f"  Workers:      {config['num_workers']}", flush=True)
-    print(f"  Pin memory:   {config['pin_memory']}", flush=True)
-    print(f"  Epochs:       {config['num_epochs']}", flush=True)
-    print(f"  LR:           {config['lr']}", flush=True)
-    print(f"  Freeze embed: {freeze_embed}", flush=True)
-    print(f"  Output:       {output_path}", flush=True)
-    print(f"{'=' * 60}\n", flush=True)
+    log_config("Mode", mode)
+    log_config("Device", device)
+    log_config("Batch size", config["batch_size"])
+    log_config("Workers", config["num_workers"])
+    log_config("Pin memory", config["pin_memory"])
+    log_config("Epochs", config["num_epochs"])
+    log_config("LR", config["lr"])
+    log_config("Freeze embed", freeze_embed)
+    log_config("Output", str(output_path))
 
 
 def build_run_paths(
@@ -472,7 +607,7 @@ def load_and_split_corpus(data_path: str, config: TrainConfig) -> CorpusSplit:
     Returns:
         CorpusSplit with train, val, test text.
     """
-    print(f"Loading data from {data_path}...", flush=True)
+    log_info(f"Loading data from {data_path}...")
     text = Path(data_path).read_text(encoding="utf-8")[:10_000_000]
     total_chars = len(text)
     train_idx = int(total_chars * config["train_ratio"])
@@ -482,10 +617,10 @@ def load_and_split_corpus(data_path: str, config: TrainConfig) -> CorpusSplit:
     val_text = text[train_idx:val_idx]
     test_text = text[val_idx:]
 
-    print(f"  Loaded {total_chars:,} chars total", flush=True)
-    print(f"  Train: {len(train_text):,} chars", flush=True)
-    print(f"  Val:   {len(val_text):,} chars", flush=True)
-    print(f"  Test:  {len(test_text):,} chars", flush=True)
+    log_config("Loaded", f"{total_chars:,} chars total")
+    log_config("Train", f"{len(train_text):,} chars")
+    log_config("Val", f"{len(val_text):,} chars")
+    log_config("Test", f"{len(test_text):,} chars")
 
     return {"train_text": train_text, "val_text": val_text, "test_text": test_text}
 
@@ -506,15 +641,15 @@ def setup_vocab(
         VocabData with stoi, itos, and vocab_size.
     """
     if is_finetune and vocab_json_path.exists():
-        print(f"Loading vocab from {vocab_json_path}...", flush=True)
+        log_info(f"Loading vocab from {vocab_json_path}...")
         stoi, itos, vocab_size, _ = load_vocab_json(vocab_json_path)
     else:
-        print("Building vocab from training text...", flush=True)
+        log_info("Building vocab from training text...")
         full_text = corpus["train_text"] + corpus["val_text"] + corpus["test_text"]
         stoi, itos, vocab_size = build_vocab_with_unk(full_text)
         save_vocab_json(itos, vocab_json_path)
 
-    print(f"  Vocab size: {vocab_size}", flush=True)
+    log_config("Vocab size", vocab_size)
     return {"stoi": stoi, "itos": itos, "vocab_size": vocab_size}
 
 
@@ -533,7 +668,7 @@ def create_dataloaders(
     Returns:
         DataLoaders with train, val, test loaders.
     """
-    print("Creating data loaders...", flush=True)
+    log_info("Creating data loaders...")
 
     train_dataset = CharDataset(corpus["train_text"], stoi, config["seq_len"])
     val_dataset = CharDataset(corpus["val_text"], stoi, config["seq_len"])
@@ -561,8 +696,8 @@ def create_dataloaders(
         pin_memory=config["pin_memory"],
     )
 
-    print(f"  Train batches: {len(train_loader):,}", flush=True)
-    print(f"  Val batches:   {len(val_loader):,}", flush=True)
+    log_config("Train batches", f"{len(train_loader):,}")
+    log_config("Val batches", f"{len(val_loader):,}")
 
     return {
         "train_loader": train_loader,
@@ -602,15 +737,15 @@ def setup_model_and_optimizer(
     device_str = "cuda" if use_cuda else "cpu"
     device = torch.device(device_str)
 
-    print("\nModel config:", flush=True)
-    print(f"  Device:     {device}", flush=True)
-    print(f"  Embed dim:  {embed_dim}", flush=True)
-    print(f"  Hidden dim: {hidden_dim}", flush=True)
-    print(f"  Layers:     {num_layers}", flush=True)
+    log_subheader("Model config")
+    log_config("Device", str(device))
+    log_config("Embed dim", embed_dim)
+    log_config("Hidden dim", hidden_dim)
+    log_config("Layers", num_layers)
 
     model = CharLSTM(vocab_size, embed_dim, hidden_dim, num_layers).to(device)
     num_params = sum(p.numel() for p in model.parameters())
-    print(f"  Parameters: {num_params:,}", flush=True)
+    log_config("Parameters", f"{num_params:,}")
 
     lr = config["lr"]
     if is_finetune:
@@ -618,18 +753,18 @@ def setup_model_and_optimizer(
 
     optimizer = _create_optimizer(model, lr)
     criterion = nn.CrossEntropyLoss()
-    print(f"  Optimizer:  Adam (lr={lr})", flush=True)
+    log_config("Optimizer", f"Adam (lr={lr})")
 
     checkpoint_save = checkpoint_best
     if is_finetune:
         checkpoint_save = next_checkpoint_path(checkpoint_best)
-        print(f"[FT] Will save fine-tuned checkpoint to: {checkpoint_save}")
+        log_info(f"[FT] Will save fine-tuned checkpoint to: {checkpoint_save}")
 
     if is_finetune and source_checkpoint_path.exists():
-        print(f"Loading checkpoint from {source_checkpoint_path}")
+        log_info(f"Loading checkpoint from {source_checkpoint_path}")
         state_dict = _load_checkpoint_state_dict(source_checkpoint_path, device)
         model.load_state_dict(state_dict, strict=True)
-        print("Loaded model weights for fine-tuning.")
+        log_info("Loaded model weights for fine-tuning.")
     elif is_finetune:
         msg = f"Checkpoint not found at {source_checkpoint_path}"
         raise FileNotFoundError(msg)
@@ -637,7 +772,7 @@ def setup_model_and_optimizer(
     if freeze_embed:
         for p in model.embedding.parameters():
             p.requires_grad = False
-        print("Embedding layer frozen.")
+        log_info("Embedding layer frozen.")
 
     return {
         "model": model,
@@ -661,7 +796,7 @@ def train_epoch(
     config: TrainConfig,
     state: TrainState,
     checkpoint_save: Path,
-) -> bool:
+) -> tuple[bool, EpochMetrics]:
     """Run a single training epoch with validation.
 
     Args:
@@ -679,10 +814,16 @@ def train_epoch(
         checkpoint_save: Path to save checkpoint.
 
     Returns:
-        True if training should continue, False if early stopping triggered.
+        Tuple of (should_continue, epoch_metrics).
+        should_continue is False if early stopping triggered.
+        epoch_metrics contains summary for W&B table.
     """
-    print(f"[Epoch {epoch + 1}/{num_epochs}] Starting...", flush=True)
+    log_epoch_start(epoch, num_epochs)
     model.train()
+
+    lr = get_learning_rate(optimizer)
+    epoch_train_loss = 0.0
+    epoch_train_steps = 0
 
     num_batches = len(train_loader)
     for step, batch in enumerate(train_loader):
@@ -692,10 +833,16 @@ def train_epoch(
         logits, _ = model(x)
         loss_tensor = criterion(logits.view(-1, vocab_size), y.view(-1))
         loss_tensor.backward()
+
+        # Compute gradient norm before clipping
+        grad_norm = compute_gradient_norm(model)
+
         torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
         optimizer.step()
 
         loss_value: float = loss_tensor.item()
+        epoch_train_loss += loss_value
+        epoch_train_steps += 1
         state["global_step"] += 1
         state["window_sum"] += loss_value
         state["window_n"] += 1
@@ -710,33 +857,34 @@ def train_epoch(
                 {
                     "train_loss": avg_loss,
                     "train_ppl": avg_ppl,
+                    "grad_norm": grad_norm,
+                    "learning_rate": lr,
                     "global_step": state["global_step"],
                     "epoch": epoch + 1,
                 }
             )
             pct = 100 * (step + 1) / num_batches
-            print(
-                f"  [{pct:5.1f}%] Step {state['global_step']:,} | "
-                f"Loss: {avg_loss:.4f} | PPL: {avg_ppl:.2f}",
-                flush=True,
-            )
+            log_progress(epoch, num_epochs, state["global_step"], pct, avg_loss, avg_ppl)
             state["window_sum"], state["window_n"] = 0.0, 0
 
+    # Compute epoch-level train metrics
+    epoch_avg_train_loss = epoch_train_loss / max(1, epoch_train_steps)
+    epoch_avg_train_ppl = math.exp(epoch_avg_train_loss)
+
     # Validation
-    print(f"[Epoch {epoch + 1}/{num_epochs}] Validating...", flush=True)
+    log_epoch_val(epoch, num_epochs)
     val_loss, val_ppl = evaluate(model, val_loader, criterion, device, vocab_size)
     wb_log(
         {
             "val_loss": val_loss,
             "val_ppl": val_ppl,
+            "best_val_loss": min(state["best_val_loss"], val_loss),
+            "epochs_no_improve": state["epochs_no_improve"],
             "epoch": epoch + 1,
             "global_step": state["global_step"],
         }
     )
-    print(
-        f"[Epoch {epoch + 1}/{num_epochs}] Val Loss: {val_loss:.4f} | Val PPL: {val_ppl:.2f}",
-        flush=True,
-    )
+    log_epoch_result(epoch, num_epochs, val_loss, val_ppl)
 
     # Save best
     if val_loss < state["best_val_loss"]:
@@ -751,16 +899,39 @@ def train_epoch(
             global_step=state["global_step"],
             vocab_size=vocab_size,
         )
-        print(f"  -> Saved best model to {checkpoint_save}", flush=True)
+        log_saved(str(checkpoint_save))
     else:
         state["epochs_no_improve"] += 1
         patience = config["patience"]
-        print(f"  -> No improvement ({state['epochs_no_improve']}/{patience})", flush=True)
+        log_no_improvement(state["epochs_no_improve"], patience)
         if state["epochs_no_improve"] >= patience:
-            print("Early stopping.", flush=True)
-            return False
+            log_early_stopping()
+            # Return metrics even on early stop
+            epoch_metrics: EpochMetrics = {
+                "epoch": epoch + 1,
+                "train_loss": epoch_avg_train_loss,
+                "train_ppl": epoch_avg_train_ppl,
+                "val_loss": val_loss,
+                "val_ppl": val_ppl,
+                "best_val_loss": state["best_val_loss"],
+                "learning_rate": lr,
+                "epochs_no_improve": state["epochs_no_improve"],
+            }
+            return False, epoch_metrics
 
-    return True
+    # Build epoch metrics for summary table
+    epoch_metrics = {
+        "epoch": epoch + 1,
+        "train_loss": epoch_avg_train_loss,
+        "train_ppl": epoch_avg_train_ppl,
+        "val_loss": val_loss,
+        "val_ppl": val_ppl,
+        "best_val_loss": state["best_val_loss"],
+        "learning_rate": lr,
+        "epochs_no_improve": state["epochs_no_improve"],
+    }
+
+    return True, epoch_metrics
 
 
 def run_final_evaluation(
@@ -783,17 +954,14 @@ def run_final_evaluation(
         checkpoint_save: Path to saved checkpoint.
         checkpoint_best: Fallback checkpoint path.
     """
-    print(f"\n{'=' * 60}", flush=True)
-    print("Training complete. Running final evaluation...", flush=True)
-    print(f"{'=' * 60}", flush=True)
+    log_header("Training complete. Running final evaluation...")
     best_path = checkpoint_save if checkpoint_save.exists() else checkpoint_best
     state_dict = _load_checkpoint_state_dict(best_path, device)
     model.load_state_dict(state_dict)
 
     test_loss, test_ppl = evaluate(model, test_loader, criterion, device, vocab_size)
     wb_log({"test_loss": test_loss, "test_ppl": test_ppl})
-    print(f"\nFinal Test Loss: {test_loss:.4f} | Test PPL: {test_ppl:.2f}", flush=True)
-    print("Done!", flush=True)
+    log_final_results(test_loss, test_ppl)
 
 
 def main() -> None:
@@ -814,6 +982,40 @@ def main() -> None:
     device_str = "cuda" if use_cuda else "cpu"
     config = build_train_config(args, use_cuda)
 
+    # Load and prepare data (needed for vocab_size in wandb config)
+    paths["checkpoint_dir"].mkdir(parents=True, exist_ok=True)
+    corpus = load_and_split_corpus(data_path, config)
+    vocab = setup_vocab(corpus, is_finetune, paths["vocab_json_path"])
+
+    # Log comprehensive config to W&B
+    source_ckpt = args["from_checkpoint"] if args["from_checkpoint"] is not None else ""
+    wandb_cfg: WandbConfig = {
+        # Model architecture
+        "vocab_size": vocab["vocab_size"],
+        "embed_dim": 128,
+        "hidden_dim": 256,
+        "num_layers": 2,
+        "dropout": 0.1,
+        # Training settings
+        "seq_len": config["seq_len"],
+        "batch_size": config["batch_size"],
+        "num_epochs": config["num_epochs"],
+        "learning_rate": config["lr"],
+        "patience": config["patience"],
+        # Data splits
+        "train_ratio": config["train_ratio"],
+        "val_ratio": config["val_ratio"],
+        "test_ratio": 1.0 - config["train_ratio"] - config["val_ratio"],
+        # Experiment metadata
+        "language": lang_name,
+        "language_code": args["lang"],
+        "is_finetune": is_finetune,
+        "source_checkpoint": source_ckpt,
+        "freeze_embed": args["freeze_embed"],
+        "device": device_str,
+    }
+    wb_config(wandb_cfg)
+
     print_config(
         lang_name=lang_name,
         lang_code=args["lang"],
@@ -825,11 +1027,6 @@ def main() -> None:
         output_path=paths["checkpoint_best"],
     )
 
-    paths["checkpoint_dir"].mkdir(parents=True, exist_ok=True)
-
-    # Load and prepare data
-    corpus = load_and_split_corpus(data_path, config)
-    vocab = setup_vocab(corpus, is_finetune, paths["vocab_json_path"])
     loaders = create_dataloaders(corpus, vocab["stoi"], config)
 
     # Setup model
@@ -851,13 +1048,13 @@ def main() -> None:
         "epochs_no_improve": 0,
     }
 
+    epoch_history: list[EpochMetrics] = []
     num_epochs = config["num_epochs"]
-    print(f"\n{'=' * 60}", flush=True)
-    print(f"Starting training: {num_epochs} epochs, {len(loaders['train_loader'])} batches/epoch")
-    print(f"{'=' * 60}\n", flush=True)
+    batches = len(loaders["train_loader"])
+    log_header(f"Starting training: {num_epochs} epochs, {batches} batches/epoch")
 
     for epoch in range(num_epochs):
-        should_continue = train_epoch(
+        should_continue, epoch_metrics = train_epoch(
             epoch=epoch,
             num_epochs=num_epochs,
             model=model_setup["model"],
@@ -871,8 +1068,12 @@ def main() -> None:
             state=state,
             checkpoint_save=model_setup["checkpoint_save"],
         )
+        epoch_history.append(epoch_metrics)
         if not should_continue:
             break
+
+    # Log epoch summary table to W&B
+    wb_log_epoch_table(epoch_history)
 
     # Final evaluation
     run_final_evaluation(
