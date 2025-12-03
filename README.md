@@ -11,8 +11,28 @@ Character-level LSTM experiments for measuring mutual intelligibility (MI) gradi
 ## Setup
 
 ```bash
-cd C:\Users\austi\PROJECTS\LSTM
 poetry install
+```
+
+### Development Setup
+
+For development with testing and type checking:
+
+```bash
+poetry install --with dev
+```
+
+Run all checks (linting, type checking, tests with 100% coverage):
+
+```bash
+make check
+```
+
+Individual commands:
+
+```bash
+make lint   # Ruff + Mypy + guard checks
+make test   # Pytest with coverage
 ```
 
 ## Available Languages
@@ -98,7 +118,7 @@ Fine-tuning:
 - **Source:** OSCAR corpus, filtered with FastText language ID
 - **Preprocessing:** Deterministic transliteration to broad IPA
 - **Max chars:** 10M per language
-- **Split:** 75% train / 25% val
+- **Split:** 70% train / 15% val / 15% test
 
 ## Monitoring
 
