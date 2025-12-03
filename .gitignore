@@ -8,3 +8,7 @@ __MACOSX/
 __pycache__/
 *.pyc
 .coverage
+
+# Training artifacts
+checkpoints/
+wandb/

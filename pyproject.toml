@@ -13,13 +13,13 @@ packages = [
 include = ["src/char_lstm/py.typed"]
 
 [[tool.poetry.source]]
-name = "pytorch-cpu"
-url = "https://download.pytorch.org/whl/cpu"
+name = "pytorch-cu124"
+url = "https://download.pytorch.org/whl/cu124"
 priority = "explicit"
 
 [tool.poetry.dependencies]
 python = "^3.11"
-torch = {version = "2.4.1+cpu", source = "pytorch-cpu"}
+torch = {version = "^2.5", source = "pytorch-cu124"}
 numpy = "^2.0"
 wandb = "^0.23.0"
 
