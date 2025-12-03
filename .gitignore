@@ -1,0 +1,9 @@
+# Claude
+.claude/
+
+# macOS
+__MACOSX/
+
+# Python
+__pycache__/
+*.pyc
