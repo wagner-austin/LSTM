@@ -331,8 +331,8 @@ def build_train_config(args: ParsedArgs, use_cuda: bool) -> TrainConfig:
         "log_every": 100,
         "patience": 1,
         "lr": args["lr"],
-        "train_ratio": 0.75,
-        "val_ratio": 0.25,
+        "train_ratio": 0.70,
+        "val_ratio": 0.15,
         "num_workers": 4 if use_cuda else 0,
         "pin_memory": use_cuda,
     }
