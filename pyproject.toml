@@ -22,6 +22,7 @@ python = "^3.11"
 torch = {version = "^2.5", source = "pytorch-cu124"}
 numpy = "^2.0"
 wandb = "^0.23.0"
+rich = "^14.2.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.0.0"
