@@ -172,8 +172,8 @@ def test_print_config_does_not_raise(tmp_path: Path, capsys: pytest.CaptureFixtu
         "log_every": 100,
         "patience": 1,
         "lr": 1e-4,
-        "train_ratio": 0.75,
-        "val_ratio": 0.25,
+        "train_ratio": 0.70,
+        "val_ratio": 0.15,
         "num_workers": 0,
         "pin_memory": False,
     }
@@ -204,8 +204,8 @@ def test_print_config_finetune_mode(tmp_path: Path, capsys: pytest.CaptureFixtur
         "log_every": 100,
         "patience": 1,
         "lr": 1e-4,
-        "train_ratio": 0.75,
-        "val_ratio": 0.25,
+        "train_ratio": 0.70,
+        "val_ratio": 0.15,
         "num_workers": 0,
         "pin_memory": False,
     }
@@ -388,17 +388,17 @@ def test_load_and_split_corpus(tmp_path: Path) -> None:
         "log_every": 100,
         "patience": 1,
         "lr": 1e-4,
-        "train_ratio": 0.75,
-        "val_ratio": 0.20,
+        "train_ratio": 0.70,
+        "val_ratio": 0.15,
         "num_workers": 0,
         "pin_memory": False,
     }
 
     corpus = load_and_split_corpus(str(corpus_path), config)
 
-    assert len(corpus["train_text"]) == 750  # 75% of 1000
-    assert len(corpus["val_text"]) == 200  # 20% of 1000
-    assert len(corpus["test_text"]) == 50  # remaining 5%
+    assert len(corpus["train_text"]) == 700  # 70% of 1000
+    assert len(corpus["val_text"]) == 150  # 15% of 1000
+    assert len(corpus["test_text"]) == 150  # remaining 15%
 
 
 def test_setup_vocab_new_build(tmp_path: Path) -> None:
@@ -462,8 +462,8 @@ def test_create_dataloaders() -> None:
         "log_every": 100,
         "patience": 1,
         "lr": 1e-4,
-        "train_ratio": 0.75,
-        "val_ratio": 0.25,
+        "train_ratio": 0.70,
+        "val_ratio": 0.15,
         "num_workers": 0,
         "pin_memory": False,
     }
@@ -487,8 +487,8 @@ def test_setup_model_and_optimizer_new_training(tmp_path: Path) -> None:
         "log_every": 100,
         "patience": 1,
         "lr": 1e-4,
-        "train_ratio": 0.75,
-        "val_ratio": 0.25,
+        "train_ratio": 0.70,
+        "val_ratio": 0.15,
         "num_workers": 0,
         "pin_memory": False,
     }
@@ -523,8 +523,8 @@ def test_setup_model_and_optimizer_finetune_not_found(tmp_path: Path) -> None:
         "log_every": 100,
         "patience": 1,
         "lr": 1e-4,
-        "train_ratio": 0.75,
-        "val_ratio": 0.25,
+        "train_ratio": 0.70,
+        "val_ratio": 0.15,
         "num_workers": 0,
         "pin_memory": False,
     }
@@ -556,8 +556,8 @@ def test_setup_model_and_optimizer_finetune_with_checkpoint(
         "log_every": 100,
         "patience": 1,
         "lr": 1e-4,
-        "train_ratio": 0.75,
-        "val_ratio": 0.25,
+        "train_ratio": 0.70,
+        "val_ratio": 0.15,
         "num_workers": 0,
         "pin_memory": False,
     }
@@ -595,8 +595,8 @@ def test_setup_model_and_optimizer_freeze_embed(tmp_path: Path, device: torch.de
         "log_every": 100,
         "patience": 1,
         "lr": 1e-4,
-        "train_ratio": 0.75,
-        "val_ratio": 0.25,
+        "train_ratio": 0.70,
+        "val_ratio": 0.15,
         "num_workers": 0,
         "pin_memory": False,
     }
@@ -649,8 +649,8 @@ def test_train_epoch(tmp_path: Path, device: torch.device) -> None:
         "log_every": 10,
         "patience": 5,
         "lr": 1e-3,
-        "train_ratio": 0.75,
-        "val_ratio": 0.25,
+        "train_ratio": 0.70,
+        "val_ratio": 0.15,
         "num_workers": 0,
         "pin_memory": False,
     }
@@ -712,8 +712,8 @@ def test_train_epoch_early_stopping(tmp_path: Path, device: torch.device) -> Non
         "log_every": 100,
         "patience": 1,  # Low patience for early stopping
         "lr": 1e-3,
-        "train_ratio": 0.75,
-        "val_ratio": 0.25,
+        "train_ratio": 0.70,
+        "val_ratio": 0.15,
         "num_workers": 0,
         "pin_memory": False,
     }
@@ -779,8 +779,8 @@ def test_train_epoch_no_improvement_but_continue(tmp_path: Path, device: torch.d
         "log_every": 100,
         "patience": 5,  # High patience - should continue
         "lr": 1e-3,
-        "train_ratio": 0.75,
-        "val_ratio": 0.25,
+        "train_ratio": 0.70,
+        "val_ratio": 0.15,
         "num_workers": 0,
         "pin_memory": False,
     }
