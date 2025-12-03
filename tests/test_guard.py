@@ -175,7 +175,7 @@ def test_guard_clean_code(tmp_path: Path, capsys: CaptureFixture[str]) -> None:
 
     assert code == 0
     captured = capsys.readouterr()
-    assert "Guard checks passed" in captured.out
+    assert captured.out.strip().endswith("Guard checks passed: no violations found.")
 
 
 def test_guard_scans_tests_dir(tmp_path: Path) -> None:
@@ -208,8 +208,8 @@ def test_guard_violation_output(tmp_path: Path, capsys: CaptureFixture[str]) -> 
 
     assert code == 2
     captured = capsys.readouterr()
-    assert "Guard checks failed" in captured.err
-    assert "bad.py" in captured.err
+    assert captured.err.startswith("Guard checks failed:")
+    assert "src\\bad.py:1:" in captured.err or "src/bad.py:1:" in captured.err
 
 
 def test_guard_no_pyproject_via_subprocess(tmp_path: Path) -> None:
@@ -229,7 +229,7 @@ def test_guard_no_pyproject_via_subprocess(tmp_path: Path) -> None:
     )
 
     assert result.returncode == 1
-    assert "pyproject.toml not found" in result.stderr
+    assert result.stderr.startswith("ERROR: pyproject.toml not found")
 
 
 def test_guard_detects_pragma_comment(tmp_path: Path) -> None:
@@ -400,7 +400,7 @@ def test_guard_no_pyproject_direct(
 
     assert code == 1
     captured = capsys.readouterr()
-    assert "pyproject.toml not found" in captured.err
+    assert captured.err.startswith("ERROR: pyproject.toml not found")
 
 
 def test_guard_main_entry_no_violations(tmp_path: Path) -> None:
@@ -414,3 +414,30 @@ def test_guard_main_entry_no_violations(tmp_path: Path) -> None:
         check=False,
     )
     assert result.returncode == 0
+
+
+def test_guard_detects_print_in_src(tmp_path: Path) -> None:
+    """Test guard detects print() usage in src/ files."""
+    src = tmp_path / "src" / "bad.py"
+    _write(src, "print('hello')\n")
+
+    code = guard_main(["--root", str(tmp_path)])
+    assert code == 2
+
+
+def test_guard_allows_print_in_tests(tmp_path: Path) -> None:
+    """Test guard allows print() usage in tests/ files."""
+    src = tmp_path / "tests" / "test_foo.py"
+    _write(src, "print('hello')\n")
+
+    code = guard_main(["--root", str(tmp_path)])
+    assert code == 0
+
+
+def test_guard_allows_print_in_scripts(tmp_path: Path) -> None:
+    """Test guard allows print() usage in scripts/ files."""
+    src = tmp_path / "scripts" / "helper.py"
+    _write(src, "print('hello')\n")
+
+    code = guard_main(["--root", str(tmp_path)])
+    assert code == 0
