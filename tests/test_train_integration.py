@@ -22,7 +22,7 @@ from char_lstm.train import (
 )
 
 
-def test_training_reduces_loss(device: torch.device) -> None:
+def test_training_reduces_loss(tmp_path: Path, device: torch.device) -> None:
     """Integration test: verify training actually reduces loss over multiple steps.
 
     This test runs multiple training steps and verifies:
@@ -85,7 +85,7 @@ def test_training_reduces_loss(device: torch.device) -> None:
             vocab_size=vocab_size,
             config=config,
             state=state,
-            checkpoint_save=Path("/tmp/dummy.pt"),
+            checkpoint_save=tmp_path / "dummy.pt",
         )
         epoch_losses.append(metrics["train_loss"])
         if not should_continue:
