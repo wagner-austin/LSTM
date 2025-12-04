@@ -1,1 +1,69 @@
-{"metadata": {"generated_at": "2025-12-04T10:25:13Z", "version": "2.0", "dry_run": false}, "config": {"source": "oscar", "threshold": 0.95, "languages": ["kk", "ky", "tr", "az", "ug", "uz", "fi"], "output_directory": "C:\\Users\\austi\\PROJECTS\\API\\services\\turkic-api\\data\\balanced\\oscar", "lid_model": "lid218e", "assume_uz_bottleneck": true}, "bottleneck": {"language": "uz", "ipa_characters": 11712685}, "results": {"kk": {"ipa_characters": 11712685, "lines_written": 2456, "output_file": "oscar_kk_ipa.txt"}, "ky": {"ipa_characters": 11712685, "lines_written": 3863, "output_file": "oscar_ky_ipa.txt"}, "tr": {"ipa_characters": 11712685, "lines_written": 2515, "output_file": "oscar_tr_ipa.txt"}, "az": {"ipa_characters": 11712685, "lines_written": 3464, "output_file": "oscar_az_ipa.txt"}, "ug": {"ipa_characters": 11712685, "lines_written": 2919, "output_file": "oscar_ug_ipa.txt"}, "uz": {"ipa_characters": 11712685, "lines_written": 7708, "output_file": "oscar_uz_ipa.txt"}, "fi": {"ipa_characters": 11712685, "lines_written": 2763, "output_file": "oscar_fi_ipa.txt"}}, "summary": {"total_languages": 7, "total_ipa_characters": 81988795, "total_lines": 25688}}
+{
+  "metadata": {
+    "generated_at": "2025-12-04T12:03:21Z",
+    "version": "2.0",
+    "dry_run": false
+  },
+  "config": {
+    "source": "oscar",
+    "threshold": 0.95,
+    "languages": [
+      "kk",
+      "ky",
+      "tr",
+      "az",
+      "ug",
+      "uz",
+      "fi"
+    ],
+    "output_directory": "C:\\Users\\austi\\PROJECTS\\API\\services\\turkic-api\\data\\balanced\\oscar",
+    "lid_model": "lid218e",
+    "assume_uz_bottleneck": true
+  },
+  "bottleneck": {
+    "language": "uz",
+    "ipa_characters": 11712685
+  },
+  "results": {
+    "kk": {
+      "ipa_characters": 11712685,
+      "lines_written": 2456,
+      "output_file": "oscar_kk_ipa.txt"
+    },
+    "ky": {
+      "ipa_characters": 11712685,
+      "lines_written": 3863,
+      "output_file": "oscar_ky_ipa.txt"
+    },
+    "tr": {
+      "ipa_characters": 11712685,
+      "lines_written": 2515,
+      "output_file": "oscar_tr_ipa.txt"
+    },
+    "az": {
+      "ipa_characters": 11712685,
+      "lines_written": 3464,
+      "output_file": "oscar_az_ipa.txt"
+    },
+    "ug": {
+      "ipa_characters": 11712685,
+      "lines_written": 2919,
+      "output_file": "oscar_ug_ipa.txt"
+    },
+    "uz": {
+      "ipa_characters": 11712685,
+      "lines_written": 7708,
+      "output_file": "oscar_uz_ipa.txt"
+    },
+    "fi": {
+      "ipa_characters": 11712685,
+      "lines_written": 2763,
+      "output_file": "oscar_fi_ipa.txt"
+    }
+  },
+  "summary": {
+    "total_languages": 7,
+    "total_ipa_characters": 81988795,
+    "total_lines": 25688
+  }
+}
