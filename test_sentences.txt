@@ -1,0 +1,7 @@
+tr: Kitap okuyorum.
+az: Kitab oxuyuram.
+fi: Luen kirjaa.
+kk: Мен кітап оқып жатырмын.
+ky: Мен китеп окуп жатам.
+uz: Men kitob o'qiyapman.
+ug: مەن كىتاب ئوقۇۋاتىمەن.
