@@ -78,6 +78,7 @@ LANGUAGES: dict[str, tuple[str, str]] = {
     "ky": ("Kyrgyz", "09_Downloaded_Corpora/oscar_ky_ipa.txt"),
     "uz": ("Uzbek", "09_Downloaded_Corpora/oscar_uz_ipa.txt"),
     "ug": ("Uyghur", "09_Downloaded_Corpora/oscar_ug_ipa.txt"),
+    "fi": ("Finnish", "09_Downloaded_Corpora/oscar_fi_ipa.txt"),
 }
 
 
@@ -283,7 +284,7 @@ def parse_args() -> argparse.Namespace:
         type=str,
         required=True,
         choices=list(LANGUAGES.keys()),
-        help="Language code to train on (tr, az, kk, ky, uz, ug)",
+        help="Language code to train on (tr, az, kk, ky, uz, ug, fi)",
     )
     parser.add_argument(
         "--from-checkpoint",
