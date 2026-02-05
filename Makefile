@@ -1,17 +1,17 @@
 SHELL := powershell.exe
 .SHELLFLAGS := -NoProfile -ExecutionPolicy Bypass -Command
 
-.PHONY: lint test check
+.PHONY: lint test check train-all
 
 # Lint: venv cleanup, guards, Ruff, Mypy
 lint:
 	# Clean stale venv if mypy not runnable; do not fail
 	@$$ErrorActionPreference = 'SilentlyContinue'; poetry run mypy --version | Out-Null; if (-not $$?) { Write-Host "[lint] Stale venv detected; removing..." -ForegroundColor Yellow; poetry env remove --all | Out-Null }; exit 0
-	# Run guard checks (no Any, cast, object, type:ignore)
-	if ((Test-Path ".\scripts\guard.py") -or (Test-Path ".\scripts\guard\__main__.py")) { poetry run python -m scripts.guard; if ($$LASTEXITCODE -ne 0) { exit $$LASTEXITCODE } }
-	# Ensure dependencies are installed
+	# Ensure dependencies are installed first
 	poetry lock
 	poetry install --with dev
+	# Run guard checks (no Any, cast, object, type:ignore)
+	if ((Test-Path ".\scripts\guard.py") -or (Test-Path ".\scripts\guard\__main__.py")) { poetry run python -m scripts.guard; if ($$LASTEXITCODE -ne 0) { exit $$LASTEXITCODE } }
 	# Ruff + Mypy
 	poetry run ruff check . --fix
 	poetry run ruff format .
@@ -25,3 +25,7 @@ test:
 
 # Check: run lint then test
 check: lint | test
+
+# Train all language combinations (reads from run_all.txt)
+train-all:
+	Get-Content run_all.txt | Where-Object { $$_ -and $$_ -notmatch '^\s*#' } | ForEach-Object { Write-Host "Running: $$_" -ForegroundColor Cyan; Invoke-Expression $$_ }
