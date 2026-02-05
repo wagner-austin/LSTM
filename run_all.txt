@@ -1,14 +1,62 @@
-poetry run python -m char_lstm.train --lang tr;
-poetry run python -m char_lstm.train --lang fi --from-checkpoint checkpoints/tr_best.pt --freeze-embed;
-poetry run python -m char_lstm.train --lang kk --from-checkpoint checkpoints/tr_best.pt --freeze-embed;
-poetry run python -m char_lstm.train --lang az --from-checkpoint checkpoints/tr_best.pt --freeze-embed; 
+# Experiment 1: Turkish (Oghuz) as base
+poetry run python -m char_lstm.train --lang tr
+poetry run python -m char_lstm.train --lang az --from-checkpoint checkpoints/tr_best.pt --freeze-embed
+poetry run python -m char_lstm.train --lang kk --from-checkpoint checkpoints/tr_best.pt --freeze-embed
+poetry run python -m char_lstm.train --lang ky --from-checkpoint checkpoints/tr_best.pt --freeze-embed
+poetry run python -m char_lstm.train --lang uz --from-checkpoint checkpoints/tr_best.pt --freeze-embed
+poetry run python -m char_lstm.train --lang ug --from-checkpoint checkpoints/tr_best.pt --freeze-embed
+poetry run python -m char_lstm.train --lang fi --from-checkpoint checkpoints/tr_best.pt --freeze-embed
 
-poetry run python -m char_lstm.train --lang uz;
-poetry run python -m char_lstm.train --lang fi --from-checkpoint checkpoints/uz_best.pt --freeze-embed;
-poetry run python -m char_lstm.train --lang kk --from-checkpoint checkpoints/uz_best.pt --freeze-embed;
-poetry run python -m char_lstm.train --lang ug --from-checkpoint checkpoints/uz_best.pt --freeze-embed; 
+# Experiment 2: Azerbaijani (Oghuz) as base
+poetry run python -m char_lstm.train --lang az
+poetry run python -m char_lstm.train --lang tr --from-checkpoint checkpoints/az_best.pt --freeze-embed
+poetry run python -m char_lstm.train --lang kk --from-checkpoint checkpoints/az_best.pt --freeze-embed
+poetry run python -m char_lstm.train --lang ky --from-checkpoint checkpoints/az_best.pt --freeze-embed
+poetry run python -m char_lstm.train --lang uz --from-checkpoint checkpoints/az_best.pt --freeze-embed
+poetry run python -m char_lstm.train --lang ug --from-checkpoint checkpoints/az_best.pt --freeze-embed
+poetry run python -m char_lstm.train --lang fi --from-checkpoint checkpoints/az_best.pt --freeze-embed
 
-poetry run python -m char_lstm.train --lang kk;
-poetry run python -m char_lstm.train --lang fi --from checkpoint checkpoints/kk_best.pt --freeze-embed; 
-poetry run python -m char_lstm.train --lang ky --from checkpoint checkpoints/kk_best.pt --freeze-embed;
-poetry run python -m char_lstm.train --lang tr --from checkpoint checkpoints/kk_best.pt --freeze-embed;
+# Experiment 3: Kazakh (Kipchak) as base
+poetry run python -m char_lstm.train --lang kk
+poetry run python -m char_lstm.train --lang tr --from-checkpoint checkpoints/kk_best.pt --freeze-embed
+poetry run python -m char_lstm.train --lang az --from-checkpoint checkpoints/kk_best.pt --freeze-embed
+poetry run python -m char_lstm.train --lang ky --from-checkpoint checkpoints/kk_best.pt --freeze-embed
+poetry run python -m char_lstm.train --lang uz --from-checkpoint checkpoints/kk_best.pt --freeze-embed
+poetry run python -m char_lstm.train --lang ug --from-checkpoint checkpoints/kk_best.pt --freeze-embed
+poetry run python -m char_lstm.train --lang fi --from-checkpoint checkpoints/kk_best.pt --freeze-embed
+
+# Experiment 4: Kyrgyz (Kipchak) as base
+poetry run python -m char_lstm.train --lang ky
+poetry run python -m char_lstm.train --lang tr --from-checkpoint checkpoints/ky_best.pt --freeze-embed
+poetry run python -m char_lstm.train --lang az --from-checkpoint checkpoints/ky_best.pt --freeze-embed
+poetry run python -m char_lstm.train --lang kk --from-checkpoint checkpoints/ky_best.pt --freeze-embed
+poetry run python -m char_lstm.train --lang uz --from-checkpoint checkpoints/ky_best.pt --freeze-embed
+poetry run python -m char_lstm.train --lang ug --from-checkpoint checkpoints/ky_best.pt --freeze-embed
+poetry run python -m char_lstm.train --lang fi --from-checkpoint checkpoints/ky_best.pt --freeze-embed
+
+# Experiment 5: Uzbek (Karluk) as base
+poetry run python -m char_lstm.train --lang uz
+poetry run python -m char_lstm.train --lang tr --from-checkpoint checkpoints/uz_best.pt --freeze-embed
+poetry run python -m char_lstm.train --lang az --from-checkpoint checkpoints/uz_best.pt --freeze-embed
+poetry run python -m char_lstm.train --lang kk --from-checkpoint checkpoints/uz_best.pt --freeze-embed
+poetry run python -m char_lstm.train --lang ky --from-checkpoint checkpoints/uz_best.pt --freeze-embed
+poetry run python -m char_lstm.train --lang ug --from-checkpoint checkpoints/uz_best.pt --freeze-embed
+poetry run python -m char_lstm.train --lang fi --from-checkpoint checkpoints/uz_best.pt --freeze-embed
+
+# Experiment 6: Uyghur (Karluk) as base
+poetry run python -m char_lstm.train --lang ug
+poetry run python -m char_lstm.train --lang tr --from-checkpoint checkpoints/ug_best.pt --freeze-embed
+poetry run python -m char_lstm.train --lang az --from-checkpoint checkpoints/ug_best.pt --freeze-embed
+poetry run python -m char_lstm.train --lang kk --from-checkpoint checkpoints/ug_best.pt --freeze-embed
+poetry run python -m char_lstm.train --lang ky --from-checkpoint checkpoints/ug_best.pt --freeze-embed
+poetry run python -m char_lstm.train --lang uz --from-checkpoint checkpoints/ug_best.pt --freeze-embed
+poetry run python -m char_lstm.train --lang fi --from-checkpoint checkpoints/ug_best.pt --freeze-embed
+
+# Experiment 7: Finnish (non-Turkic control) as base
+poetry run python -m char_lstm.train --lang fi
+poetry run python -m char_lstm.train --lang tr --from-checkpoint checkpoints/fi_best.pt --freeze-embed
+poetry run python -m char_lstm.train --lang az --from-checkpoint checkpoints/fi_best.pt --freeze-embed
+poetry run python -m char_lstm.train --lang kk --from-checkpoint checkpoints/fi_best.pt --freeze-embed
+poetry run python -m char_lstm.train --lang ky --from-checkpoint checkpoints/fi_best.pt --freeze-embed
+poetry run python -m char_lstm.train --lang uz --from-checkpoint checkpoints/fi_best.pt --freeze-embed
+poetry run python -m char_lstm.train --lang ug --from-checkpoint checkpoints/fi_best.pt --freeze-embed
