@@ -70,15 +70,23 @@ def _create_optimizer(model: CharLSTM, lr: float) -> OptimizerProtocol:
     return result
 
 
+# Model architecture: single source of truth for construction AND logging.
+EMBED_DIM = 128
+HIDDEN_DIM = 256
+NUM_LAYERS = 2
+DROPOUT = 0.1
+
+DEVICE_CHOICES: tuple[str, ...] = ("auto", "cpu", "cuda")
+
 # Language configs: code -> (name, corpus_path)
 LANGUAGES: dict[str, tuple[str, str]] = {
-    "tr": ("Turkish", "09_Downloaded_Corpora/oscar_tr_ipa.txt"),
-    "az": ("Azerbaijani", "09_Downloaded_Corpora/oscar_az_ipa.txt"),
-    "kk": ("Kazakh", "09_Downloaded_Corpora/oscar_kk_ipa.txt"),
-    "ky": ("Kyrgyz", "09_Downloaded_Corpora/oscar_ky_ipa.txt"),
-    "uz": ("Uzbek", "09_Downloaded_Corpora/oscar_uz_ipa.txt"),
-    "ug": ("Uyghur", "09_Downloaded_Corpora/oscar_ug_ipa.txt"),
-    "fi": ("Finnish", "09_Downloaded_Corpora/oscar_fi_ipa.txt"),
+    "tr": ("Turkish", "10_Cleaned_Corpora/oscar_tr_ipa.txt"),
+    "az": ("Azerbaijani", "10_Cleaned_Corpora/oscar_az_ipa.txt"),
+    "kk": ("Kazakh", "10_Cleaned_Corpora/oscar_kk_ipa.txt"),
+    "ky": ("Kyrgyz", "10_Cleaned_Corpora/oscar_ky_ipa.txt"),
+    "uz": ("Uzbek", "10_Cleaned_Corpora/oscar_uz_ipa.txt"),
+    "ug": ("Uyghur", "10_Cleaned_Corpora/oscar_ug_ipa.txt"),
+    "fi": ("Finnish", "10_Cleaned_Corpora/oscar_fi_ipa.txt"),
 }
 
 
@@ -225,6 +233,7 @@ class ParsedArgs(TypedDict):
     freeze_embed: bool
     epochs: int
     lr: float
+    device: str
 
 
 def _extract_args(args: argparse.Namespace) -> ParsedArgs:
@@ -265,13 +274,45 @@ def _extract_args(args: argparse.Namespace) -> ParsedArgs:
         msg = f"Expected float for lr, got {type(lr_val).__name__}"
         raise TypeError(msg)
 
+    device = args.device
+    if not isinstance(device, str):
+        msg = f"Expected str for device, got {type(device).__name__}"
+        raise TypeError(msg)
+    if device not in DEVICE_CHOICES:
+        msg = f"Unknown device {device!r}; expected one of {DEVICE_CHOICES}"
+        raise ValueError(msg)
+
     return {
         "lang": lang,
         "from_checkpoint": from_checkpoint_typed,
         "freeze_embed": freeze_embed,
         "epochs": epochs,
         "lr": lr_val,
+        "device": device,
     }
+
+
+def _resolve_use_cuda(device: str, cuda_available: bool) -> bool:
+    """Resolve the --device choice against actual CUDA availability.
+
+    Args:
+        device: One of :data:`DEVICE_CHOICES`.
+        cuda_available: Result of ``torch.cuda.is_available()``.
+
+    Returns:
+        Whether to train on CUDA.
+
+    Raises:
+        ValueError: If ``cuda`` was requested but no CUDA device exists.
+    """
+    if device == "cpu":
+        return False
+    if device == "cuda":
+        if not cuda_available:
+            msg = "--device cuda requested but CUDA is not available."
+            raise ValueError(msg)
+        return True
+    return cuda_available
 
 
 def parse_args() -> argparse.Namespace:
@@ -302,6 +343,13 @@ def parse_args() -> argparse.Namespace:
         type=int,
         default=3,
         help="Number of training epochs (default: 3)",
+    )
+    parser.add_argument(
+        "--device",
+        type=str,
+        choices=list(DEVICE_CHOICES),
+        default="auto",
+        help="Training device: auto picks cuda when available (default: auto)",
     )
     parser.add_argument(
         "--lr",
@@ -471,7 +519,10 @@ def build_train_config(args: ParsedArgs, use_cuda: bool) -> TrainConfig:
         "lr": args["lr"],
         "train_ratio": 0.70,
         "val_ratio": 0.15,
-        "num_workers": 4 if use_cuda else 0,
+        # The dataset is in-memory tensor slicing, so worker processes add no
+        # throughput -- and on Windows they allocate shared file mappings that
+        # fail under memory pressure (error 1455 in DataLoader workers).
+        "num_workers": 0,
         "pin_memory": use_cuda,
     }
 
@@ -564,17 +615,21 @@ def build_run_paths(
     lang_code: str,
     from_checkpoint: str | None,
 ) -> RunPaths:
-    """Build run name and checkpoint paths.
+    """Build run name, checkpoint and per-language vocab paths.
+
+    The vocab path is per-language: from-scratch runs write
+    ``{lang_code}_vocab.json``; fine-tune runs read the source's
+    ``{base_name}_vocab.json`` (the model's vocabulary is inherited and
+    must not be rebuilt, since the embedding layer is sized to it).
 
     Args:
-        lang_code: Language code (e.g., 'tr', 'az').
+        lang_code: Language code being trained (e.g., 'tr').
         from_checkpoint: Optional path to source checkpoint for fine-tuning.
 
     Returns:
         RunPaths with all path information.
     """
     checkpoint_dir = Path("checkpoints")
-    vocab_json_path = checkpoint_dir / "vocab.json"
 
     if from_checkpoint is not None:
         checkpoint_path_str: str = from_checkpoint
@@ -582,10 +637,12 @@ def build_run_paths(
         run_name = f"{base_name}->{lang_code}"
         checkpoint_name = f"{base_name}_to_{lang_code}.pt"
         source_checkpoint_path = Path(checkpoint_path_str)
+        vocab_json_path = checkpoint_dir / f"{base_name}_vocab.json"
     else:
         run_name = f"{lang_code}-train"
         checkpoint_name = f"{lang_code}_best.pt"
         source_checkpoint_path = checkpoint_dir / checkpoint_name
+        vocab_json_path = checkpoint_dir / f"{lang_code}_vocab.json"
 
     checkpoint_best = checkpoint_dir / checkpoint_name
 
@@ -631,17 +688,29 @@ def setup_vocab(
     is_finetune: bool,
     vocab_json_path: Path,
 ) -> VocabData:
-    """Load existing vocab or build new one.
+    """Load the source vocab (fine-tune) or build and save a new one (from-scratch).
 
     Args:
-        corpus: Split corpus data.
-        is_finetune: Whether this is a fine-tuning run.
-        vocab_json_path: Path to vocab JSON file.
+        corpus: Split corpus data, used only when building a new vocab.
+        is_finetune: Whether this is a fine-tuning run inheriting a source vocab.
+        vocab_json_path: For fine-tune, the source vocab to load. For
+            from-scratch, the destination to save the newly built vocab.
 
     Returns:
         VocabData with stoi, itos, and vocab_size.
+
+    Raises:
+        FileNotFoundError: If is_finetune and ``vocab_json_path`` does not exist.
+            Fine-tuning requires the inherited vocab; the embedding layer is
+            sized to it and there is no safe fallback.
     """
-    if is_finetune and vocab_json_path.exists():
+    if is_finetune:
+        if not vocab_json_path.exists():
+            msg = (
+                f"Fine-tuning requires the source vocab at {vocab_json_path}; "
+                f"missing. Run scripts.recover_vocabs to reconstruct lost vocabs."
+            )
+            raise FileNotFoundError(msg)
         log_info(f"Loading vocab from {vocab_json_path}...")
         stoi, itos, vocab_size, _ = load_vocab_json(vocab_json_path)
     else:
@@ -714,6 +783,7 @@ def setup_model_and_optimizer(
     checkpoint_best: Path,
     source_checkpoint_path: Path,
     freeze_embed: bool,
+    use_cuda: bool,
 ) -> ModelSetup:
     """Create model, optimizer, criterion, and load checkpoint if fine-tuning.
 
@@ -724,6 +794,8 @@ def setup_model_and_optimizer(
         checkpoint_best: Path to save best checkpoint.
         source_checkpoint_path: Path to source checkpoint for fine-tuning.
         freeze_embed: Whether to freeze embedding layer.
+        use_cuda: Whether to place the model on CUDA (resolved by the
+            caller from the --device argument).
 
     Returns:
         ModelSetup with model, optimizer, criterion, device, and save path.
@@ -731,20 +803,15 @@ def setup_model_and_optimizer(
     Raises:
         FileNotFoundError: If fine-tuning but checkpoint not found.
     """
-    embed_dim = 128
-    hidden_dim = 256
-    num_layers = 2
-    use_cuda = torch.cuda.is_available()
-    device_str = "cuda" if use_cuda else "cpu"
-    device = torch.device(device_str)
+    device = torch.device("cuda" if use_cuda else "cpu")
 
     log_subheader("Model config")
     log_config("Device", str(device))
-    log_config("Embed dim", embed_dim)
-    log_config("Hidden dim", hidden_dim)
-    log_config("Layers", num_layers)
+    log_config("Embed dim", EMBED_DIM)
+    log_config("Hidden dim", HIDDEN_DIM)
+    log_config("Layers", NUM_LAYERS)
 
-    model = CharLSTM(vocab_size, embed_dim, hidden_dim, num_layers).to(device)
+    model = CharLSTM(vocab_size, EMBED_DIM, HIDDEN_DIM, NUM_LAYERS, dropout=DROPOUT).to(device)
     num_params = sum(p.numel() for p in model.parameters())
     log_config("Parameters", f"{num_params:,}")
 
@@ -764,6 +831,15 @@ def setup_model_and_optimizer(
     if is_finetune and source_checkpoint_path.exists():
         log_info(f"Loading checkpoint from {source_checkpoint_path}")
         state_dict = _load_checkpoint_state_dict(source_checkpoint_path, device)
+        embed_rows = int(state_dict["embedding.weight"].shape[0])
+        if embed_rows != vocab_size:
+            msg = (
+                f"Vocab/checkpoint size mismatch: vocab_size={vocab_size} but "
+                f"{source_checkpoint_path} embedding has {embed_rows} rows. "
+                f"Run scripts.recover_vocabs so each *_best.pt has its paired "
+                f"*_vocab.json next to it."
+            )
+            raise ValueError(msg)
         model.load_state_dict(state_dict, strict=True)
         log_info("Loaded model weights for fine-tuning.")
     elif is_finetune:
@@ -979,7 +1055,7 @@ def main() -> None:
     wandb.init(project="char-level-lstm", name=paths["run_name"])
 
     # Build configuration
-    use_cuda = torch.cuda.is_available()
+    use_cuda = _resolve_use_cuda(args["device"], torch.cuda.is_available())
     device_str = "cuda" if use_cuda else "cpu"
     config = build_train_config(args, use_cuda)
 
@@ -993,10 +1069,10 @@ def main() -> None:
     wandb_cfg: WandbConfig = {
         # Model architecture
         "vocab_size": vocab["vocab_size"],
-        "embed_dim": 128,
-        "hidden_dim": 256,
-        "num_layers": 2,
-        "dropout": 0.1,
+        "embed_dim": EMBED_DIM,
+        "hidden_dim": HIDDEN_DIM,
+        "num_layers": NUM_LAYERS,
+        "dropout": DROPOUT,
         # Training settings
         "seq_len": config["seq_len"],
         "batch_size": config["batch_size"],
@@ -1038,6 +1114,7 @@ def main() -> None:
         checkpoint_best=paths["checkpoint_best"],
         source_checkpoint_path=paths["source_checkpoint_path"],
         freeze_embed=args["freeze_embed"],
+        use_cuda=use_cuda,
     )
 
     # Training loop
