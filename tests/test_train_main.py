@@ -11,6 +11,7 @@ import pytest
 from char_lstm.train import main
 
 
+@pytest.mark.timeout(180)
 def test_main_integration(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     """Test main function end-to-end with mocked dependencies."""
     # Create a small test corpus
@@ -23,7 +24,7 @@ def test_main_integration(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> No
     }
 
     # Prepare command-line args
-    test_args = ["train.py", "--lang", "test", "--epochs", "1"]
+    test_args = ["train.py", "--lang", "test", "--epochs", "1", "--device", "cpu"]
 
     # Mock wandb to avoid actual logging
     mock_wandb = MagicMock()
@@ -42,22 +43,23 @@ def test_main_integration(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> No
         ):
             main()
 
-        # Verify checkpoint was created
+        # Verify checkpoint and per-language vocab were created
         checkpoint_dir = tmp_path / "checkpoints"
         assert checkpoint_dir.exists()
-        assert (checkpoint_dir / "vocab.json").exists()
+        assert (checkpoint_dir / "test_vocab.json").exists()
 
     finally:
         monkeypatch.chdir(original_cwd)
 
 
+@pytest.mark.timeout(180)
 def test_train_main_block(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     """Test if __name__ == '__main__' block at train.py:890."""
     # Create a small test corpus
     corpus_path = tmp_path / "corpus.txt"
     corpus_path.write_text("abcdefghij" * 1000)
 
-    test_args = ["train.py", "--lang", "test", "--epochs", "1"]
+    test_args = ["train.py", "--lang", "test", "--epochs", "1", "--device", "cpu"]
 
     mock_wandb = MagicMock()
     mock_wandb.run = None
@@ -105,7 +107,7 @@ def test_main_early_stopping_break(tmp_path: Path, monkeypatch: pytest.MonkeyPat
     }
 
     # Use epochs=2 so break actually changes behavior
-    test_args = ["train.py", "--lang", "test", "--epochs", "2"]
+    test_args = ["train.py", "--lang", "test", "--epochs", "2", "--device", "cpu"]
 
     mock_wandb = MagicMock()
     mock_wandb.run = None
