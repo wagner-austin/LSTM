@@ -13,6 +13,7 @@ from char_lstm.train import (
     ParsedArgs,
     TrainConfig,
     _extract_args,
+    _resolve_use_cuda,
     build_run_paths,
     build_train_config,
     parse_args,
@@ -28,11 +29,12 @@ def test_build_train_config_cuda() -> None:
         "freeze_embed": False,
         "epochs": 5,
         "lr": 1e-3,
+        "device": "auto",
     }
     config = build_train_config(args, use_cuda=True)
 
     assert config["batch_size"] == 256
-    assert config["num_workers"] == 4
+    assert config["num_workers"] == 0
     assert config["pin_memory"] is True
     assert config["num_epochs"] == 5
     assert config["lr"] == 1e-3
@@ -46,6 +48,7 @@ def test_build_train_config_cpu() -> None:
         "freeze_embed": False,
         "epochs": 3,
         "lr": 1e-4,
+        "device": "auto",
     }
     config = build_train_config(args, use_cuda=False)
 
@@ -63,6 +66,7 @@ def test_extract_args_valid() -> None:
         freeze_embed=False,
         epochs=5,
         lr=1e-3,
+        device="auto",
     )
     result = _extract_args(ns)
     assert result["lang"] == "tr"
@@ -70,6 +74,7 @@ def test_extract_args_valid() -> None:
     assert result["freeze_embed"] is False
     assert result["epochs"] == 5
     assert result["lr"] == 1e-3
+    assert result["device"] == "auto"
 
 
 def test_extract_args_with_checkpoint() -> None:
@@ -80,6 +85,7 @@ def test_extract_args_with_checkpoint() -> None:
         freeze_embed=True,
         epochs=3,
         lr=5e-5,
+        device="cpu",
     )
     result = _extract_args(ns)
     assert result["lang"] == "az"
@@ -152,24 +158,71 @@ def test_extract_args_invalid_lr() -> None:
         _extract_args(ns)
 
 
+def test_extract_args_invalid_device_type() -> None:
+    """Test _extract_args with invalid device type raises TypeError."""
+    ns = argparse.Namespace(
+        lang="tr",
+        from_checkpoint=None,
+        freeze_embed=False,
+        epochs=5,
+        lr=1e-3,
+        device=5,  # Invalid: should be str
+    )
+    with pytest.raises(TypeError, match="Expected str for device"):
+        _extract_args(ns)
+
+
+def test_extract_args_unknown_device_value() -> None:
+    """Test _extract_args with an unknown device string raises ValueError."""
+    ns = argparse.Namespace(
+        lang="tr",
+        from_checkpoint=None,
+        freeze_embed=False,
+        epochs=5,
+        lr=1e-3,
+        device="tpu",
+    )
+    with pytest.raises(ValueError, match="Unknown device 'tpu'"):
+        _extract_args(ns)
+
+
+def test_resolve_use_cuda_cpu_never_uses_cuda() -> None:
+    """--device cpu trains on CPU regardless of CUDA availability."""
+    assert _resolve_use_cuda("cpu", cuda_available=True) is False
+    assert _resolve_use_cuda("cpu", cuda_available=False) is False
+
+
+def test_resolve_use_cuda_auto_follows_availability() -> None:
+    """--device auto uses CUDA exactly when it is available."""
+    assert _resolve_use_cuda("auto", cuda_available=True) is True
+    assert _resolve_use_cuda("auto", cuda_available=False) is False
+
+
+def test_resolve_use_cuda_explicit_cuda_requires_availability() -> None:
+    """--device cuda uses CUDA when present and fails loudly when absent."""
+    assert _resolve_use_cuda("cuda", cuda_available=True) is True
+    with pytest.raises(ValueError, match="CUDA is not available"):
+        _resolve_use_cuda("cuda", cuda_available=False)
+
+
 def test_build_run_paths_new_training() -> None:
-    """Test build_run_paths for new training (no checkpoint)."""
+    """build_run_paths for from-scratch points vocab at {lang}_vocab.json."""
     paths = build_run_paths("tr", None)
 
     assert paths["run_name"] == "tr-train"
     assert paths["checkpoint_dir"] == Path("checkpoints")
-    assert paths["vocab_json_path"] == Path("checkpoints/vocab.json")
+    assert paths["vocab_json_path"] == Path("checkpoints/tr_vocab.json")
     assert paths["checkpoint_best"] == Path("checkpoints/tr_best.pt")
     assert paths["source_checkpoint_path"] == Path("checkpoints/tr_best.pt")
 
 
 def test_build_run_paths_finetune() -> None:
-    """Test build_run_paths for fine-tuning."""
+    """build_run_paths for fine-tune inherits the source's {base}_vocab.json."""
     paths = build_run_paths("az", "checkpoints/tr_best.pt")
 
     assert paths["run_name"] == "tr->az"
     assert paths["checkpoint_dir"] == Path("checkpoints")
-    assert paths["vocab_json_path"] == Path("checkpoints/vocab.json")
+    assert paths["vocab_json_path"] == Path("checkpoints/tr_vocab.json")
     assert paths["checkpoint_best"] == Path("checkpoints/tr_to_az.pt")
     assert paths["source_checkpoint_path"] == Path("checkpoints/tr_best.pt")
 
