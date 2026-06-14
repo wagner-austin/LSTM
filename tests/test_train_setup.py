@@ -158,6 +158,7 @@ def test_setup_model_and_optimizer_new_training(tmp_path: Path) -> None:
         checkpoint_best=checkpoint_best,
         source_checkpoint_path=source_checkpoint,
         freeze_embed=False,
+        use_cuda=False,
     )
 
     # Verify model has expected vocabulary size
@@ -198,6 +199,7 @@ def test_setup_model_and_optimizer_finetune_not_found(tmp_path: Path) -> None:
             checkpoint_best=checkpoint_best,
             source_checkpoint_path=source_checkpoint,
             freeze_embed=False,
+            use_cuda=False,
         )
 
 
@@ -233,6 +235,7 @@ def test_setup_model_and_optimizer_finetune_with_checkpoint(
         checkpoint_best=checkpoint_best,
         source_checkpoint_path=source_checkpoint,
         freeze_embed=False,
+        use_cuda=False,
     )
 
     # Verify model loaded from checkpoint has correct structure
@@ -271,8 +274,65 @@ def test_setup_model_and_optimizer_freeze_embed(tmp_path: Path, device: torch.de
         checkpoint_best=checkpoint_best,
         source_checkpoint_path=source_checkpoint,
         freeze_embed=True,
+        use_cuda=False,
     )
 
     # Check that embedding parameters have requires_grad=False
     for p in setup["model"].embedding.parameters():
         assert not p.requires_grad
+
+
+def test_setup_vocab_finetune_missing_vocab_raises(tmp_path: Path) -> None:
+    """Fine-tune with no source vocab file raises FileNotFoundError.
+
+    This is the failure mode the vocab-overwrite bug used to silently mask:
+    when the vocab JSON the fine-tune is trying to inherit does not exist,
+    we must refuse rather than silently building a fresh vocab that would
+    not match the source checkpoint's embedding layer.
+    """
+    corpus: CorpusSplit = {
+        "train_text": "abcdef",
+        "val_text": "ghij",
+        "test_text": "klmn",
+    }
+    missing = tmp_path / "missing_vocab.json"
+    with pytest.raises(FileNotFoundError, match="Fine-tuning requires the source vocab"):
+        setup_vocab(corpus, is_finetune=True, vocab_json_path=missing)
+
+
+def test_setup_model_and_optimizer_finetune_size_mismatch_raises(tmp_path: Path) -> None:
+    """Loading a checkpoint whose embedding does not match vocab_size raises.
+
+    Defensive guard against the vocab-overwrite bug: if a vocab JSON gets
+    paired with the wrong checkpoint, the embedding row count and the
+    requested vocab_size will disagree, which used to surface as an opaque
+    state-dict load error. We now raise a clear ValueError before the load.
+    """
+    config: TrainConfig = {
+        "seq_len": 100,
+        "batch_size": 64,
+        "num_epochs": 3,
+        "log_every": 100,
+        "patience": 1,
+        "lr": 1e-4,
+        "train_ratio": 0.70,
+        "val_ratio": 0.15,
+        "num_workers": 0,
+        "pin_memory": False,
+    }
+    # Source checkpoint has vocab_size=50; we'll request a model with vocab_size=10.
+    source_model = CharLSTM(vocab_size=50, embed_dim=128, hidden_dim=256, num_layers=2)
+    source_checkpoint = tmp_path / "source.pt"
+    torch.save(source_model.state_dict(), source_checkpoint)
+    checkpoint_best = tmp_path / "finetune.pt"
+
+    with pytest.raises(ValueError, match="Vocab/checkpoint size mismatch"):
+        setup_model_and_optimizer(
+            vocab_size=10,
+            config=config,
+            is_finetune=True,
+            checkpoint_best=checkpoint_best,
+            source_checkpoint_path=source_checkpoint,
+            freeze_embed=False,
+            use_cuda=False,
+        )
