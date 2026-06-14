@@ -1,0 +1,20 @@
+{
+  "description": "IPA-transliterated perception snippets used for zero-shot CE evaluation in the SCiL 2026 v2 paper. Source files renamed from transliteration_{lang}_ipa_{timestamp}.txt to perception_{lang}.txt to match scripts.zero_shot_eval default template.",
+  "produced_by": "Moldir Baidildinova",
+  "received_at": "2026-05-14",
+  "source_dir": "C:\\Users\\Test\\Downloads\\ipa_human_experiments",
+  "files": {
+    "perception_az.txt": {"original_name": "transliteration_az_ipa_20260515_023905.txt", "language": "Azerbaijani"},
+    "perception_kk.txt": {"original_name": "transliteration_kk_ipa_20260515_023525.txt", "language": "Kazakh"},
+    "perception_ky.txt": {"original_name": "transliteration_ky_ipa_20260515_023828.txt", "language": "Kyrgyz"},
+    "perception_tr.txt": {"original_name": "transliteration_tr_ipa_20260515_023704.txt", "language": "Turkish"},
+    "perception_ug.txt": {"original_name": "transliteration_ug_ipa_20260515_023625.txt", "language": "Uyghur"},
+    "perception_uz.txt": {"original_name": "transliteration_uz_ipa_20260515_023737.txt", "language": "Uzbek"}
+  },
+  "notes": [
+    "No Finnish file: Finnish is the typological control in the LSTM experiments, not a Turkic perception target.",
+    "perception_uz.txt has 19 passages, not 20: TEXT 2 ('Catching a cold') passage 5 was deliberately excluded by Moldir because its audio recording was removed due to speaker disfluency (confirmed 2026-06-12). The model eval correctly scores the 19 passages that human listeners actually heard; do NOT reconstruct the missing passage.",
+    "Each file contains multiple TEXT N sections separated by headers and 1..5 section markers; these constitute under 5 percent of total chars and are kept as-is so all six files share the same metadata pattern.",
+    "Char inventory check at receipt: 41-60 unique chars per file, zero Cyrillic leak across all six, Uyghur contains 51 Arabic-script punctuation chars (Arabic comma/question/semicolon) preserved from source orthography."
+  ]
+}
