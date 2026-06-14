@@ -11,4 +11,18 @@ __pycache__/
 
 # Training artifacts
 checkpoints/
+checkpoints_dirty_backup/
 wandb/
+wandb_export*.csv
+wandb_history.csv
+train_bases.log
+
+# Corpora (too large for git)
+09_Downloaded_Corpora_2/
+10_Cleaned_Corpora/
+
+# Reference PDFs
+.pdfwork/
+
+# Windows NUL device artifact
+nul
