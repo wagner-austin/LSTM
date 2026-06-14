@@ -18,6 +18,10 @@ class _CudaModule(Protocol):
         """Check if CUDA is available."""
         ...
 
+    def is_initialized(self) -> bool:
+        """Check if a CUDA context has been created in this process."""
+        ...
+
     def synchronize(self) -> None:
         """Synchronize CUDA operations."""
         ...
@@ -42,10 +46,13 @@ def _cleanup_cuda_memory() -> None:
     2. Synchronizes CUDA to ensure all operations complete
     3. Clears the CUDA memory cache
 
-    Only performs cleanup if CUDA is available.
+    Only performs cleanup if this process actually created a CUDA context.
+    ``is_initialized()`` (unlike ``is_available()``) never initializes CUDA
+    itself, so CPU-only tests in parallel xdist workers skip GPU work
+    entirely instead of opening 20+ simultaneous device contexts.
     """
     cuda = _get_cuda_module()
-    if not cuda.is_available():
+    if not cuda.is_initialized():
         return
 
     # Force garbage collection to release tensor references
