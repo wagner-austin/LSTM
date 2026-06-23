@@ -21,8 +21,8 @@ stay in the same symbol space.
 Usage::
 
     poetry run python -m scripts.clean_corpus \\
-        --input-dir 09_Downloaded_Corpora_2 \\
-        --output-dir 10_Cleaned_Corpora
+        --input-dir corpora_raw \\
+        --output-dir corpora_clean
 
 """
 
@@ -36,8 +36,8 @@ from typing import TypedDict
 
 LANGS: tuple[str, ...] = ("az", "fi", "kk", "ky", "tr", "ug", "uz")
 
-DEFAULT_INPUT_DIR = Path("09_Downloaded_Corpora_2")
-DEFAULT_OUTPUT_DIR = Path("10_Cleaned_Corpora")
+DEFAULT_INPUT_DIR = Path("corpora_raw")
+DEFAULT_OUTPUT_DIR = Path("corpora_clean")
 DEFAULT_SYMBOL_MAP = Path("data/symbol_map.csv")
 DEFAULT_SNIPPET_DIR = Path("data/perception")
 DEFAULT_SNIPPET_OUTPUT_DIR = Path("data/perception_clean")

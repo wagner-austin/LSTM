@@ -27,7 +27,7 @@ Usage::
 
     poetry run python -m scripts.validate_method \\
         --checkpoint-dir checkpoints \\
-        --corpus-dir 10_Cleaned_Corpora \\
+        --corpus-dir corpora_clean \\
         --snippet-dir data/perception_clean
 
 """
@@ -53,7 +53,7 @@ from scripts.zero_shot_eval import (
 )
 
 DEFAULT_CHECKPOINT_DIR = Path("checkpoints")
-DEFAULT_CORPUS_DIR = Path("10_Cleaned_Corpora")
+DEFAULT_CORPUS_DIR = Path("corpora_clean")
 DEFAULT_SNIPPET_DIR = Path("data/perception_clean")
 DEFAULT_OUTPUT_JSON = Path("results/validity_report.json")
 DEFAULT_SEED = 1
@@ -215,6 +215,15 @@ def upgma(dist: dict[tuple[str, str], float]) -> Tree:
         raise ValueError(msg)
 
     def lookup(a: str, b: str) -> float:
+        """Symmetric distance lookup, accepting the pair in either order.
+
+        Args:
+            a: One language code.
+            b: The other language code.
+
+        Returns:
+            The distance for the unordered pair ``{a, b}``.
+        """
         return dist[(a, b)] if (a, b) in dist else dist[(b, a)]
 
     clusters: dict[int, Tree] = dict(enumerate(langs))

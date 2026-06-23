@@ -80,13 +80,13 @@ DEVICE_CHOICES: tuple[str, ...] = ("auto", "cpu", "cuda")
 
 # Language configs: code -> (name, corpus_path)
 LANGUAGES: dict[str, tuple[str, str]] = {
-    "tr": ("Turkish", "10_Cleaned_Corpora/oscar_tr_ipa.txt"),
-    "az": ("Azerbaijani", "10_Cleaned_Corpora/oscar_az_ipa.txt"),
-    "kk": ("Kazakh", "10_Cleaned_Corpora/oscar_kk_ipa.txt"),
-    "ky": ("Kyrgyz", "10_Cleaned_Corpora/oscar_ky_ipa.txt"),
-    "uz": ("Uzbek", "10_Cleaned_Corpora/oscar_uz_ipa.txt"),
-    "ug": ("Uyghur", "10_Cleaned_Corpora/oscar_ug_ipa.txt"),
-    "fi": ("Finnish", "10_Cleaned_Corpora/oscar_fi_ipa.txt"),
+    "tr": ("Turkish", "corpora_clean/oscar_tr_ipa.txt"),
+    "az": ("Azerbaijani", "corpora_clean/oscar_az_ipa.txt"),
+    "kk": ("Kazakh", "corpora_clean/oscar_kk_ipa.txt"),
+    "ky": ("Kyrgyz", "corpora_clean/oscar_ky_ipa.txt"),
+    "uz": ("Uzbek", "corpora_clean/oscar_uz_ipa.txt"),
+    "ug": ("Uyghur", "corpora_clean/oscar_ug_ipa.txt"),
+    "fi": ("Finnish", "corpora_clean/oscar_fi_ipa.txt"),
 }
 
 

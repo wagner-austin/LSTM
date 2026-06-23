@@ -15,7 +15,7 @@ Outputs (under ``--checkpoint-dir``):
 Usage::
 
     poetry run python -m scripts.recover_vocabs
-    poetry run python -m scripts.recover_vocabs --corpus-dir 09_Downloaded_Corpora_2
+    poetry run python -m scripts.recover_vocabs --corpus-dir corpora_raw
 """
 
 from __future__ import annotations
@@ -27,7 +27,7 @@ from typing import TypedDict
 from char_lstm.data import UNK, build_vocab_with_unk, save_vocab_json
 
 LANGS: tuple[str, ...] = ("az", "fi", "kk", "ky", "tr", "ug", "uz")
-DEFAULT_CORPUS_DIR = Path("09_Downloaded_Corpora_2")
+DEFAULT_CORPUS_DIR = Path("corpora_raw")
 DEFAULT_CHECKPOINT_DIR = Path("checkpoints")
 MAX_CHARS = 10_000_000
 

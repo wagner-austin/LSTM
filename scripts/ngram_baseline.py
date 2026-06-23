@@ -14,7 +14,7 @@ to benchmark the headline measurement, not the OOV sensitivity analyses.
 Usage::
 
     poetry run python -m scripts.ngram_baseline \\
-        --corpus-dir 10_Cleaned_Corpora \\
+        --corpus-dir corpora_clean \\
         --snippet-dir data/perception_clean \\
         --output-csv results/ngram_excess_ce.csv
 
@@ -43,7 +43,7 @@ from scripts.zero_shot_eval import (
     snippet_path,
 )
 
-DEFAULT_CORPUS_DIR = Path("10_Cleaned_Corpora")
+DEFAULT_CORPUS_DIR = Path("corpora_clean")
 DEFAULT_CHECKPOINT_DIR = Path("checkpoints")
 DEFAULT_SNIPPET_DIR = Path("data/perception_clean")
 DEFAULT_OUTPUT_CSV = Path("results/ngram_excess_ce.csv")

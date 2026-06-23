@@ -18,8 +18,8 @@ wandb_history.csv
 train_bases.log
 
 # Corpora (too large for git)
-09_Downloaded_Corpora_2/
-10_Cleaned_Corpora/
+corpora_raw/
+corpora_clean/
 
 # Reference PDFs
 .pdfwork/

@@ -339,5 +339,5 @@ def test_module_constants_are_consistent() -> None:
     """Module-level constants match the documented contract."""
     assert LANGS == ("az", "fi", "kk", "ky", "tr", "ug", "uz")
     assert MAX_CHARS == 10_000_000
-    assert Path("09_Downloaded_Corpora_2") == DEFAULT_CORPUS_DIR
+    assert Path("corpora_raw") == DEFAULT_CORPUS_DIR
     assert Path("checkpoints") == DEFAULT_CHECKPOINT_DIR
