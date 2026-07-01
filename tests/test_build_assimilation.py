@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import io
 import runpy
 import sys
 from pathlib import Path
@@ -18,6 +19,7 @@ from scripts.build_assimilation import (
     VOWELS,
     AssimilationRow,
     BuildArgs,
+    _configure_stream_utf8,
     _extract_args,
     build_rows,
     consonant_distance,
@@ -237,6 +239,40 @@ def test_extract_args_rejects_nonpositive_min_count() -> None:
     namespace.min_count = 0
     with pytest.raises(ValueError, match="--min-count must be >= 1"):
         _extract_args(namespace)
+
+
+def test_configure_stream_utf8_skips_non_textiowrapper() -> None:
+    """The helper is a no-op on in-memory captures like ``io.StringIO``.
+
+    Exercises the ``isinstance`` guard's False branch. ``io.StringIO``
+    does not carry a text encoding, so reconfiguration is
+    inapplicable; the helper must leave it usable — writing a value
+    after the call and reading it back proves the stream was not
+    mutated into an unusable state.
+    """
+    stringio = io.StringIO()
+    _configure_stream_utf8(stringio)
+    stringio.write("hello")
+    assert stringio.getvalue() == "hello"
+
+
+def test_configure_stream_utf8_reconfigures_textiowrapper() -> None:
+    """The helper switches a real ``TextIOWrapper`` to UTF-8.
+
+    Exercises the ``isinstance`` guard's True branch by wrapping a
+    :class:`io.BytesIO` in a fresh ``TextIOWrapper`` opened at
+    ``latin-1`` and asserting an IPA character round-trips as UTF-8
+    bytes after the reconfigure call — a byte-level check that both
+    proves ``.encoding`` changed and that the change actually applies
+    to subsequent writes.
+    """
+    buffer = io.BytesIO()
+    wrapper = io.TextIOWrapper(buffer, encoding="latin-1")
+    _configure_stream_utf8(wrapper)
+    assert wrapper.encoding.lower() == "utf-8"
+    wrapper.write("ə")
+    wrapper.flush()
+    assert buffer.getvalue() == "ə".encode()
 
 
 def test_main_end_to_end(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:

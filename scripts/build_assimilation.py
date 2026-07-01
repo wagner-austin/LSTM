@@ -30,9 +30,11 @@ Usage::
 from __future__ import annotations
 
 import argparse
+import io
+import sys
 from collections import Counter
 from pathlib import Path
-from typing import TypedDict
+from typing import IO, TypedDict
 
 from char_lstm.data import load_vocab_json
 from scripts.clean_corpus import LANGS
@@ -389,6 +391,26 @@ def parse_args(argv: list[str] | None = None) -> BuildArgs:
     return _extract_args(parser.parse_args(argv))
 
 
+def _configure_stream_utf8(stream: IO[str]) -> None:
+    """Reconfigure ``stream`` to UTF-8 encoding when it supports it.
+
+    ``run()`` prints IPA characters (``ə``, ``t͡ʃ`` etc.) drawn from the
+    assimilation table. On Windows Python 3.11's default cp1252
+    stdout encoding, those characters raise
+    :class:`UnicodeEncodeError` at ``print`` time and abort the
+    script. This helper reconfigures the passed stream to UTF-8 so
+    IPA output round-trips reliably. The ``isinstance`` guard leaves
+    in-memory captures (``io.StringIO`` and similar) alone: those
+    types do not carry a text encoding, so reconfiguration is
+    inapplicable rather than best-effort.
+
+    Args:
+        stream: The text stream to reconfigure.
+    """
+    if isinstance(stream, io.TextIOWrapper):
+        stream.reconfigure(encoding="utf-8")
+
+
 def main(argv: list[str] | None = None) -> int:
     """Script entry point.
 
@@ -398,6 +420,7 @@ def main(argv: list[str] | None = None) -> int:
     Returns:
         Process exit code: ``0`` on success.
     """
+    _configure_stream_utf8(sys.stdout)
     run(parse_args(argv))
     return 0
 
