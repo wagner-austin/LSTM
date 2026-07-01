@@ -37,7 +37,7 @@ make test    # pytest -n auto with branch coverage over src + scripts
 | `ky` | Kyrgyz      | Kipchak             |
 | `uz` | Uzbek       | Karluk              |
 | `ug` | Uyghur      | Karluk              |
-| `fi` | Finnish     | non-Turkic control  |
+| `fi` | Finnish     | Uralic control (both listener and target as of 2026-06-30) |
 
 ## Data Layout
 
@@ -45,7 +45,7 @@ make test    # pytest -n auto with branch coverage over src + scripts
 |------|----------|
 | `corpora_raw/oscar_{lang}_ipa.txt` | Raw OSCAR IPA corpora (inputs to cleaning; never modified) |
 | `corpora_clean/oscar_{lang}_ipa.txt` | Cleaned corpora — what training reads |
-| `data/perception/perception_{lang}.txt` | Original perception snippets (from Moldir; not modified) |
+| `data/perception/perception_{lang}.txt` | Original perception snippets (Turkic set from Moldir; Finnish added 2026-06-30 by Austin from B2 orthography via `turkic_translit.core.to_ipa`); not modified after arrival |
 | `data/perception_clean/perception_{lang}.txt` | Snippets with the symbol map applied — what eval reads |
 | `data/symbol_map.csv` | Per-language IPA harmonization decisions, each cited |
 | `data/assimilation.csv` | Generated OOV substitution table (nearest-sound per listener) |
