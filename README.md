@@ -106,6 +106,18 @@ The base+fine-tune experiments (`make train`, or `train-1` … `train-7`)
 pretrain on one language and fine-tune on each other with `--freeze-embed`.
 Not required for the zero-shot result.
 
+One target per donor language — the number selects which language is pretrained
+on first, then fine-tuned into the other six:
+
+| Target | Donor | Target | Donor | Target | Donor |
+|--------|-------|--------|-------|--------|-------|
+| `train-1` | `tr` | `train-4` | `ky` | `train-7` | `fi` |
+| `train-2` | `az` | `train-5` | `uz` | | |
+| `train-3` | `kk` | `train-6` | `ug` | | |
+
+Each fine-tune reads `checkpoints/<donor>_best.pt`, so the donor's own base run
+has to have finished first — `make train-bases` covers that for all seven.
+
 ## Reading the results
 
 `results/zero_shot_excess_ce_skip.csv`, one row per (listener, text) pair:
