@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import math
+import random
 from pathlib import Path
 from typing import Protocol, TypedDict
 
@@ -54,6 +55,39 @@ class OptimizerProtocol(Protocol):
         ...
 
 
+def seed_everything(seed: int) -> torch.Generator:
+    """Seed every source of randomness this trainer draws on.
+
+    There are three: the initial weights, dropout during training, and the
+    order the training batches are shuffled into. The first two read
+    torch's global generator; the third reads a generator of its own,
+    which is why one is returned here and handed to the training
+    DataLoader rather than left to default.
+
+    The corpus split is not among them. It takes contiguous slices by
+    ratio, so it is already reproducible without a seed.
+
+    This does not make a CUDA run bit-identical. cuDNN's LSTM kernels
+    select algorithms at runtime and their backward pass accumulates in
+    a non-deterministic order, so two seeded GPU runs agree closely but
+    not exactly. A seeded CPU run is exact. Making CUDA exact needs
+    ``torch.use_deterministic_algorithms`` and a cuBLAS workspace
+    setting, at a large cost in speed, and is not done here.
+
+    Args:
+        seed: The seed to apply.
+
+    Returns:
+        A generator seeded from ``seed``, for the training DataLoader.
+    """
+    random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
+    generator = torch.Generator()
+    generator.manual_seed(seed)
+    return generator
+
+
 def _create_optimizer(model: CharLSTM, lr: float) -> OptimizerProtocol:
     """Create Adam optimizer for model.
 
@@ -77,6 +111,11 @@ NUM_LAYERS = 2
 DROPOUT = 0.1
 
 DEVICE_CHOICES: tuple[str, ...] = ("auto", "cpu", "cuda")
+
+# Seed for every source of randomness in a run. Fixed by default rather
+# than left to the clock, so that two runs of the same command are the
+# same experiment unless the caller says otherwise.
+DEFAULT_SEED = 1234
 
 # Language configs: code -> (name, corpus_path)
 LANGUAGES: dict[str, tuple[str, str]] = {
@@ -125,6 +164,7 @@ class TrainConfig(TypedDict):
     val_ratio: float
     num_workers: int
     pin_memory: bool
+    seed: int
 
 
 class WandbConfig(TypedDict):
@@ -156,6 +196,7 @@ class WandbConfig(TypedDict):
     source_checkpoint: str
     freeze_embed: bool
     device: str
+    seed: int
 
 
 class EpochMetrics(TypedDict):
@@ -234,6 +275,7 @@ class ParsedArgs(TypedDict):
     epochs: int
     lr: float
     device: str
+    seed: int
 
 
 def _extract_args(args: argparse.Namespace) -> ParsedArgs:
@@ -282,6 +324,11 @@ def _extract_args(args: argparse.Namespace) -> ParsedArgs:
         msg = f"Unknown device {device!r}; expected one of {DEVICE_CHOICES}"
         raise ValueError(msg)
 
+    seed = args.seed
+    if not isinstance(seed, int):
+        msg = f"Expected int for seed, got {type(seed).__name__}"
+        raise TypeError(msg)
+
     return {
         "lang": lang,
         "from_checkpoint": from_checkpoint_typed,
@@ -289,6 +336,7 @@ def _extract_args(args: argparse.Namespace) -> ParsedArgs:
         "epochs": epochs,
         "lr": lr_val,
         "device": device,
+        "seed": seed,
     }
 
 
@@ -315,8 +363,17 @@ def _resolve_use_cuda(device: str, cuda_available: bool) -> bool:
     return cuda_available
 
 
-def parse_args() -> argparse.Namespace:
-    """Parse command-line arguments."""
+def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
+    """Parse command-line arguments.
+
+    Args:
+        argv: Optional CLI tokens. ``None`` defers to ``sys.argv``, which
+            is what the console entry point wants; a test passes its own
+            list instead of reaching in to rebind ``sys.argv``.
+
+    Returns:
+        The parsed namespace, for :func:`_extract_args` to validate.
+    """
     parser = argparse.ArgumentParser(
         description="Train/fine-tune char-level LSTM on Turkic languages"
     )
@@ -357,7 +414,17 @@ def parse_args() -> argparse.Namespace:
         default=1e-4,
         help="Learning rate (default: 1e-4)",
     )
-    return parser.parse_args()
+    parser.add_argument(
+        "--seed",
+        type=int,
+        default=DEFAULT_SEED,
+        help=(
+            f"Seed for weight initialisation, dropout and batch order "
+            f"(default: {DEFAULT_SEED}). Exact on CPU; close but not "
+            f"bit-identical on CUDA, see seed_everything."
+        ),
+    )
+    return parser.parse_args(argv)
 
 
 @torch.no_grad()
@@ -524,6 +591,7 @@ def build_train_config(args: ParsedArgs, use_cuda: bool) -> TrainConfig:
         # fail under memory pressure (error 1455 in DataLoader workers).
         "num_workers": 0,
         "pin_memory": use_cuda,
+        "seed": args["seed"],
     }
 
 
@@ -607,6 +675,7 @@ def print_config(
     log_config("Pin memory", config["pin_memory"])
     log_config("Epochs", config["num_epochs"])
     log_config("LR", config["lr"])
+    log_config("Seed", config["seed"])
     log_config("Freeze embed", freeze_embed)
     log_config("Output", str(output_path))
 
@@ -727,6 +796,7 @@ def create_dataloaders(
     corpus: CorpusSplit,
     stoi: dict[str, int],
     config: TrainConfig,
+    generator: torch.Generator,
 ) -> DataLoaders:
     """Create train/val/test data loaders.
 
@@ -734,6 +804,9 @@ def create_dataloaders(
         corpus: Split corpus data.
         stoi: String-to-index vocabulary mapping.
         config: Training configuration.
+        generator: Seeded generator driving the training shuffle. Only the
+            training loader shuffles, so only it takes one; the other two
+            read their dataset in order and are reproducible already.
 
     Returns:
         DataLoaders with train, val, test loaders.
@@ -750,6 +823,7 @@ def create_dataloaders(
         shuffle=True,
         num_workers=config["num_workers"],
         pin_memory=config["pin_memory"],
+        generator=generator,
     )
     val_loader: DataLoader[tuple[Tensor, Tensor]] = DataLoader(
         val_dataset,
@@ -1059,6 +1133,11 @@ def main() -> None:
     device_str = "cuda" if use_cuda else "cpu"
     config = build_train_config(args, use_cuda)
 
+    # Before anything that draws on a random number: the weights are
+    # initialised inside setup_model_and_optimizer and the batch order is
+    # fixed when the training loader is built, both of which come later.
+    generator = seed_everything(config["seed"])
+
     # Load and prepare data (needed for vocab_size in wandb config)
     paths["checkpoint_dir"].mkdir(parents=True, exist_ok=True)
     corpus = load_and_split_corpus(data_path, config)
@@ -1090,6 +1169,7 @@ def main() -> None:
         "source_checkpoint": source_ckpt,
         "freeze_embed": args["freeze_embed"],
         "device": device_str,
+        "seed": config["seed"],
     }
     wb_config(wandb_cfg)
 
@@ -1104,7 +1184,7 @@ def main() -> None:
         output_path=paths["checkpoint_best"],
     )
 
-    loaders = create_dataloaders(corpus, vocab["stoi"], config)
+    loaders = create_dataloaders(corpus, vocab["stoi"], config, generator)
 
     # Setup model
     model_setup = setup_model_and_optimizer(

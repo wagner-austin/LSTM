@@ -59,6 +59,7 @@ def test_training_reduces_loss(tmp_path: Path, device: torch.device) -> None:
         "val_ratio": 0.15,
         "num_workers": 0,
         "pin_memory": False,
+        "seed": 1234,
     }
 
     state: TrainState = {

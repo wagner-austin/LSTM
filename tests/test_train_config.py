@@ -30,6 +30,7 @@ def test_build_train_config_cuda() -> None:
         "epochs": 5,
         "lr": 1e-3,
         "device": "auto",
+        "seed": 1234,
     }
     config = build_train_config(args, use_cuda=True)
 
@@ -49,6 +50,7 @@ def test_build_train_config_cpu() -> None:
         "epochs": 3,
         "lr": 1e-4,
         "device": "auto",
+        "seed": 1234,
     }
     config = build_train_config(args, use_cuda=False)
 
@@ -67,6 +69,7 @@ def test_extract_args_valid() -> None:
         epochs=5,
         lr=1e-3,
         device="auto",
+        seed=1234,
     )
     result = _extract_args(ns)
     assert result["lang"] == "tr"
@@ -86,6 +89,7 @@ def test_extract_args_with_checkpoint() -> None:
         epochs=3,
         lr=5e-5,
         device="cpu",
+        seed=1234,
     )
     result = _extract_args(ns)
     assert result["lang"] == "az"
@@ -277,6 +281,7 @@ def test_print_config_does_not_raise(tmp_path: Path, capsys: pytest.CaptureFixtu
         "val_ratio": 0.15,
         "num_workers": 0,
         "pin_memory": False,
+        "seed": 1234,
     }
 
     print_config(
@@ -311,6 +316,7 @@ def test_print_config_finetune_mode(tmp_path: Path, capsys: pytest.CaptureFixtur
         "val_ratio": 0.15,
         "num_workers": 0,
         "pin_memory": False,
+        "seed": 1234,
     }
 
     print_config(

@@ -53,6 +53,7 @@ def test_wb_config_no_run() -> None:
         "source_checkpoint": "",
         "freeze_embed": False,
         "device": "cpu",
+        "seed": 1234,
     }
     # Should not raise - just a no-op when wandb.run is None
     wb_config(config)
@@ -80,6 +81,7 @@ def test_wb_config_with_active_run() -> None:
         "source_checkpoint": "",
         "freeze_embed": False,
         "device": "cpu",
+        "seed": 1234,
     }
 
     mock_run = MagicMock()

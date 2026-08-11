@@ -14,6 +14,7 @@ from char_lstm.train import (
     _create_optimizer,
     create_dataloaders,
     load_and_split_corpus,
+    seed_everything,
     setup_model_and_optimizer,
     setup_vocab,
 )
@@ -52,6 +53,7 @@ def test_load_and_split_corpus(tmp_path: Path) -> None:
         "val_ratio": 0.15,
         "num_workers": 0,
         "pin_memory": False,
+        "seed": 1234,
     }
 
     corpus = load_and_split_corpus(str(corpus_path), config)
@@ -121,9 +123,10 @@ def test_create_dataloaders() -> None:
         "val_ratio": 0.15,
         "num_workers": 0,
         "pin_memory": False,
+        "seed": 1234,
     }
 
-    loaders = create_dataloaders(corpus, stoi, config)
+    loaders = create_dataloaders(corpus, stoi, config, seed_everything(config["seed"]))
 
     assert "train_loader" in loaders
     assert "val_loader" in loaders
@@ -146,6 +149,7 @@ def test_setup_model_and_optimizer_new_training(tmp_path: Path) -> None:
         "val_ratio": 0.15,
         "num_workers": 0,
         "pin_memory": False,
+        "seed": 1234,
     }
 
     checkpoint_best = tmp_path / "model.pt"
@@ -186,6 +190,7 @@ def test_setup_model_and_optimizer_finetune_not_found(tmp_path: Path) -> None:
         "val_ratio": 0.15,
         "num_workers": 0,
         "pin_memory": False,
+        "seed": 1234,
     }
 
     checkpoint_best = tmp_path / "model.pt"
@@ -218,6 +223,7 @@ def test_setup_model_and_optimizer_finetune_with_checkpoint(
         "val_ratio": 0.15,
         "num_workers": 0,
         "pin_memory": False,
+        "seed": 1234,
     }
 
     # Create a source checkpoint
@@ -257,6 +263,7 @@ def test_setup_model_and_optimizer_freeze_embed(tmp_path: Path, device: torch.de
         "val_ratio": 0.15,
         "num_workers": 0,
         "pin_memory": False,
+        "seed": 1234,
     }
 
     # Create a source checkpoint
@@ -319,6 +326,7 @@ def test_setup_model_and_optimizer_finetune_size_mismatch_raises(tmp_path: Path)
         "val_ratio": 0.15,
         "num_workers": 0,
         "pin_memory": False,
+        "seed": 1234,
     }
     # Source checkpoint has vocab_size=50; we'll request a model with vocab_size=10.
     source_model = CharLSTM(vocab_size=50, embed_dim=128, hidden_dim=256, num_layers=2)

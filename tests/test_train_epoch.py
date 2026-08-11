@@ -122,6 +122,7 @@ def test_train_epoch(tmp_path: Path, device: torch.device) -> None:
         "val_ratio": 0.15,
         "num_workers": 0,
         "pin_memory": False,
+        "seed": 1234,
     }
 
     state: TrainState = {
@@ -184,6 +185,7 @@ def test_train_epoch_early_stopping(tmp_path: Path, device: torch.device) -> Non
         "val_ratio": 0.15,
         "num_workers": 0,
         "pin_memory": False,
+        "seed": 1234,
     }
 
     # Start with a very low best_val_loss to trigger early stopping
@@ -250,6 +252,7 @@ def test_train_epoch_no_improvement_but_continue(tmp_path: Path, device: torch.d
         "val_ratio": 0.15,
         "num_workers": 0,
         "pin_memory": False,
+        "seed": 1234,
     }
 
     # Start with a very low best_val_loss but high patience
