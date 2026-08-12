@@ -1,17 +1,35 @@
-# Turkic Language Mutual Intelligibility Experiments
+# Language Model Loss Captures Mutual Intelligibility in Turkic Languages
 
-Character-level LSTM experiments for measuring mutual intelligibility (MI)
-gradients across Turkic languages via cross-entropy loss. The headline
-experiment is **zero-shot**: train one model per language on only its own
-language, then measure how surprised each model is by every other language's
-IPA-transcribed perception text. Less surprise = more mutually predictable.
-A transfer-learning track (pretrain, then fine-tune) is also supported.
+**The claim: how surprised a language model is by another language predicts how
+well humans understand it.** Mutual intelligibility is normally measured with
+human listener studies, which are expensive and hard to scale. This measures it
+with cross-entropy loss instead.
+
+The headline experiment is **zero-shot**: train one character-level LSTM per
+language on only its own language, then measure how surprised each model is by
+every other language's IPA-transcribed perception text. Less surprise = more
+mutually predictable. A transfer-learning track (pretrain, then fine-tune) is
+also supported.
+
+Finnish is the control — Uralic, not Turkic — and appears as both listener and
+target, so a genuine Turkic intelligibility gradient has to separate itself from
+an unrelated language scoring the same way.
 
 ## Paper
 
-**Title:** Language Model Loss Captures Mutual Intelligibility Gradients in Turkic Languages
+**Language Model Loss Captures Mutual Intelligibility Gradients in Turkic Languages**
 
-**Authors:** Moldir Baidildinova, Shiva Upadhye, Austin Wagner (UC Irvine)
+Moldir Baidildinova, Shiva Upadhye, Austin Wagner (UC Irvine)
+
+Accepted at two conferences, both held at MIT:
+
+- **[HSP 2026](https://hsp2026.org/)** — 39th Annual Conference on Human Sentence
+  Processing
+- **[Tu+11](https://turkicworkshop.github.io/tu11/)** — 11th Workshop on Turkic
+  and Languages in Contact with Turkic
+
+Being extended with a transformer comparison and a human-subjects validation
+study.
 
 ## Setup
 

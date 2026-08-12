@@ -66,7 +66,13 @@ Drafted without the actual reviewer text in hand. These are the methodology vuln
 
 ## R7. "OSCAR data has noise + register variation. How do you control for it?"
 
-**Response:** Per the paper's stated method [@baidildinova-wagner-2024-neurips, p. 2], FastText langid threshold 0.95 filters out lines where the language ID confidence is below threshold — this is the explicit noise filter. Per [[banon-bernabeu-2024-fastspell]], a more refined filter (FastSpell) exists for closely-related-language disambiguation and could be substituted; the current paper uses the standard lid.176 filter ([[joulin-2017-fasttext-bag-of-tricks]]).
+**Response:** Language-ID filtering at a 0.95 confidence threshold is the explicit noise filter: lines the classifier does not assign to the target language at $p \geq 0.95$ are dropped. Per [[banon-bernabeu-2024-fastspell]], a more refined filter (FastSpell) exists for closely-related-language disambiguation and could be substituted.
+
+**Which classifier — corrected 2026-08-10.** Earlier drafts of this document said the corpora use fastText's `lid.176` ([[joulin-2017-fasttext-bag-of-tricks]]). They do not. `corpora_raw/manifest.json` records `"lid_model": "lid218e"` — NLLB's 218-language classifier — for the run that produced these corpora on 2026-02-17. `lid.176` is used only for runtime Russian-token masking in the transliteration library, not for corpus construction. See [[turkic-deterministic-transliteration-pipeline]].
+
+**Strengthening:** the choice is defensible on measurement, not convenience. On a 25,676-line OSCAR Uzbek slice, filtering at $p \geq 0.95$ retains 55.3% of lines under `lid218e` against 12.5% under `lid.176` — a 4.4x difference in surviving corpus, driven by a Latin-script confidence effect (58.0% vs 13.1%). If a reviewer asks why not the more familiar `lid.176`, that is the answer.
+
+**Known limitation to disclose rather than defend:** `lid218e` has no `uzb_Cyrl` label, so Cyrillic-script Uzbek cannot be identified at all and is silently dropped (0.4% retention). Uzbek web text sourced this way is effectively Latin-script only. This is a property of the corpus, not of the transliteration rules, which do ship a Cyrillic Uzbek rule file.
 
 **Acknowledged limitation:** "OSCAR web data, despite language identification filtering, can contain noise and register variation" [@baidildinova-wagner-2024-neurips, p. 5].
 

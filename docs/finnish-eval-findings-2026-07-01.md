@@ -71,9 +71,29 @@ Averaging Turkic↔fi in both directions gives symmetric distances in [1.98, 2.6
 - `data/perception/perception_fi.txt` — raw Finnish IPA (output of the transliterator)
 - `data/perception/perception_fi_source.txt` — Finnish orthographic source
 
+## Validity re-run (2026-08-10)
+
+`poetry run python -m scripts.validate_method` against the 49-row matrix exits 0 with all five checks passing. Note the invocation: the module form is required, because running the file path directly fails on `from scripts.clean_corpus import CORPUS_TEMPLATE`.
+
+The `tr→kk` 1.42 concern raised above did not break the criterion.
+
+| | 2026-06-22 | 2026-08-10 | Δ |
+|---|---|---|---|
+| real within | +1.6108 | +1.5753 | −0.0355 |
+| real cross | +2.1858 | +2.0653 | −0.1205 |
+| **real gap** | **+0.5750** | **+0.4900** | −0.0850 |
+| shuffled gap | +0.1276 | +0.0906 | −0.0370 |
+| heldout gap | +0.4146 | +0.4146 | 0.0000 |
+
+The substantive change is topological. `real_tree` went from `(((az,tr),(kk,ky)),(ug,uz))` to `((((az,tr),(kk,ky)),(ug,uz)),fi)` — the real matrix now recovers Finnish as the outgroup unaided, which previously only `heldout_tree` did. All three branch pairs still cluster.
+
+The real gap narrowing by 0.085 is expected rather than adverse: Finnish enters as a singleton whose distances are large but finite, pulling the cross-branch mean down relative to a six-language set in which every cross pair was Turkic–Turkic. The gap stays clearly positive, the shuffled control still collapses toward zero, and `heldout` is numerically identical — consistent with the byte-identical finding above.
+
+The report was written to a scratch path, so `results/validity_report.json` still holds the 2026-06-22 run and needs promoting if these numbers are the ones to keep.
+
 ## Follow-up items (not this session)
 
 1. **Native-Finnish spot-check on `perception_fi_source.txt`.** The orthographic source was translated at B2 register but has not been reviewed by a native Finnish reader. Recommended before quoting in the proceedings paper.
-2. **Run `scripts/validate_method.py`** against the 49-row matrix to determine whether the validity criterion (three smallest off-diagonal distances within-branch) still exits 0.
+2. ~~**Run `scripts/validate_method.py`** against the 49-row matrix to determine whether the validity criterion (three smallest off-diagonal distances within-branch) still exits 0.~~ **RESOLVED 2026-08-10 — passes, and the topology result improved.** See "Validity re-run" below.
 3. **Consider running the ngram baseline** (`scripts/ngram_baseline.py`) so the trigram-baseline row for `text_language = fi` also lands.
 4. **Panphon upstream PR** — file `encoding="utf-8"` on the two `open()` calls in `featuretable.py` so downstream users on Windows Python 3.11 don't need the scoped context manager we shipped in the turkic-transliteration test suite.
