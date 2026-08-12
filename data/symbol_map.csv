@@ -1,6 +1,7 @@
 action,scope,from,to,verdict,rationale,citation
 merge,all,ʧ,t͡ʃ,NOTATION,IPA affricate ligature withdrawn from official IPA; identical referent. Only Kyrgyz corpus uses ligature style.,IPA Handbook (1999)
 merge,all,ʤ,d͡ʒ,NOTATION,Same ligature issue as ʧ.,IPA Handbook (1999)
+merge,all,ʦ,t͡s,NOTATION,Same ligature issue as ʧ; missed when the other two were merged. Kyrgyz <ц> emitted U+02A6 until the rules were corrected on 2026-08-12; corpora published before then carry it.,IPA Handbook (1999)
 merge,all,ɾ,r,NOTATION,No Turkic language in the set contrasts tap vs trill; one rhotic phoneme with positional allophones. Turkish/Azerbaijani corpora wrote ɾ; Kazakh/Kyrgyz/Uyghur/Uzbek wrote r. Merged to majority symbol r.,"Zimmer & Orgun 1999 (tr tap); Mokari & Werner 2017 (az tap); McCollum & Chen 2021 (kk trill reducing to tap); Ido 2025 (uz tap, final trill)"
 merge,tr,a,ɑ,MOSTLY-NOTATION,Turkish low vowel is acoustically central-to-back; JIPA writes /a/ by convention. All other languages incl. Finnish use ɑ for the cognate vowel. Small real fronting in Turkish accepted as loss.,Zimmer & Orgun 1999; Kopkallı-Yavuz acoustics; McCollum & Chen 2021
 keep,uz,a,a,REAL,"Uzbek lost vowel harmony (Iranian contact); its a/ɔ low system is a different phonological object, not the front/back harmonic pair. Do NOT merge uz a with ɑ.",Ido 2025 (JIPA Illustration of Uzbek)
