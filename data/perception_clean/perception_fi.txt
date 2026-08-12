@@ -1,5 +1,5 @@
-finːiʃ
-tekst 1: lɑpsiurheilijɑt
+FINNISH
+TEXT 1: Lapsiurheilijat
 
 1
 ʋɑnhempien on tehtæʋæ ʋɑikeɑ pæːtøs, kun lɑpsi osoitːɑː erityistæ kiːnːostustɑ johoŋkin urheilulɑjiːn. pitæisikø heidæn ɑntɑː lɑpsen hɑrjoitelːɑ tulːɑkseːn huipːu-urheilijɑksi? monilːe lɑpsilːe tæmæ tɑrkoitːɑː ɑloitːɑmistɑ hyʋin nuorenɑ.
@@ -17,7 +17,7 @@ urheiluʋɑːtːeːt, mɑtkɑt kilpɑiluihin, erikoisʋælineːt jɑ niːn edel�
 ʋɑlmentɑjɑt kuiteŋkin uskoʋɑt, etːæ urheilijɑnɑ huipulːe pæːseː ʋɑin ɑloitːɑmɑlːɑ nuorenɑ. on selʋæː, etːæ hyʋin hɑrʋɑt pæːseʋæt huipulːe. siksi sekæ ʋɑnhempien etːæ lɑsten on ʋɑrɑudutːɑʋɑ epæonːistumiseːn.
 
 
-tekst 2: ʋilustuminen
+TEXT 2: Vilustuminen
 
 1
 hei, minun nimeni on kristiːnɑ, jɑ ɑnːɑn neuʋojɑ ihmisilːe, joilːɑ on terʋeysoŋːelmiɑ. tæhæn ɑikɑːn ʋuodestɑ sɑːn pɑljon kirjeitæ. ihmiset ʋɑlitːɑʋɑt ʋilustumisestɑ, jokɑ ei mene ohi.
@@ -35,7 +35,7 @@ toinen tærkeæ ɑsiɑ on, etːæ jokɑinen læːke, jokɑ on tɑrpeːksi ʋoim�
 jos næin kæy, ælæ yritæ ɑjɑː ɑutoɑ! lopuksi: mitæːn tɑikɑruokɑː tɑi -juomɑː ei ole olemɑsːɑ. pɑrɑs keino on pysyæ ʋɑhʋɑnɑ jɑ terʋeːnæ.
 
 
-tekst 3: tɑlʋiɑjo
+TEXT 3: Talviajo
 
 1
 tɑlʋi on ʋɑːrɑlːinen ɑikɑ, koskɑ on ʋɑikeɑ tietæː, mitæ edesːæ on. onːetːomuːdet tɑpɑhtuʋɑt helposti. sumu ʋoi odotːɑː sinuɑ mæen tɑkɑnɑ.
@@ -53,7 +53,7 @@ toinen sæːntø on olːɑ ʋɑlpːɑːnɑ sen suhteːn, mitæ ʋoi tɑpɑhtuɑ.
 muistɑ, etːæ sɑːtɑt ɑjɑː nopeɑmːin kuin luːlet. yleːnsæ mærælːæ tielːæ normɑːli jɑrːutusmɑtkɑ pitæː kɑksiŋkertɑistɑː. lumelːɑ tæmæ mɑtkɑ on kolmiŋkertɑinen, jɑ jæːlːæ ʋielæ pidempi.
 
 
-tekst 4: pyøræily
+TEXT 4: Pyöräily
 
 1
 riːtːæʋæ liːkuntɑ on osɑ terʋeːlːistæ elæmæntɑpɑː. juoksun jɑ uinːin lisæksi pyøræily on yksi pɑrhɑistɑ monipuolisistɑ liːkuntɑmuodoistɑ. se ʋoi ɑutːɑː lisæːmæːn ʋoimɑːsi jɑ enerɡiɑːsi.

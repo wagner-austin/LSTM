@@ -4,18 +4,41 @@
   "received_at": "2026-05-14",
   "source_dir": "C:\\Users\\Test\\Downloads\\ipa_human_experiments",
   "files": {
-    "perception_az.txt": {"original_name": "transliteration_az_ipa_20260515_023905.txt", "language": "Azerbaijani"},
-    "perception_kk.txt": {"original_name": "transliteration_kk_ipa_20260515_023525.txt", "language": "Kazakh"},
-    "perception_ky.txt": {"original_name": "transliteration_ky_ipa_20260515_023828.txt", "language": "Kyrgyz"},
-    "perception_tr.txt": {"original_name": "transliteration_tr_ipa_20260515_023704.txt", "language": "Turkish"},
-    "perception_ug.txt": {"original_name": "transliteration_ug_ipa_20260515_023625.txt", "language": "Uyghur"},
-    "perception_uz.txt": {"original_name": "transliteration_uz_ipa_20260515_023737.txt", "language": "Uzbek"},
-    "perception_fi.txt": {"source_file": "perception_fi_source.txt", "language": "Finnish", "produced_by": "Austin Wagner (2026-06-30), IPA rendered via turkic_translit.core.to_ipa with fi_ipa.rules"}
+    "perception_az.txt": {
+      "original_name": "transliteration_az_ipa_20260515_023905.txt",
+      "language": "Azerbaijani"
+    },
+    "perception_kk.txt": {
+      "original_name": "transliteration_kk_ipa_20260515_023525.txt",
+      "language": "Kazakh"
+    },
+    "perception_ky.txt": {
+      "original_name": "transliteration_ky_ipa_20260515_023828.txt",
+      "language": "Kyrgyz"
+    },
+    "perception_tr.txt": {
+      "original_name": "transliteration_tr_ipa_20260515_023704.txt",
+      "language": "Turkish"
+    },
+    "perception_ug.txt": {
+      "original_name": "transliteration_ug_ipa_20260515_023625.txt",
+      "language": "Uyghur"
+    },
+    "perception_uz.txt": {
+      "original_name": "transliteration_uz_ipa_20260515_023737.txt",
+      "language": "Uzbek"
+    },
+    "perception_fi.txt": {
+      "source_file": "perception_fi_source.txt",
+      "language": "Finnish",
+      "produced_by": "Austin Wagner (2026-06-30, regenerated 2026-08-12), IPA rendered via turkic_translit.core.to_ipa with fi_ipa.rules; passage lines only"
+    }
   },
   "notes": [
     "perception_fi.txt was added 2026-06-30 to enable Turkic-listener-scoring-Finnish-target excess-CE runs. The 20 parallel passages (4 texts x 5 sub-passages, matching the six Turkic sets) were translated into Finnish at B2 register from the source content shared across the Turkic set, saved as perception_fi_source.txt, and transliterated via turkic_translit.core.to_ipa. Native-Finnish spot-check on the source orthography is recommended before publication use.",
     "perception_uz.txt has 19 passages, not 20: TEXT 2 ('Catching a cold') passage 5 was deliberately excluded by Moldir because its audio recording was removed due to speaker disfluency (confirmed 2026-06-12). The model eval correctly scores the 19 passages that human listeners actually heard; do NOT reconstruct the missing passage.",
     "Each file contains multiple TEXT N sections separated by headers and 1..5 section markers; these constitute under 5 percent of total chars and are kept as-is so all seven files share the same metadata pattern.",
-    "Char inventory check at receipt: 41-60 unique chars per file, zero Cyrillic leak across all six original Turkic files, Uyghur contains 51 Arabic-script punctuation chars (Arabic comma/question/semicolon) preserved from source orthography. Finnish file inventory: 38 unique chars, all in Suomi et al. 2008 broad phonemic inventory."
+    "Char inventory check at receipt: 41-60 unique chars per file, zero Cyrillic leak across all six original Turkic files, Uyghur contains 51 Arabic-script punctuation chars (Arabic comma/question/semicolon) preserved from source orthography. Finnish file inventory: 38 unique chars, all in Suomi et al. 2008 broad phonemic inventory.",
+    "perception_fi.txt was regenerated 2026-08-12. The original passed the whole source file through to_ipa, headers included, and Finnish rules write x as ks, so TEXT became tekst. The evaluator strips title lines matching text or txt, so the Finnish titles were not stripped and were appended to the last passage of the preceding text; 3 of 20 sections were scored with a title attached, about 58 characters of 4333. Only passage lines are transliterated now: the language name, the TEXT headers, the numeric markers and the blank lines are copied verbatim. The header pattern in zero_shot_eval.py was also widened to recognise tekst, and tests/test_perception_files.py asserts against the real files that every language yields its expected section count, that all four title lines are recognised, and that no title survives into a scored section."
   ]
 }

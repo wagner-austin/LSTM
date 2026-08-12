@@ -63,7 +63,17 @@ MIN_SECTION_CHARS = 20
 DROPOUT = 0.0  # eval-only path; dropout is bypassed by model.eval() anyway
 
 _MARKER_RE = re.compile(r"^\s*[1-5]\s*$")
-_HEADER_RE = re.compile(r"^\s*te?xt\s*\d", re.IGNORECASE)
+
+# The snippet files carry their title lines in transliterated form,
+# because the word TEXT was passed through the transliterator along with
+# the passages. Each language therefore spells it differently: Turkish
+# leaves "teXt", Uzbek "text1", and Finnish "tekst", since Finnish rules
+# write x as ks. A pattern matching only "text" silently let the Finnish
+# titles through, and they were then appended to the preceding passage.
+# The k and s are optional here so every spelling seen in the data is
+# recognised; test_perception_files.py checks that against the real
+# files rather than against a fixture.
+_HEADER_RE = re.compile(r"^\s*te?(ks|x)t\s*\d", re.IGNORECASE)
 _LSTM_LAYER_RE = re.compile(r"^lstm\.weight_ih_l(\d+)$")
 
 
