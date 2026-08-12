@@ -9,12 +9,11 @@
    plus profile-correlation clustering of all 7 sources.
 """
 
-import re
 from pathlib import Path
 
 import numpy as np
 import torch
-from scripts.zero_shot_eval import LANGS, load_model_with_vocab
+from scripts.zero_shot_eval import LANGS, load_model_with_vocab, parse_sections
 from torch.nn import functional
 
 from char_lstm.data import encode
@@ -22,34 +21,8 @@ from char_lstm.data import encode
 CKPT = Path("checkpoints")
 SNIP = Path("data/perception")
 TARGETS = [lang for lang in LANGS if lang != "fi"]
-MARKER_RE = re.compile(r"^\s*[1-5]\s*$")
-HEADER_RE = re.compile(r"^\s*te?xt\s*\d", re.IGNORECASE)
 N_BOOT = 4000
 RNG = np.random.default_rng(0)
-
-
-def parse_sections(path: Path) -> list[str]:
-    """Split a perception file into numbered sections, dropping headers."""
-    lines = path.read_text(encoding="utf-8").splitlines()
-    sections: list[list[str]] = []
-    current: list[str] | None = None
-    for i, line in enumerate(lines):
-        if MARKER_RE.match(line):
-            if current:
-                sections.append(current)
-            current = []
-            continue
-        if i == 0 or HEADER_RE.match(line) or not line.strip():
-            continue
-        # short non-sentence line right before a "1" marker = stray title
-        nxt = lines[i + 1] if i + 1 < len(lines) else ""
-        if len(line.strip()) < 40 and MARKER_RE.match(nxt) and nxt.strip() == "1":
-            continue
-        if current is not None:
-            current.append(line.strip())
-    if current:
-        sections.append(current)
-    return [" ".join(s) for s in sections if s and len(" ".join(s)) >= 20]
 
 
 # ---- load everything -------------------------------------------------------
@@ -58,7 +31,7 @@ loaded = {
     for s in LANGS
 }
 sections: dict[str, list[str]] = {
-    t: parse_sections(SNIP / f"perception_{t}.txt") for t in TARGETS
+    t: parse_sections((SNIP / f"perception_{t}.txt").read_text(encoding="utf-8")) for t in TARGETS
 }
 print("=== Section parse check ===")
 for t in TARGETS:

@@ -62,7 +62,7 @@ DEFAULT_SEED = 0
 MIN_SECTION_CHARS = 20
 DROPOUT = 0.0  # eval-only path; dropout is bypassed by model.eval() anyway
 
-_MARKER_RE = re.compile(r"^\s*[1-5]\s*$")
+MARKER_RE = re.compile(r"^\s*[1-5]\s*$")
 
 # The snippet files carry their title lines in transliterated form,
 # because the word TEXT was passed through the transliterator along with
@@ -73,7 +73,7 @@ _MARKER_RE = re.compile(r"^\s*[1-5]\s*$")
 # The k and s are optional here so every spelling seen in the data is
 # recognised; test_perception_files.py checks that against the real
 # files rather than against a fixture.
-_HEADER_RE = re.compile(r"^\s*te?(ks|x)t\s*\d", re.IGNORECASE)
+HEADER_RE = re.compile(r"^\s*te?(ks|x)t\s*\d", re.IGNORECASE)
 _LSTM_LAYER_RE = re.compile(r"^lstm\.weight_ih_l(\d+)$")
 
 
@@ -258,15 +258,15 @@ def parse_sections(text: str) -> list[str]:
     sections: list[list[str]] = []
     current: list[str] | None = None
     for i, line in enumerate(lines):
-        if _MARKER_RE.match(line):
+        if MARKER_RE.match(line):
             if current:
                 sections.append(current)
             current = []
             continue
-        if i == 0 or _HEADER_RE.match(line) or not line.strip():
+        if i == 0 or HEADER_RE.match(line) or not line.strip():
             continue
         nxt = lines[i + 1] if i + 1 < len(lines) else ""
-        if len(line.strip()) < 40 and _MARKER_RE.match(nxt) and nxt.strip() == "1":
+        if len(line.strip()) < 40 and MARKER_RE.match(nxt) and nxt.strip() == "1":
             continue
         if current is not None:
             current.append(line.strip())
