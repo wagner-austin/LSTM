@@ -51,3 +51,18 @@ between its texts: text 2 begins mid-passage after text 1's passage 5,
 so a structural parse yields 18 sections instead of 20. All content is
 present. Regeneration from that file must restore the breaks by hand and
 verify against `data/perception/perception_uz.txt`'s section structure.
+
+
+## Native-speaker review (2026-08-12, same day)
+
+A native Finnish speaker, recruited through a public request, read all
+four texts. The findings match the scope this review predicted for
+itself: no meaning divergences, omissions or additions; one grammatical
+agreement error (predicative *vaarallinen* for *vaarallista* with an
+abstract subject); and unnatural phrasing at six points, including
+*vakava* for goal-directed training where Finnish uses *tavoitteellinen*.
+
+All seven edits were applied to ``perception_fi_source.txt`` and the IPA
+file was regenerated and re-harmonised the same day, passage structure
+verified by the perception-file tests. The Finnish passages now carry
+the same level of review as the six Turkic translations.

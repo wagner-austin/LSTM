@@ -11,7 +11,7 @@ Koulutehtävät, kavereiden tapaaminen ja muut harrastukset jäävät toiselle s
 Toinen ongelma on tietysti raha. Monissa maissa valtio tukee parhaita nuoria urheilijoita rahallisesti. Jos tällaista tukea ei anneta, vanhempien on löydettävä aikaa ja rahaa lastensa tukemiseen.
 
 4
-Urheiluvaatteet, matkat kilpailuihin, erikoisvälineet ja niin edelleen voivat olla hyvin kalliita. Monet vanhemmat pelkäävät, että vakavan urheiluharjoittelun aloittaminen nuorena on vaarallista. Jotkut lääkärit ovat samaa mieltä siitä, että nuoret lihakset voivat vahingoittua harjoittelusta, ennen kuin ne ovat kunnolla kehittyneet.
+Urheiluvaatteet, matkat kilpailuihin, erikoisvälineet ja niin edelleen voivat olla hyvin kalliita. Monet vanhemmat pelkäävät, että tavoitteellisen urheiluharjoittelun aloittaminen nuorena on vaarallista. Jotkut lääkärit ovat samaa mieltä siitä, että lasten lihakset voivat vahingoittua harjoittelusta, ennen kuin ne ovat kunnolla kehittyneet.
 
 5
 Valmentajat kuitenkin uskovat, että urheilijana huipulle pääsee vain aloittamalla nuorena. On selvää, että hyvin harvat pääsevät huipulle. Siksi sekä vanhempien että lasten on varauduttava epäonnistumiseen.
@@ -23,7 +23,7 @@ TEXT 2: Vilustuminen
 Hei, minun nimeni on Kristiina, ja annan neuvoja ihmisille, joilla on terveysongelmia. Tähän aikaan vuodesta saan paljon kirjeitä. Ihmiset valittavat vilustumisesta, joka ei mene ohi.
 
 2
-Vilustumisen ehkäisystä ja hoidosta liikkuu monia erilaisia tarinoita. Siksi on usein vaikea tietää, mitä pitäisi tehdä. Vilustuminen on harvoin vaarallinen, paitsi ihmisille, jotka ovat jo heikkoja, kuten vanhukset tai pienet vauvat.
+Vilustumisen ehkäisystä ja hoidosta liikkuu monia erilaisia tarinoita. Siksi on usein vaikea tietää, mitä pitäisi tehdä. Vilustuminen on harvoin vaarallista, paitsi ihmisille, joiden vastustuskyky on heikentynyt, kuten vanhuksille tai pienille vauvoille.
 
 3
 Silti vilustuminen on aina epämiellyttävää ja usein melko ikävää. Kaupasta saa toki monia lääkkeitä, jotka lievittävät oireita. Mutta muista, ettei mikään oikeasti paranna vilustumista tai saa sitä menemään nopeammin ohi.
@@ -41,7 +41,7 @@ TEXT 3: Talviajo
 Talvi on vaarallinen aika, koska on vaikea tietää, mitä edessä on. Onnettomuudet tapahtuvat helposti. Sumu voi odottaa sinua mäen takana.
 
 2
-Sulavan lumen alla voi olla piilossa jäätä, joka voi viedä autosi tieltä pois. Vastaan tuleva auto voi yhtäkkiä liukua tien poikki. Jäisillä teillä ajamisen ensimmäinen sääntö on ajaa tasaisesti.
+Sulavan lumen alla voi olla piilossa jäätä, joka voi viedä autosi tieltä pois. Vastaan tuleva auto voi yhtäkkiä liukua tien poikki. Jäisillä teillä ajamisen ensimmäinen sääntö on ajaa tasaisella vauhdilla.
 
 3
 Äkkinäiset liikkeet voivat tehdä auton hallitsemisesta yhtäkkiä hyvin vaikeaa. Aina kun käännät rattia, jarrutat tai kiihdytät, ole niin varovainen ja hidas kuin mahdollista. Kuvittele, että ajat, ja vieressäsi penkillä on täysi kuppi kuumaa kahvia. Aja niin, ettei se läiky.
@@ -50,7 +50,7 @@ Sulavan lumen alla voi olla piilossa jäätä, joka voi viedä autosi tieltä po
 Toinen sääntö on olla valppaana sen suhteen, mitä voi tapahtua. Mitä enemmän tiellä on jäätä, sitä kauemmas eteen on katsottava. Kokeile hitaasti jarruttamalla, kuinka kauan pysähtymiseen menee aikaa.
 
 5
-Muista, että saatat ajaa nopeammin kuin luulet. Yleensä märällä tiellä normaali jarrutusmatka pitää kaksinkertaistaa. Lumella tämä matka on kolminkertainen, ja jäällä vielä pidempi.
+Muista, että saatat ajaa nopeammin kuin luulet. Yleensä märällä tiellä normaali jarrutusmatka on kaksinkertainen. Lumella tämä matka on kolminkertainen, ja jäällä vielä pidempi.
 
 
 TEXT 4: Pyöräily
@@ -59,7 +59,7 @@ TEXT 4: Pyöräily
 Riittävä liikunta on osa terveellistä elämäntapaa. Juoksun ja uinnin lisäksi pyöräily on yksi parhaista monipuolisista liikuntamuodoista. Se voi auttaa lisäämään voimaasi ja energiaasi.
 
 2
-Se vahvistaa myös lihaksiasi ja tekee sydämestä vahvemman. Mutta voiman lisääminen ei ole pyöräilyn ainoa etu. Kehon paino ei kohdistu jaloille. Siksi pyöräily on hyvä liikuntamuoto ihmisille, joita jalat tai selkä särkevät.
+Se vahvistaa myös lihaksiasi ja tekee sydämestä vahvemman. Mutta se ei ole pyöräilyn ainoa etu. Kehon paino ei kohdistu jaloille. Siksi pyöräily on hyvä liikuntamuoto ihmisille, joiden jalat tai selkä särkevät.
 
 3
 Kaikessa liikunnassa on kuitenkin tärkeää aloittaa hitaasti ja lisätä vähitellen. Liian voimakas ja nopea harjoittelu voi vahingoittaa lihaksia, jotka eivät ole tottuneet rasitukseen. Jos terveydentilasi vuoksi epäilet pyöräilyn aloittamista, keskustele lääkärisi kanssa.
