@@ -1,0 +1,17 @@
+{
+  "description": "Orthographic source texts behind the perception IPA files: the passages in each language's own script, as fed to turkic-translit. These are what regeneration and the rules-vs-data byte-identity check need; until 2026-08-12 the repository held only the tool's output, so the rules could not be checked against the data at all.",
+  "produced_by": "Moldir Baidildinova",
+  "received_at": "2026-08-12, via OneDrive/Misc as *_test_items.docx",
+  "files": {
+    "KAZAKH_test_items.docx": "original as received; source_kk.txt is its paragraph text extracted verbatim",
+    "KYRGYZ_test_items.docx": "original; source_ky.txt extracted",
+    "TURKISH_test_items.docx": "original; source_tr.txt extracted",
+    "UYGHUR_test_items.docx": "original; source_ug.txt extracted. Title lines are bilingual: an English title on the TEXT line and the Uyghur title on the following line. Regeneration must treat both as structure, not passage text.",
+    "UZBEK_test_items.docx": "original; source_uz.txt extracted. The first title line reads TEXT1: with no space, one of the header spellings the eval's parser already covers."
+  },
+  "notes": [
+    "AZERBAIJANI is missing: five of the six Turkic sources arrived. Finnish needs no entry here; its source is data/perception/perception_fi_source.txt.",
+    "Extraction: each docx's word/document.xml paragraphs, in order, one line per paragraph, no edits. The .docx originals are kept beside the extractions so the extraction itself is checkable.",
+    "Not yet used for regeneration. The perception files in data/perception/ remain the 0.3.x-era outputs the current results were computed on; regenerating them belongs to the full pipeline re-run (rules 0.5.1, corpora rebuild, retrain), so that train and eval move together rather than creating a third mixed state."
+  ]
+}
