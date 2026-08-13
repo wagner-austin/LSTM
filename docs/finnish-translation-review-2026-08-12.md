@@ -1,4 +1,4 @@
-# Review of the Finnish perception passages against the parallel versions
+# Author-side review of the Finnish perception passages
 
 **Artifact reviewed:** `data/perception/perception_fi_source.txt` (20 passages, 4 texts).
 **Date:** 2026-08-12.
@@ -6,15 +6,15 @@
 of the same source texts (`data/perception_sources/`), each of which was
 checked by a native speaker of its language (paper §4.1.4). Six
 independently native-verified versions of a passage jointly fix its
-meaning, so agreement with them is the standard applied. Turkish served
+meaning, so agreement with them is the comparison standard used here. Turkish served
 as the primary comparison text, with Uzbek and the others consulted where
 the two diverged.
 
 ## Checks and results
 
 1. **Meaning equivalence, all 20 passages.** Each Finnish passage was
-   read against its Turkish counterpart clause by clause. All 20 carry
-   the same propositional content; no omissions, no additions.
+   read against its Turkish counterpart clause by clause. No meaning divergences,
+   omissions or additions were found in the 20 passages.
 2. **Numeral audit (objective, scripted).** Every digit token in every
    passage compared across all seven versions: **0 disagreements**
    (`scripts run 2026-08-12; five hours of training, two-to-three rides a
@@ -36,10 +36,11 @@ the two diverged.
   "more efficient muscles" where the Finnish has "strengthens your
   muscles"; both clauses also state "makes the heart stronger", so the
   content is preserved.
-- A native-speaker read remains worthwhile before any *human* Finnish
-  listening experiment is run; for the model-side use the passages are
-  fit for purpose, and this review supersedes the open "spot-check
-  recommended" flag for that use.
+- This is an author-side review against the parallel versions, not a
+  native-speaker read, and it should not be represented as one. It found
+  no issues affecting the character-level measures. A native read remains
+  recommended, and is a precondition for any *human* Finnish listening
+  experiment.
 
 ## Incidental finding
 
