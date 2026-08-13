@@ -8,7 +8,7 @@
     "KYRGYZ_test_items.docx": "original; source_ky.txt extracted",
     "TURKISH_test_items.docx": "original; source_tr.txt extracted",
     "UYGHUR_test_items.docx": "original; source_ug.txt extracted. Title lines are bilingual: an English title on the TEXT line and the Uyghur title on the following line. Regeneration must treat both as structure, not passage text.",
-    "UZBEK_test_items.docx": "original; source_uz.txt extracted. The first title line reads TEXT1: with no space, one of the header spellings the eval's parser already covers."
+    "UZBEK_test_items.docx": "original; source_uz.txt extracted. The first title line reads TEXT1: with no space, one of the header spellings the eval's parser already covers. The docx lacks section breaks between its four texts (text 2 begins mid-passage after text 1's fifth), so a structural parse yields 18 sections instead of 20; all content is present, and regeneration must restore the breaks by hand against perception_uz.txt's structure."
   },
   "notes": [
     "All six Turkic sources are present. Finnish needs no entry here; its source is data/perception/perception_fi_source.txt.",
