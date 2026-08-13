@@ -95,6 +95,7 @@ def test_train_eval_pipeline(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) ->
         "output_csv": tmp_path / "results" / "pipeline.csv",
         "snippet_template": "perception_{lang}.txt",
         "oov_mode": "unk",
+        "corpus_dir": cleaned_dir,
         "assimilation_csv": tmp_path / "unused.csv",
         "n_boot": 5,
         "seed": 0,

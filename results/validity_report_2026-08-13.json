@@ -1,0 +1,41 @@
+{
+  "real": {
+    "within": 1.6308131820616112,
+    "cross": 2.151047831876753,
+    "gap": 0.5202346498151418
+  },
+  "shuffled": {
+    "within": -0.24915327631055076,
+    "cross": -0.11402017157216864,
+    "gap": 0.13513310473838214
+  },
+  "heldout": {
+    "within": 1.647046924592953,
+    "cross": 2.034615794484118,
+    "gap": 0.387568869891165
+  },
+  "real_tree": "((((az,tr),(kk,ky)),(ug,uz)),fi)",
+  "heldout_tree": "((((az,tr),(kk,ky)),(ug,uz)),fi)",
+  "expected_siblings": [
+    [
+      "az",
+      "tr"
+    ],
+    [
+      "kk",
+      "ky"
+    ],
+    [
+      "ug",
+      "uz"
+    ]
+  ],
+  "checks": {
+    "real_gap_positive": true,
+    "heldout_gap_positive": true,
+    "shuffled_gap_collapsed": true,
+    "real_siblings_recovered": true,
+    "heldout_siblings_recovered": true
+  },
+  "passed": true
+}

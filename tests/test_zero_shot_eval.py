@@ -13,6 +13,7 @@ from scripts.zero_shot_eval import (
     CSV_HEADER,
     DEFAULT_ASSIMILATION_CSV,
     DEFAULT_CHECKPOINT_DIR,
+    DEFAULT_CORPUS_DIR,
     DEFAULT_N_BOOT,
     DEFAULT_OUTPUT_CSV,
     DEFAULT_SEED,
@@ -20,9 +21,12 @@ from scripts.zero_shot_eval import (
     DEFAULT_SNIPPET_TEMPLATE,
     OOV_MODES,
     EvalArgs,
+    LoadedModel,
     PairResult,
     SectionScore,
+    _build_masks,
     _extract_args,
+    attested_chars,
     bootstrap_excess,
     ce_from_scores,
     common_support_mask,
@@ -341,12 +345,17 @@ def _setup_eval_dirs(tmp_path: Path) -> EvalArgs:
 
     assim = tmp_path / "assim.csv"
     assim.write_text("listener,missing,replacement\ntr,c,a\naz,q,a\nuz,w,v\n", encoding="utf-8")
+    corpora = tmp_path / "corpora"
+    corpora.mkdir()
+    for lang, chars in (("az", "abcd"), ("tr", "abqd"), ("uz", "abcdq")):
+        (corpora / f"oscar_{lang}_ipa.txt").write_text(chars * 100, encoding="utf-8")
     return {
         "checkpoint_dir": ckpt,
         "snippet_dir": snip,
         "output_csv": tmp_path / "out" / "results.csv",
         "snippet_template": "perception_{lang}.txt",
         "oov_mode": "unk",
+        "corpus_dir": corpora,
         "assimilation_csv": assim,
         "n_boot": 25,
         "seed": 0,
@@ -440,6 +449,7 @@ def test_parse_args_defaults() -> None:
         "output_csv": DEFAULT_OUTPUT_CSV,
         "snippet_template": DEFAULT_SNIPPET_TEMPLATE,
         "oov_mode": "skip",
+        "corpus_dir": DEFAULT_CORPUS_DIR,
         "assimilation_csv": DEFAULT_ASSIMILATION_CSV,
         "n_boot": DEFAULT_N_BOOT,
         "seed": DEFAULT_SEED,
@@ -464,6 +474,7 @@ def _good_namespace() -> argparse.Namespace:
         output_csv="c",
         snippet_template="{lang}",
         oov_mode="unk",
+        corpus_dir="e",
         assimilation_csv="d",
         n_boot=10,
         seed=0,
@@ -554,3 +565,51 @@ def test_module_entrypoint(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> N
     with pytest.raises(SystemExit) as excinfo:
         runpy.run_module("scripts.zero_shot_eval", run_name="__main__", alter_sys=True)
     assert excinfo.value.code == 0
+
+
+# ---------------------------------------------------------------------------
+# attested_chars: vocabulary membership is not attestation
+# ---------------------------------------------------------------------------
+
+
+def test_a_quoted_character_is_not_attested(tmp_path: Path) -> None:
+    """Trace contamination stays out of the support set.
+
+    Four stray occurrences of a foreign vowel in ten million characters
+    put it in the vocabulary, and through the vocabulary into the scoring
+    mask, where it unmasked a tenth of another language's text against
+    models that had effectively never seen it. Attestation is counted,
+    not assumed from membership.
+    """
+    corpus = tmp_path / "oscar_xx_ipa.txt"
+    corpus.write_text("sɑlɑm " * 500 + "æ æ æ æ", encoding="utf-8")
+
+    attested = attested_chars(corpus, 100)
+
+    assert "ɑ" in attested
+    assert "æ" not in attested
+
+
+def test_the_mask_excludes_positions_on_unattested_characters(tmp_path: Path) -> None:
+    """A skip-mode mask is built from attested characters only."""
+    corpus_dir = tmp_path
+    (corpus_dir / "oscar_aa_ipa.txt").write_text("ab" * 200, encoding="utf-8")
+    (corpus_dir / "oscar_bb_ipa.txt").write_text("ab" * 200 + "z", encoding="utf-8")
+
+    def tiny(stoi: dict[str, int]) -> LoadedModel:
+        size = len(stoi) + 1
+        return {"stoi": stoi, "model": CharLSTM(size, 8, 8, 1), "vocab_size": size}
+
+    sources = {
+        "aa": tiny({"a": 0, "b": 1}),
+        "bb": tiny({"a": 0, "b": 1, "z": 2}),
+    }
+    targets = {"aa": ["abzab" * 10]}
+
+    masks = _build_masks(targets, sources, corpus_dir)
+
+    section = "abzab" * 10
+    mask = masks["aa"][0]
+    assert len(mask) == len(section) - 1
+    assert all(not m for ch, m in zip(section[1:], mask, strict=True) if ch == "z")
+    assert any(m for ch, m in zip(section[1:], mask, strict=True) if ch in "ab")

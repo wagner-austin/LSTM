@@ -43,7 +43,9 @@ from typing import TypedDict
 from scripts.corpora import CORPUS_TEMPLATE
 from scripts.zero_shot_eval import (
     DEFAULT_SNIPPET_TEMPLATE,
+    MIN_ATTESTED,
     LoadedModel,
+    attested_chars,
     ce_from_scores,
     common_support_mask,
     load_sources,
@@ -58,6 +60,7 @@ DEFAULT_SNIPPET_DIR = Path("data/perception_clean")
 DEFAULT_OUTPUT_JSON = Path("results/validity_report.json")
 DEFAULT_SEED = 1
 DEFAULT_SLICE_CHARS = 5000
+HELDOUT_PIECES = 20
 
 TEST_SPLIT_START = 0.85  # train 0.70 + val 0.15, matching char_lstm.train
 SHUFFLED_GAP_FACTOR = 0.5  # shuffled gap must fall below real gap times this
@@ -309,6 +312,7 @@ def shuffle_text(text: str, rng: random.Random) -> str:
 def excess_matrix(
     models: dict[str, LoadedModel],
     targets: dict[str, list[str]],
+    corpus_dir: Path,
 ) -> dict[str, dict[str, float]]:
     """Common-support excess-CE matrix over a target set.
 
@@ -317,6 +321,8 @@ def excess_matrix(
             the resulting matrix is square (symmetrization needs both
             directions of every pair).
         targets: Section lists per target language.
+        corpus_dir: Training corpora, which decide which characters count
+            as attested for each model, exactly as in the zero-shot eval.
 
     Returns:
         ``excess[src][tgt]`` over the common language set.
@@ -331,7 +337,11 @@ def excess_matrix(
             f"targets={sorted(targets)}."
         )
         raise ValueError(msg)
-    vocabs = [set(loaded["stoi"]) for loaded in models.values()]
+    vocabs = [
+        set(loaded["stoi"])
+        & attested_chars(corpus_dir / CORPUS_TEMPLATE.format(lang=lang), MIN_ATTESTED)
+        for lang, loaded in models.items()
+    ]
     masks = {
         tgt: [common_support_mask(s, vocabs) for s in sections] for tgt, sections in targets.items()
     }
@@ -395,10 +405,19 @@ def _load_heldout_targets(
             continue
         text = path.read_text(encoding="utf-8")
         region = text[int(len(text) * TEST_SPLIT_START) :]
-        mid = max(0, len(region) // 2 - args["slice_chars"] // 2)
-        slice_text = region[mid : mid + args["slice_chars"]]
-        if len(slice_text) >= 2:
-            targets[lang] = [slice_text]
+        # The corpora's lines are whole documents, so one contiguous slice
+        # is about half of a single web page. Twenty pieces at even
+        # strides sample the whole held-out region instead, and give the
+        # comparison sections the way the perception targets have them.
+        pieces = HELDOUT_PIECES
+        piece_len = max(2, args["slice_chars"] // pieces)
+        stride = max(piece_len, len(region) // pieces)
+        sections = [
+            region[start : start + piece_len] for start in range(0, len(region), stride)[:pieces]
+        ]
+        sections = [s for s in sections if len(s) >= 2]
+        if sections:
+            targets[lang] = sections
     return targets
 
 
@@ -421,9 +440,9 @@ def run(args: ValidateArgs) -> ValidityReport:
 
     real_models = {lang: models[lang] for lang in real_targets}
     heldout_models = {lang: models[lang] for lang in heldout_targets}
-    real_dist = symmetrize(excess_matrix(real_models, real_targets))
-    shuffled_dist = symmetrize(excess_matrix(real_models, shuffled_targets))
-    heldout_dist = symmetrize(excess_matrix(heldout_models, heldout_targets))
+    real_dist = symmetrize(excess_matrix(real_models, real_targets, args["corpus_dir"]))
+    shuffled_dist = symmetrize(excess_matrix(real_models, shuffled_targets, args["corpus_dir"]))
+    heldout_dist = symmetrize(excess_matrix(heldout_models, heldout_targets, args["corpus_dir"]))
 
     real = branch_gap(real_dist)
     shuffled = branch_gap(shuffled_dist)

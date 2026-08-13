@@ -153,7 +153,9 @@ def test_excess_matrix_diagonal_is_zero_and_square(tmp_path: Path) -> None:
         for lang in ("az", "tr")
     }
     targets = {"az": ["ab" * 20], "tr": ["ba" * 20]}
-    excess = excess_matrix(models, targets)
+    for lang in ("az", "tr"):
+        (tmp_path / f"oscar_{lang}_ipa.txt").write_text("ab" * 200, encoding="utf-8")
+    excess = excess_matrix(models, targets, tmp_path)
     assert sorted(excess) == ["az", "tr"]
     assert sorted(excess["az"]) == ["az", "tr"]
     assert excess["az"]["az"] == 0.0
@@ -164,7 +166,7 @@ def test_excess_matrix_rejects_mismatched_language_sets(tmp_path: Path) -> None:
     _write_tiny_model(tmp_path, "az", ["a", "b"], seed=0)
     models = {"az": load_model_with_vocab(tmp_path / "az_best.pt", tmp_path / "az_vocab.json")}
     with pytest.raises(ValueError, match="identical language sets"):
-        excess_matrix(models, {"az": ["abab"], "tr": ["abab"]})
+        excess_matrix(models, {"az": ["abab"], "tr": ["abab"]}, tmp_path)
 
 
 # ---------------------------------------------------------------------------

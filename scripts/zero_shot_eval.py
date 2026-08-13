@@ -33,6 +33,7 @@ Usage::
 from __future__ import annotations
 
 import argparse
+import collections
 import csv
 import math
 import random
@@ -47,7 +48,7 @@ from torch.nn import functional
 from char_lstm._types import _get_torch_load
 from char_lstm.data import encode, load_vocab_json
 from char_lstm.model import CharLSTM
-from scripts.corpora import LANGS
+from scripts.corpora import CORPUS_TEMPLATE, LANGS
 
 OOV_MODES: tuple[str, ...] = ("unk", "skip", "assimilate")
 
@@ -58,6 +59,14 @@ DEFAULT_SNIPPET_TEMPLATE = "perception_{lang}.txt"
 DEFAULT_ASSIMILATION_CSV = Path("data/assimilation.csv")
 DEFAULT_N_BOOT = 2000
 DEFAULT_SEED = 0
+DEFAULT_CORPUS_DIR = Path("corpora_clean")
+
+# A character counts as attested for a listener when its training corpus
+# contains it at least this many times. Real phonemes of a training
+# language occur thousands of times per ten million characters and
+# contamination occurs tens of times, so the floor sits between the two
+# with an order of magnitude to spare on each side.
+MIN_ATTESTED = 100
 
 MIN_SECTION_CHARS = 20
 DROPOUT = 0.0  # eval-only path; dropout is bypassed by model.eval() anyway
@@ -144,6 +153,8 @@ class EvalArgs(TypedDict):
         output_csv: Path to write the results CSV.
         snippet_template: Filename template containing ``{lang}``.
         oov_mode: One of :data:`OOV_MODES`.
+        corpus_dir: Training corpora, read in skip mode to decide which
+            characters count as attested for a listener.
         assimilation_csv: Substitution table, read only in assimilate mode.
         n_boot: Number of bootstrap resamples.
         seed: Bootstrap RNG seed.
@@ -154,6 +165,7 @@ class EvalArgs(TypedDict):
     output_csv: Path
     snippet_template: str
     oov_mode: str
+    corpus_dir: Path
     assimilation_csv: Path
     n_boot: int
     seed: int
@@ -579,9 +591,33 @@ def _load_targets(args: EvalArgs, sources: dict[str, LoadedModel]) -> dict[str, 
     return targets
 
 
+def attested_chars(corpus_path: Path, min_count: int) -> set[str]:
+    """Characters a corpus contains at least ``min_count`` times.
+
+    Vocabulary membership alone is a broken proxy for what a model has
+    learned: a character quoted four times in ten million is in the
+    vocabulary, but the model assigns it vanishing probability, and one
+    such character unmasked a tenth of another language's text and
+    dominated its score. A real phoneme of the training language occurs
+    thousands of times, contamination occurs tens, so the floor separates
+    them by orders of magnitude either way.
+
+    Args:
+        corpus_path: The listener's training corpus.
+        min_count: Occurrences required to count as attested.
+
+    Returns:
+        The attested character set.
+    """
+    counts: collections.Counter[str] = collections.Counter(corpus_path.read_text(encoding="utf-8"))
+    return {ch for ch, n in counts.items() if n >= min_count}
+
+
 def _build_masks(
     targets: dict[str, list[str]],
     sources: dict[str, LoadedModel],
+    corpus_dir: Path,
+    min_attested: int = MIN_ATTESTED,
 ) -> dict[str, list[list[bool]]]:
     """Build common-support masks per target, dropping zero-support sections.
 
@@ -589,11 +625,18 @@ def _build_masks(
         targets: Section lists per target language. Mutated in place when a
             section has no common-support position.
         sources: Loaded source models whose vocabularies define the support.
+        corpus_dir: Training corpora, one per source, which decide
+            attestation.
+        min_attested: Occurrences a character needs in a corpus to count.
 
     Returns:
         Masks aligned with each target's (possibly filtered) sections.
     """
-    vocabs = [set(loaded["stoi"]) for loaded in sources.values()]
+    vocabs = [
+        set(loaded["stoi"])
+        & attested_chars(corpus_dir / CORPUS_TEMPLATE.format(lang=lang), min_attested)
+        for lang, loaded in sources.items()
+    ]
     masks: dict[str, list[list[bool]]] = {}
     for lang, sections in targets.items():
         section_masks = [common_support_mask(s, vocabs) for s in sections]
@@ -616,7 +659,7 @@ def run(args: EvalArgs) -> list[PairResult]:
     """
     sources = load_sources(args["checkpoint_dir"])
     targets = _load_targets(args, sources)
-    masks = _build_masks(targets, sources) if args["oov_mode"] == "skip" else {}
+    masks = _build_masks(targets, sources, args["corpus_dir"]) if args["oov_mode"] == "skip" else {}
     assimilation = (
         load_assimilation_map(args["assimilation_csv"]) if args["oov_mode"] == "assimilate" else {}
     )
@@ -692,6 +735,7 @@ def _build_arg_parser() -> argparse.ArgumentParser:
     parser.add_argument("--output-csv", type=str, default=str(DEFAULT_OUTPUT_CSV))
     parser.add_argument("--snippet-template", type=str, default=DEFAULT_SNIPPET_TEMPLATE)
     parser.add_argument("--oov-mode", type=str, choices=OOV_MODES, default="skip")
+    parser.add_argument("--corpus-dir", type=str, default=str(DEFAULT_CORPUS_DIR))
     parser.add_argument("--assimilation-csv", type=str, default=str(DEFAULT_ASSIMILATION_CSV))
     parser.add_argument("--n-boot", type=int, default=DEFAULT_N_BOOT)
     parser.add_argument("--seed", type=int, default=DEFAULT_SEED)
@@ -717,6 +761,7 @@ def _extract_args(namespace: argparse.Namespace) -> EvalArgs:
         "output_csv": namespace.output_csv,
         "snippet_template": namespace.snippet_template,
         "oov_mode": namespace.oov_mode,
+        "corpus_dir": namespace.corpus_dir,
         "assimilation_csv": namespace.assimilation_csv,
     }
     for name, value in str_fields.items():
@@ -741,6 +786,7 @@ def _extract_args(namespace: argparse.Namespace) -> EvalArgs:
         "output_csv": Path(str_fields["output_csv"]),
         "snippet_template": str_fields["snippet_template"],
         "oov_mode": str_fields["oov_mode"],
+        "corpus_dir": Path(str_fields["corpus_dir"]),
         "assimilation_csv": Path(str_fields["assimilation_csv"]),
         "n_boot": namespace.n_boot,
         "seed": namespace.seed,
