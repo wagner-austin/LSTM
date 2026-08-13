@@ -40,7 +40,7 @@ import random
 from pathlib import Path
 from typing import TypedDict
 
-from scripts.clean_corpus import CORPUS_TEMPLATE
+from scripts.corpora import CORPUS_TEMPLATE
 from scripts.zero_shot_eval import (
     DEFAULT_SNIPPET_TEMPLATE,
     LoadedModel,

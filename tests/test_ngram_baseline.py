@@ -9,7 +9,7 @@ import sys
 from pathlib import Path
 
 import pytest
-from scripts.clean_corpus import CORPUS_TEMPLATE
+from scripts.corpora import CORPUS_TEMPLATE
 from scripts.ngram_baseline import (
     DEFAULT_CHECKPOINT_DIR,
     DEFAULT_CORPUS_DIR,

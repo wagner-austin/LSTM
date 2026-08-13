@@ -47,7 +47,7 @@ from torch.nn import functional
 from char_lstm._types import _get_torch_load
 from char_lstm.data import encode, load_vocab_json
 from char_lstm.model import CharLSTM
-from scripts.clean_corpus import LANGS, apply_symbol_map
+from scripts.corpora import LANGS
 
 OOV_MODES: tuple[str, ...] = ("unk", "skip", "assimilate")
 
@@ -335,6 +335,24 @@ def load_assimilation_map(path: Path) -> dict[str, dict[str, str]]:
     return mapping
 
 
+def apply_assimilation(text: str, substitutions: dict[str, str]) -> str:
+    """Apply a listener's OOV substitutions to a section.
+
+    Replacements run in the table's row order, which matters when one
+    row's replacement is another row's missing character.
+
+    Args:
+        text: Section text.
+        substitutions: One listener's ``missing -> replacement`` table.
+
+    Returns:
+        The section with every substitution applied.
+    """
+    for missing, replacement in substitutions.items():
+        text = text.replace(missing, replacement)
+    return text
+
+
 # ---------------------------------------------------------------------------
 # Scoring
 # ---------------------------------------------------------------------------
@@ -609,7 +627,7 @@ def run(args: EvalArgs) -> list[PairResult]:
             pair_sections = sections
             if args["oov_mode"] == "assimilate":
                 subs = assimilation[src]
-                pair_sections = [apply_symbol_map(s, subs) for s in sections]
+                pair_sections = [apply_assimilation(s, subs) for s in sections]
             pair_masks: list[list[bool] | None] = []
             if args["oov_mode"] == "skip":
                 pair_masks.extend(masks[tgt])

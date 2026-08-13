@@ -65,7 +65,7 @@ make test    # pytest -n auto with branch coverage over src + scripts
 | `corpora_clean/oscar_{lang}_ipa.txt` | Cleaned corpora — what training reads |
 | `data/perception/perception_{lang}.txt` | Original perception snippets (Turkic set from Moldir; Finnish added 2026-06-30 by Austin from B2 orthography via `turkic_translit.core.to_ipa`); not modified after arrival |
 | `data/perception_clean/perception_{lang}.txt` | Snippets with the symbol map applied — what eval reads |
-| `data/symbol_map.csv` | Per-language IPA harmonization decisions, each cited |
+| — (symbol map) | Ships inside turkic-translit as package data; each row cited. One copy, no fork here |
 | `data/assimilation.csv` | Generated OOV substitution table (nearest-sound per listener) |
 | `results/` | Eval CSVs + validity report |
 
@@ -81,10 +81,14 @@ excluded at source (audio removed for speaker disfluency). See
 ## Pipeline
 
 ```bash
-# 1. Clean raw corpora -> corpora_clean/ and harmonize snippets
-#    -> data/perception_clean/ (applies data/symbol_map.csv, dedups,
-#    strips non-IPA junk, equalizes sizes, writes cleaning_manifest.json)
-poetry run python -m scripts.clean_corpus
+# 1. Clean raw corpora -> corpora_clean/, and harmonize snippets
+#    -> data/perception_clean/. The cleaner ships with turkic-translit
+#    (>= 0.5.1) and uses its packaged, cited symbol map; run it from that
+#    project's environment. Verified byte-identical to the script that
+#    used to live here.
+turkic-clean-corpus --input-dir corpora_raw --output-dir corpora_clean
+turkic-clean-corpus --harmonize-dir data/perception \
+    --harmonize-output-dir data/perception_clean --pattern "perception_??.txt"
 
 # 2. Train the 7 base models on the cleaned corpora (zero-shot needs only these)
 make train-bases

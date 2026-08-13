@@ -30,7 +30,7 @@ from pathlib import Path
 from typing import TypedDict
 
 from char_lstm.data import load_vocab_json
-from scripts.clean_corpus import CORPUS_TEMPLATE, LANGS
+from scripts.corpora import CORPUS_TEMPLATE, LANGS
 from scripts.zero_shot_eval import (
     DEFAULT_SNIPPET_TEMPLATE,
     PairResult,
