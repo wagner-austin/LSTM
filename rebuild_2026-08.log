@@ -31,3 +31,308 @@
 {"time": "2026-08-12 21:21:53,150", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 29000 lines of 29047 seen from oscar-2301/kk", "correlation_id": null}
 {"time": "2026-08-12 21:22:08,457", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 30000 lines of 30049 seen from oscar-2301/kk", "correlation_id": null}
 {"time": "2026-08-12 21:22:17,854", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 31000 lines of 31051 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:22:27,985", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 32000 lines of 32052 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:22:43,429", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 33000 lines of 33054 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:22:55,518", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 34000 lines of 34058 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:23:04,830", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 35000 lines of 35062 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:23:14,224", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 36000 lines of 36063 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:23:23,082", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 37000 lines of 37064 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:23:33,792", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 38000 lines of 38065 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:23:43,057", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 39000 lines of 39068 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:23:53,250", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 40000 lines of 40069 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:24:02,977", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 41000 lines of 41070 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:24:13,036", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 42000 lines of 42071 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:24:22,420", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 43000 lines of 43072 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:24:32,074", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 44000 lines of 44073 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:24:40,197", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 45000 lines of 45076 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:24:49,206", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 46000 lines of 46078 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:24:58,381", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 47000 lines of 47081 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:25:08,272", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 48000 lines of 48083 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:25:16,942", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 49000 lines of 49087 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:25:27,136", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 50000 lines of 50088 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:25:35,566", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 51000 lines of 51090 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:25:45,029", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 52000 lines of 52092 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:25:52,974", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 53000 lines of 53093 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:26:03,015", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 54000 lines of 54099 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:26:13,126", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 55000 lines of 55102 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:26:21,457", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 56000 lines of 56102 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:26:28,978", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 57000 lines of 57103 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:26:38,379", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 58000 lines of 58104 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:26:46,380", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 59000 lines of 59105 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:26:57,038", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 60000 lines of 60106 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:27:05,716", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 61000 lines of 61106 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:27:14,800", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 62000 lines of 62107 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:27:23,014", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 63000 lines of 63108 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:27:32,063", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 64000 lines of 64110 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:27:40,923", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 65000 lines of 65112 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:27:50,001", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 66000 lines of 66116 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:27:58,333", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 67000 lines of 67120 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:28:07,610", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 68000 lines of 68120 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:28:17,186", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 69000 lines of 69121 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:28:25,698", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 70000 lines of 70121 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:28:33,342", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 71000 lines of 71122 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:28:42,600", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 72000 lines of 72123 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:28:52,121", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 73000 lines of 73125 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:29:00,735", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 74000 lines of 74126 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:29:11,662", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 75000 lines of 75126 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:29:20,246", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 76000 lines of 76126 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:29:30,584", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 77000 lines of 77131 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:29:39,737", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 78000 lines of 78133 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:29:49,518", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 79000 lines of 79133 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:29:57,875", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 80000 lines of 80135 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:30:07,074", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 81000 lines of 81135 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:30:14,608", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 82000 lines of 82137 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:30:23,998", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 83000 lines of 83141 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:30:32,470", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 84000 lines of 84144 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:30:42,073", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 85000 lines of 85144 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:30:50,141", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 86000 lines of 86144 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:31:00,185", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 87000 lines of 87145 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:31:08,263", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 88000 lines of 88147 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:31:17,857", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 89000 lines of 89151 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:31:26,222", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 90000 lines of 90152 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:31:35,366", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 91000 lines of 91152 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:31:46,363", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 92000 lines of 92153 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:31:54,954", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 93000 lines of 93155 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:32:04,318", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 94000 lines of 94156 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:32:13,045", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 95000 lines of 95158 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:32:26,154", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 96000 lines of 96160 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:32:34,420", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 97000 lines of 97162 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:32:44,416", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 98000 lines of 98165 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:32:52,137", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 99000 lines of 99166 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:33:01,153", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 100000 lines of 100170 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:33:09,807", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 101000 lines of 101170 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:33:21,395", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 102000 lines of 102170 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:33:30,050", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 103000 lines of 103170 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:33:40,513", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 104000 lines of 104170 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:33:49,004", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 105000 lines of 105170 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:33:58,060", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 106000 lines of 106171 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:34:07,561", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 107000 lines of 107172 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:34:16,637", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 108000 lines of 108174 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:34:24,953", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 109000 lines of 109176 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:34:34,034", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 110000 lines of 110178 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:34:42,712", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 111000 lines of 111181 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:34:52,715", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 112000 lines of 112181 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:35:01,015", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 113000 lines of 113183 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:35:10,212", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 114000 lines of 114186 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:35:18,524", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 115000 lines of 115186 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:35:28,799", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 116000 lines of 116187 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:35:36,927", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 117000 lines of 117192 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:35:45,598", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 118000 lines of 118193 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:35:53,645", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 119000 lines of 119194 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:36:03,501", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 120000 lines of 120196 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:36:11,322", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 121000 lines of 121198 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:36:21,367", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 122000 lines of 122200 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:36:29,420", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 123000 lines of 123202 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:36:38,658", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 124000 lines of 124203 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:36:47,182", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 125000 lines of 125207 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:36:57,154", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 126000 lines of 126207 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:37:07,541", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 127000 lines of 127208 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:37:16,572", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 128000 lines of 128211 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:37:26,387", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 129000 lines of 129214 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:37:34,839", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 130000 lines of 130214 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:37:44,215", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 131000 lines of 131218 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:37:52,991", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 132000 lines of 132223 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:38:03,209", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 133000 lines of 133225 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:38:11,379", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 134000 lines of 134229 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:38:20,646", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 135000 lines of 135232 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:38:29,456", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 136000 lines of 136234 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:38:39,685", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 137000 lines of 137237 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:38:48,061", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 138000 lines of 138237 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:38:58,453", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 139000 lines of 139240 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:39:07,378", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 140000 lines of 140243 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:39:17,547", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 141000 lines of 141245 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:39:27,255", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 142000 lines of 142247 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:39:37,706", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 143000 lines of 143247 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:39:46,714", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 144000 lines of 144248 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:39:56,913", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 145000 lines of 145250 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:40:06,305", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 146000 lines of 146250 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:40:17,690", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 147000 lines of 147253 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:40:27,226", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 148000 lines of 148254 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:40:38,042", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 149000 lines of 149255 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:40:46,416", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 150000 lines of 150256 seen from oscar-2301/kk", "correlation_id": null}
+{"time": "2026-08-12 21:40:46,418", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 150000 lines of 150256 seen to C:\\Users\\Test\\PROJECTS\\lstm\\rebuild_2026-08\\orthographic\\kk.txt; manifest at C:\\Users\\Test\\PROJECTS\\lstm\\rebuild_2026-08\\orthographic\\kk.txt.manifest.json", "correlation_id": null}
+150,000 lines of 150,256 seen -> C:/Users/Test/PROJECTS/lstm/rebuild_2026-08/orthographic/kk.txt
+manifest: C:\Users\Test\PROJECTS\lstm\rebuild_2026-08\orthographic\kk.txt.manifest.json
+=== kk: transliterate (21:40:47) ===
+{"time": "2026-08-12 21:40:53,842", "logger": "turkic_translit.cli.translit", "level": "INFO", "message": "Starting transliteration: lang=kk, input=C:/Users/Test/PROJECTS/lstm/rebuild_2026-08/orthographic/kk.txt, out_latin=None, out_ipa=C:/Users/Test/PROJECTS/lstm/rebuild_2026-08/corpora_raw_v2/oscar_kk_ipa.txt, arabic=False", "correlation_id": "f11d7ef8-2e5b-43ee-85b9-2ac29d487927"}
+{"time": "2026-08-12 21:43:00,832", "logger": "turkic_translit.cli.translit", "level": "INFO", "message": "Transliteration complete.", "correlation_id": "f11d7ef8-2e5b-43ee-85b9-2ac29d487927"}
+Traceback (most recent call last):
+  File "<string>", line 4, in <module>
+  File "C:\Users\Test\AppData\Local\Programs\Python\Python311\Lib\pathlib.py", line 1050, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Test\AppData\Local\Programs\Python\Python311\Lib\pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '\\c\\Users\\Test\\PROJECTS\\lstm\\rebuild_2026-08\\corpora_raw_v2\\oscar_kk_ipa.txt'
+1067939737 /c/Users/Test/PROJECTS/lstm/rebuild_2026-08/corpora_raw_v2/oscar_kk_ipa.txt
+=== ky: download (21:43:02) ===
+{"time": "2026-08-12 21:43:11,678", "logger": "datasets_modules.datasets.oscar-corpus--OSCAR-2301.156efb8ba9f439f881d8f41fd7fddd5e04604bc27505c46ddef015f2fc551a4a.OSCAR-2301", "level": "INFO", "message": "generating examples from = https://huggingface.co/datasets/oscar-corpus/OSCAR-2301/resolve/c2930464071faebadfb5491e2b4f99666da7a1e6/ky_meta/ky_meta.jsonl.zst", "correlation_id": null}
+{"time": "2026-08-12 21:43:20,796", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 1000 lines of 1002 seen from oscar-2301/ky", "correlation_id": null}
+{"time": "2026-08-12 21:43:28,685", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 2000 lines of 2006 seen from oscar-2301/ky", "correlation_id": null}
+{"time": "2026-08-12 21:43:36,807", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 3000 lines of 3009 seen from oscar-2301/ky", "correlation_id": null}
+{"time": "2026-08-12 21:43:44,474", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 4000 lines of 4014 seen from oscar-2301/ky", "correlation_id": null}
+{"time": "2026-08-12 21:43:51,972", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 5000 lines of 5022 seen from oscar-2301/ky", "correlation_id": null}
+{"time": "2026-08-12 21:44:00,310", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 6000 lines of 6025 seen from oscar-2301/ky", "correlation_id": null}
+{"time": "2026-08-12 21:44:08,136", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 7000 lines of 7027 seen from oscar-2301/ky", "correlation_id": null}
+{"time": "2026-08-12 21:44:17,448", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 8000 lines of 8028 seen from oscar-2301/ky", "correlation_id": null}
+{"time": "2026-08-12 21:44:24,750", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 9000 lines of 9030 seen from oscar-2301/ky", "correlation_id": null}
+{"time": "2026-08-12 21:44:32,445", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 10000 lines of 10034 seen from oscar-2301/ky", "correlation_id": null}
+{"time": "2026-08-12 21:44:40,610", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 11000 lines of 11035 seen from oscar-2301/ky", "correlation_id": null}
+{"time": "2026-08-12 21:44:48,585", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 12000 lines of 12036 seen from oscar-2301/ky", "correlation_id": null}
+{"time": "2026-08-12 21:44:57,659", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 13000 lines of 13039 seen from oscar-2301/ky", "correlation_id": null}
+{"time": "2026-08-12 21:45:05,936", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 14000 lines of 14041 seen from oscar-2301/ky", "correlation_id": null}
+{"time": "2026-08-12 21:45:13,630", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 15000 lines of 15044 seen from oscar-2301/ky", "correlation_id": null}
+{"time": "2026-08-12 21:45:21,626", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 16000 lines of 16046 seen from oscar-2301/ky", "correlation_id": null}
+st", "correlation_id": null}
+{"time": "2026-08-12 21:41:48,652", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 1000 lines of 1022 seen from oscar-2301/uz", "correlation_id": null}
+{"time": "2026-08-12 21:41:53,107", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 2000 lines of 2053 seen from oscar-2301/uz", "correlation_id": null}
+{"time": "2026-08-12 21:41:57,574", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 3000 lines of 3065 seen from oscar-2301/uz", "correlation_id": null}
+{"time": "2026-08-12 21:42:01,322", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 4000 lines of 4095 seen from oscar-2301/uz", "correlation_id": null}
+{"time": "2026-08-12 21:42:05,656", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 5000 lines of 5119 seen from oscar-2301/uz", "correlation_id": null}
+{"time": "2026-08-12 21:42:10,269", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 6000 lines of 6144 seen from oscar-2301/uz", "correlation_id": null}
+{"time": "2026-08-12 21:42:16,049", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 7000 lines of 7168 seen from oscar-2301/uz", "correlation_id": null}
+{"time": "2026-08-12 21:42:19,802", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 7708 lines of 7903 seen to C:\\Users\\Test\\PROJECTS\\lstm\\rebuild_2026-08\\orthographic\\uz.txt; manifest at C:\\Users\\Test\\PROJECTS\\lstm\\rebuild_2026-08\\orthographic\\uz.txt.manifest.json", "correlation_id": null}
+7,708 lines of 7,903 seen -> C:/Users/Test/PROJECTS/lstm/rebuild_2026-08/orthographic/uz.txt
+manifest: C:\Users\Test\PROJECTS\lstm\rebuild_2026-08\orthographic\uz.txt.manifest.json
+=== fi: download (21:42:21) ===
+{"time": "2026-08-12 21:42:29,487", "logger": "datasets_modules.datasets.oscar-corpus--OSCAR-2301.156efb8ba9f439f881d8f41fd7fddd5e04604bc27505c46ddef015f2fc551a4a.OSCAR-2301", "level": "INFO", "message": "generating examples from = https://huggingface.co/datasets/oscar-corpus/OSCAR-2301/resolve/c2930464071faebadfb5491e2b4f99666da7a1e6/fi_meta/fi_meta_part_5.jsonl.zst", "correlation_id": null}
+{"time": "2026-08-12 21:42:39,561", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 1000 lines of 1003 seen from oscar-2301/fi", "correlation_id": null}
+{"time": "2026-08-12 21:42:48,262", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 2000 lines of 2005 seen from oscar-2301/fi", "correlation_id": null}
+{"time": "2026-08-12 21:42:57,547", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 3000 lines of 3005 seen from oscar-2301/fi", "correlation_id": null}
+{"time": "2026-08-12 21:43:06,081", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 4000 lines of 4009 seen from oscar-2301/fi", "correlation_id": null}
+{"time": "2026-08-12 21:43:15,825", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 5000 lines of 5012 seen from oscar-2301/fi", "correlation_id": null}
+{"time": "2026-08-12 21:43:24,978", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 6000 lines of 6014 seen from oscar-2301/fi", "correlation_id": null}
+{"time": "2026-08-12 21:43:34,538", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 7000 lines of 7019 seen from oscar-2301/fi", "correlation_id": null}
+{"time": "2026-08-12 21:43:44,276", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 8000 lines of 8020 seen from oscar-2301/fi", "correlation_id": null}
+{"time": "2026-08-12 21:43:52,798", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 9000 lines of 9021 seen from oscar-2301/fi", "correlation_id": null}
+{"time": "2026-08-12 21:44:02,151", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 10000 lines of 10022 seen from oscar-2301/fi", "correlation_id": null}
+{"time": "2026-08-12 21:44:02,152", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 10000 lines of 10022 seen to C:\\Users\\Test\\PROJECTS\\lstm\\rebuild_2026-08\\orthographic\\fi.txt; manifest at C:\\Users\\Test\\PROJECTS\\lstm\\rebuild_2026-08\\orthographic\\fi.txt.manifest.json", "correlation_id": null}
+10,000 lines of 10,022 seen -> C:/Users/Test/PROJECTS/lstm/rebuild_2026-08/orthographic/fi.txt
+manifest: C:\Users\Test\PROJECTS\lstm\rebuild_2026-08\orthographic\fi.txt.manifest.json
+=== kk: transliterate (21:44:03) ===
+{"time": "2026-08-12 21:44:08,808", "logger": "turkic_translit.cli.translit", "level": "INFO", "message": "Starting transliteration: lang=kk, input=C:/Users/Test/PROJECTS/lstm/rebuild_2026-08/orthographic/kk.txt, out_latin=None, out_ipa=C:/Users/Test/PROJECTS/lstm/rebuild_2026-08/corpora_raw_v2/oscar_kk_ipa.txt, arabic=False", "correlation_id": "eecaccae-e30d-47db-ad6d-9c44e5912f69"}
+=== kk: trimming to 10000 documents ===
+=== kk: download present (10000 docs), skipping ===
+=== ky: download (21:46:39) ===
+{"time": "2026-08-12 21:46:48,405", "logger": "datasets_modules.datasets.oscar-corpus--OSCAR-2301.156efb8ba9f439f881d8f41fd7fddd5e04604bc27505c46ddef015f2fc551a4a.OSCAR-2301", "level": "INFO", "message": "generating examples from = https://huggingface.co/datasets/oscar-corpus/OSCAR-2301/resolve/c2930464071faebadfb5491e2b4f99666da7a1e6/ky_meta/ky_meta.jsonl.zst", "correlation_id": null}
+{"time": "2026-08-12 21:46:56,484", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 1000 lines of 1002 seen from oscar-2301/ky", "correlation_id": null}
+{"time": "2026-08-12 21:47:03,779", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 2000 lines of 2006 seen from oscar-2301/ky", "correlation_id": null}
+{"time": "2026-08-12 21:47:12,183", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 3000 lines of 3009 seen from oscar-2301/ky", "correlation_id": null}
+{"time": "2026-08-12 21:47:19,435", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 4000 lines of 4014 seen from oscar-2301/ky", "correlation_id": null}
+{"time": "2026-08-12 21:47:26,987", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 5000 lines of 5022 seen from oscar-2301/ky", "correlation_id": null}
+{"time": "2026-08-12 21:47:35,204", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 6000 lines of 6025 seen from oscar-2301/ky", "correlation_id": null}
+{"time": "2026-08-12 21:47:42,821", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 7000 lines of 7027 seen from oscar-2301/ky", "correlation_id": null}
+{"time": "2026-08-12 21:47:52,220", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 8000 lines of 8028 seen from oscar-2301/ky", "correlation_id": null}
+{"time": "2026-08-12 21:47:59,175", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 9000 lines of 9030 seen from oscar-2301/ky", "correlation_id": null}
+{"time": "2026-08-12 21:48:06,576", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 10000 lines of 10034 seen from oscar-2301/ky", "correlation_id": null}
+{"time": "2026-08-12 21:48:06,578", "logger": "turkic_translit.corpus.run", "level": "INFO", "message": "wrote 10000 lines of 10034 seen to C:\\Users\\Test\\PROJECTS\\lstm\\rebuild_2026-08\\orthographic\\ky.txt; manifest at C:\\Users\\Test\\PROJECTS\\lstm\\rebuild_2026-08\\orthographic\\ky.txt.manifest.json", "correlation_id": null}
+10,000 lines of 10,034 seen -> C:/Users/Test/PROJECTS/lstm/rebuild_2026-08/orthographic/ky.txt
+manifest: C:\Users\Test\PROJECTS\lstm\rebuild_2026-08\orthographic\ky.txt.manifest.json
+=== tr: download present (10000 docs), skipping ===
+=== az: download present (10000 docs), skipping ===
+=== ug: download present (10000 docs), skipping ===
+=== uz: download present (7708 docs), skipping ===
+=== fi: download present (10000 docs), skipping ===
+=== kk: transliterate (21:48:08) ===
+{"time": "2026-08-12 21:48:13,995", "logger": "turkic_translit.cli.translit", "level": "INFO", "message": "Starting transliteration: lang=kk, input=C:/Users/Test/PROJECTS/lstm/rebuild_2026-08/orthographic/kk.txt, out_latin=None, out_ipa=C:/Users/Test/PROJECTS/lstm/rebuild_2026-08/corpora_raw_v2/oscar_kk_ipa.txt, arabic=False", "correlation_id": "f924c73e-3e45-4642-8675-8a1e04a5ad98"}
+{"time": "2026-08-12 21:48:22,064", "logger": "turkic_translit.cli.translit", "level": "INFO", "message": "Transliteration complete.", "correlation_id": "f924c73e-3e45-4642-8675-8a1e04a5ad98"}
+Traceback (most recent call last):
+  File "<string>", line 4, in <module>
+  File "C:\Users\Test\AppData\Local\Programs\Python\Python311\Lib\pathlib.py", line 1050, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Test\AppData\Local\Programs\Python\Python311\Lib\pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '\\c\\Users\\Test\\PROJECTS\\lstm\\rebuild_2026-08\\corpora_raw_v2\\oscar_kk_ipa.txt'
+71020271 /c/Users/Test/PROJECTS/lstm/rebuild_2026-08/corpora_raw_v2/oscar_kk_ipa.txt
+=== ky: transliterate (21:48:23) ===
+{"time": "2026-08-12 21:48:28,633", "logger": "turkic_translit.cli.translit", "level": "INFO", "message": "Starting transliteration: lang=ky, input=C:/Users/Test/PROJECTS/lstm/rebuild_2026-08/orthographic/ky.txt, out_latin=None, out_ipa=C:/Users/Test/PROJECTS/lstm/rebuild_2026-08/corpora_raw_v2/oscar_ky_ipa.txt, arabic=False", "correlation_id": "3ac7d73b-aeff-4193-9da7-4522fa8971b3"}
+{"time": "2026-08-12 21:48:35,984", "logger": "turkic_translit.cli.translit", "level": "INFO", "message": "Transliteration complete.", "correlation_id": "3ac7d73b-aeff-4193-9da7-4522fa8971b3"}
+Traceback (most recent call last):
+  File "<string>", line 4, in <module>
+  File "C:\Users\Test\AppData\Local\Programs\Python\Python311\Lib\pathlib.py", line 1050, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Test\AppData\Local\Programs\Python\Python311\Lib\pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '\\c\\Users\\Test\\PROJECTS\\lstm\\rebuild_2026-08\\corpora_raw_v2\\oscar_ky_ipa.txt'
+51018747 /c/Users/Test/PROJECTS/lstm/rebuild_2026-08/corpora_raw_v2/oscar_ky_ipa.txt
+=== tr: transliterate (21:48:37) ===
+{"time": "2026-08-12 21:48:43,265", "logger": "turkic_translit.cli.translit", "level": "INFO", "message": "Starting transliteration: lang=tr, input=C:/Users/Test/PROJECTS/lstm/rebuild_2026-08/orthographic/tr.txt, out_latin=None, out_ipa=C:/Users/Test/PROJECTS/lstm/rebuild_2026-08/corpora_raw_v2/oscar_tr_ipa.txt, arabic=False", "correlation_id": "ad7232d6-d95c-44f9-8702-f82d4684a854"}
+{"time": "2026-08-12 21:48:52,265", "logger": "turkic_translit.cli.translit", "level": "INFO", "message": "Transliteration complete.", "correlation_id": "ad7232d6-d95c-44f9-8702-f82d4684a854"}
+Traceback (most recent call last):
+  File "<string>", line 4, in <module>
+  File "C:\Users\Test\AppData\Local\Programs\Python\Python311\Lib\pathlib.py", line 1050, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Test\AppData\Local\Programs\Python\Python311\Lib\pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '\\c\\Users\\Test\\PROJECTS\\lstm\\rebuild_2026-08\\corpora_raw_v2\\oscar_tr_ipa.txt'
+62693968 /c/Users/Test/PROJECTS/lstm/rebuild_2026-08/corpora_raw_v2/oscar_tr_ipa.txt
+=== az: transliterate (21:48:53) ===
+{"time": "2026-08-12 21:48:58,916", "logger": "turkic_translit.cli.translit", "level": "INFO", "message": "Starting transliteration: lang=az, input=C:/Users/Test/PROJECTS/lstm/rebuild_2026-08/orthographic/az.txt, out_latin=None, out_ipa=C:/Users/Test/PROJECTS/lstm/rebuild_2026-08/corpora_raw_v2/oscar_az_ipa.txt, arabic=False", "correlation_id": "91a61d6c-a50d-4ed4-a1e2-d94461971437"}
+{"time": "2026-08-12 21:49:05,574", "logger": "turkic_translit.cli.translit", "level": "INFO", "message": "Transliteration complete.", "correlation_id": "91a61d6c-a50d-4ed4-a1e2-d94461971437"}
+Traceback (most recent call last):
+  File "<string>", line 4, in <module>
+  File "C:\Users\Test\AppData\Local\Programs\Python\Python311\Lib\pathlib.py", line 1050, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Test\AppData\Local\Programs\Python\Python311\Lib\pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '\\c\\Users\\Test\\PROJECTS\\lstm\\rebuild_2026-08\\corpora_raw_v2\\oscar_az_ipa.txt'
+57624238 /c/Users/Test/PROJECTS/lstm/rebuild_2026-08/corpora_raw_v2/oscar_az_ipa.txt
+=== ug: transliterate (21:49:06) ===
+{"time": "2026-08-12 21:49:12,813", "logger": "turkic_translit.cli.translit", "level": "INFO", "message": "Starting transliteration: lang=ug, input=C:/Users/Test/PROJECTS/lstm/rebuild_2026-08/orthographic/ug.txt, out_latin=None, out_ipa=C:/Users/Test/PROJECTS/lstm/rebuild_2026-08/corpora_raw_v2/oscar_ug_ipa.txt, arabic=False", "correlation_id": "0876535b-51db-4bd1-a9ab-2e69a51b2dbb"}
+{"time": "2026-08-12 21:49:20,656", "logger": "turkic_translit.cli.translit", "level": "INFO", "message": "Transliteration complete.", "correlation_id": "0876535b-51db-4bd1-a9ab-2e69a51b2dbb"}
+Traceback (most recent call last):
+  File "<string>", line 4, in <module>
+  File "C:\Users\Test\AppData\Local\Programs\Python\Python311\Lib\pathlib.py", line 1050, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Test\AppData\Local\Programs\Python\Python311\Lib\pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '\\c\\Users\\Test\\PROJECTS\\lstm\\rebuild_2026-08\\corpora_raw_v2\\oscar_ug_ipa.txt'
+58580692 /c/Users/Test/PROJECTS/lstm/rebuild_2026-08/corpora_raw_v2/oscar_ug_ipa.txt
+=== uz: transliterate (21:49:21) ===
+{"time": "2026-08-12 21:49:27,858", "logger": "turkic_translit.cli.translit", "level": "INFO", "message": "Starting transliteration: lang=uz, input=C:/Users/Test/PROJECTS/lstm/rebuild_2026-08/orthographic/uz.txt, out_latin=None, out_ipa=C:/Users/Test/PROJECTS/lstm/rebuild_2026-08/corpora_raw_v2/oscar_uz_ipa.txt, arabic=False", "correlation_id": "e29118e0-f25f-413d-a15b-43b248ad57a0"}
+{"time": "2026-08-12 21:49:31,340", "logger": "turkic_translit.cli.translit", "level": "INFO", "message": "Transliteration complete.", "correlation_id": "e29118e0-f25f-413d-a15b-43b248ad57a0"}
+Traceback (most recent call last):
+  File "<string>", line 4, in <module>
+  File "C:\Users\Test\AppData\Local\Programs\Python\Python311\Lib\pathlib.py", line 1050, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Test\AppData\Local\Programs\Python\Python311\Lib\pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '\\c\\Users\\Test\\PROJECTS\\lstm\\rebuild_2026-08\\corpora_raw_v2\\oscar_uz_ipa.txt'
+16289191 /c/Users/Test/PROJECTS/lstm/rebuild_2026-08/corpora_raw_v2/oscar_uz_ipa.txt
+=== fi: transliterate (21:49:32) ===
+{"time": "2026-08-12 21:49:38,266", "logger": "turkic_translit.cli.translit", "level": "INFO", "message": "Starting transliteration: lang=fi, input=C:/Users/Test/PROJECTS/lstm/rebuild_2026-08/orthographic/fi.txt, out_latin=None, out_ipa=C:/Users/Test/PROJECTS/lstm/rebuild_2026-08/corpora_raw_v2/oscar_fi_ipa.txt, arabic=False", "correlation_id": "1fd18de7-c8f0-47a8-9c05-760c413d6acc"}
+{"time": "2026-08-12 21:49:46,740", "logger": "turkic_translit.cli.translit", "level": "INFO", "message": "Transliteration complete.", "correlation_id": "1fd18de7-c8f0-47a8-9c05-760c413d6acc"}
+Traceback (most recent call last):
+  File "<string>", line 4, in <module>
+  File "C:\Users\Test\AppData\Local\Programs\Python\Python311\Lib\pathlib.py", line 1050, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Test\AppData\Local\Programs\Python\Python311\Lib\pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '\\c\\Users\\Test\\PROJECTS\\lstm\\rebuild_2026-08\\corpora_raw_v2\\oscar_fi_ipa.txt'
+60742804 /c/Users/Test/PROJECTS/lstm/rebuild_2026-08/corpora_raw_v2/oscar_fi_ipa.txt
+=== clean and equalise (21:49:47) ===
+  az: 10,000 lines -> 8,490 kept (duplicate 1,268, short 0, junk 242), wrote 12,639,050 chars
+  fi: 10,000 lines -> 9,100 kept (duplicate 856, short 0, junk 44), wrote 12,640,761 chars
+  kk: 10,000 lines -> 8,596 kept (duplicate 1,154, short 0, junk 250), wrote 12,626,196 chars
+  ky: 10,000 lines -> 8,703 kept (duplicate 1,020, short 0, junk 277), wrote 12,640,860 chars
+  tr: 10,000 lines -> 9,522 kept (duplicate 401, short 0, junk 77), wrote 12,629,197 chars
+  ug: 10,000 lines -> 8,368 kept (duplicate 1,158, short 0, junk 474), wrote 12,641,915 chars
+  uz: 7,708 lines -> 3,713 kept (duplicate 3,811, short 0, junk 184), wrote 12,642,807 chars
+  budget 12,642,807 chars, set by uz, the lowest-resource language of this set
+report: C:\Users\Test\PROJECTS\lstm\rebuild_2026-08\corpora_clean_v2\cleaning_manifest.json
+=== REBUILD COMPLETE (21:50:51) ===

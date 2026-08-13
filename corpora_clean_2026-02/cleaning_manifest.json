@@ -1,0 +1,74 @@
+{
+  "config": {
+    "input_dir": "corpora_raw",
+    "symbol_map": "data\\symbol_map.csv",
+    "min_line_chars": 30,
+    "min_ipa_ratio": 0.95,
+    "equalized_char_budget": 10215670
+  },
+  "stats": {
+    "az": {
+      "lines_in": 129598,
+      "dropped_duplicate": 17207,
+      "dropped_short": 61498,
+      "dropped_low_ipa": 2109,
+      "lines_kept": 48784,
+      "chars_kept": 10691513,
+      "chars_written": 10213754
+    },
+    "fi": {
+      "lines_in": 147487,
+      "dropped_duplicate": 11281,
+      "dropped_short": 80420,
+      "dropped_low_ipa": 915,
+      "lines_kept": 54871,
+      "chars_kept": 11060210,
+      "chars_written": 10215578
+    },
+    "kk": {
+      "lines_in": 125193,
+      "dropped_duplicate": 18113,
+      "dropped_short": 55519,
+      "dropped_low_ipa": 3275,
+      "lines_kept": 48286,
+      "chars_kept": 10545171,
+      "chars_written": 10215629
+    },
+    "ky": {
+      "lines_in": 136623,
+      "dropped_duplicate": 13865,
+      "dropped_short": 68757,
+      "dropped_low_ipa": 4184,
+      "lines_kept": 49817,
+      "chars_kept": 11376820,
+      "chars_written": 10214896
+    },
+    "tr": {
+      "lines_in": 125806,
+      "dropped_duplicate": 8678,
+      "dropped_short": 66347,
+      "dropped_low_ipa": 1112,
+      "lines_kept": 49669,
+      "chars_kept": 11639011,
+      "chars_written": 10215641
+    },
+    "ug": {
+      "lines_in": 129505,
+      "dropped_duplicate": 22678,
+      "dropped_short": 57806,
+      "dropped_low_ipa": 7643,
+      "lines_kept": 41378,
+      "chars_kept": 10215670,
+      "chars_written": 10215670
+    },
+    "uz": {
+      "lines_in": 109231,
+      "dropped_duplicate": 12269,
+      "dropped_short": 57045,
+      "dropped_low_ipa": 2020,
+      "lines_kept": 37897,
+      "chars_kept": 11554968,
+      "chars_written": 10215482
+    }
+  }
+}

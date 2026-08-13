@@ -26,3 +26,5 @@ corpora_clean/
 
 # Windows NUL device artifact
 nul
+rebuild_2026-08/orthographic/*.txt
+rebuild_2026-08/corpora_raw_v2/*.txt

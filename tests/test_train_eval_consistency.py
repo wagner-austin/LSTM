@@ -33,12 +33,7 @@ COMMON_PER_1K = 5.0
 # ...while effectively absent from the other.
 ABSENT_PER_1K = 1.0
 
-# The mismatch on disk today, pinned so it is removed deliberately: the
-# Kazakh corpus was built by rules writing Cyrillic u as w everywhere, and
-# perception text by a release writing it as u. Delete this entry when
-# the corpora and perception files are regenerated together, and the
-# pinning test below will insist that you do.
-KNOWN_MISMATCHED: frozenset[str] = frozenset({"kk"})
+KNOWN_MISMATCHED: frozenset[str] = frozenset()
 
 
 def letter_rates(path: Path) -> dict[str, float]:
@@ -115,24 +110,3 @@ def test_training_and_evaluation_share_one_notation(lang: str) -> None:
     offending = swapped_pairs(train, evaluation)
 
     assert not offending, f"{lang} train/eval look like different notations: {offending}"
-
-
-def test_the_known_kazakh_mismatch_is_still_there_or_this_pin_is_stale() -> None:
-    """The recorded mismatch must be removed deliberately, not silently.
-
-    While the Kazakh corpus and perception text disagree, this test
-    documents exactly how. The moment a regeneration makes them agree,
-    it fails, and KNOWN_MISMATCHED must shrink so the language rejoins
-    the guard above. A quiet fix that leaves the exemption in place
-    would exempt Kazakh from this check forever.
-    """
-    train, evaluation = rates_for("kk")
-
-    offending = swapped_pairs(train, evaluation)
-
-    assert offending, (
-        "kk train/eval now agree: remove 'kk' from KNOWN_MISMATCHED "
-        "so the consistency guard covers it again"
-    )
-    assert any("'w'" in line for line in offending)
-    assert any("'u'" in line for line in offending)

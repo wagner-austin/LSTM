@@ -1,0 +1,17 @@
+{
+  "driver": "oscar",
+  "filter_language": "kaz",
+  "language": "kk",
+  "language_identification": {
+    "model_id": "lid218e",
+    "script_aware": true,
+    "threshold": 0.95,
+    "weights_bytes": 1176355829,
+    "weights_path": "C:\\Users\\Test\\PROJECTS\\turkic-transliteration\\src\\turkic_translit\\lid218e.bin"
+  },
+  "license": "CC0-1.0",
+  "lines_seen": 150256,
+  "lines_written": 150000,
+  "output_path": "C:\\Users\\Test\\PROJECTS\\lstm\\rebuild_2026-08\\orthographic\\kk.txt",
+  "source_id": "oscar-2301"
+}

@@ -28,14 +28,20 @@
     "perception_kk.txt": {
       "original_name": "transliteration_kk_ipa_20260515_023525.txt",
       "language": "Kazakh",
-      "current_rules_agree": false,
-      "superseded": "125 instances of u and no w. <у> spells both the glide /w/ and the vowel /uw/; the rules of the day wrote the vowel everywhere. Corrected 2026-08-12 to the glide next to a vowel and the vowel elsewhere."
+      "current_rules_agree": true,
+      "regenerated": "2026-08-12, from the orthographic source in data/perception_sources with turkic-translit 0.5.1, structure verbatim, passage lines only. Diff against the file replaced: 67 tokens changed, all Cyrillic u next to a vowel becoming the glide w; nothing else moved.",
+      "rule_sha256": {
+        "kk_ipa.rules": "60166a18d3b1ebfe89c993cfcea2373cbdb297a356ca658ac6b3cd507d1816cd"
+      }
     },
     "perception_ky.txt": {
       "original_name": "transliteration_ky_ipa_20260515_023828.txt",
       "language": "Kyrgyz",
-      "current_rules_agree": false,
-      "superseded": "78 instances of the bare fricative for <ж>, which McCollum (2020) Table 3 prints as the affricate; corrected 2026-08-12. The file also carries the withdrawn precomposed ligature for <ч>, which the cleaning stage already normalises to the tie bar, so perception_clean is unaffected by that one."
+      "current_rules_agree": true,
+      "regenerated": "2026-08-12, from the orthographic source in data/perception_sources with turkic-translit 0.5.1, structure verbatim, passage lines only. Diff against the file replaced: 138 tokens changed, all the affricate corrections: bare fricative to d-tie-zh for zhe, ligature to tie bar for che; nothing else moved.",
+      "rule_sha256": {
+        "ky_ipa.rules": "869eafa51db3d877ddecd12c674380bbae93ee3f55e5a135aaea6e80730e000b"
+      }
     },
     "perception_tr.txt": {
       "original_name": "transliteration_tr_ipa_20260515_023704.txt",
@@ -52,8 +58,11 @@
     "perception_uz.txt": {
       "original_name": "transliteration_uz_ipa_20260515_023737.txt",
       "language": "Uzbek",
-      "current_rules_agree": false,
-      "superseded": "33 instances of jo for <yo>, where Ido (2025, p. 154) gives the open vowel; corrected in 0.4.0 to jɔ."
+      "current_rules_agree": true,
+      "regenerated": "2026-08-12, from the orthographic source in data/perception_sources with turkic-translit 0.5.1, structure verbatim, passage lines only. Diff against the file replaced: 33 tokens changed, all jo to j-open-o for <yo>; nothing else moved.",
+      "rule_sha256": {
+        "uz_ipa.rules": "a7301f5c4dd0396aeea3b7e5a4493a00bbbf4dc6d464c97f80e5710e2b9c72b7"
+      }
     },
     "perception_fi.txt": {
       "source_file": "perception_fi_source.txt",
@@ -71,6 +80,7 @@
     "Each file contains multiple TEXT N sections separated by headers and 1..5 section markers; these constitute under 5 percent of total chars and are kept as-is so all seven files share the same metadata pattern.",
     "Char inventory check at receipt: 41-60 unique chars per file, zero Cyrillic leak across all six original Turkic files, Uyghur contains 51 Arabic-script punctuation chars (Arabic comma/question/semicolon) preserved from source orthography. Finnish file inventory: 38 unique chars, all in Suomi et al. 2008 broad phonemic inventory. SCOPE, added 2026-08-12: this check tested for Cyrillic and for the size of the inventory. It cannot see a character that is legal IPA but the wrong value for the letter that produced it, which is what all three superseded entries above are, so it is not evidence that a file is current.",
     "perception_fi.txt was regenerated 2026-08-12. The original passed the whole source file through to_ipa, headers included, and Finnish rules write x as ks, so TEXT became tekst. The evaluator strips title lines matching text or txt, so the Finnish titles were not stripped and were appended to the last passage of the preceding text; 3 of 20 sections were scored with a title attached, about 58 characters of 4333. Only passage lines are transliterated now: the language name, the TEXT headers, the numeric markers and the blank lines are copied verbatim. The header pattern in zero_shot_eval.py was also widened to recognise tekst, and tests/test_perception_files.py asserts against the real files that every language yields its expected section count, that all four title lines are recognised, and that no title survives into a scored section.",
-    "Regeneration status, 2026-08-12: three of the seven files were produced by rules since corrected, and the entries above say which and by how much. Regenerating them needs the orthographic sources, which this repository does not hold for the six Turkic languages; only perception_fi_source.txt is here. Until those sources are available the rules cannot be checked against the data at all, which is the gap that let these three go unnoticed. Asking Moldir for the six orthographic originals is what closes it, after which a test can regenerate each file and assert byte-identity."
+    "Regeneration status, 2026-08-12: three of the seven files were produced by rules since corrected, and the entries above say which and by how much. Regenerating them needs the orthographic sources, which this repository does not hold for the six Turkic languages; only perception_fi_source.txt is here. Until those sources are available the rules cannot be checked against the data at all, which is the gap that let these three go unnoticed. Asking Moldir for the six orthographic originals is what closes it, after which a test can regenerate each file and assert byte-identity.",
+    "2026-08-12: kk, ky and uz regenerated from their orthographic sources with 0.5.1; training corpora rebuilt the same day with the same rules (rebuild_2026-08, budget 12,642,807 chars set by uz). The train/eval consistency guard now covers all seven languages with no exemptions."
   ]
 }
