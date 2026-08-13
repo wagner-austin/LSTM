@@ -15,10 +15,12 @@ the two diverged.
 1. **Meaning equivalence, all 20 passages.** Each Finnish passage was
    read against its Turkish counterpart clause by clause. No meaning divergences,
    omissions or additions were found in the 20 passages.
-2. **Numeral audit (objective, scripted).** Every digit token in every
-   passage compared across all seven versions: **0 disagreements**
-   (`scripts run 2026-08-12; five hours of training, two-to-three rides a
-   week, doubled and tripled braking distances, etc. all agree`).
+2. **Numeral audit (scripted, narrow).** Digit tokens in every passage
+   compared across all seven versions: 0 disagreements. Most quantities
+   in these passages are written as words, not digits, so this check's
+   coverage is small; the word-written quantities (five hours of
+   training, two-to-three rides a week, doubled and tripled braking
+   distances) were compared in the reading of check 1, not by script.
 3. **Grammaticality and register.** The Finnish is grammatical and
    idiomatic throughout, at the intermediate register of the source
    materials (e.g., *hengästyminen*, *jarrutusmatka*, *huippu-urheilija*
