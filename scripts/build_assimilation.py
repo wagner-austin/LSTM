@@ -36,8 +36,8 @@ from collections import Counter
 from pathlib import Path
 from typing import IO, TypedDict
 
+from char_lstm.corpora import LANGS
 from char_lstm.data import load_vocab_json
-from scripts.corpora import LANGS
 
 DEFAULT_CHECKPOINT_DIR = Path("checkpoints")
 DEFAULT_SNIPPET_DIR = Path("data/perception_clean")

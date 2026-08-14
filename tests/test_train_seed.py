@@ -9,6 +9,7 @@ catch.
 from __future__ import annotations
 
 import argparse
+from pathlib import Path
 
 import pytest
 import torch
@@ -154,7 +155,7 @@ def test_the_validation_loader_is_ordered_without_a_seed() -> None:
     assert first == second
 
 
-def test_the_seed_reaches_the_training_config() -> None:
+def test_the_seed_reaches_the_training_config(tmp_path: Path) -> None:
     """A seed given on the command line is the seed the run uses."""
     args = _extract_args(
         argparse.Namespace(
@@ -165,6 +166,8 @@ def test_the_seed_reaches_the_training_config() -> None:
             lr=1e-4,
             device="cpu",
             seed=99,
+            corpus_dir=str(tmp_path),
+            checkpoint_dir="checkpoints",
         )
     )
 

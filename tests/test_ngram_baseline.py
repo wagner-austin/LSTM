@@ -9,7 +9,6 @@ import sys
 from pathlib import Path
 
 import pytest
-from scripts.corpora import CORPUS_TEMPLATE
 from scripts.ngram_baseline import (
     DEFAULT_CHECKPOINT_DIR,
     DEFAULT_CORPUS_DIR,
@@ -30,6 +29,7 @@ from scripts.ngram_baseline import (
 )
 from scripts.zero_shot_eval import DEFAULT_SNIPPET_TEMPLATE
 
+from char_lstm.corpora import CORPUS_TEMPLATE
 from char_lstm.data import UNK, save_vocab_json
 
 

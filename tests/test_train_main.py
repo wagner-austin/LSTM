@@ -8,64 +8,88 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
+from char_lstm.corpora import corpus_file
 from char_lstm.train import main
 
 
+def write_corpus(tmp_path: Path) -> Path:
+    """Write a small Azerbaijani-named corpus and return its directory.
+
+    The trainer resolves the corpus file from ``--corpus-dir`` and the
+    language code, so the test writes the real published file name rather
+    than patching the language table.
+
+    Args:
+        tmp_path: Test-local directory to hold the corpus directory.
+
+    Returns:
+        The corpus directory to pass as ``--corpus-dir``.
+    """
+    corpus_dir = tmp_path / "corpora"
+    corpus_dir.mkdir()
+    corpus_file(corpus_dir, "az").write_text("abcdefghij" * 1000, encoding="utf-8")
+    return corpus_dir
+
+
 @pytest.mark.timeout(180)
-def test_main_integration(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
-    """Test main function end-to-end with mocked dependencies."""
-    # Create a small test corpus
-    corpus_path = tmp_path / "corpus.txt"
-    corpus_path.write_text("abcdefghij" * 1000)
+def test_main_integration(tmp_path: Path) -> None:
+    """Test main function end-to-end through the real CLI path."""
+    corpus_dir = write_corpus(tmp_path)
+    checkpoint_dir = tmp_path / "ckpt_variant"
 
-    # Temporarily override LANGUAGES to use our test corpus
-    test_languages = {
-        "test": ("Test Language", str(corpus_path)),
-    }
-
-    # Prepare command-line args
-    test_args = ["train.py", "--lang", "test", "--epochs", "1", "--device", "cpu"]
+    test_args = [
+        "train.py",
+        "--lang",
+        "az",
+        "--epochs",
+        "1",
+        "--device",
+        "cpu",
+        "--corpus-dir",
+        str(corpus_dir),
+        "--checkpoint-dir",
+        str(checkpoint_dir),
+    ]
 
     # Mock wandb to avoid actual logging
     mock_wandb = MagicMock()
     mock_wandb.run = None
     mock_wandb.init = MagicMock()
 
-    # Change to tmp_path so checkpoints directory is created there
-    original_cwd = Path.cwd()
-    monkeypatch.chdir(tmp_path)
+    with (
+        patch.object(sys, "argv", test_args),
+        patch("char_lstm.train.wandb", mock_wandb),
+    ):
+        main()
 
-    try:
-        with (
-            patch.object(sys, "argv", test_args),
-            patch("char_lstm.train.LANGUAGES", test_languages),
-            patch("char_lstm.train.wandb", mock_wandb),
-        ):
-            main()
-
-        # Verify checkpoint and per-language vocab were created
-        checkpoint_dir = tmp_path / "checkpoints"
-        assert checkpoint_dir.exists()
-        assert (checkpoint_dir / "test_vocab.json").exists()
-
-    finally:
-        monkeypatch.chdir(original_cwd)
+    # The run creates its checkpoint directory and writes the vocab there.
+    assert checkpoint_dir.exists()
+    assert (checkpoint_dir / "az_vocab.json").exists()
 
 
 @pytest.mark.timeout(180)
-def test_train_main_block(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
-    """Test if __name__ == '__main__' block at train.py:890."""
-    # Create a small test corpus
-    corpus_path = tmp_path / "corpus.txt"
-    corpus_path.write_text("abcdefghij" * 1000)
+def test_train_main_block(tmp_path: Path) -> None:
+    """Test the ``if __name__ == '__main__'`` block by executing the module."""
+    corpus_dir = write_corpus(tmp_path)
+    checkpoint_dir = tmp_path / "checkpoints"
 
-    test_args = ["train.py", "--lang", "test", "--epochs", "1", "--device", "cpu"]
+    test_args = [
+        "train.py",
+        "--lang",
+        "az",
+        "--epochs",
+        "1",
+        "--device",
+        "cpu",
+        "--corpus-dir",
+        str(corpus_dir),
+        "--checkpoint-dir",
+        str(checkpoint_dir),
+    ]
 
     mock_wandb = MagicMock()
     mock_wandb.run = None
     mock_wandb.init = MagicMock()
-
-    monkeypatch.chdir(tmp_path)
 
     train_path = Path(__file__).resolve().parents[1] / "src" / "char_lstm" / "train.py"
 
@@ -73,48 +97,42 @@ def test_train_main_block(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> No
         patch.object(sys, "argv", test_args),
         patch.dict("sys.modules", {"wandb": mock_wandb}),
     ):
-        # Read and compile the file
         source = train_path.read_text(encoding="utf-8")
-        # Replace LANGUAGES definition with test version (escape backslashes for Windows)
-        corpus_str = str(corpus_path).replace("\\", "\\\\")
-        lang_val = f'{{"test": ("Test Language", "{corpus_str}")}}'
-        source = source.replace(
-            "LANGUAGES: dict[str, tuple[str, str]] = {",
-            f"LANGUAGES: dict[str, tuple[str, str]] = {lang_val} or {{",
-        )
         code = compile(source, str(train_path), "exec")
 
-        # Execute the module as __main__ - this covers line 890
-        # The exec catches SystemExit internally
+        # Execute the module as __main__ to cover the entry-point block.
         try:
             exec(code, {"__name__": "__main__", "__file__": str(train_path)})
         except SystemExit as e:
             # main() returns None, so SystemExit(None) may be raised
             assert e.code is None or e.code == 0
 
+    assert (checkpoint_dir / "az_vocab.json").exists()
+
 
 def test_main_early_stopping_break(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
-    """Test main function exits early when train_epoch returns False.
-
-    This covers the break statement at train.py:875.
-    """
-    # Create a small test corpus
-    corpus_path = tmp_path / "corpus.txt"
-    corpus_path.write_text("abcdefghij" * 1000)
-
-    test_languages = {
-        "test": ("Test Language", str(corpus_path)),
-    }
+    """Test main function exits early when train_epoch returns False."""
+    corpus_dir = write_corpus(tmp_path)
+    checkpoint_dir = tmp_path / "checkpoints"
 
     # Use epochs=2 so break actually changes behavior
-    test_args = ["train.py", "--lang", "test", "--epochs", "2", "--device", "cpu"]
+    test_args = [
+        "train.py",
+        "--lang",
+        "az",
+        "--epochs",
+        "2",
+        "--device",
+        "cpu",
+        "--corpus-dir",
+        str(corpus_dir),
+        "--checkpoint-dir",
+        str(checkpoint_dir),
+    ]
 
     mock_wandb = MagicMock()
     mock_wandb.run = None
     mock_wandb.init = MagicMock()
-
-    original_cwd = Path.cwd()
-    monkeypatch.chdir(tmp_path)
 
     # Track how many times train_epoch is called
     call_count = 0
@@ -143,14 +161,10 @@ def test_main_early_stopping_break(tmp_path: Path, monkeypatch: pytest.MonkeyPat
     import char_lstm.train as train_module
 
     monkeypatch.setattr(sys, "argv", test_args)
-    monkeypatch.setattr(train_module, "LANGUAGES", test_languages)
     monkeypatch.setattr(train_module, "wandb", mock_wandb)
     monkeypatch.setattr(train_module, "train_epoch", mock_train_epoch)
     monkeypatch.setattr(train_module, "run_final_evaluation", mock_run_final_evaluation)
 
-    try:
-        main()
-        # train_epoch should only be called once because break was triggered
-        assert call_count == 1
-    finally:
-        monkeypatch.chdir(original_cwd)
+    main()
+    # train_epoch should only be called once because break was triggered
+    assert call_count == 1

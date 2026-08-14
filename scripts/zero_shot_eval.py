@@ -46,9 +46,9 @@ from torch import Tensor
 from torch.nn import functional
 
 from char_lstm._types import _get_torch_load
+from char_lstm.corpora import CORPUS_TEMPLATE, LANGS
 from char_lstm.data import encode, load_vocab_json
 from char_lstm.model import CharLSTM
-from scripts.corpora import CORPUS_TEMPLATE, LANGS
 
 OOV_MODES: tuple[str, ...] = ("unk", "skip", "assimilate")
 

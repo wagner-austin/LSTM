@@ -56,7 +56,7 @@ def test_load_and_split_corpus(tmp_path: Path) -> None:
         "seed": 1234,
     }
 
-    corpus = load_and_split_corpus(str(corpus_path), config)
+    corpus = load_and_split_corpus(corpus_path, config)
 
     assert len(corpus["train_text"]) == 700  # 70% of 1000
     assert len(corpus["val_text"]) == 150  # 15% of 1000

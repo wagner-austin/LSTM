@@ -23,11 +23,11 @@ from pathlib import Path
 import pytest
 from scripts.build_assimilation import BuildArgs
 from scripts.build_assimilation import run as build_assimilation_run
-from scripts.corpora import CORPUS_TEMPLATE
 from scripts.zero_shot_eval import EvalArgs, load_assimilation_map
 from scripts.zero_shot_eval import run as eval_run
 
 from char_lstm import train as train_module
+from char_lstm.corpora import CORPUS_TEMPLATE
 from char_lstm.data import UNK, load_vocab_json, save_vocab_json
 
 
@@ -77,8 +77,21 @@ def test_train_eval_pipeline(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) ->
     # --- train: the real training loop on the cleaned corpus ---
     monkeypatch.chdir(tmp_path)
     monkeypatch.setenv("WANDB_MODE", "disabled")
-    monkeypatch.setattr(train_module, "LANGUAGES", {"az": ("Azerbaijani", str(cleaned_corpus))})
-    monkeypatch.setattr(sys, "argv", ["train", "--lang", "az", "--epochs", "1", "--device", "cpu"])
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "train",
+            "--lang",
+            "az",
+            "--epochs",
+            "1",
+            "--device",
+            "cpu",
+            "--corpus-dir",
+            str(cleaned_dir),
+        ],
+    )
     train_module.main()
 
     checkpoint_dir = tmp_path / "checkpoints"

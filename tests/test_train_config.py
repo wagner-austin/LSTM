@@ -31,6 +31,8 @@ def test_build_train_config_cuda() -> None:
         "lr": 1e-3,
         "device": "auto",
         "seed": 1234,
+        "corpus_dir": "corpora_clean",
+        "checkpoint_dir": "checkpoints",
     }
     config = build_train_config(args, use_cuda=True)
 
@@ -51,6 +53,8 @@ def test_build_train_config_cpu() -> None:
         "lr": 1e-4,
         "device": "auto",
         "seed": 1234,
+        "corpus_dir": "corpora_clean",
+        "checkpoint_dir": "checkpoints",
     }
     config = build_train_config(args, use_cuda=False)
 
@@ -60,7 +64,7 @@ def test_build_train_config_cpu() -> None:
     assert config["num_epochs"] == 3
 
 
-def test_extract_args_valid() -> None:
+def test_extract_args_valid(tmp_path: Path) -> None:
     """Test _extract_args with valid namespace."""
     ns = argparse.Namespace(
         lang="tr",
@@ -70,6 +74,8 @@ def test_extract_args_valid() -> None:
         lr=1e-3,
         device="auto",
         seed=1234,
+        corpus_dir=str(tmp_path),
+        checkpoint_dir="checkpoints",
     )
     result = _extract_args(ns)
     assert result["lang"] == "tr"
@@ -78,9 +84,11 @@ def test_extract_args_valid() -> None:
     assert result["epochs"] == 5
     assert result["lr"] == 1e-3
     assert result["device"] == "auto"
+    assert result["corpus_dir"] == str(tmp_path)
+    assert result["checkpoint_dir"] == "checkpoints"
 
 
-def test_extract_args_with_checkpoint() -> None:
+def test_extract_args_with_checkpoint(tmp_path: Path) -> None:
     """Test _extract_args with from_checkpoint set."""
     ns = argparse.Namespace(
         lang="az",
@@ -90,6 +98,8 @@ def test_extract_args_with_checkpoint() -> None:
         lr=5e-5,
         device="cpu",
         seed=1234,
+        corpus_dir=str(tmp_path),
+        checkpoint_dir="checkpoints",
     )
     result = _extract_args(ns)
     assert result["lang"] == "az"
@@ -190,6 +200,55 @@ def test_extract_args_unknown_device_value() -> None:
         _extract_args(ns)
 
 
+def test_extract_args_invalid_corpus_dir_type() -> None:
+    """Test _extract_args with invalid corpus_dir type raises TypeError."""
+    ns = argparse.Namespace(
+        lang="tr",
+        from_checkpoint=None,
+        freeze_embed=False,
+        epochs=5,
+        lr=1e-3,
+        device="auto",
+        seed=1234,
+        corpus_dir=7,  # Invalid: should be str
+    )
+    with pytest.raises(TypeError, match="Expected str for corpus_dir"):
+        _extract_args(ns)
+
+
+def test_extract_args_missing_corpus_dir(tmp_path: Path) -> None:
+    """Test _extract_args with a nonexistent corpus dir raises NotADirectoryError."""
+    ns = argparse.Namespace(
+        lang="tr",
+        from_checkpoint=None,
+        freeze_embed=False,
+        epochs=5,
+        lr=1e-3,
+        device="auto",
+        seed=1234,
+        corpus_dir=str(tmp_path / "no_such_dir"),
+    )
+    with pytest.raises(NotADirectoryError, match="is not an existing directory"):
+        _extract_args(ns)
+
+
+def test_extract_args_invalid_checkpoint_dir_type(tmp_path: Path) -> None:
+    """Test _extract_args with invalid checkpoint_dir type raises TypeError."""
+    ns = argparse.Namespace(
+        lang="tr",
+        from_checkpoint=None,
+        freeze_embed=False,
+        epochs=5,
+        lr=1e-3,
+        device="auto",
+        seed=1234,
+        corpus_dir=str(tmp_path),
+        checkpoint_dir=7,  # Invalid: should be str
+    )
+    with pytest.raises(TypeError, match="Expected str for checkpoint_dir"):
+        _extract_args(ns)
+
+
 def test_resolve_use_cuda_cpu_never_uses_cuda() -> None:
     """--device cpu trains on CPU regardless of CUDA availability."""
     assert _resolve_use_cuda("cpu", cuda_available=True) is False
@@ -211,7 +270,7 @@ def test_resolve_use_cuda_explicit_cuda_requires_availability() -> None:
 
 def test_build_run_paths_new_training() -> None:
     """build_run_paths for from-scratch points vocab at {lang}_vocab.json."""
-    paths = build_run_paths("tr", None)
+    paths = build_run_paths("tr", None, Path("checkpoints"))
 
     assert paths["run_name"] == "tr-train"
     assert paths["checkpoint_dir"] == Path("checkpoints")
@@ -222,13 +281,31 @@ def test_build_run_paths_new_training() -> None:
 
 def test_build_run_paths_finetune() -> None:
     """build_run_paths for fine-tune inherits the source's {base}_vocab.json."""
-    paths = build_run_paths("az", "checkpoints/tr_best.pt")
+    paths = build_run_paths("az", "checkpoints/tr_best.pt", Path("checkpoints"))
 
     assert paths["run_name"] == "tr->az"
     assert paths["checkpoint_dir"] == Path("checkpoints")
     assert paths["vocab_json_path"] == Path("checkpoints/tr_vocab.json")
     assert paths["checkpoint_best"] == Path("checkpoints/tr_to_az.pt")
     assert paths["source_checkpoint_path"] == Path("checkpoints/tr_best.pt")
+
+
+def test_build_run_paths_variant_directory() -> None:
+    """A variant checkpoint dir keeps every artifact inside that directory.
+
+    This is the isolation a corpus-variant run relies on: nothing it
+    writes may land in the released checkpoints directory.
+    """
+    variant = Path("checkpoints_nopunct")
+    paths = build_run_paths("tr", None, variant)
+
+    assert paths["checkpoint_dir"] == variant
+    assert paths["vocab_json_path"] == variant / "tr_vocab.json"
+    assert paths["checkpoint_best"] == variant / "tr_best.pt"
+
+    finetune = build_run_paths("az", str(variant / "tr_best.pt"), variant)
+    assert finetune["vocab_json_path"] == variant / "tr_vocab.json"
+    assert finetune["checkpoint_best"] == variant / "tr_to_az.pt"
 
 
 def test_parse_args_basic() -> None:
@@ -242,6 +319,8 @@ def test_parse_args_basic() -> None:
     assert args.freeze_embed is False
     assert args.epochs == 3  # default
     assert args.lr == 1e-4  # default
+    assert args.corpus_dir == "corpora_clean"  # default
+    assert args.checkpoint_dir == "checkpoints"  # default
 
 
 def test_parse_args_all_options() -> None:
@@ -257,6 +336,10 @@ def test_parse_args_all_options() -> None:
         "10",
         "--lr",
         "5e-5",
+        "--corpus-dir",
+        "corpora_variants/nopunct",
+        "--checkpoint-dir",
+        "checkpoints_nopunct",
     ]
     with patch.object(sys, "argv", test_args):
         args = parse_args()
@@ -266,6 +349,8 @@ def test_parse_args_all_options() -> None:
     assert args.freeze_embed is True
     assert args.epochs == 10
     assert args.lr == 5e-5
+    assert args.corpus_dir == "corpora_variants/nopunct"
+    assert args.checkpoint_dir == "checkpoints_nopunct"
 
 
 def test_print_config_does_not_raise(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:

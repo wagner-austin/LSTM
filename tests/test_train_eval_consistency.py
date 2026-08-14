@@ -22,7 +22,8 @@ import unicodedata as ud
 from pathlib import Path
 
 import pytest
-from scripts.corpora import CORPUS_TEMPLATE, LANGS, SNIPPET_TEMPLATE
+
+from char_lstm.corpora import CORPUS_TEMPLATE, LANGS, SNIPPET_TEMPLATE
 
 REPO = Path(__file__).resolve().parents[1]
 TRAIN_DIR = REPO / "corpora_clean"

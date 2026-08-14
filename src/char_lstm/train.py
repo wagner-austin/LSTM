@@ -30,6 +30,7 @@ from char_lstm._console import (
     log_subheader,
 )
 from char_lstm._types import _get_torch_load
+from char_lstm.corpora import corpus_file
 from char_lstm.data import CharDataset, build_vocab_with_unk, load_vocab_json, save_vocab_json
 from char_lstm.model import CharLSTM
 
@@ -117,16 +118,22 @@ DEVICE_CHOICES: tuple[str, ...] = ("auto", "cpu", "cuda")
 # same experiment unless the caller says otherwise.
 DEFAULT_SEED = 1234
 
-# Language configs: code -> (name, corpus_path)
-LANGUAGES: dict[str, tuple[str, str]] = {
-    "tr": ("Turkish", "corpora_clean/oscar_tr_ipa.txt"),
-    "az": ("Azerbaijani", "corpora_clean/oscar_az_ipa.txt"),
-    "kk": ("Kazakh", "corpora_clean/oscar_kk_ipa.txt"),
-    "ky": ("Kyrgyz", "corpora_clean/oscar_ky_ipa.txt"),
-    "uz": ("Uzbek", "corpora_clean/oscar_uz_ipa.txt"),
-    "ug": ("Uyghur", "corpora_clean/oscar_ug_ipa.txt"),
-    "fi": ("Finnish", "corpora_clean/oscar_fi_ipa.txt"),
+# Language configs: code -> display name. The corpus file for a code is
+# corpus_file(corpus_dir, code); the directory comes from --corpus-dir so
+# that corpus variants (e.g. punctuation ablations) train without touching
+# the released corpora.
+LANGUAGES: dict[str, str] = {
+    "tr": "Turkish",
+    "az": "Azerbaijani",
+    "kk": "Kazakh",
+    "ky": "Kyrgyz",
+    "uz": "Uzbek",
+    "ug": "Uyghur",
+    "fi": "Finnish",
 }
+
+DEFAULT_CORPUS_DIR = "corpora_clean"
+DEFAULT_CHECKPOINT_DIR = "checkpoints"
 
 
 class CheckpointData(TypedDict):
@@ -276,6 +283,51 @@ class ParsedArgs(TypedDict):
     lr: float
     device: str
     seed: int
+    corpus_dir: str
+    checkpoint_dir: str
+
+
+# What an argparse namespace field can hold with this parser's argument
+# types: str/int/float converters, store_true booleans, and None defaults.
+NamespaceField = str | int | float | bool | None
+
+
+def _require_str(value: NamespaceField, name: str) -> str:
+    """Validate that a namespace field is a str.
+
+    Args:
+        value: The field value as argparse delivered it.
+        name: Field name, used in the error message.
+
+    Returns:
+        The value, typed.
+
+    Raises:
+        TypeError: If the value is not a str.
+    """
+    if not isinstance(value, str):
+        msg = f"Expected str for {name}, got {type(value).__name__}"
+        raise TypeError(msg)
+    return value
+
+
+def _require_int(value: NamespaceField, name: str) -> int:
+    """Validate that a namespace field is an int.
+
+    Args:
+        value: The field value as argparse delivered it.
+        name: Field name, used in the error message.
+
+    Returns:
+        The value, typed.
+
+    Raises:
+        TypeError: If the value is not an int.
+    """
+    if not isinstance(value, int):
+        msg = f"Expected int for {name}, got {type(value).__name__}"
+        raise TypeError(msg)
+    return value
 
 
 def _extract_args(args: argparse.Namespace) -> ParsedArgs:
@@ -289,11 +341,12 @@ def _extract_args(args: argparse.Namespace) -> ParsedArgs:
 
     Raises:
         TypeError: If argument types are incorrect.
+        ValueError: If device is not one of DEVICE_CHOICES.
+        NotADirectoryError: If corpus_dir does not name an existing
+            directory; the corpus is read unconditionally, so the wrong
+            directory should fail here, by argument name, not at read time.
     """
-    lang = args.lang
-    if not isinstance(lang, str):
-        msg = f"Expected str for lang, got {type(lang).__name__}"
-        raise TypeError(msg)
+    lang = _require_str(args.lang, "lang")
 
     from_checkpoint = args.from_checkpoint
     if from_checkpoint is not None and not isinstance(from_checkpoint, str):
@@ -306,28 +359,24 @@ def _extract_args(args: argparse.Namespace) -> ParsedArgs:
         msg = f"Expected bool for freeze_embed, got {type(freeze_embed).__name__}"
         raise TypeError(msg)
 
-    epochs = args.epochs
-    if not isinstance(epochs, int):
-        msg = f"Expected int for epochs, got {type(epochs).__name__}"
-        raise TypeError(msg)
+    epochs = _require_int(args.epochs, "epochs")
 
     lr_val = args.lr
     if not isinstance(lr_val, float):
         msg = f"Expected float for lr, got {type(lr_val).__name__}"
         raise TypeError(msg)
 
-    device = args.device
-    if not isinstance(device, str):
-        msg = f"Expected str for device, got {type(device).__name__}"
-        raise TypeError(msg)
+    device = _require_str(args.device, "device")
     if device not in DEVICE_CHOICES:
         msg = f"Unknown device {device!r}; expected one of {DEVICE_CHOICES}"
         raise ValueError(msg)
 
-    seed = args.seed
-    if not isinstance(seed, int):
-        msg = f"Expected int for seed, got {type(seed).__name__}"
-        raise TypeError(msg)
+    seed = _require_int(args.seed, "seed")
+
+    corpus_dir = _require_str(args.corpus_dir, "corpus_dir")
+    if not Path(corpus_dir).is_dir():
+        msg = f"--corpus-dir {corpus_dir!r} is not an existing directory"
+        raise NotADirectoryError(msg)
 
     return {
         "lang": lang,
@@ -337,6 +386,8 @@ def _extract_args(args: argparse.Namespace) -> ParsedArgs:
         "lr": lr_val,
         "device": device,
         "seed": seed,
+        "corpus_dir": corpus_dir,
+        "checkpoint_dir": _require_str(args.checkpoint_dir, "checkpoint_dir"),
     }
 
 
@@ -422,6 +473,27 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
             f"Seed for weight initialisation, dropout and batch order "
             f"(default: {DEFAULT_SEED}). Exact on CPU; close but not "
             f"bit-identical on CUDA, see seed_everything."
+        ),
+    )
+    parser.add_argument(
+        "--corpus-dir",
+        type=str,
+        default=DEFAULT_CORPUS_DIR,
+        help=(
+            f"Directory holding the cleaned corpora (default: "
+            f"{DEFAULT_CORPUS_DIR}). Point at a variant directory to train "
+            f"on transformed corpora without touching the released ones."
+        ),
+    )
+    parser.add_argument(
+        "--checkpoint-dir",
+        type=str,
+        default=DEFAULT_CHECKPOINT_DIR,
+        help=(
+            f"Directory for checkpoints and vocab files (default: "
+            f"{DEFAULT_CHECKPOINT_DIR}). Created if missing. A variant run "
+            f"must use its own directory so it cannot overwrite the "
+            f"released models."
         ),
     )
     return parser.parse_args(argv)
@@ -683,6 +755,7 @@ def print_config(
 def build_run_paths(
     lang_code: str,
     from_checkpoint: str | None,
+    checkpoint_dir: Path,
 ) -> RunPaths:
     """Build run name, checkpoint and per-language vocab paths.
 
@@ -694,11 +767,13 @@ def build_run_paths(
     Args:
         lang_code: Language code being trained (e.g., 'tr').
         from_checkpoint: Optional path to source checkpoint for fine-tuning.
+        checkpoint_dir: Directory for checkpoints and vocab files. A
+            fine-tune run reads the inherited vocab from this directory,
+            so source checkpoint and vocab must live together.
 
     Returns:
         RunPaths with all path information.
     """
-    checkpoint_dir = Path("checkpoints")
 
     if from_checkpoint is not None:
         checkpoint_path_str: str = from_checkpoint
@@ -724,7 +799,7 @@ def build_run_paths(
     }
 
 
-def load_and_split_corpus(data_path: str, config: TrainConfig) -> CorpusSplit:
+def load_and_split_corpus(data_path: Path, config: TrainConfig) -> CorpusSplit:
     """Load corpus and split into train/val/test.
 
     Args:
@@ -735,7 +810,7 @@ def load_and_split_corpus(data_path: str, config: TrainConfig) -> CorpusSplit:
         CorpusSplit with train, val, test text.
     """
     log_info(f"Loading data from {data_path}...")
-    text = Path(data_path).read_text(encoding="utf-8")[:10_000_000]
+    text = data_path.read_text(encoding="utf-8")[:10_000_000]
     total_chars = len(text)
     train_idx = int(total_chars * config["train_ratio"])
     val_idx = int(total_chars * (config["train_ratio"] + config["val_ratio"]))
@@ -1121,11 +1196,12 @@ def main() -> None:
     args = _extract_args(raw_args)
 
     # Get language config
-    lang_name, data_path = LANGUAGES[args["lang"]]
+    lang_name = LANGUAGES[args["lang"]]
+    data_path = corpus_file(Path(args["corpus_dir"]), args["lang"])
     is_finetune = args["from_checkpoint"] is not None
 
     # Build paths
-    paths = build_run_paths(args["lang"], args["from_checkpoint"])
+    paths = build_run_paths(args["lang"], args["from_checkpoint"], Path(args["checkpoint_dir"]))
     wandb.init(project="char-level-lstm", name=paths["run_name"])
 
     # Build configuration
