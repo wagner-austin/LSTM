@@ -56,7 +56,8 @@ verify against `data/perception/perception_uz.txt`'s section structure.
 ## Native-speaker review (2026-08-12, same day)
 
 A native Finnish speaker, recruited through a public request, read all
-four texts. The findings match the scope this review predicted for
+four texts. The reviewer confirmed native-speaker status and declined
+to be named in the acknowledgments. The findings match the scope this review predicted for
 itself: no meaning divergences, omissions or additions; one grammatical
 agreement error (predicative *vaarallinen* for *vaarallista* with an
 abstract subject); and unnatural phrasing at six points, including
