@@ -1,0 +1,44 @@
+== nearest foreign text per listener ==
+  az: v3=tr  shipped=tr
+  fi: v3=kk  shipped=kk
+  kk: v3=ky  shipped=ky
+  ky: v3=kk  shipped=kk
+  tr: v3=az  shipped=az
+  ug: v3=az  shipped=uz  <-- CHANGED
+  uz: v3=ug  shipped=ug
+
+== branch structure (Turkic-only cells) ==
+  v3: within 1.60 (sd 0.24) | between 2.06 (sd 0.21)
+  shipped: within 1.63 (sd 0.17) | between 2.15 (sd 0.21)
+
+== the control question: fi vs uz per Turkic listener ==
+  az: v3 fi=2.39 uz=2.38 (uz easier) | shipped fi=2.29 uz=2.57 (fi easier)  <-- flipped
+  tr: v3 fi=2.13 uz=1.97 (uz easier) | shipped fi=2.06 uz=2.42 (fi easier)  <-- flipped
+  kk: v3 fi=2.23 uz=2.17 (uz easier) | shipped fi=2.37 uz=2.35 (uz easier)
+  ky: v3 fi=2.73 uz=2.42 (uz easier) | shipped fi=2.69 uz=2.26 (uz easier)
+  ug: v3 fi=2.48 uz=1.93 (uz easier) | shipped fi=2.70 uz=1.78 (uz easier)
+
+== fi rank among each Turkic listener's foreign texts (1=easiest, 6=hardest) ==
+  az: v3 rank 6 of 6 | shipped rank 5 of 6
+  tr: v3 rank 6 of 6 | shipped rank 5 of 6
+  kk: v3 rank 6 of 6 | shipped rank 6 of 6
+  ky: v3 rank 6 of 6 | shipped rank 6 of 6
+  ug: v3 rank 6 of 6 | shipped rank 6 of 6
+  uz: v3 rank 6 of 6 | shipped rank 6 of 6
+
+== spearman(v3, shipped) over 42 foreign cells: 0.7569 ==
+
+== largest cell moves (v3 minus shipped) ==
+  tr->uz: -0.454  (shipped 2.42 -> v3 1.97)
+  uz->az: -0.406  (shipped 2.23 -> v3 1.82)
+  fi->uz: -0.358  (shipped 2.55 -> v3 2.19)
+  kk->az: -0.314  (shipped 2.33 -> v3 2.02)
+  uz->kk: -0.312  (shipped 2.17 -> v3 1.86)
+  uz->fi: -0.300  (shipped 2.50 -> v3 2.20)
+  kk->ky: -0.295  (shipped 1.88 -> v3 1.59)
+  uz->ky: -0.294  (shipped 2.26 -> v3 1.97)
+  az->tr: +0.253  (shipped 1.54 -> v3 1.79)
+  fi->kk: -0.232  (shipped 2.12 -> v3 1.88)
+
+== v3 vocab sizes (model vocab incl. unk) ==
+  az:34  fi:31  kk:42  ky:42  tr:31  ug:36  uz:33

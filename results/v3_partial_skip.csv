@@ -1,0 +1,5 @@
+listener_language,text_language,scoring_mode,cross_entropy,native_cross_entropy,excess_cross_entropy,excess_confidence_interval_low,excess_confidence_interval_high,fraction_of_positions_scored,number_of_positions_scored
+tr,tr,skip,1.154995,1.154995,0.000000,0.000000,0.000000,0.823064,3954
+tr,uz,skip,3.295159,1.218693,2.076466,2.005285,2.145601,0.765725,3579
+uz,tr,skip,3.301846,1.154995,2.146851,2.072992,2.220102,0.823064,3954
+uz,uz,skip,1.218693,1.218693,0.000000,0.000000,0.000000,0.765725,3579
