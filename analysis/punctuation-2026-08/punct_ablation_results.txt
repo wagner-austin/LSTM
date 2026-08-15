@@ -1,0 +1,56 @@
+baseline: scored positions 23677, zero-support sections 0
+ablated: scored positions 22905, zero-support sections 0
+
+baseline reproduction: max |delta| vs shipped CSV = 0.000000 over 49 cells
+
+src tgt  baseline  ablated   delta
+az fi   2.293    2.261   -0.032
+az kk   2.189    2.144   -0.045
+az ky   1.962    1.901   -0.061
+az tr   1.536    1.538   +0.002
+az ug   1.782    1.833   +0.051
+az uz   2.574    2.538   -0.036
+fi az   2.438    2.345   -0.093
+fi kk   2.116    2.089   -0.027
+fi ky   2.215    2.175   -0.040
+fi tr   2.197    2.146   -0.052
+fi ug   2.244    2.280   +0.036
+fi uz   2.551    2.511   -0.040
+kk az   2.334    2.280   -0.054
+kk fi   2.373    2.365   -0.008
+kk ky   1.884    1.873   -0.012
+kk tr   2.199    2.178   -0.021
+kk ug   1.995    2.093   +0.099
+kk uz   2.352    2.349   -0.003
+ky az   2.453    2.383   -0.071
+ky fi   2.686    2.692   +0.006
+ky kk   1.631    1.591   -0.041
+ky tr   2.147    2.115   -0.032
+ky ug   2.105    2.189   +0.085
+ky uz   2.262    2.225   -0.037
+tr az   1.490    1.459   -0.031
+tr fi   2.058    2.052   -0.005
+tr kk   1.970    1.921   -0.049
+tr ky   1.856    1.814   -0.042
+tr ug   1.763    1.826   +0.063
+tr uz   2.423    2.372   -0.051
+ug az   2.023    1.851   -0.172
+ug fi   2.696    2.582   -0.114
+ug kk   2.003    1.890   -0.113
+ug ky   2.078    1.969   -0.109
+ug tr   2.253    2.154   -0.099
+ug uz   1.781    1.733   -0.048
+uz az   2.230    2.149   -0.080
+uz fi   2.499    2.493   -0.006
+uz kk   2.172    2.132   -0.040
+uz ky   2.262    2.228   -0.034
+uz tr   2.237    2.197   -0.040
+uz ug   1.462    1.521   +0.059
+
+baseline: within-Turkic 2.047  cross-to-Finnish 2.364  gap +0.317
+
+ablated: within-Turkic 2.015  cross-to-Finnish 2.333  gap +0.318
+baseline nearest-neighbour: az->tr==  tr->az==  kk->ky==  ky->kk==  ug->uz==  uz->ug==
+ablated nearest-neighbour: az->tr==  tr->az==  kk->ky==  ky->kk==  ug->uz==  uz->ug==
+
+Spearman rho over 42 off-diagonal cells: 0.9796
