@@ -1,0 +1,30 @@
+variant a: mean foreign excess=2.0476  spearman vs full=0.9010
+variant b: mean foreign excess=1.9961  spearman vs full=0.8772
+variant c: mean foreign excess=1.9477  spearman vs full=0.8345
+
+spearman(a, b) = 0.8846
+spearman(a, c) = 0.8282
+spearman(b, c) = 0.9383
+
+nearest foreign text per listener:
+  az: a=tr  b=tr  c=tr  full=tr
+  fi: a=kk  b=kk  c=kk  full=kk
+  kk: a=ky  b=ky  c=ky  full=ky
+  ky: a=kk  b=kk  c=kk  full=kk
+  tr: a=az  b=az  c=az  full=az
+  ug: a=uz  b=uz  c=uz  full=uz
+  uz: a=ug  b=ug  c=ug  full=ug
+
+uz/ug listener rows (excess), a vs b vs c:
+  uz->az: a=2.1866  b=2.1248  c=1.9369
+  uz->fi: a=2.5114  b=2.2733  c=2.2790
+  uz->kk: a=2.3062  b=1.9744  c=1.8021
+  uz->ky: a=2.3471  b=2.0883  c=2.0106
+  uz->tr: a=2.2813  b=2.0975  c=1.9184
+  uz->ug: a=1.4139  b=1.5162  c=1.3732
+  ug->az: a=1.8487  b=1.8200  c=1.6536
+  ug->fi: a=2.5919  b=2.4011  c=2.3532
+  ug->kk: a=1.9567  b=1.9089  c=1.5955
+  ug->ky: a=1.9352  b=1.9203  c=1.7333
+  ug->tr: a=2.0442  b=2.0261  c=1.8268
+  ug->uz: a=1.5473  b=1.6803  c=1.5849
