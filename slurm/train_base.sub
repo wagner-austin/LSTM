@@ -26,7 +26,8 @@
 # may charge. This file is Turkic work, so it charges Mayer's.
 # Override per submission when needed:  sbatch --account=<other> ...
 #SBATCH --job-name=charlstm-base
-#SBATCH --account=TODO_MAYER_ACCOUNT     # TODO: from `sbank balance statement`
+#SBATCH --account=CJMAYER_LAB            # verified via `sbank balance statement`
+                                         # 2026-08-22: limit 96,921, available 87,525
 #SBATCH --partition=free-gpu             # preemptible, costs nothing.
                                          # standard-gpu spends allocation hours.
 #SBATCH --gres=gpu:1
@@ -51,25 +52,39 @@ SCRATCH="/tmp/wagnera3/${SLURM_JOB_ID}"
 echo "host=$(hostname) lang=${LANG_CODE} job=${SLURM_JOB_ID} attempt=${SLURM_RESTART_COUNT:-0}"
 nvidia-smi --query-gpu=name,memory.total --format=csv,noheader || echo "NO GPU VISIBLE"
 
-# TODO: replace with the module/conda setup you settle on. Build the env ONCE in
-# /pub and every compute node sees it -- do not rebuild it per job.
-# module load anaconda/2024.06
-# source activate /pub/wagnera3/envs/lstm
+# `module show pytorch/2.3.0` declares it loads gcc/11.2.0, python/3.10.2,
+# mkl/2024.0.1, ffmpeg/6.1, fftw/3.3.10 -- so this one line brings the whole
+# toolchain. NOTE IT PINS PYTHON TO 3.10.2: any 3.11+ syntax in this repo will
+# fail at job time, not now. 2.3.0 is the newest torch MODULE on the cluster.
+#
+# If a newer torch is needed, swap to miniconda3 and a private env built ONCE in
+# /pub (every compute node sees it -- do not rebuild per job):
+#   module load miniconda3/25.11.1
+#   source activate /pub/wagnera3/envs/lstm
+module load pytorch/2.3.0
 cd "${PROJECT}"
 
 mkdir -p "${SCRATCH}" /pub/wagnera3/logs
 trap 'rm -rf "${SCRATCH}"' EXIT
 
-# Corpora go to scratch: training reads them repeatedly and /pub is poorly
-# suited to many small reads.
-cp -r "${PROJECT}/corpora_clean" "${SCRATCH}/" 2>/dev/null || true
+# Corpora go to scratch: training reads them repeatedly and /pub (beegfs) is
+# poorly suited to many small reads. NOT silenced with || true -- a missing
+# corpus must fail here, loudly, rather than surface later as a confusing
+# training error on an empty directory.
+cp -r "${PROJECT}/corpora_clean" "${SCRATCH}/"
 
 # CHECKPOINTS STAY ON /pub ON PURPOSE. Scratch is node-local and is destroyed
-# when the job ends -- including when it ends by preemption. A resume file on
-# scratch would be gone exactly when it is needed, so the one write that must
-# survive is the one that does not go to the fast disk.
+# when the job ends -- INCLUDING WHEN IT ENDS BY PREEMPTION. A resume file on
+# scratch would be gone at exactly the moment it is needed, so the one write
+# that must survive is the one that does not go to the fast disk.
 mkdir -p "${PROJECT}/checkpoints"
 
-srun python -m char_lstm.train --lang "${LANG_CODE}"
+# Both paths passed EXPLICITLY. train.py defaults to corpora_clean/ and
+# checkpoints/ relative to the working directory, which would have read the
+# corpus straight off /pub and made the scratch copy above pure waste.
+srun python -m char_lstm.train \
+    --lang "${LANG_CODE}" \
+    --corpus-dir "${SCRATCH}/corpora_clean" \
+    --checkpoint-dir "${PROJECT}/checkpoints"
 
 echo "done lang=${LANG_CODE} rc=$?"
