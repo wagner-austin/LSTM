@@ -1,0 +1,11 @@
+# Slurm submit files and shell scripts execute on Linux compute nodes.
+#
+# core.autocrlf is true in this checkout, so without these rules a .sub file
+# lands on Windows with CRLF endings, gets copied to HPC3, and fails there with
+# "/bin/bash^M: bad interpreter: No such file or directory" -- an error that
+# names neither the real cause nor the file that caused it.
+#
+# Deliberately narrow: only the files that must be LF are pinned, so adding
+# this does not rewrite every other file in the repo on the next checkout.
+*.sub text eol=lf
+*.sh  text eol=lf

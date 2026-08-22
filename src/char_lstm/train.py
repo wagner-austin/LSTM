@@ -4,7 +4,9 @@
 from __future__ import annotations
 
 import argparse
+import json
 import math
+import os
 import random
 from pathlib import Path
 from typing import Protocol, TypedDict
@@ -48,6 +50,15 @@ class OptimizerProtocol(Protocol):
 
     def state_dict(self) -> dict[str, Tensor]:
         """Return optimizer state dict."""
+        ...
+
+    def load_state_dict(self, state_dict: dict[str, Tensor]) -> None:
+        """Restore optimizer state from a checkpoint.
+
+        Required for resuming an interrupted run: without the restored moment
+        estimates, Adam starts from zero momentum and the run diverges from the
+        one that was interrupted.
+        """
         ...
 
     @property
@@ -726,6 +737,142 @@ def save_checkpoint(
     torch.save(state_dict, path)
 
 
+def resume_state_path(checkpoint_save: Path) -> Path:
+    """Derive the resume-state path that pairs with a checkpoint path.
+
+    Kept separate from the best-model checkpoint on purpose: downstream
+    consumers (``scripts/zero_shot_eval.py``) load that file as a bare state
+    dict with ``strict=True``, so its format must not change.
+
+    Args:
+        checkpoint_save: Path the best-model checkpoint is written to.
+
+    Returns:
+        Sibling path holding the full resume state.
+    """
+    return checkpoint_save.with_name(checkpoint_save.name + ".resume")
+
+
+def save_resume_state(
+    path: Path,
+    model: CharLSTM,
+    optimizer: OptimizerProtocol,
+    epoch: int,
+    state: TrainState,
+    vocab_size: int,
+) -> None:
+    """Persist everything needed to resume training after an interruption.
+
+    Distinct from :func:`save_checkpoint`, which writes only the BEST model's
+    weights for evaluation. This writes the LAST COMPLETED epoch's full state,
+    every epoch, because an interrupted run must restart from where it stopped
+    rather than from its last improvement. On a preemptible queue (HPC3's
+    ``free-gpu`` partition kills jobs to free resources for allocated work)
+    that difference is the whole game.
+
+    Restoring weights alone would not be a resume. Adam's moment estimates
+    would be lost, producing a loss spike and a trajectory that no longer
+    matches the interrupted run, and the RNG stream would restart, so the run
+    would not be reproducible across the interruption either.
+
+    The write is atomic: a kill during ``torch.save`` leaves the previous
+    resume state intact instead of a truncated file.
+
+    Args:
+        path: Destination for the resume state.
+        model: Model whose weights to persist.
+        optimizer: Optimizer whose moment estimates to persist.
+        epoch: Index of the epoch just completed (0-based).
+        state: Mutable training state (best loss, patience counter, step).
+        vocab_size: Vocabulary size; checked on restore.
+    """
+    cuda_states: list[Tensor] = (
+        list(torch.cuda.get_rng_state_all()) if torch.cuda.is_available() else []
+    )
+    payload: dict[str, object] = {
+        "model_state": model.state_dict(),
+        "optimizer_state": optimizer.state_dict(),
+        "epoch": epoch,
+        "global_step": state["global_step"],
+        "best_val_loss": state["best_val_loss"],
+        "epochs_no_improve": state["epochs_no_improve"],
+        "vocab_size": vocab_size,
+        "rng_torch": torch.get_rng_state(),
+        "rng_cuda": cuda_states,
+        # JSON rather than the raw tuple: random.getstate() nests a tuple of
+        # ints, and the payload must stay loadable under weights_only=True.
+        "rng_python_json": json.dumps(random.getstate()),
+    }
+    temporary = path.with_name(path.name + ".tmp")
+    torch.save(payload, temporary)
+    os.replace(temporary, path)
+
+
+def load_resume_state(
+    path: Path,
+    model: CharLSTM,
+    optimizer: OptimizerProtocol,
+    device: torch.device,
+    state: TrainState,
+    vocab_size: int,
+) -> int:
+    """Restore an interrupted run in place and report where to continue.
+
+    A missing file means a fresh run, not an error, so callers can invoke this
+    unconditionally.
+
+    Args:
+        path: Resume state written by :func:`save_resume_state`.
+        model: Model to restore weights into.
+        optimizer: Optimizer to restore moment estimates into.
+        device: Device to map tensors onto.
+        state: Mutable training state, updated in place.
+        vocab_size: Vocabulary size the caller is about to train with.
+
+    Returns:
+        Epoch index to start from: 0 when there is nothing to resume,
+        otherwise one past the last completed epoch.
+
+    Raises:
+        ValueError: If the checkpoint's vocabulary size differs from the
+            caller's. Resuming under a different configuration would silently
+            produce a run that is neither the old one nor a clean new one.
+    """
+    if not path.exists():
+        return 0
+
+    load_fn = _get_torch_load()
+    payload: dict[str, object] = load_fn(
+        str(path), map_location=str(device), weights_only=True
+    )
+
+    saved_vocab = int(str(payload["vocab_size"]))
+    if saved_vocab != vocab_size:
+        raise ValueError(
+            f"cannot resume {path}: checkpoint has vocab_size {saved_vocab}, "
+            f"this run has {vocab_size}"
+        )
+
+    model_state: dict[str, Tensor] = payload["model_state"]  # type: ignore[assignment]
+    optimizer_state: dict[str, Tensor] = payload["optimizer_state"]  # type: ignore[assignment]
+    model.load_state_dict(model_state, strict=True)
+    optimizer.load_state_dict(optimizer_state)
+
+    state["global_step"] = int(str(payload["global_step"]))
+    state["best_val_loss"] = float(str(payload["best_val_loss"]))
+    state["epochs_no_improve"] = int(str(payload["epochs_no_improve"]))
+
+    rng_torch: Tensor = payload["rng_torch"]  # type: ignore[assignment]
+    torch.set_rng_state(rng_torch)
+    cuda_states: list[Tensor] = payload["rng_cuda"]  # type: ignore[assignment]
+    if cuda_states and torch.cuda.is_available():
+        torch.cuda.set_rng_state_all(cuda_states)
+    version, internal, gauss = json.loads(str(payload["rng_python_json"]))
+    random.setstate((version, tuple(internal), gauss))
+
+    return int(str(payload["epoch"])) + 1
+
+
 def print_config(
     lang_name: str,
     lang_code: str,
@@ -1285,9 +1432,29 @@ def main() -> None:
     epoch_history: list[EpochMetrics] = []
     num_epochs = config["num_epochs"]
     batches = len(loaders["train_loader"])
+
+    # Resume an interrupted run if its state is on disk. Written after every
+    # epoch below, so a killed job restarts from the last COMPLETED epoch --
+    # not from its last improvement, and not from zero. Returns 0 when there
+    # is nothing to resume.
+    resume_path = resume_state_path(model_setup["checkpoint_save"])
+    start_epoch = load_resume_state(
+        path=resume_path,
+        model=model_setup["model"],
+        optimizer=model_setup["optimizer"],
+        device=model_setup["device"],
+        state=state,
+        vocab_size=vocab["vocab_size"],
+    )
+    if start_epoch > 0:
+        # epoch_history starts empty on a resume, so the W&B summary table
+        # covers only the epochs this process ran. The checkpoints and the
+        # metrics stream are complete; the table is not.
+        log_info(f"Resuming from epoch {start_epoch} ({resume_path})")
+
     log_header(f"Starting training: {num_epochs} epochs, {batches} batches/epoch")
 
-    for epoch in range(num_epochs):
+    for epoch in range(start_epoch, num_epochs):
         should_continue, epoch_metrics = train_epoch(
             epoch=epoch,
             num_epochs=num_epochs,
@@ -1303,6 +1470,16 @@ def main() -> None:
             checkpoint_save=model_setup["checkpoint_save"],
         )
         epoch_history.append(epoch_metrics)
+        # Written every epoch, including epochs that did not improve: the
+        # point is to survive a kill, and a kill does not wait for progress.
+        save_resume_state(
+            path=resume_path,
+            model=model_setup["model"],
+            optimizer=model_setup["optimizer"],
+            epoch=epoch,
+            state=state,
+            vocab_size=vocab["vocab_size"],
+        )
         if not should_continue:
             break
 

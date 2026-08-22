@@ -1,0 +1,171 @@
+"""Resume-state round trip for interrupted training runs.
+
+Saving weights is easy to get right and proves nothing. What decides whether a
+preempted run continues *as the same run* is narrower:
+
+  1. Adam's moment estimates survive -- otherwise the restored run gets a loss
+     spike and follows a different trajectory than the one that was killed.
+  2. The RNG streams continue rather than restart -- otherwise the run is not
+     reproducible across the interruption.
+  3. A configuration mismatch is refused rather than silently accepted.
+
+These tests assert those three directly, because a test that only compared
+model weights would pass against the previous weights-only implementation,
+which could not resume at all.
+"""
+
+from __future__ import annotations
+
+import random
+from pathlib import Path
+
+import pytest
+import torch
+import torch.nn as nn
+
+from char_lstm.train import load_resume_state, resume_state_path, save_resume_state
+
+
+class _TinyModel(nn.Module):
+    """Minimal module standing in for CharLSTM; only state_dict matters here."""
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.fc = nn.Linear(8, 4)
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Run the linear layer."""
+        result: torch.Tensor = self.fc(x)
+        return result
+
+
+def _step_a_few_times(model: nn.Module, optimizer: torch.optim.Adam) -> None:
+    """Take real optimisation steps so Adam accumulates non-zero moments."""
+    for _ in range(5):
+        optimizer.zero_grad()
+        loss = model(torch.randn(3, 8)).pow(2).mean()
+        loss.backward()
+        optimizer.step()
+
+
+def _fresh_state() -> dict[str, float | int]:
+    return {
+        "global_step": 0,
+        "window_sum": 0.0,
+        "window_n": 0,
+        "best_val_loss": float("inf"),
+        "epochs_no_improve": 0,
+    }
+
+
+def test_resume_state_path_is_a_sibling_of_the_checkpoint() -> None:
+    """The resume file must not collide with the best-model checkpoint.
+
+    ``scripts/zero_shot_eval.py`` loads the checkpoint as a bare state dict with
+    ``strict=True``; writing the richer payload there would break it.
+    """
+    assert resume_state_path(Path("ckpt/tr_best.pt")).name == "tr_best.pt.resume"
+
+
+def test_resume_restores_optimizer_moments_and_rng(tmp_path: Path) -> None:
+    """A restored run continues the interrupted run, not merely its weights."""
+    resume_path = resume_state_path(tmp_path / "best.pt")
+
+    torch.manual_seed(1234)
+    random.seed(1234)
+    model_a = _TinyModel()
+    optimizer_a = torch.optim.Adam(model_a.parameters(), lr=1e-3)
+    _step_a_few_times(model_a, optimizer_a)
+
+    moments_before = optimizer_a.state_dict()["state"][0]["exp_avg"].clone()
+    if float(moments_before.abs().sum()) == 0.0:
+        raise AssertionError("optimizer accumulated no moments; test is vacuous")
+
+    state = {
+        "global_step": 137,
+        "window_sum": 1.5,
+        "window_n": 3,
+        "best_val_loss": 0.4242,
+        "epochs_no_improve": 2,
+    }
+    save_resume_state(
+        path=resume_path,
+        model=model_a,
+        optimizer=optimizer_a,
+        epoch=7,
+        state=state,  # type: ignore[arg-type]
+        vocab_size=99,
+    )
+
+    # The atomic write must leave no partial file behind.
+    assert not resume_path.with_name(resume_path.name + ".tmp").exists()
+
+    # What the interrupted process would have drawn next.
+    expected_torch_next = torch.randn(4)
+    expected_python_next = random.random()
+
+    # A fresh process: different seed, nothing carried over in memory.
+    torch.manual_seed(9999)
+    random.seed(9999)
+    model_b = _TinyModel()
+    optimizer_b = torch.optim.Adam(model_b.parameters(), lr=1e-3)
+    restored = _fresh_state()
+
+    start_epoch = load_resume_state(
+        path=resume_path,
+        model=model_b,
+        optimizer=optimizer_b,
+        device=torch.device("cpu"),
+        state=restored,  # type: ignore[arg-type]
+        vocab_size=99,
+    )
+
+    assert start_epoch == 8
+    assert restored["global_step"] == 137
+    assert restored["epochs_no_improve"] == 2
+    assert abs(float(restored["best_val_loss"]) - 0.4242) < 1e-9
+    assert torch.equal(model_a.fc.weight, model_b.fc.weight)
+    assert torch.equal(
+        optimizer_b.state_dict()["state"][0]["exp_avg"], moments_before
+    )
+    assert torch.equal(torch.randn(4), expected_torch_next)
+    assert random.random() == expected_python_next
+
+
+def test_resume_refuses_a_different_vocab_size(tmp_path: Path) -> None:
+    """Resuming under a changed config would be neither the old run nor a new one."""
+    resume_path = resume_state_path(tmp_path / "best.pt")
+    model = _TinyModel()
+    optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
+    save_resume_state(
+        path=resume_path,
+        model=model,
+        optimizer=optimizer,
+        epoch=0,
+        state=_fresh_state(),  # type: ignore[arg-type]
+        vocab_size=99,
+    )
+
+    with pytest.raises(ValueError, match="vocab_size"):
+        load_resume_state(
+            path=resume_path,
+            model=_TinyModel(),
+            optimizer=torch.optim.Adam(_TinyModel().parameters(), lr=1e-3),
+            device=torch.device("cpu"),
+            state=_fresh_state(),  # type: ignore[arg-type]
+            vocab_size=100,
+        )
+
+
+def test_missing_resume_file_is_a_fresh_run(tmp_path: Path) -> None:
+    """Callers invoke this unconditionally, so absence must not be an error."""
+    model = _TinyModel()
+    start_epoch = load_resume_state(
+        path=tmp_path / "absent.resume",
+        model=model,
+        optimizer=torch.optim.Adam(model.parameters(), lr=1e-3),
+        device=torch.device("cpu"),
+        state=_fresh_state(),  # type: ignore[arg-type]
+        vocab_size=99,
+    )
+    assert start_epoch == 0

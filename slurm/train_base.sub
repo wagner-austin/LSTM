@@ -1,0 +1,75 @@
+#!/bin/bash
+# Train the 7 base char-LSTM models as a Slurm array job on HPC3.
+#
+# WHY AN ARRAY JOB: the seven base languages are independent runs (Makefile
+# target `train-bases`). One array task per language lets the scheduler place
+# them across whatever is free instead of serialising them behind each other.
+#
+# WHY --requeue AND WHY IT ONLY WORKS NOW: `free-gpu` jobs are PREEMPTIBLE --
+# Slurm kills them to make room for allocated work. --requeue puts the job back
+# in the queue rather than failing it, and char_lstm.train's resume state
+# (save_resume_state / load_resume_state) lets the requeued run continue from
+# the last COMPLETED epoch. Before that existed, a preemption meant restarting
+# from epoch 0, which made this partition useless for anything real.
+#
+#   sbatch slurm/train_base.sub          # all seven
+#   sbatch --array=0 slurm/train_base.sub  # just Turkish
+#
+# BEFORE FIRST USE, fill in the three TODOs below. `sbank balance statement`
+# shows the account names you may charge to.
+
+# ACCOUNTS ARE PER-PI, AND THIS FLAG IS THE ONLY THING KEEPING THEM SEPARATE.
+# You work under more than one PI: Connor Mayer (phonotactics, Turkic translit)
+# and Celia Faiola (BVOCs, metabolomics). Hours are allocated to the PI, not to
+# you, so a job charged to the wrong account spends another lab's budget on
+# work that is not theirs. `sbank balance statement` lists every account you
+# may charge. This file is Turkic work, so it charges Mayer's.
+# Override per submission when needed:  sbatch --account=<other> ...
+#SBATCH --job-name=charlstm-base
+#SBATCH --account=TODO_MAYER_ACCOUNT     # TODO: from `sbank balance statement`
+#SBATCH --partition=free-gpu             # preemptible, costs nothing.
+                                         # standard-gpu spends allocation hours.
+#SBATCH --gres=gpu:1
+#SBATCH --cpus-per-task=4
+#SBATCH --mem=16G
+#SBATCH --time=12:00:00
+#SBATCH --requeue
+#SBATCH --array=0-6
+#SBATCH --output=/pub/wagnera3/logs/%x-%A_%a.out
+#SBATCH --error=/pub/wagnera3/logs/%x-%A_%a.err
+
+set -euo pipefail
+
+LANGS=(tr az kk ky uz ug fi)
+LANG_CODE="${LANGS[$SLURM_ARRAY_TASK_ID]}"
+
+# DFS, not home. Home is capped at 50 GB and RCIC asks that jobs run from /pub.
+PROJECT="/pub/wagnera3/LSTM"
+# Node-local scratch: fastest disk on the cluster, and gone when the job ends.
+SCRATCH="/tmp/wagnera3/${SLURM_JOB_ID}"
+
+echo "host=$(hostname) lang=${LANG_CODE} job=${SLURM_JOB_ID} attempt=${SLURM_RESTART_COUNT:-0}"
+nvidia-smi --query-gpu=name,memory.total --format=csv,noheader || echo "NO GPU VISIBLE"
+
+# TODO: replace with the module/conda setup you settle on. Build the env ONCE in
+# /pub and every compute node sees it -- do not rebuild it per job.
+# module load anaconda/2024.06
+# source activate /pub/wagnera3/envs/lstm
+cd "${PROJECT}"
+
+mkdir -p "${SCRATCH}" /pub/wagnera3/logs
+trap 'rm -rf "${SCRATCH}"' EXIT
+
+# Corpora go to scratch: training reads them repeatedly and /pub is poorly
+# suited to many small reads.
+cp -r "${PROJECT}/corpora_clean" "${SCRATCH}/" 2>/dev/null || true
+
+# CHECKPOINTS STAY ON /pub ON PURPOSE. Scratch is node-local and is destroyed
+# when the job ends -- including when it ends by preemption. A resume file on
+# scratch would be gone exactly when it is needed, so the one write that must
+# survive is the one that does not go to the fast disk.
+mkdir -p "${PROJECT}/checkpoints"
+
+srun python -m char_lstm.train --lang "${LANG_CODE}"
+
+echo "done lang=${LANG_CODE} rc=$?"
