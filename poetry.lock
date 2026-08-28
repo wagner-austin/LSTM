@@ -1183,7 +1183,7 @@ optional = false
 python-versions = "^3.11"
 groups = ["main"]
 files = []
-develop = true
+develop = false
 
 [package.dependencies]
 fastapi = "^0.124"
@@ -1191,8 +1191,11 @@ httpx = "^0.28"
 rich = "^14.2"
 
 [package.source]
-type = "directory"
-url = "../API/libs/platform_core"
+type = "git"
+url = "https://github.com/wagner-austin/API.git"
+reference = "HEAD"
+resolved_reference = "754a52734ce59535e378b1e1132d299d04b77b3d"
+subdirectory = "libs/platform_core"
 
 [[package]]
 name = "platformdirs"
@@ -1949,4 +1952,4 @@ workspaces = ["wandb-workspaces"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.11"
-content-hash = "ba2ac2552f31a0b8b1d36abd6a8269483a7fa3209bd11df71cff14ee9cde18b0"
+content-hash = "c569ff346667cd88a938a8636bf360a1008d951e447116d137861e52d2585b0c"

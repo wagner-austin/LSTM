@@ -25,9 +25,19 @@ wandb = "^0.23.0"
 rich = "^14.2.0"
 # The shared comparability contract: RunRecord, RunFingerprint, and the
 # machinery that decides whether two measured numbers may be subtracted.
-# A path dependency because both repositories live side by side under
-# ~/PROJECTS and neither is published; see ../API/docs/RESEARCH.md.
-platform-core = { path = "../API/libs/platform_core", develop = true }
+#
+# A GIT dependency, not a path one, and the reason is concrete. It was
+# `{ path = "../API/libs/platform_core" }` for half a day, which resolves on
+# the workstation (~/PROJECTS/API beside ~/PROJECTS/LSTM) and CANNOT resolve
+# on HPC3, where the monorepo is checked out at /pub/wagnera3/api -- lowercase,
+# on a case-sensitive filesystem. A relative path dependency silently encodes
+# an assumption about directory layout, and that assumption was the single
+# thing keeping this project off the cluster.
+#
+# The lock file pins a commit, which is the other half of why this is better:
+# a run's provenance now includes exactly which platform_core computed its
+# fingerprint, rather than whatever happened to be checked out next door.
+platform-core = { git = "https://github.com/wagner-austin/API.git", subdirectory = "libs/platform_core" }
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.0.0"
