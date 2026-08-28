@@ -23,6 +23,11 @@ torch = {version = "^2.5", source = "pytorch-cu124"}
 numpy = "^2.0"
 wandb = "^0.23.0"
 rich = "^14.2.0"
+# The shared comparability contract: RunRecord, RunFingerprint, and the
+# machinery that decides whether two measured numbers may be subtracted.
+# A path dependency because both repositories live side by side under
+# ~/PROJECTS and neither is published; see ../API/docs/RESEARCH.md.
+platform-core = { path = "../API/libs/platform_core", develop = true }
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.0.0"
@@ -60,7 +65,14 @@ explicit_package_bases = true
 line-length = 100
 target-version = "py311"
 src = ["src", "tests"]
-exclude = [".venv", "diagnostics"]
+# `analysis` joins `diagnostics` as archived output rather than maintained
+# source: one-off scripts kept as the record of a finished experiment
+# (punctuation-2026-08, rebuild-2026-08). Mypy already scopes itself to
+# `src tests scripts` and never saw them; ruff did, and reported 53 missing
+# annotations and long lines that had been failing `make lint` since those
+# experiments were archived. Scoping the two tools alike is the fix; the
+# alternative was annotating scripts nobody will run again.
+exclude = [".venv", "diagnostics", "analysis"]
 
 [tool.ruff.lint]
 select = [

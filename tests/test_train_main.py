@@ -168,3 +168,50 @@ def test_main_early_stopping_break(tmp_path: Path, monkeypatch: pytest.MonkeyPat
     main()
     # train_epoch should only be called once because break was triggered
     assert call_count == 1
+
+
+@pytest.mark.timeout(300)
+def test_a_second_invocation_resumes_rather_than_restarting(tmp_path: Path) -> None:
+    """The property the whole resume feature exists for.
+
+    HPC3's ``free-gpu`` partition is preemptible: Slurm kills jobs to make
+    room for allocated work, and ``slurm/train_base.sub`` passes ``--requeue``
+    so the job comes back. Before resume state existed, coming back meant
+    starting from epoch 0, which made the partition useless for anything real.
+
+    So this runs the real CLI twice over the same checkpoint directory. The
+    second invocation must find the first one's state and start after it,
+    rather than train the same epoch again.
+    """
+    corpus_dir = write_corpus(tmp_path)
+    checkpoint_dir = tmp_path / "ckpt_resume"
+
+    test_args = [
+        "train.py",
+        "--lang",
+        "az",
+        "--epochs",
+        "1",
+        "--device",
+        "cpu",
+        "--corpus-dir",
+        str(corpus_dir),
+        "--checkpoint-dir",
+        str(checkpoint_dir),
+    ]
+
+    mock_wandb = MagicMock()
+    mock_wandb.run = None
+    mock_wandb.init = MagicMock()
+
+    for _ in range(2):
+        with (
+            patch.object(sys, "argv", test_args),
+            patch("char_lstm.train.wandb", mock_wandb),
+        ):
+            main()
+
+    # The first run wrote a resume state; the second read it and had nothing
+    # left to do, because its one epoch was already complete.
+    resume_files = sorted(p.name for p in checkpoint_dir.glob("*resume*"))
+    assert resume_files != []

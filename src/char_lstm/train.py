@@ -31,10 +31,39 @@ from char_lstm._console import (
     log_saved,
     log_subheader,
 )
-from char_lstm._types import _get_torch_load
+from char_lstm._types import ResumePayload, _get_resume_load, _get_torch_load
 from char_lstm.corpora import corpus_file
 from char_lstm.data import CharDataset, build_vocab_with_unk, load_vocab_json, save_vocab_json
 from char_lstm.model import CharLSTM
+
+
+class ResumableModelProtocol(Protocol):
+    """What resuming needs from a model, which is only its weights.
+
+    ``save_resume_state`` and ``load_resume_state`` named :class:`CharLSTM`
+    and used exactly two of its methods. That over-constraint was not
+    theoretical: ``tests/test_train_resume.py`` stands a four-parameter
+    ``_TinyModel`` in front of them so the round trip is tested without
+    building a real net, and its own docstring says "only state_dict matters
+    here" -- so the tests were passing an object the signature refused, and
+    mypy said so five times on ``main``.
+
+    Naming the requirement instead of a class fixes it without a cast, which
+    is what this repository asks for.
+    """
+
+    def state_dict(self) -> dict[str, Tensor]:
+        """Return the model's weights."""
+        ...
+
+    def load_state_dict(self, state_dict: dict[str, Tensor], strict: bool) -> None:
+        """Restore the model's weights in place.
+
+        Args:
+            state_dict: The weights to load.
+            strict: Whether every key must match.
+        """
+        ...
 
 
 class OptimizerProtocol(Protocol):
@@ -755,7 +784,7 @@ def resume_state_path(checkpoint_save: Path) -> Path:
 
 def save_resume_state(
     path: Path,
-    model: CharLSTM,
+    model: ResumableModelProtocol,
     optimizer: OptimizerProtocol,
     epoch: int,
     state: TrainState,
@@ -789,7 +818,7 @@ def save_resume_state(
     cuda_states: list[Tensor] = (
         list(torch.cuda.get_rng_state_all()) if torch.cuda.is_available() else []
     )
-    payload: dict[str, object] = {
+    payload: ResumePayload = {
         "model_state": model.state_dict(),
         "optimizer_state": optimizer.state_dict(),
         "epoch": epoch,
@@ -810,7 +839,7 @@ def save_resume_state(
 
 def load_resume_state(
     path: Path,
-    model: CharLSTM,
+    model: ResumableModelProtocol,
     optimizer: OptimizerProtocol,
     device: torch.device,
     state: TrainState,
@@ -841,36 +870,30 @@ def load_resume_state(
     if not path.exists():
         return 0
 
-    load_fn = _get_torch_load()
-    payload: dict[str, object] = load_fn(
-        str(path), map_location=str(device), weights_only=True
-    )
+    payload = _get_resume_load()(str(path), map_location=str(device), weights_only=True)
 
-    saved_vocab = int(str(payload["vocab_size"]))
+    saved_vocab = payload["vocab_size"]
     if saved_vocab != vocab_size:
         raise ValueError(
             f"cannot resume {path}: checkpoint has vocab_size {saved_vocab}, "
             f"this run has {vocab_size}"
         )
 
-    model_state: dict[str, Tensor] = payload["model_state"]  # type: ignore[assignment]
-    optimizer_state: dict[str, Tensor] = payload["optimizer_state"]  # type: ignore[assignment]
-    model.load_state_dict(model_state, strict=True)
-    optimizer.load_state_dict(optimizer_state)
+    model.load_state_dict(payload["model_state"], strict=True)
+    optimizer.load_state_dict(payload["optimizer_state"])
 
-    state["global_step"] = int(str(payload["global_step"]))
-    state["best_val_loss"] = float(str(payload["best_val_loss"]))
-    state["epochs_no_improve"] = int(str(payload["epochs_no_improve"]))
+    state["global_step"] = payload["global_step"]
+    state["best_val_loss"] = payload["best_val_loss"]
+    state["epochs_no_improve"] = payload["epochs_no_improve"]
 
-    rng_torch: Tensor = payload["rng_torch"]  # type: ignore[assignment]
-    torch.set_rng_state(rng_torch)
-    cuda_states: list[Tensor] = payload["rng_cuda"]  # type: ignore[assignment]
+    torch.set_rng_state(payload["rng_torch"])
+    cuda_states = payload["rng_cuda"]
     if cuda_states and torch.cuda.is_available():
         torch.cuda.set_rng_state_all(cuda_states)
-    version, internal, gauss = json.loads(str(payload["rng_python_json"]))
+    version, internal, gauss = json.loads(payload["rng_python_json"])
     random.setstate((version, tuple(internal), gauss))
 
-    return int(str(payload["epoch"])) + 1
+    return payload["epoch"] + 1
 
 
 def print_config(

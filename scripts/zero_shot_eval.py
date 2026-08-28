@@ -42,6 +42,7 @@ from pathlib import Path
 from typing import TypedDict
 
 import torch
+from platform_core.run_record import Observation
 from torch import Tensor
 from torch.nn import functional
 
@@ -49,8 +50,20 @@ from char_lstm._types import _get_torch_load
 from char_lstm.corpora import CORPUS_TEMPLATE, LANGS
 from char_lstm.data import encode, load_vocab_json
 from char_lstm.model import CharLSTM
+from char_lstm.provenance import scoring_fingerprint, write_run_record
 
 OOV_MODES: tuple[str, ...] = ("unk", "skip", "assimilate")
+
+EXPERIMENT = "turkic-zero-shot-excess-ce"
+"""What these runs are, stable across the OOV regimes and the corpus rebuilds.
+
+Two records comparing under different experiment names are not comparable at
+all, which is what makes the name load-bearing rather than decorative. The
+OOV regime is the LABEL, not part of this: ``unk``, ``skip`` and
+``assimilate`` score the same models on the same passages under three
+different treatments of unfamiliar characters, and comparing across them is
+a thing someone may legitimately want to do.
+"""
 
 DEFAULT_CHECKPOINT_DIR = Path("checkpoints")
 DEFAULT_SNIPPET_DIR = Path("data/perception_clean")
@@ -505,6 +518,26 @@ CSV_HEADER = (
 )
 
 
+def excess_observations(results: list[PairResult]) -> tuple[Observation, ...]:
+    """Name every excess-CE number so two runs can be paired by it.
+
+    One observation per ordered language pair rather than a single mean. The
+    mean is not the finding -- "Finnish is the hardest text for every Turkic
+    listener" is a statement about the shape of the matrix, and a comparison
+    that could only see its average would not be able to check it.
+
+    Args:
+        results: One entry per ordered (source, target) pair.
+
+    Returns:
+        The observations, named ``excess_ce.<src>.<tgt>``. Sorting is left to
+        :func:`~platform_core.run_record.run_record`, which owns the order.
+    """
+    return tuple(
+        Observation(name=f"excess_ce.{r['src']}.{r['tgt']}", value=r["excess_ce"]) for r in results
+    )
+
+
 def render_results_csv(results: list[PairResult]) -> str:
     """Render a list of :class:`PairResult` as a CSV string.
 
@@ -713,6 +746,18 @@ def run(args: EvalArgs) -> list[PairResult]:
     args["output_csv"].parent.mkdir(parents=True, exist_ok=True)
     args["output_csv"].write_text(render_results_csv(results), encoding="utf-8")
     print(f"Wrote {len(results)} pair(s) to {args['output_csv']}")
+
+    # The CSV keeps its shape; the provenance goes beside it. Every number in
+    # it is a subtraction, and until this sidecar existed the only record of
+    # what produced them was the filename.
+    sidecar = write_run_record(
+        args["output_csv"],
+        EXPERIMENT,
+        args["oov_mode"],
+        excess_observations(results),
+        scoring_fingerprint(),
+    )
+    print(f"Wrote provenance to {sidecar}")
     return results
 
 

@@ -16,14 +16,22 @@ which could not resume at all.
 
 from __future__ import annotations
 
+import json
 import random
+import tempfile
 from pathlib import Path
 
 import pytest
 import torch
 import torch.nn as nn
 
-from char_lstm.train import load_resume_state, resume_state_path, save_resume_state
+from char_lstm._types import ResumePayload
+from char_lstm.train import (
+    TrainState,
+    load_resume_state,
+    resume_state_path,
+    save_resume_state,
+)
 
 
 class _TinyModel(nn.Module):
@@ -48,14 +56,21 @@ def _step_a_few_times(model: nn.Module, optimizer: torch.optim.Adam) -> None:
         optimizer.step()
 
 
-def _fresh_state() -> dict[str, float | int]:
-    return {
-        "global_step": 0,
-        "window_sum": 0.0,
-        "window_n": 0,
-        "best_val_loss": float("inf"),
-        "epochs_no_improve": 0,
-    }
+def _fresh_state() -> TrainState:
+    """Build the state a run starts from.
+
+    Returns:
+        The state, typed as the contract rather than as a bare mapping --
+        which is what five ``type: ignore[arg-type]`` comments were
+        suppressing.
+    """
+    return TrainState(
+        global_step=0,
+        window_sum=0.0,
+        window_n=0,
+        best_val_loss=float("inf"),
+        epochs_no_improve=0,
+    )
 
 
 def test_resume_state_path_is_a_sibling_of_the_checkpoint() -> None:
@@ -81,19 +96,19 @@ def test_resume_restores_optimizer_moments_and_rng(tmp_path: Path) -> None:
     if float(moments_before.abs().sum()) == 0.0:
         raise AssertionError("optimizer accumulated no moments; test is vacuous")
 
-    state = {
-        "global_step": 137,
-        "window_sum": 1.5,
-        "window_n": 3,
-        "best_val_loss": 0.4242,
-        "epochs_no_improve": 2,
-    }
+    state = TrainState(
+        global_step=137,
+        window_sum=1.5,
+        window_n=3,
+        best_val_loss=0.4242,
+        epochs_no_improve=2,
+    )
     save_resume_state(
         path=resume_path,
         model=model_a,
         optimizer=optimizer_a,
         epoch=7,
-        state=state,  # type: ignore[arg-type]
+        state=state,
         vocab_size=99,
     )
 
@@ -116,7 +131,7 @@ def test_resume_restores_optimizer_moments_and_rng(tmp_path: Path) -> None:
         model=model_b,
         optimizer=optimizer_b,
         device=torch.device("cpu"),
-        state=restored,  # type: ignore[arg-type]
+        state=restored,
         vocab_size=99,
     )
 
@@ -125,9 +140,7 @@ def test_resume_restores_optimizer_moments_and_rng(tmp_path: Path) -> None:
     assert restored["epochs_no_improve"] == 2
     assert abs(float(restored["best_val_loss"]) - 0.4242) < 1e-9
     assert torch.equal(model_a.fc.weight, model_b.fc.weight)
-    assert torch.equal(
-        optimizer_b.state_dict()["state"][0]["exp_avg"], moments_before
-    )
+    assert torch.equal(optimizer_b.state_dict()["state"][0]["exp_avg"], moments_before)
     assert torch.equal(torch.randn(4), expected_torch_next)
     assert random.random() == expected_python_next
 
@@ -142,7 +155,7 @@ def test_resume_refuses_a_different_vocab_size(tmp_path: Path) -> None:
         model=model,
         optimizer=optimizer,
         epoch=0,
-        state=_fresh_state(),  # type: ignore[arg-type]
+        state=_fresh_state(),
         vocab_size=99,
     )
 
@@ -152,7 +165,7 @@ def test_resume_refuses_a_different_vocab_size(tmp_path: Path) -> None:
             model=_TinyModel(),
             optimizer=torch.optim.Adam(_TinyModel().parameters(), lr=1e-3),
             device=torch.device("cpu"),
-            state=_fresh_state(),  # type: ignore[arg-type]
+            state=_fresh_state(),
             vocab_size=100,
         )
 
@@ -165,7 +178,52 @@ def test_missing_resume_file_is_a_fresh_run(tmp_path: Path) -> None:
         model=model,
         optimizer=torch.optim.Adam(model.parameters(), lr=1e-3),
         device=torch.device("cpu"),
-        state=_fresh_state(),  # type: ignore[arg-type]
+        state=_fresh_state(),
         vocab_size=99,
     )
     assert start_epoch == 0
+
+
+def test_a_state_saved_where_there_was_no_gpu_restores_where_there_is_one() -> None:
+    """The fleet is mixed, so this crossing happens for real.
+
+    Training runs on HPC3's ``free-gpu`` partition, which records one CUDA
+    generator state per visible device; the workstation and the free CPU
+    partition record none. A resume file written on either must load on the
+    other, and with no CUDA states recorded there is nothing to restore, so
+    the restore has to skip that step rather than fail on it.
+
+    Written as a payload rather than by saving on a CPU-only machine because
+    this one has a card: the branch is unreachable from ``save_resume_state``
+    here, and stating the file a card-less run writes is how it gets covered.
+    """
+    with torch.no_grad():
+        model = _TinyModel()
+    payload: ResumePayload = {
+        "model_state": model.state_dict(),
+        "optimizer_state": torch.optim.Adam(model.parameters()).state_dict(),
+        "epoch": 3,
+        "global_step": 41,
+        "best_val_loss": 0.5,
+        "epochs_no_improve": 1,
+        "vocab_size": 99,
+        "rng_torch": torch.get_rng_state(),
+        "rng_cuda": [],
+        "rng_python_json": json.dumps(random.getstate()),
+    }
+
+    with tempfile.TemporaryDirectory() as tmp:
+        path = Path(tmp) / "resume.pt"
+        torch.save(payload, str(path))
+        restored = _fresh_state()
+        start_epoch = load_resume_state(
+            path=path,
+            model=_TinyModel(),
+            optimizer=torch.optim.Adam(_TinyModel().parameters()),
+            device=torch.device("cpu"),
+            state=restored,
+            vocab_size=99,
+        )
+
+    assert start_epoch == 4
+    assert restored["global_step"] == 41
