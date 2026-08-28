@@ -15,6 +15,13 @@ Finnish is the control — Uralic, not Turkic — and appears as both listener a
 target, so a genuine Turkic intelligibility gradient has to separate itself from
 an unrelated language scoring the same way.
 
+## Which corpus
+
+**[`CORPORA.md`](CORPORA.md) — read before training, evaluating, or citing a
+number.** Three generations of cleaned corpora live here and the directory
+names do not say which is current. It is
+`rebuild_2026-08/corpora_clean_v3/`; the other two are superseded.
+
 ## Paper
 
 **Language Model Loss Captures Mutual Intelligibility Gradients in Turkic Languages**
