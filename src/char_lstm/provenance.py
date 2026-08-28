@@ -8,22 +8,27 @@ confidence interval, and it is bound for publication. Until 2026-08-28 the
 only record of what produced those numbers was the FILENAME: ``_2026-08-13``,
 ``_fixedfi``, ``_forMoldir``.
 
-TWO AXES VARY BY CONSTRUCTION HERE AND WERE UNRECORDED.
+THE AXIS THAT VARIES TODAY IS THE LIBRARY. ``torch = "^2.5"`` is a caret
+range, so arms trained months apart differ in torch minor version, and the
+ablation that motivated :mod:`platform_core.run_record` subtracted arm B from
+arm A across a torch major version for weeks before anyone noticed. That does
+not make a result wrong. It makes it unknowable whether two results may be
+subtracted, which is the question :mod:`platform_core.comparability` answers
+and the reason this project now speaks that vocabulary instead of its own.
 
-* The card. ``slurm/train_base.sub`` is an array job on the PREEMPTIBLE
-  ``free-gpu`` partition with ``--requeue``, and its own comment says the
-  scheduler places tasks "across whatever is free". So two arms can train on
-  two different GPUs, and a preempted arm can resume on a different card than
-  it started on.
-* The library. ``torch = "^2.5"`` is a caret range. Arms trained months apart
-  can differ in torch minor version, and the ablation that motivated
-  :mod:`platform_core.run_record` subtracted arm B from arm A across a torch
-  major version for weeks before anyone noticed.
+THE CARD DOES NOT VARY YET, AND AN EARLIER VERSION OF THIS DOCSTRING SAID IT
+DID. It claimed arms train on different GPUs because ``slurm/train_base.sub``
+is a preemptible array job whose scheduler places tasks "across whatever is
+free". The script says that; the script has never run. It points at
+``/pub/wagnera3/LSTM`` and ``/pub/wagnera3/envs/lstm``, neither of which
+exists on the cluster, and its own header still says "BEFORE FIRST USE".
+Every arm to date trained on this workstation's one card -- the logs carry
+Windows paths and no SLURM markers. Reading a committed script as a
+description of practice is the same mistake this whole exercise is about, and
+it was made here.
 
-Neither of those makes a result wrong. Both make it unknowable whether two
-results may be subtracted, which is the question
-:mod:`platform_core.comparability` answers and the reason this project now
-speaks that vocabulary instead of its own.
+The ``gpu_model`` axis is recorded anyway, as absent. That is not wasted: it
+is what will show the change if training ever does move to ``free-gpu``.
 
 WHAT IS RECORDED AS "NONE", HONESTLY. The evaluation in
 ``scripts/zero_shot_eval`` runs on CPU -- it names no device and moves nothing
