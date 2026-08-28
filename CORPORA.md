@@ -44,27 +44,42 @@ Neither is deleted, because both trained checkpoints that exist
 that were reported would be worse than the confusion of keeping them. This
 file is the fix for the confusion.
 
-## What none of them can do
+## What each one records about how it was built
 
-**No generation is byte-reproducible from version control today.**
+**v3's transliteration inputs are fully accounted for.** Its
+`cleaning_manifest.json` records eight digests and **all eight match
+`turkic-transliteration` as it stands today**: the seven `*_ipa.rules` files
+by file digest, and `symbol_map` by table digest.
 
-- v3 records eight rule digests. The seven `*.rules` files still match
-  `turkic-transliteration` exactly. `symbol_map` matches **neither** version
-  in that repository's history, in any line-ending form — so the map that
-  built v3 is not in git.
-- `corpora_clean/` records no rule digests at all.
-- `corpora_clean_2026-02/` was produced by a script that
-  `tu-proceedings-datasets-section.tex` states "is not in either repository",
-  using the `lid218e` classifier that was never wired into the released
-  package.
+`symbol_map` is worth a note, because it is easy to check wrongly. It is
+**not** the SHA-256 of `symbol_map.csv`. `corpus/clean.py` hashes the parsed
+rows re-encoded as JSON:
 
-The paper says "the corpora in Table 2 can be rebuilt from source." That is
-not true today for `symbol_map`. It is one file; recovering or re-deriving it
-would make the claim true.
+```python
+encoded = json.dumps([encode_symbol_rule(rule) for rule in rules], ensure_ascii=False)
+fingerprint["symbol_map"] = hashlib.sha256(encoded.encode("utf-8")).hexdigest()
+```
 
-One thing that is **not** wrong: the 2026-08-12 fix merging the `U+02A6`
-ligature into `t͡s` for Kyrgyz landed before every corpus here. Checked
-directly — zero `U+02A6` in any Kyrgyz file; 19,421 merged forms in v3.
+Its seven siblings *are* file digests, so comparing the CSV's hash and
+concluding the map has drifted is a mistake someone will make — it was made
+on 2026-08-28. Reproduce it with `read_symbol_map()` and the snippet above;
+18 rows currently hash to `9a3b98c8…`, which is what v3 records.
+
+**`corpora_clean/` records no rule digests at all**, so there is nothing to
+check and no way to ask what produced it. That is the real provenance gap
+among the three.
+
+**`corpora_clean_2026-02/` has an open item that is the author's, not a
+tooling bug.** `tu-proceedings-datasets-section.tex` states that the script
+which produced it "is not in either repository", and that it used the
+`lid218e` classifier which was never wired into the released package. That
+concerns the raw-corpus language filtering, upstream of cleaning. Whether it
+also applies to `corpora_raw_v3` is **not established here** — do not assume
+either way.
+
+One thing checked and cleared: the 2026-08-12 fix merging the `U+02A6`
+ligature into `t͡s` for Kyrgyz landed before every corpus here. Zero
+`U+02A6` in any Kyrgyz file; 19,421 merged forms in v3.
 
 ## Where corpora come from
 
