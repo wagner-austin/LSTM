@@ -16,19 +16,26 @@ not make a result wrong. It makes it unknowable whether two results may be
 subtracted, which is the question :mod:`platform_core.comparability` answers
 and the reason this project now speaks that vocabulary instead of its own.
 
-THE CARD DOES NOT VARY YET, AND AN EARLIER VERSION OF THIS DOCSTRING SAID IT
-DID. It claimed arms train on different GPUs because ``slurm/train_base.sub``
-is a preemptible array job whose scheduler places tasks "across whatever is
-free". The script says that; the script has never run. It points at
+THE CARD DID NOT VARY, AND AN EARLIER VERSION OF THIS DOCSTRING SAID IT DID.
+It claimed arms train on different GPUs because ``slurm/train_base.sub`` was
+a preemptible array job whose scheduler places tasks "across whatever is
+free". The script said that; the script had never run. It pointed at
 ``/pub/wagnera3/LSTM`` and ``/pub/wagnera3/envs/lstm``, neither of which
-exists on the cluster, and its own header still says "BEFORE FIRST USE".
-Every arm to date trained on this workstation's one card -- the logs carry
-Windows paths and no SLURM markers. Reading a committed script as a
-description of practice is the same mistake this whole exercise is about, and
-it was made here.
+existed, and its own header still read "BEFORE FIRST USE". Every arm to that
+date trained on this workstation's one card -- the logs carry Windows paths
+and no SLURM markers. Reading a committed script as a description of practice
+is the same mistake this whole exercise is about, and it was made here.
 
-The ``gpu_model`` axis is recorded anyway, as absent. That is not wasted: it
-is what will show the change if training ever does move to ``free-gpu``.
+WHAT IS TRUE NOW. Both are provisioned: the checkout, the environment
+(``torch 2.5.1+cu124``, ``numpy 2.4.6``), and the corpora, digest-verified
+cluster-side. The array job is gone, replaced by the ``turkic-lstm`` project
+and ``runs/sweep-turkic-bases.json`` in the hpc3 tool, whose seven members
+preflight clean. That sweep PINS the card to an A100 rather than taking
+whatever is free, because the hpc3 contract refuses a generic GPU request --
+which trades queue time for arms whose numbers can be subtracted from each
+other. So ``gpu_model`` still does not vary; it is fixed on purpose instead
+of unrecorded by accident, and this record is what will show it if that
+changes.
 
 WHAT IS RECORDED AS "NONE", HONESTLY. The evaluation in
 ``scripts/zero_shot_eval`` runs on CPU -- it names no device and moves nothing
