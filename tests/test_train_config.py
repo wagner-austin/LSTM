@@ -10,9 +10,11 @@ from unittest.mock import patch
 import pytest
 
 from char_lstm.train import (
+    WANDB_MODES,
     ParsedArgs,
     TrainConfig,
     _extract_args,
+    _require_wandb_mode,
     _resolve_use_cuda,
     build_run_paths,
     build_train_config,
@@ -33,6 +35,7 @@ def test_build_train_config_cuda() -> None:
         "seed": 1234,
         "corpus_dir": "corpora_clean",
         "checkpoint_dir": "checkpoints",
+        "wandb": "offline",
     }
     config = build_train_config(args, use_cuda=True)
 
@@ -55,6 +58,7 @@ def test_build_train_config_cpu() -> None:
         "seed": 1234,
         "corpus_dir": "corpora_clean",
         "checkpoint_dir": "checkpoints",
+        "wandb": "offline",
     }
     config = build_train_config(args, use_cuda=False)
 
@@ -76,6 +80,7 @@ def test_extract_args_valid(tmp_path: Path) -> None:
         seed=1234,
         corpus_dir=str(tmp_path),
         checkpoint_dir="checkpoints",
+        wandb="offline",
     )
     result = _extract_args(ns)
     assert result["lang"] == "tr"
@@ -100,6 +105,7 @@ def test_extract_args_with_checkpoint(tmp_path: Path) -> None:
         seed=1234,
         corpus_dir=str(tmp_path),
         checkpoint_dir="checkpoints",
+        wandb="offline",
     )
     result = _extract_args(ns)
     assert result["lang"] == "az"
@@ -420,3 +426,53 @@ def test_print_config_finetune_mode(tmp_path: Path, capsys: pytest.CaptureFixtur
     # Verify fine-tune mode info appears in structured output
     assert any("Fine-tune" in line or "finetune" in line.lower() for line in output_lines)
     assert any("freeze" in line.lower() and "True" in line for line in output_lines)
+
+
+class TestTheWandbMode:
+    """The six-second failure this flag exists to make impossible.
+
+    `wandb.init` was called with no mode, which means "online", which means
+    "prompt for an API key". A compute node has neither a key nor anything to
+    prompt, so it raised `UsageError: No API key configured` and the run died
+    before reaching any training code -- seven cluster jobs on 2026-08-28.
+    The workaround was WANDB_MODE in the submitting command, which put the fix
+    where the trainer could not see it and where anyone submitting without it
+    got the same six seconds.
+    """
+
+    def test_the_default_is_the_mode_that_works_without_a_key(self) -> None:
+        assert parse_args(["--lang", "tr"]).wandb == "offline"
+
+    def test_each_mode_is_accepted(self) -> None:
+        for mode in WANDB_MODES:
+            assert parse_args(["--lang", "tr", "--wandb", mode]).wandb == mode
+
+    def test_an_unknown_mode_is_refused_by_the_parser(self) -> None:
+        with pytest.raises(SystemExit):
+            parse_args(["--lang", "tr", "--wandb", "sync-later"])
+
+    def test_the_declared_modes_and_the_narrowing_agree(self) -> None:
+        """The one place these two could drift. WANDB_MODES feeds argparse and
+        the error message; _require_wandb_mode narrows for wandb's Literal.
+        A mode added to one and not the other raises here."""
+        assert [_require_wandb_mode(mode) for mode in WANDB_MODES] == list(WANDB_MODES)
+
+    def test_a_mode_wandb_does_not_accept_is_refused(self) -> None:
+        """Reachable from a hand-built namespace, not from the parser."""
+        with pytest.raises(ValueError, match="Unknown wandb mode"):
+            _require_wandb_mode("sync-later")
+
+    def test_the_mode_reaches_the_parsed_arguments(self, tmp_path: Path) -> None:
+        namespace = argparse.Namespace(
+            lang="tr",
+            from_checkpoint=None,
+            freeze_embed=False,
+            epochs=1,
+            lr=1e-4,
+            device="cpu",
+            seed=1234,
+            corpus_dir=str(tmp_path),
+            checkpoint_dir="checkpoints",
+            wandb="disabled",
+        )
+        assert _extract_args(namespace)["wandb"] == "disabled"

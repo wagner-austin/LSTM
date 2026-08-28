@@ -9,7 +9,7 @@ import math
 import os
 import random
 from pathlib import Path
-from typing import Protocol, TypedDict
+from typing import Literal, Protocol, TypedDict
 
 import torch
 import torch.nn as nn
@@ -152,6 +152,23 @@ NUM_LAYERS = 2
 DROPOUT = 0.1
 
 DEVICE_CHOICES: tuple[str, ...] = ("auto", "cpu", "cuda")
+
+# How this run talks to Weights & Biases. Declared rather than inherited
+# from the environment, and defaulting to the mode that works everywhere.
+#
+# `wandb.init` used to be called with no mode at all, which means "online",
+# which means "prompt for an API key". On a compute node there is no key and
+# nothing to prompt, so it raised `UsageError: No API key configured` and the
+# run died in six seconds having reached no training code. That happened to
+# seven cluster jobs on 2026-08-28, and the workaround -- setting WANDB_MODE
+# in the submitting command -- put the fix somewhere the trainer could not
+# see it: anyone who submitted without that variable got the same six
+# seconds. A default belongs here, where it applies to every caller.
+#
+# `offline` writes runs to disk and needs no key, so it is correct on the
+# cluster, in CI, and on a laptop with no account. `wandb sync` uploads them
+# afterwards for anyone who wants that. `online` is the opt-in.
+WANDB_MODES: tuple[str, ...] = ("offline", "online", "disabled")
 
 # Seed for every source of randomness in a run. Fixed by default rather
 # than left to the clock, so that two runs of the same command are the
@@ -325,6 +342,7 @@ class ParsedArgs(TypedDict):
     seed: int
     corpus_dir: str
     checkpoint_dir: str
+    wandb: Literal["offline", "online", "disabled"]
 
 
 # What an argparse namespace field can hold with this parser's argument
@@ -370,6 +388,40 @@ def _require_int(value: NamespaceField, name: str) -> int:
     return value
 
 
+def _require_wandb_mode(value: NamespaceField) -> Literal["offline", "online", "disabled"]:
+    """Validate a namespace field as a wandb mode, narrowed to what wandb accepts.
+
+    Written as explicit comparisons rather than a membership test against
+    :data:`WANDB_MODES` because ``wandb.init`` types its ``mode`` as a
+    ``Literal`` and ``value in WANDB_MODES`` does not narrow a ``str`` to
+    one. The alternative is a cast, which asserts the check happened instead
+    of performing it.
+
+    The duplication against :data:`WANDB_MODES` -- which argparse and the
+    error message use -- cannot drift silently: a mode added there and not
+    here raises the moment it is passed, and a test walks every entry.
+
+    Args:
+        value: The field value as argparse delivered it.
+
+    Returns:
+        The mode, typed as wandb wants it.
+
+    Raises:
+        ValueError: If the value is not one of :data:`WANDB_MODES`. Reachable
+            from a hand-built namespace, not from the parser, which rejects
+            an unknown choice first.
+    """
+    if value == "offline":
+        return "offline"
+    if value == "online":
+        return "online"
+    if value == "disabled":
+        return "disabled"
+    msg = f"Unknown wandb mode {value!r}; expected one of {WANDB_MODES}"
+    raise ValueError(msg)
+
+
 def _extract_args(args: argparse.Namespace) -> ParsedArgs:
     """Extract and validate arguments from Namespace.
 
@@ -381,7 +433,8 @@ def _extract_args(args: argparse.Namespace) -> ParsedArgs:
 
     Raises:
         TypeError: If argument types are incorrect.
-        ValueError: If device is not one of DEVICE_CHOICES.
+        ValueError: If device is not one of DEVICE_CHOICES, or wandb is not
+            one of WANDB_MODES.
         NotADirectoryError: If corpus_dir does not name an existing
             directory; the corpus is read unconditionally, so the wrong
             directory should fail here, by argument name, not at read time.
@@ -428,6 +481,9 @@ def _extract_args(args: argparse.Namespace) -> ParsedArgs:
         "seed": seed,
         "corpus_dir": corpus_dir,
         "checkpoint_dir": _require_str(args.checkpoint_dir, "checkpoint_dir"),
+        # Read last, so a namespace that is wrong about an earlier field
+        # still fails by that field's name rather than by this one.
+        "wandb": _require_wandb_mode(args.wandb),
     }
 
 
@@ -534,6 +590,19 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
             f"{DEFAULT_CHECKPOINT_DIR}). Created if missing. A variant run "
             f"must use its own directory so it cannot overwrite the "
             f"released models."
+        ),
+    )
+    parser.add_argument(
+        "--wandb",
+        type=str,
+        choices=list(WANDB_MODES),
+        default="offline",
+        help=(
+            "How to talk to Weights & Biases (default: offline). offline "
+            "writes runs to disk and needs no API key, which is what makes "
+            "this work on a compute node; sync them later with `wandb sync`. "
+            "online uploads live and requires a key. disabled records "
+            "nothing."
         ),
     )
     return parser.parse_args(argv)
@@ -1372,7 +1441,9 @@ def main() -> None:
 
     # Build paths
     paths = build_run_paths(args["lang"], args["from_checkpoint"], Path(args["checkpoint_dir"]))
-    wandb.init(project="char-level-lstm", name=paths["run_name"])
+    # The mode is passed rather than left to wandb's own default, which is
+    # "online" and therefore "prompt for an API key". See WANDB_MODES.
+    wandb.init(project="char-level-lstm", name=paths["run_name"], mode=args["wandb"])
 
     # Build configuration
     use_cuda = _resolve_use_cuda(args["device"], torch.cuda.is_available())

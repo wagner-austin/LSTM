@@ -168,6 +168,7 @@ def test_the_seed_reaches_the_training_config(tmp_path: Path) -> None:
             seed=99,
             corpus_dir=str(tmp_path),
             checkpoint_dir="checkpoints",
+            wandb="offline",
         )
     )
 
