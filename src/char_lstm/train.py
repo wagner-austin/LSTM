@@ -955,10 +955,27 @@ def load_resume_state(
     state["best_val_loss"] = payload["best_val_loss"]
     state["epochs_no_improve"] = payload["epochs_no_improve"]
 
-    torch.set_rng_state(payload["rng_torch"])
+    # `.cpu()` is not defensive, it undoes something map_location did. The
+    # load above maps EVERY tensor in the payload onto `device`, which is
+    # right for weights and wrong for these: an RNG state is metadata, and
+    # both `torch.set_rng_state` and `torch.cuda.set_rng_state_all` document
+    # their argument as a `torch.ByteTensor`, meaning a CPU one. Resuming on
+    # a GPU therefore handed them a CUDA tensor and raised
+    #
+    #     TypeError: RNG state must be a torch.ByteTensor
+    #
+    # which killed `bases-r1-ky` 25 seconds into its resume on 2026-08-28,
+    # after it had already survived a preemption with 1189 seconds of work
+    # checkpointed. It cannot reproduce on CPU -- map_location is "cpu" there
+    # and the states never move -- which is why a suite at 100% coverage
+    # never saw it, and why the whole checkpoint-and-resume strategy this
+    # cluster work depends on had never actually been exercised end to end.
+    torch.set_rng_state(payload["rng_torch"].cpu())
     cuda_states = payload["rng_cuda"]
     if cuda_states and torch.cuda.is_available():
-        torch.cuda.set_rng_state_all(cuda_states)
+        # Same origin, same documented contract. Not observed only because
+        # the line above raises first.
+        torch.cuda.set_rng_state_all([state.cpu() for state in cuda_states])
     version, internal, gauss = json.loads(payload["rng_python_json"])
     random.setstate((version, tuple(internal), gauss))
 

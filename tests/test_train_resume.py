@@ -227,3 +227,60 @@ def test_a_state_saved_where_there_was_no_gpu_restores_where_there_is_one() -> N
 
     assert start_epoch == 4
     assert restored["global_step"] == 41
+
+
+def test_a_resume_onto_the_device_it_trains_on_restores_the_rng(
+    device: torch.device,
+) -> None:
+    """The failure that killed a real resume, and the one shape these tests
+    could not previously reach.
+
+    `bases-r1-ky` survived a preemption with 1189 seconds checkpointed, was
+    resubmitted, and died 25 seconds in with
+
+        TypeError: RNG state must be a torch.ByteTensor
+
+    `load_resume_state` maps the payload onto the training device, which is
+    right for weights and wrong for RNG states: `torch.set_rng_state` and
+    `torch.cuda.set_rng_state_all` both document a `torch.ByteTensor`, meaning
+    a CPU one, and map_location had moved them onto the card.
+
+    Every other test in this file passes `torch.device("cpu")` explicitly, so
+    map_location was always "cpu", the states never moved, and a suite at 100%
+    coverage could not see it. This one resumes onto the device the fixture
+    offers -- the card when there is one, which is where it reproduces.
+    """
+    with torch.no_grad():
+        model = _TinyModel().to(device)
+    optimizer = torch.optim.Adam(model.parameters())
+    payload: ResumePayload = {
+        "model_state": model.state_dict(),
+        "optimizer_state": optimizer.state_dict(),
+        "epoch": 3,
+        "global_step": 41,
+        "best_val_loss": 0.5,
+        "epochs_no_improve": 1,
+        "vocab_size": 99,
+        "rng_torch": torch.get_rng_state(),
+        "rng_cuda": ([torch.cuda.get_rng_state()] if device.type == "cuda" else []),
+        "rng_python_json": json.dumps(random.getstate()),
+    }
+    expected = payload["rng_torch"].clone()
+
+    with tempfile.TemporaryDirectory() as tmp:
+        path = Path(tmp) / "resume.pt"
+        torch.save(payload, str(path))
+        restored = _fresh_state()
+        start_epoch = load_resume_state(
+            path=path,
+            model=_TinyModel().to(device),
+            optimizer=torch.optim.Adam(_TinyModel().to(device).parameters()),
+            device=device,
+            state=restored,
+            vocab_size=99,
+        )
+
+    assert start_epoch == 4
+    # The stream continues rather than restarts, which is the whole point of
+    # restoring it -- and it is back on the CPU where torch keeps it.
+    assert torch.equal(torch.get_rng_state(), expected)
