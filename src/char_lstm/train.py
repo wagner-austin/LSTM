@@ -35,6 +35,7 @@ from char_lstm._types import ResumePayload, _get_resume_load, _get_torch_load
 from char_lstm.corpora import corpus_file
 from char_lstm.data import CharDataset, build_vocab_with_unk, load_vocab_json, save_vocab_json
 from char_lstm.model import CharLSTM
+from char_lstm.training_record import NO_VALUE, record_training_run
 
 
 class ResumableModelProtocol(Protocol):
@@ -1607,6 +1608,24 @@ def main() -> None:
         checkpoint_save=model_setup["checkpoint_save"],
         checkpoint_best=paths["checkpoint_best"],
     )
+
+    # Last, because it digests the checkpoint and the checkpoint is not final
+    # until the evaluation above has run.
+    record_path = record_training_run(
+        checkpoint=paths["checkpoint_best"],
+        corpus_path=data_path,
+        best_val_loss=state["best_val_loss"],
+        vocab_size=vocab["vocab_size"],
+        epochs_run=len(epoch_history),
+        gpu_model=torch.cuda.get_device_name(0) if use_cuda else NO_VALUE,
+        driver_version=(
+            torch.version.cuda if use_cuda and torch.version.cuda is not None else NO_VALUE
+        ),
+    )
+    if record_path is None:
+        log_info("No checkpoint was saved, so no run record was written")
+    else:
+        log_info(f"Wrote {record_path}")
 
 
 if __name__ == "__main__":
