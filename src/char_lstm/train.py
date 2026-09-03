@@ -1622,10 +1622,7 @@ def main() -> None:
             torch.version.cuda if use_cuda and torch.version.cuda is not None else NO_VALUE
         ),
     )
-    if record_path is None:
-        log_info("No checkpoint was saved, so no run record was written")
-    else:
-        log_info(f"Wrote {record_path}")
+    log_info(f"Wrote {record_path}")
 
 
 if __name__ == "__main__":

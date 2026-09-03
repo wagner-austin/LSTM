@@ -12,6 +12,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import pytest
 from platform_core.comparability import NO_VALUE
 from platform_core.determinism_record import UNPINNED_STACK
 from platform_core.environment_record import HostProbe
@@ -142,8 +143,6 @@ class TestRecordTrainingRun:
             driver_version=NO_VALUE,
         )
 
-        if written is None:
-            raise AssertionError("a checkpoint that exists must get a record")
         assert written == checkpoint.with_name(checkpoint.name + RUN_RECORD_SUFFIX)
         record = decode_run_record(json.loads(written.read_text(encoding="utf-8")))
         assert record["experiment"] == TRAINING_EXPERIMENT
@@ -168,8 +167,6 @@ class TestRecordTrainingRun:
             driver_version=NO_VALUE,
         )
 
-        if written is None:
-            raise AssertionError("a checkpoint that exists must get a record")
         record = decode_run_record(json.loads(written.read_text(encoding="utf-8")))
         assert {o["name"]: o["value"] for o in record["observations"]} == {
             "best_val_loss": 1.75,
@@ -177,11 +174,13 @@ class TestRecordTrainingRun:
             "vocab_size": 38.0,
         }
 
-    def test_a_run_that_saved_no_checkpoint_writes_nothing(self, tmp_path: Path) -> None:
-        """Early stopping can break before the first improvement, and then no
-        checkpoint exists. There is no artifact to describe, so there is no
-        honest record to write; digesting a file that is not there would
-        raise, and inventing a digest would put nothing into the chain.
+    def test_a_missing_checkpoint_raises_rather_than_reporting_nothing(
+        self, tmp_path: Path
+    ) -> None:
+        """A completed run has a checkpoint: best validation loss starts at
+        infinity, so the first epoch to finish improves on it and saves. A run
+        that finished without one did not train, and returning a quiet "no
+        record written" would leave that looking like success.
         """
         generation = tmp_path / "corpora_clean_v4"
         generation.mkdir()
@@ -189,15 +188,15 @@ class TestRecordTrainingRun:
         corpus.write_bytes(b"az corpus")
         checkpoint = tmp_path / "az_best.pt"
 
-        written = record_training_run(
-            checkpoint=checkpoint,
-            corpus_path=corpus,
-            best_val_loss=float("inf"),
-            vocab_size=31,
-            epochs_run=1,
-            gpu_model=NO_VALUE,
-            driver_version=NO_VALUE,
-        )
+        with pytest.raises(FileNotFoundError):
+            record_training_run(
+                checkpoint=checkpoint,
+                corpus_path=corpus,
+                best_val_loss=float("inf"),
+                vocab_size=31,
+                epochs_run=1,
+                gpu_model=NO_VALUE,
+                driver_version=NO_VALUE,
+            )
 
-        assert written is None
         assert not checkpoint.with_name(checkpoint.name + RUN_RECORD_SUFFIX).exists()

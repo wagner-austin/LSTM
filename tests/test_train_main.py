@@ -140,6 +140,14 @@ def test_main_early_stopping_break(tmp_path: Path, monkeypatch: pytest.MonkeyPat
     def mock_train_epoch(**kwargs: dict[str, int]) -> tuple[bool, dict[str, float | int] | None]:
         nonlocal call_count
         call_count += 1
+        # Save a checkpoint, because the real train_epoch does. Best
+        # validation loss starts at infinity, so the first epoch to finish
+        # improves on it and writes one; an early-stopping break happens
+        # after that, not instead of it. A fake that skipped the write made
+        # main() reach the run record with nothing to describe, which is a
+        # state no completed run reaches.
+        checkpoint_dir.mkdir(parents=True, exist_ok=True)
+        (checkpoint_dir / "az_best.pt").write_bytes(b"stub weights")
         # Return (False, metrics) on first call to trigger break
         mock_metrics: dict[str, float | int] = {
             "epoch": 1,
@@ -154,7 +162,7 @@ def test_main_early_stopping_break(tmp_path: Path, monkeypatch: pytest.MonkeyPat
         return False, mock_metrics
 
     def mock_run_final_evaluation(**kwargs: dict[str, int]) -> None:
-        # No-op since checkpoint won't exist
+        # No-op: the checkpoint the real one would score is a stub here.
         pass
 
     # Use monkeypatch for simple attribute patching (reduces patch() count)

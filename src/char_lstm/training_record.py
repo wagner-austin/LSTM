@@ -111,7 +111,7 @@ def record_training_run(
     epochs_run: int,
     gpu_model: str,
     driver_version: str,
-) -> Path | None:
+) -> Path:
     """Write the record describing what produced ``checkpoint``.
 
     Args:
@@ -125,16 +125,16 @@ def record_training_run(
         driver_version: CUDA version behind it, or :data:`NO_VALUE`.
 
     Returns:
-        The path written, or ``None`` when the run reached its end without
-        ever improving on the initial validation loss and so saved no
-        checkpoint. That is a real outcome rather than a failure to handle:
-        there is no artifact, so there is nothing a record could honestly
-        describe, and writing one anyway would put a digest of nothing into
-        the provenance chain. The caller is handed the distinction rather
-        than a path that may not exist.
+        The path written.
+
+    Raises:
+        FileNotFoundError: If ``checkpoint`` is not there. A completed run
+            has one: the best validation loss starts at infinity, so the
+            first epoch to finish improves on it and saves. A run that
+            finished with no checkpoint did not train, and reporting that as
+            a quiet "no record written" would leave a model-less run looking
+            like a successful one.
     """
-    if not checkpoint.exists():
-        return None
     return write_run_record(
         checkpoint,
         experiment=TRAINING_EXPERIMENT,
