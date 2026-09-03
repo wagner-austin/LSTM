@@ -13,9 +13,40 @@ signal existed.
 |---|---|---|---|
 | `corpora_clean_2026-02/` | 10,215,670 | Uyghur | **superseded** |
 | `corpora_clean/` | 12,642,807 | Uzbek | **superseded** |
-| `rebuild_2026-08/corpora_clean_v3/` | **11,658,775** | **Uzbek** | **CURRENT** |
+| `rebuild_2026-08/corpora_clean_v3/` | 11,658,775 | Uzbek | **superseded, and wrong** |
+| `rebuild_2026-09/corpora_clean_v4/` | **11,658,775** | **Uzbek** | **CURRENT** |
 
-## Use `rebuild_2026-08/corpora_clean_v3/`
+## v4 corrects a segment that was outside the Kazakh inventory
+
+v3 is not merely superseded. Kazakh, Kyrgyz and Uzbek-Cyrillic wrote ‹щ› as
+the alveolo-palatal ɕː. McCollum & Chen's Kazakh chart (p. 277) has no
+alveolo-palatal column at all, and the prose under it enumerates what Kazakh
+borrows -- [f] and [v] from Russian, [h] from Arabic -- with ɕ absent. The
+rules now emit ʃː, the post-alveolar the chart prints.
+
+It is not cosmetic. ɕ occurred in Kazakh and Kyrgyz and nowhere else in the
+seven, so it was a character each model saw in two languages and never in
+the other five -- the same shape as the Uyghur ʔ artifact that
+`symbol_map.csv` records as having "systematically inflated Uyghur
+distances". 987 occurrences in Kazakh, 891 in Kyrgyz.
+
+**The budget did not move.** ɕː and ʃː are both two characters, so no file's
+length changes, no `chars_written` changes, and Uzbek still binds at
+11,658,775. Five of the seven cleaned corpora are byte-identical to v3 and
+their digests are literally the same strings. What does change: Kazakh and
+Kyrgyz each drop from 39 distinct characters to 38, because ɕ merges into a
+ʃ the corpus already had. **The paper's corpora table reports Vocabulary;
+those two cells are now wrong.**
+
+v4 was built by substituting on v3's raw transliterated text, not by
+re-downloading OSCAR -- a fresh download samples different lines and would
+give a different corpus rather than a corrected one. The substitution is
+exact rather than approximate: the only difference between the old and new
+rule files is the ‹щ› line, and new-rules was checked against
+old-rules-then-substitute over 2,944 exhaustive probes per language with
+zero mismatches.
+
+## Use `rebuild_2026-09/corpora_clean_v4/`
 
 It is what the paper reports and what recent training used.
 

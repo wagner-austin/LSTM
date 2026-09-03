@@ -28,3 +28,5 @@ corpora_clean/
 nul
 rebuild_2026-08/orthographic/*.txt
 rebuild_2026-08/corpora_raw_v2/*.txt
+rebuild_2026-09/corpora_raw_v4/*.txt
+rebuild_2026-09/corpora_clean_v4/*.txt

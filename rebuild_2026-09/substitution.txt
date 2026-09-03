@@ -1,0 +1,7 @@
+oscar_az_ipa.txt: replaced=    0  bytes 57608269 -> 57608269  reversible==True  CR 10000 -> 10000
+oscar_fi_ipa.txt: replaced=    0  bytes 60721354 -> 60721354  reversible==True  CR 10000 -> 10000
+oscar_kk_ipa.txt: replaced= 4332  bytes 71187284 -> 71187284  reversible==True  CR 10000 -> 10000
+oscar_ky_ipa.txt: replaced= 2908  bytes 51193474 -> 51193474  reversible==True  CR 10000 -> 10000
+oscar_tr_ipa.txt: replaced=    0  bytes 62683815 -> 62683815  reversible==False  CR 10000 -> 10000
+oscar_ug_ipa.txt: replaced=    0  bytes 58338425 -> 58338425  reversible==True  CR 10000 -> 10000
+oscar_uz_ipa.txt: replaced=    0  bytes 16256653 -> 16256653  reversible==True  CR 7708 -> 7708
