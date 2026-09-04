@@ -156,6 +156,41 @@ class PairResult(TypedDict):
     n_scored: int
 
 
+class AsymmetryResult(TypedDict):
+    """Whether one unordered language pair reads differently in each direction.
+
+    The paper-level claim this exists to test is that transfer is
+    directional: that a model of ``lang_a`` reading ``lang_b`` is not
+    interchangeable with the reverse. That claim is about the DIFFERENCE
+    between two excess cross-entropies, so the interval belongs to the
+    difference rather than to either side.
+
+    Attributes:
+        lang_a: First language of the unordered pair, alphabetically.
+        lang_b: Second language of the pair.
+        mode: OOV regime, one of :data:`OOV_MODES`.
+        excess_ab: Excess CE of ``lang_a`` reading ``lang_b``.
+        excess_ba: Excess CE of ``lang_b`` reading ``lang_a``.
+        difference: ``excess_ab - excess_ba``.
+        difference_lo: Lower bound of the 95% bootstrap CI for it.
+        difference_hi: Upper bound of the same interval.
+        excludes_zero: Whether that interval excludes zero, which is the
+            condition a directional claim actually needs. Stored rather
+            than left to the reader because comparing two separate
+            intervals by eye is the mistake this row exists to replace.
+    """
+
+    lang_a: str
+    lang_b: str
+    mode: str
+    excess_ab: float
+    excess_ba: float
+    difference: float
+    difference_lo: float
+    difference_hi: float
+    excludes_zero: bool
+
+
 class EvalArgs(TypedDict):
     """Parsed and validated CLI arguments for zero-shot evaluation.
 
@@ -506,6 +541,70 @@ def bootstrap_excess(
     return excesses[lo_idx], excesses[hi_idx]
 
 
+def bootstrap_asymmetry(
+    forward_pair: list[SectionScore],
+    forward_self: list[SectionScore],
+    reverse_pair: list[SectionScore],
+    reverse_self: list[SectionScore],
+    n_boot: int,
+    seed: int,
+) -> tuple[float, float]:
+    """95% bootstrap CI for the DIFFERENCE between two excess CEs.
+
+    The directional claim about a language pair is that ``excess(a, b)``
+    and ``excess(b, a)`` differ. Answering it by checking whether their
+    two intervals overlap is the wrong test and errs in one direction:
+    non-overlap does imply a difference, but overlap implies nothing, so
+    that check can only ever fail to detect one. This resamples the
+    difference itself, which is the quantity the claim is about.
+
+    Unlike :func:`bootstrap_excess` the two halves are NOT paired. Each
+    excess is measured over a different language's sections, so there is
+    no correspondence between index ``i`` on one side and index ``i`` on
+    the other, and reusing one index list would invent one. The two are
+    resampled independently within each iteration; each half stays
+    internally paired against its own self-scores, so per-section
+    difficulty still cancels where it genuinely can.
+
+    Args:
+        forward_pair: Per-section scores for (a, b).
+        forward_self: Per-section scores for (b, b), same sections.
+        reverse_pair: Per-section scores for (b, a).
+        reverse_self: Per-section scores for (a, a), same sections.
+        n_boot: Number of resamples.
+        seed: RNG seed.
+
+    Returns:
+        (lower, upper) bounds of the 95% interval for
+        ``excess(a, b) - excess(b, a)``. An interval excluding zero is
+        the evidence a directional asymmetry claim needs.
+
+    Raises:
+        ValueError: If either side's score lists differ in length, since
+            a pair and its self-scores must cover the same sections.
+    """
+    if len(forward_pair) != len(forward_self):
+        msg = f"Forward score lists differ in length: {len(forward_pair)} vs {len(forward_self)}."
+        raise ValueError(msg)
+    if len(reverse_pair) != len(reverse_self):
+        msg = f"Reverse score lists differ in length: {len(reverse_pair)} vs {len(reverse_self)}."
+        raise ValueError(msg)
+    n_fwd = len(forward_pair)
+    n_rev = len(reverse_pair)
+    rng = random.Random(seed)
+    diffs: list[float] = []
+    for _ in range(n_boot):
+        fwd_idx = [rng.randrange(n_fwd) for _ in range(n_fwd)]
+        rev_idx = [rng.randrange(n_rev) for _ in range(n_rev)]
+        forward = ce_from_scores(forward_pair, fwd_idx) - ce_from_scores(forward_self, fwd_idx)
+        reverse = ce_from_scores(reverse_pair, rev_idx) - ce_from_scores(reverse_self, rev_idx)
+        diffs.append(forward - reverse)
+    diffs.sort()
+    lo_idx = math.floor(0.025 * (n_boot - 1))
+    hi_idx = math.ceil(0.975 * (n_boot - 1))
+    return diffs[lo_idx], diffs[hi_idx]
+
+
 # ---------------------------------------------------------------------------
 # CSV rendering
 # ---------------------------------------------------------------------------
@@ -536,6 +635,93 @@ def excess_observations(results: list[PairResult]) -> tuple[Observation, ...]:
     return tuple(
         Observation(name=f"excess_ce.{r['src']}.{r['tgt']}", value=r["excess_ce"]) for r in results
     )
+
+
+ASYMMETRY_CSV_HEADER = (
+    "language_a,language_b,scoring_mode,excess_a_reading_b,excess_b_reading_a,"
+    "difference,difference_confidence_interval_low,difference_confidence_interval_high,"
+    "interval_excludes_zero"
+)
+
+
+def render_asymmetry_csv(results: list[AsymmetryResult]) -> str:
+    """Render a list of :class:`AsymmetryResult` as a CSV string.
+
+    Args:
+        results: Asymmetry results; output rows preserve the input order.
+
+    Returns:
+        CSV text including header and trailing newline.
+    """
+    lines = [ASYMMETRY_CSV_HEADER]
+    for r in results:
+        lines.append(
+            ",".join(
+                [
+                    r["lang_a"],
+                    r["lang_b"],
+                    r["mode"],
+                    f"{r['excess_ab']:.6f}",
+                    f"{r['excess_ba']:.6f}",
+                    f"{r['difference']:.6f}",
+                    f"{r['difference_lo']:.6f}",
+                    f"{r['difference_hi']:.6f}",
+                    "yes" if r["excludes_zero"] else "no",
+                ]
+            )
+        )
+    return "\n".join(lines) + "\n"
+
+
+def asymmetry_results(
+    scores: dict[tuple[str, str], list[SectionScore]],
+    languages: tuple[str, ...],
+    mode: str,
+    n_boot: int,
+    seed: int,
+) -> list[AsymmetryResult]:
+    """Test every unordered language pair for a directional difference.
+
+    Args:
+        scores: Per-section scores keyed by ordered (source, target) pair.
+        languages: Language codes to pair up, in the order rows appear.
+        mode: OOV regime, recorded on every row.
+        n_boot: Number of bootstrap resamples per pair.
+        seed: Base RNG seed; each pair is offset from it so that two pairs
+            do not share a resampling pattern.
+
+    Returns:
+        One row per unordered pair, in alphabetical order within the pair.
+    """
+    ordered = sorted(languages)
+    rows: list[AsymmetryResult] = []
+    for offset, (a, b) in enumerate(
+        (a, b) for i, a in enumerate(ordered) for b in ordered[i + 1 :]
+    ):
+        excess_ab = ce_from_scores(scores[(a, b)]) - ce_from_scores(scores[(b, b)])
+        excess_ba = ce_from_scores(scores[(b, a)]) - ce_from_scores(scores[(a, a)])
+        lo, hi = bootstrap_asymmetry(
+            scores[(a, b)],
+            scores[(b, b)],
+            scores[(b, a)],
+            scores[(a, a)],
+            n_boot,
+            seed + offset,
+        )
+        rows.append(
+            AsymmetryResult(
+                lang_a=a,
+                lang_b=b,
+                mode=mode,
+                excess_ab=excess_ab,
+                excess_ba=excess_ba,
+                difference=excess_ab - excess_ba,
+                difference_lo=lo,
+                difference_hi=hi,
+                excludes_zero=lo > 0.0 or hi < 0.0,
+            )
+        )
+    return rows
 
 
 def render_results_csv(results: list[PairResult]) -> str:
@@ -746,6 +932,26 @@ def run(args: EvalArgs) -> list[PairResult]:
     args["output_csv"].parent.mkdir(parents=True, exist_ok=True)
     args["output_csv"].write_text(render_results_csv(results), encoding="utf-8")
     print(f"Wrote {len(results)} pair(s) to {args['output_csv']}")
+
+    # The directional claim is about a DIFFERENCE, so it gets its own
+    # interval rather than being read off two others. Written beside the
+    # matrix because a reader comparing the matrix's intervals by eye is
+    # applying a test that can only fail to detect an asymmetry.
+    # Only languages that are BOTH a model and a scored target can be asked
+    # the question: the reverse direction needs the other language's own
+    # sections, and a target whose sections were all dropped for zero
+    # support has none to give.
+    paired = tuple(lang for lang in sources if lang in targets)
+    asymmetries = asymmetry_results(scores, paired, args["oov_mode"], args["n_boot"], args["seed"])
+    asymmetry_csv = args["output_csv"].with_name(
+        args["output_csv"].stem + "_asymmetry" + args["output_csv"].suffix
+    )
+    asymmetry_csv.write_text(render_asymmetry_csv(asymmetries), encoding="utf-8")
+    significant = sum(1 for r in asymmetries if r["excludes_zero"])
+    print(
+        f"Wrote {len(asymmetries)} asymmetry test(s) to {asymmetry_csv}; "
+        f"{significant} interval(s) exclude zero"
+    )
 
     # The CSV keeps its shape; the provenance goes beside it. Every number in
     # it is a subtraction, and until this sidecar existed the only record of
