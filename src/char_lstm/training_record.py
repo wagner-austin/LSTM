@@ -74,10 +74,14 @@ def training_fingerprint(
         gpu_model=gpu_model,
         driver_version=driver_version,
         # UNPINNED_STACK, and honestly. This trainer seeds Python, numpy and
-        # torch but sets no deterministic-algorithm flags, and its own
-        # seed_everything docstring says two seeded CUDA runs agree closely
-        # rather than exactly. Claiming a pinned stack would make a re-run's
-        # disagreement read as a defect rather than as the expected result.
+        # torch but sets no deterministic-algorithm flags, so this field says
+        # unpinned because that is the CONFIGURATION, not because a re-run was
+        # expected to disagree. It in fact does not: the measurement in
+        # seed_everything re-trained one base ten hours later and got a
+        # byte-identical checkpoint. The two must not be conflated -- a run
+        # that reproduces itself while unpinned has no guarantee it will, and
+        # recording "pinned" on the strength of a lucky agreement would assert
+        # a configuration this process never applied.
         determinism=determinism_record(UNPINNED_STACK, {}),
         host=capture_host_record(stdlib_host_probe(os.cpu_count) if probe is None else probe),
         packages=capture_package_versions(SCORING_DISTRIBUTIONS, read_version),

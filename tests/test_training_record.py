@@ -87,9 +87,13 @@ class TestTrainingFingerprint:
         assert fingerprint["driver_version"] == NO_VALUE
 
     def test_the_determinism_stack_is_reported_unpinned(self) -> None:
-        """The trainer seeds three sources but pins no algorithm flags, so two
-        CUDA runs agree closely rather than exactly. Claiming a pinned stack
-        would make that expected disagreement read as a defect.
+        """The trainer seeds three sources but pins no algorithm flags, so the
+        stack is reported unpinned because that is what was configured.
+
+        Deliberately not because a re-run was expected to disagree. It does
+        not disagree -- see the measurement in ``seed_everything`` -- and the
+        field would still be wrong if it said pinned, because reproducing
+        once is not the same as having asked for reproducibility.
         """
         probe: HostProbe = _FakeProbe()
         fingerprint = training_fingerprint(NO_VALUE, NO_VALUE, _no_env, probe, _versions)
