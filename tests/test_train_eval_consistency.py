@@ -23,7 +23,7 @@ from pathlib import Path
 
 import pytest
 
-from char_lstm.corpora import CORPUS_TEMPLATE, LANGS, SNIPPET_TEMPLATE
+from char_lstm.corpora import CORPUS_TEMPLATE, PERCEPTION_LANGS, SNIPPET_TEMPLATE
 
 REPO = Path(__file__).resolve().parents[1]
 TRAIN_DIR = REPO / "corpora_clean"
@@ -99,7 +99,7 @@ def rates_for(lang: str) -> tuple[dict[str, float], dict[str, float]]:
     )
 
 
-@pytest.mark.parametrize("lang", sorted(set(LANGS) - KNOWN_MISMATCHED))
+@pytest.mark.parametrize("lang", sorted(set(PERCEPTION_LANGS) - KNOWN_MISMATCHED))
 def test_training_and_evaluation_share_one_notation(lang: str) -> None:
     """No letter's mass moves wholesale between symbols across the seam.
 

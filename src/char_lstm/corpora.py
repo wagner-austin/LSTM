@@ -10,7 +10,29 @@ from __future__ import annotations
 
 from pathlib import Path
 
-LANGS: tuple[str, ...] = ("az", "fi", "kk", "ky", "tr", "ug", "uz")
+LANGS: tuple[str, ...] = ("az", "fi", "kk", "ky", "ru", "tr", "ug", "uz")
+"""Languages with a training corpus.
+
+Russian joined on 2026-09-03. It is not Turkic, and neither is Finnish: both
+are here as controls. Finnish is the agglutinative non-Turkic control, and
+Russian is the CONTACT language the Cyrillic-script corpora borrow from,
+which makes it the control that separates genealogical relatedness from
+shared loan vocabulary.
+"""
+
+PERCEPTION_LANGS: tuple[str, ...] = ("az", "fi", "kk", "ky", "tr", "ug", "uz")
+"""Languages with listener-perception snippets, a strict subset of :data:`LANGS`.
+
+These two were the same tuple until Russian arrived, which is why nothing
+named the difference. They are different questions: :data:`LANGS` asks what
+a model can be trained on, and this asks what a human listener was actually
+played. A corpus can be built from public text; a perception snippet cannot,
+because it has to correspond to a recording that participants heard.
+
+Anything comparing a training corpus against evaluation text must range over
+this tuple, not over :data:`LANGS`, or it demands a file that no experiment
+produced.
+"""
 
 CORPUS_TEMPLATE = "oscar_{lang}_ipa.txt"
 SNIPPET_TEMPLATE = "perception_{lang}.txt"

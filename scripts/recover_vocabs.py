@@ -24,9 +24,9 @@ import argparse
 from pathlib import Path
 from typing import TypedDict
 
+from char_lstm.corpora import LANGS
 from char_lstm.data import UNK, build_vocab_with_unk, save_vocab_json
 
-LANGS: tuple[str, ...] = ("az", "fi", "kk", "ky", "tr", "ug", "uz")
 DEFAULT_CORPUS_DIR = Path("corpora_raw")
 DEFAULT_CHECKPOINT_DIR = Path("checkpoints")
 MAX_CHARS = 10_000_000

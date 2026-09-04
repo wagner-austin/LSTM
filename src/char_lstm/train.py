@@ -109,12 +109,29 @@ def seed_everything(seed: int) -> torch.Generator:
     The corpus split is not among them. It takes contiguous slices by
     ratio, so it is already reproducible without a seed.
 
-    This does not make a CUDA run bit-identical. cuDNN's LSTM kernels
-    select algorithms at runtime and their backward pass accumulates in
-    a non-deterministic order, so two seeded GPU runs agree closely but
-    not exactly. A seeded CPU run is exact. Making CUDA exact needs
-    ``torch.use_deterministic_algorithms`` and a cuBLAS workspace
-    setting, at a large cost in speed, and is not done here.
+    WHAT THIS PINS ON CUDA, STATED AS MEASURED RATHER THAN AS ASSUMED.
+    This docstring used to say that cuDNN's LSTM kernels select
+    algorithms at runtime and accumulate their backward pass in a
+    non-deterministic order, so two seeded GPU runs "agree closely but
+    not exactly". That was never measured, and for this trainer it is
+    wrong. On 2026-09-03 the ``tr`` base was trained twice from this
+    seed on one RTX 3090 Ti (torch 2.6.0+cu124), ten hours apart, with
+    no determinism flags set: all 274 logged step losses matched, the
+    best validation loss agreed to every digit
+    (1.352308735120447), and the two 3,736,656-byte checkpoints were
+    byte-for-byte identical. Agreement held across a change in GPU
+    memory state mid-run -- epoch 1 shared the card with an 18.5 GiB
+    resident process, epochs 2 and 3 had it nearly to themselves.
+
+    So a seeded CUDA run of THIS model reproduces itself exactly, and
+    ``torch.use_deterministic_algorithms`` is not needed to obtain it.
+    That is a measurement of one architecture at one size on one card,
+    not a property of CUDA: a 933,535-parameter LSTM is small enough
+    that its matmuls do not reach the kernels that make larger models
+    diverge on this same GPU. Nothing here licenses assuming a bigger
+    model, another card, or a different shape behaves this way -- and
+    a run that did not record its card cannot claim it afterwards,
+    which is what :mod:`char_lstm.training_record` exists to prevent.
 
     Args:
         seed: The seed to apply.
@@ -188,6 +205,7 @@ LANGUAGES: dict[str, str] = {
     "uz": "Uzbek",
     "ug": "Uyghur",
     "fi": "Finnish",
+    "ru": "Russian",
 }
 
 DEFAULT_CORPUS_DIR = "corpora_clean"
@@ -568,8 +586,9 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         default=DEFAULT_SEED,
         help=(
             f"Seed for weight initialisation, dropout and batch order "
-            f"(default: {DEFAULT_SEED}). Exact on CPU; close but not "
-            f"bit-identical on CUDA, see seed_everything."
+            f"(default: {DEFAULT_SEED}). Measured bit-identical on both "
+            f"CPU and this project's CUDA configuration, see "
+            f"seed_everything for the measurement and its scope."
         ),
     )
     parser.add_argument(

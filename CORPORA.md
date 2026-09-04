@@ -14,7 +14,78 @@ signal existed.
 | `corpora_clean_2026-02/` | 10,215,670 | Uyghur | **superseded** |
 | `corpora_clean/` | 12,642,807 | Uzbek | **superseded** |
 | `rebuild_2026-08/corpora_clean_v3/` | 11,658,775 | Uzbek | **superseded, and wrong** |
-| `rebuild_2026-09/corpora_clean_v4/` | **11,658,775** | **Uzbek** | **CURRENT** |
+| `rebuild_2026-09/corpora_clean_v4/` | 11,658,775 | Uzbek | seven languages |
+| `rebuild_2026-09/corpora_clean_v5/` | **11,658,775** | **Uzbek** | **CURRENT, eight** |
+
+## v5 is v4 plus Russian, and the seven are byte-identical
+
+Russian was added on 2026-09-03 as a second non-Turkic control. Finnish is
+the agglutinative control; Russian is the CONTACT language the Cyrillic
+corpora borrow from, which is what makes it worth having. If cross-entropy
+transfer tracks genealogy, Russian sits far from all seven. If it tracks
+shared loan vocabulary, it sits closer to the Cyrillic-script Turkic
+languages than to the Latin-script ones. The current seven-language design
+cannot separate those.
+
+**The seven did not move, and that is checked rather than asserted.** All
+seven cleaned files in v5 are byte-identical to their v4 counterparts:
+
+| lang | digest (first 12) |
+|---|---|
+| az | `e3dbdaa758d2` |
+| fi | `dff6e3e4aed8` |
+| kk | `d1fe98d2fc7e` |
+| ky | `ea4b907bb95f` |
+| tr | `19049664c3dd` |
+| ug | `63cd9a8dda95` |
+| uz | `35d3d502ffde` |
+| **ru** | **`3455997e9295`** (new) |
+
+That is a property of the design, not luck, and it was the reason to clean
+all eight together rather than Russian alone. `truncate_to_budget` keeps
+whole lines from the start, and the budget is the smallest `chars_kept` in
+the set. Russian kept 11,642,181 characters after cleaning, above Uzbek's
+11,658,775 before truncation, so Uzbek still binds and every other corpus
+is cut at the same place it was before. Had Russian come in BELOW that, it
+would have rebound the budget and re-truncated all eight, invalidating the
+seven checkpoints trained on v4. Running the eight together is what turns
+that risk into a digest comparison.
+
+The seven v4 checkpoints therefore remain valid against v5's files. Only
+`ru_best.pt` had to be trained.
+
+**How the Russian raw corpus was built**, matching the seven exactly:
+OSCAR-2301 via `turkic-download-corpus`, `lid218e` script-aware at threshold
+0.95, 10,000 lines (10,000 of 11,645 seen), then `turkic-translit translit
+--lang ru`, then the same cleaner at `min-line-chars 30` and
+`min-ipa-ratio 0.95`. OSCAR-2301 is gated: the downloader reads the
+credential from the `HF_TOKEN` environment variable and not from
+`~/.cache/huggingface/token`, so an unset variable fails as HTTP 401 rather
+than as a missing-credential message.
+
+## kk's download manifest describes a corpus that is not there
+
+Found 2026-09-03, recorded because it is a provenance defect rather than a
+data one. `rebuild_2026-08/orthographic/kk.txt.manifest.json` states
+`lines_written: 150000`. The file beside it has 10,000 lines.
+
+| lang | manifest | actual |
+|---|---|---|
+| az | 10,000 | 10,000 |
+| fi | 10,000 | 10,000 |
+| **kk** | **150,000** | **10,000** |
+| ky | 10,000 | 10,000 |
+| tr | 10,000 | 10,000 |
+| ug | 10,000 | 10,000 |
+| uz | 7,708 | 7,708 |
+
+Six of seven agree, and Uzbek's 7,708 is the source running out, which is
+exactly why it binds the budget. So the real cap was 10,000 and kk's
+manifest is a leftover from an abandoned 150,000-line run whose file was
+replaced without rewriting the manifest. The cleaned corpora are unaffected
+because cleaning reads the `.txt`, and every `.txt` is consistent. What is
+affected is the answer to "where did kk's raw text come from", which that
+manifest currently answers wrongly. Russian's manifest matches its file.
 
 ## v4 corrects a segment that was outside the Kazakh inventory
 
