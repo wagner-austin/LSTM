@@ -15,7 +15,60 @@ signal existed.
 | `corpora_clean/` | 12,642,807 | Uzbek | **superseded** |
 | `rebuild_2026-08/corpora_clean_v3/` | 11,658,775 | Uzbek | **superseded, and wrong** |
 | `rebuild_2026-09/corpora_clean_v4/` | 11,658,775 | Uzbek | seven languages |
-| `rebuild_2026-09/corpora_clean_v5/` | **11,658,775** | **Uzbek** | **CURRENT, eight** |
+| `rebuild_2026-09/corpora_clean_v5/` | 11,658,775 | Uzbek | eight, mixed provenance |
+| `rebuild_2026-09/corpora_clean_v6/` | **11,658,775** | **Uzbek** | **CURRENT, eight, fully provenanced** |
+
+## v6 rebuilds all eight from recorded downloads, and five come out identical
+
+Built 2026-09-03. Every language re-downloaded from OSCAR-2301 with the
+parameters its own manifest records, then transliterated and cleaned with
+the current tool. Every v6 raw corpus carries a manifest that pins its own
+`output_sha256` and names the normaliser that shaped it, which is what no
+earlier generation did.
+
+**The budget did not move.** 11,658,775, set by Uzbek, for the third
+generation running.
+
+**Five of the eight cleaned corpora are byte-identical to v5:**
+
+| lang | raw lines equal to the archive | cleaned corpus |
+|---|---|---|
+| az | 6,987 / 10,000 (69.9%) | identical |
+| ky | 7,317 / 10,000 (73.2%) | identical |
+| uz | 7,270 / 7,708 (72.7%) | identical |
+| ug | 4,821 / 10,000 (48.2%) | identical |
+| ru | built the same day | identical |
+| **fi** | **0 / 10,000** | **CHANGED** |
+| **tr** | **1 / 10,000** | **CHANGED** |
+| **kk** | **10 / 10,000** | **CHANGED** |
+
+Two things in that table correct what this file said earlier on 2026-09-03.
+
+**Kazakh was not the only unreproducible archive.** Finnish and Turkish are
+too, and by the same margin: near-zero line overlap with a fresh download
+of the same source under the same recorded parameters. The earlier entry
+concluded kk was the exception, from a line-count check. A line count
+cannot see this, because all three archives have exactly the 10,000 lines
+their manifests claim.
+
+**Normalisation does not reach the cleaned corpora at all.** The four
+languages whose raw text differs by 27 to 52 percent of lines produce
+cleaned corpora that are byte-identical. That difference is the format
+characters `3bfd89e` began stripping on 2026-08-14, and the cleaner's
+filtering absorbs it completely. So the earlier expectation here, that
+every language would shift slightly under the new normaliser, was wrong:
+it shifts no cleaned corpus at all.
+
+What follows is that the v5 to v6 delta has ONE cause rather than two.
+Five languages reproduce bit for bit through a fresh download, which is
+strong evidence the pipeline is sound end to end; three archives were never
+reproducible samples, which is a property of those three files.
+
+**Only fi, tr and kk were retrained on v6.** The other five corpora are
+byte-identical, and training on this stack reproduces bitwise (see the
+personal wiki, `seeded-lstm-training-reproduces-bitwise-on-one-card`), so
+retraining them would spend three hours reproducing checkpoints that
+already exist.
 
 ## v5 is v4 plus Russian, and the seven are byte-identical
 
