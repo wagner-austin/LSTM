@@ -1,0 +1,1800 @@
+=== pilot lane2 start Fri Aug 14 16:38:40 PDT 2026 ===
+--- c/tr start Fri Aug 14 16:38:40 PDT 2026 ---
+Loading data from corpora_pilot_c\oscar_tr_ipa.txt...
+  Loaded: 2,490,854 chars total
+  Train: 1,743,597 chars
+  Val: 373,628 chars
+  Test: 373,629 chars
+Building vocab from training text...
+  Vocab size: 37
+============================================================
+Training config
+============================================================
+  Language: Turkish (tr)
+  Mode: Train from scratch
+  Device: cuda
+  Batch size: 256
+  Workers: 0
+  Pin memory: True
+  Epochs: 3
+  LR: 0.0001
+  Seed: 1234
+  Freeze embed: False
+  Output: checkpoints_pilot_c\tr_best.pt
+Creating data loaders...
+  Train batches: 6,811
+  Val batches: 1,460
+
+Model config
+  Device: cuda
+  Embed dim: 128
+  Hidden dim: 256
+  Layers: 2
+  Parameters: 935,845
+  Optimizer: Adam (lr=0.0001)
+============================================================
+Starting training: 3 epochs, 6811 batches/epoch
+============================================================
+[Epoch 1/3] Starting...
+  [  1.5%] Step 100 | Loss: 3.2275 | PPL: 25.22
+  [  2.9%] Step 200 | Loss: 2.8094 | PPL: 16.60
+  [  4.4%] Step 300 | Loss: 2.4799 | PPL: 11.94
+  [  5.9%] Step 400 | Loss: 2.3307 | PPL: 10.28
+  [  7.3%] Step 500 | Loss: 2.2499 | PPL: 9.49
+  [  8.8%] Step 600 | Loss: 2.1926 | PPL: 8.96
+  [ 10.3%] Step 700 | Loss: 2.1456 | PPL: 8.55
+  [ 11.7%] Step 800 | Loss: 2.1032 | PPL: 8.19
+  [ 13.2%] Step 900 | Loss: 2.0638 | PPL: 7.88
+  [ 14.7%] Step 1,000 | Loss: 2.0343 | PPL: 7.65
+  [ 16.2%] Step 1,100 | Loss: 1.9986 | PPL: 7.38
+  [ 17.6%] Step 1,200 | Loss: 1.9707 | PPL: 7.18
+  [ 19.1%] Step 1,300 | Loss: 1.9493 | PPL: 7.02
+  [ 20.6%] Step 1,400 | Loss: 1.9217 | PPL: 6.83
+  [ 22.0%] Step 1,500 | Loss: 1.8980 | PPL: 6.67
+  [ 23.5%] Step 1,600 | Loss: 1.8792 | PPL: 6.55
+  [ 25.0%] Step 1,700 | Loss: 1.8572 | PPL: 6.41
+  [ 26.4%] Step 1,800 | Loss: 1.8388 | PPL: 6.29
+  [ 27.9%] Step 1,900 | Loss: 1.8214 | PPL: 6.18
+  [ 29.4%] Step 2,000 | Loss: 1.8024 | PPL: 6.06
+  [ 30.8%] Step 2,100 | Loss: 1.7910 | PPL: 6.00
+  [ 32.3%] Step 2,200 | Loss: 1.7710 | PPL: 5.88
+  [ 33.8%] Step 2,300 | Loss: 1.7592 | PPL: 5.81
+  [ 35.2%] Step 2,400 | Loss: 1.7452 | PPL: 5.73
+  [ 36.7%] Step 2,500 | Loss: 1.7334 | PPL: 5.66
+  [ 38.2%] Step 2,600 | Loss: 1.7201 | PPL: 5.59
+  [ 39.6%] Step 2,700 | Loss: 1.7090 | PPL: 5.52
+  [ 41.1%] Step 2,800 | Loss: 1.6961 | PPL: 5.45
+  [ 42.6%] Step 2,900 | Loss: 1.6898 | PPL: 5.42
+  [ 44.0%] Step 3,000 | Loss: 1.6773 | PPL: 5.35
+  [ 45.5%] Step 3,100 | Loss: 1.6681 | PPL: 5.30
+  [ 47.0%] Step 3,200 | Loss: 1.6608 | PPL: 5.26
+  [ 48.5%] Step 3,300 | Loss: 1.6535 | PPL: 5.23
+  [ 49.9%] Step 3,400 | Loss: 1.6443 | PPL: 5.18
+  [ 51.4%] Step 3,500 | Loss: 1.6330 | PPL: 5.12
+  [ 52.9%] Step 3,600 | Loss: 1.6312 | PPL: 5.11
+  [ 54.3%] Step 3,700 | Loss: 1.6196 | PPL: 5.05
+  [ 55.8%] Step 3,800 | Loss: 1.6165 | PPL: 5.04
+  [ 57.3%] Step 3,900 | Loss: 1.6074 | PPL: 4.99
+  [ 58.7%] Step 4,000 | Loss: 1.6007 | PPL: 4.96
+  [ 60.2%] Step 4,100 | Loss: 1.5945 | PPL: 4.93
+  [ 61.7%] Step 4,200 | Loss: 1.5924 | PPL: 4.92
+  [ 63.1%] Step 4,300 | Loss: 1.5830 | PPL: 4.87
+  [ 64.6%] Step 4,400 | Loss: 1.5766 | PPL: 4.84
+  [ 66.1%] Step 4,500 | Loss: 1.5719 | PPL: 4.82
+  [ 67.5%] Step 4,600 | Loss: 1.5667 | PPL: 4.79
+  [ 69.0%] Step 4,700 | Loss: 1.5629 | PPL: 4.77
+  [ 70.5%] Step 4,800 | Loss: 1.5564 | PPL: 4.74
+  [ 71.9%] Step 4,900 | Loss: 1.5499 | PPL: 4.71
+  [ 73.4%] Step 5,000 | Loss: 1.5471 | PPL: 4.70
+  [ 74.9%] Step 5,100 | Loss: 1.5425 | PPL: 4.68
+  [ 76.3%] Step 5,200 | Loss: 1.5356 | PPL: 4.64
+  [ 77.8%] Step 5,300 | Loss: 1.5346 | PPL: 4.64
+  [ 79.3%] Step 5,400 | Loss: 1.5262 | PPL: 4.60
+  [ 80.8%] Step 5,500 | Loss: 1.5266 | PPL: 4.60
+  [ 82.2%] Step 5,600 | Loss: 1.5198 | PPL: 4.57
+  [ 83.7%] Step 5,700 | Loss: 1.5155 | PPL: 4.55
+  [ 85.2%] Step 5,800 | Loss: 1.5147 | PPL: 4.55
+  [ 86.6%] Step 5,900 | Loss: 1.5109 | PPL: 4.53
+  [ 88.1%] Step 6,000 | Loss: 1.5018 | PPL: 4.49
+  [ 89.6%] Step 6,100 | Loss: 1.5018 | PPL: 4.49
+  [ 91.0%] Step 6,200 | Loss: 1.4989 | PPL: 4.48
+  [ 92.5%] Step 6,300 | Loss: 1.4904 | PPL: 4.44
+  [ 94.0%] Step 6,400 | Loss: 1.4931 | PPL: 4.45
+  [ 95.4%] Step 6,500 | Loss: 1.4874 | PPL: 4.43
+  [ 96.9%] Step 6,600 | Loss: 1.4859 | PPL: 4.42
+  [ 98.4%] Step 6,700 | Loss: 1.4804 | PPL: 4.39
+  [ 99.8%] Step 6,800 | Loss: 1.4791 | PPL: 4.39
+  [100.0%] Step 6,811 | Loss: 1.4689 | PPL: 4.34
+[Epoch 1/3] Validating...
+[Epoch 1/3] Loss: 1.5443 | PPL: 4.68
+  -> Saved best model to checkpoints_pilot_c\tr_best.pt
+[Epoch 2/3] Starting...
+  [  1.3%] Step 6,900 | Loss: 1.4745 | PPL: 4.37
+  [  2.8%] Step 7,000 | Loss: 1.4707 | PPL: 4.35
+  [  4.2%] Step 7,100 | Loss: 1.4681 | PPL: 4.34
+  [  5.7%] Step 7,200 | Loss: 1.4631 | PPL: 4.32
+  [  7.2%] Step 7,300 | Loss: 1.4629 | PPL: 4.32
+  [  8.6%] Step 7,400 | Loss: 1.4577 | PPL: 4.30
+  [ 10.1%] Step 7,500 | Loss: 1.4547 | PPL: 4.28
+  [ 11.6%] Step 7,600 | Loss: 1.4521 | PPL: 4.27
+  [ 13.1%] Step 7,700 | Loss: 1.4516 | PPL: 4.27
+  [ 14.5%] Step 7,800 | Loss: 1.4466 | PPL: 4.25
+  [ 16.0%] Step 7,900 | Loss: 1.4427 | PPL: 4.23
+  [ 17.5%] Step 8,000 | Loss: 1.4421 | PPL: 4.23
+  [ 18.9%] Step 8,100 | Loss: 1.4383 | PPL: 4.21
+  [ 20.4%] Step 8,200 | Loss: 1.4375 | PPL: 4.21
+  [ 21.9%] Step 8,300 | Loss: 1.4330 | PPL: 4.19
+  [ 23.3%] Step 8,400 | Loss: 1.4305 | PPL: 4.18
+  [ 24.8%] Step 8,500 | Loss: 1.4293 | PPL: 4.18
+  [ 26.3%] Step 8,600 | Loss: 1.4248 | PPL: 4.16
+  [ 27.7%] Step 8,700 | Loss: 1.4248 | PPL: 4.16
+  [ 29.2%] Step 8,800 | Loss: 1.4242 | PPL: 4.15
+  [ 30.7%] Step 8,900 | Loss: 1.4238 | PPL: 4.15
+  [ 32.1%] Step 9,000 | Loss: 1.4189 | PPL: 4.13
+  [ 33.6%] Step 9,100 | Loss: 1.4174 | PPL: 4.13
+  [ 35.1%] Step 9,200 | Loss: 1.4114 | PPL: 4.10
+  [ 36.5%] Step 9,300 | Loss: 1.4099 | PPL: 4.10
+  [ 38.0%] Step 9,400 | Loss: 1.4059 | PPL: 4.08
+  [ 39.5%] Step 9,500 | Loss: 1.4047 | PPL: 4.07
+  [ 40.9%] Step 9,600 | Loss: 1.4032 | PPL: 4.07
+  [ 42.4%] Step 9,700 | Loss: 1.4027 | PPL: 4.07
+  [ 43.9%] Step 9,800 | Loss: 1.4013 | PPL: 4.06
+  [ 45.4%] Step 9,900 | Loss: 1.3967 | PPL: 4.04
+  [ 46.8%] Step 10,000 | Loss: 1.3944 | PPL: 4.03
+  [ 48.3%] Step 10,100 | Loss: 1.3950 | PPL: 4.04
+  [ 49.8%] Step 10,200 | Loss: 1.3925 | PPL: 4.02
+  [ 51.2%] Step 10,300 | Loss: 1.3905 | PPL: 4.02
+  [ 52.7%] Step 10,400 | Loss: 1.3878 | PPL: 4.01
+  [ 54.2%] Step 10,500 | Loss: 1.3817 | PPL: 3.98
+  [ 55.6%] Step 10,600 | Loss: 1.3859 | PPL: 4.00
+  [ 57.1%] Step 10,700 | Loss: 1.3838 | PPL: 3.99
+  [ 58.6%] Step 10,800 | Loss: 1.3799 | PPL: 3.97
+  [ 60.0%] Step 10,900 | Loss: 1.3787 | PPL: 3.97
+  [ 61.5%] Step 11,000 | Loss: 1.3773 | PPL: 3.96
+  [ 63.0%] Step 11,100 | Loss: 1.3758 | PPL: 3.96
+  [ 64.4%] Step 11,200 | Loss: 1.3725 | PPL: 3.95
+  [ 65.9%] Step 11,300 | Loss: 1.3713 | PPL: 3.94
+  [ 67.4%] Step 11,400 | Loss: 1.3711 | PPL: 3.94
+  [ 68.8%] Step 11,500 | Loss: 1.3691 | PPL: 3.93
+  [ 70.3%] Step 11,600 | Loss: 1.3674 | PPL: 3.93
+  [ 71.8%] Step 11,700 | Loss: 1.3658 | PPL: 3.92
+  [ 73.2%] Step 11,800 | Loss: 1.3598 | PPL: 3.90
+  [ 74.7%] Step 11,900 | Loss: 1.3639 | PPL: 3.91
+  [ 76.2%] Step 12,000 | Loss: 1.3608 | PPL: 3.90
+  [ 77.7%] Step 12,100 | Loss: 1.3584 | PPL: 3.89
+  [ 79.1%] Step 12,200 | Loss: 1.3565 | PPL: 3.88
+  [ 80.6%] Step 12,300 | Loss: 1.3536 | PPL: 3.87
+  [ 82.1%] Step 12,400 | Loss: 1.3534 | PPL: 3.87
+  [ 83.5%] Step 12,500 | Loss: 1.3533 | PPL: 3.87
+  [ 85.0%] Step 12,600 | Loss: 1.3499 | PPL: 3.86
+  [ 86.5%] Step 12,700 | Loss: 1.3483 | PPL: 3.85
+  [ 87.9%] Step 12,800 | Loss: 1.3492 | PPL: 3.85
+  [ 89.4%] Step 12,900 | Loss: 1.3477 | PPL: 3.85
+  [ 90.9%] Step 13,000 | Loss: 1.3446 | PPL: 3.84
+  [ 92.3%] Step 13,100 | Loss: 1.3416 | PPL: 3.83
+  [ 93.8%] Step 13,200 | Loss: 1.3412 | PPL: 3.82
+  [ 95.3%] Step 13,300 | Loss: 1.3420 | PPL: 3.83
+  [ 96.7%] Step 13,400 | Loss: 1.3380 | PPL: 3.81
+  [ 98.2%] Step 13,500 | Loss: 1.3361 | PPL: 3.80
+  [ 99.7%] Step 13,600 | Loss: 1.3327 | PPL: 3.79
+  [100.0%] Step 13,622 | Loss: 1.3360 | PPL: 3.80
+[Epoch 2/3] Validating...
+[Epoch 2/3] Loss: 1.4675 | PPL: 4.34
+  -> Saved best model to checkpoints_pilot_c\tr_best.pt
+[Epoch 3/3] Starting...
+  [  1.1%] Step 13,700 | Loss: 1.3315 | PPL: 3.79
+  [  2.6%] Step 13,800 | Loss: 1.3329 | PPL: 3.79
+  [  4.1%] Step 13,900 | Loss: 1.3334 | PPL: 3.79
+  [  5.5%] Step 14,000 | Loss: 1.3304 | PPL: 3.78
+  [  7.0%] Step 14,100 | Loss: 1.3259 | PPL: 3.77
+  [  8.5%] Step 14,200 | Loss: 1.3276 | PPL: 3.77
+  [ 10.0%] Step 14,300 | Loss: 1.3242 | PPL: 3.76
+  [ 11.4%] Step 14,400 | Loss: 1.3244 | PPL: 3.76
+  [ 12.9%] Step 14,500 | Loss: 1.3227 | PPL: 3.75
+  [ 14.4%] Step 14,600 | Loss: 1.3233 | PPL: 3.76
+  [ 15.8%] Step 14,700 | Loss: 1.3209 | PPL: 3.75
+  [ 17.3%] Step 14,800 | Loss: 1.3151 | PPL: 3.73
+  [ 18.8%] Step 14,900 | Loss: 1.3158 | PPL: 3.73
+  [ 20.2%] Step 15,000 | Loss: 1.3193 | PPL: 3.74
+  [ 21.7%] Step 15,100 | Loss: 1.3138 | PPL: 3.72
+  [ 23.2%] Step 15,200 | Loss: 1.3124 | PPL: 3.72
+  [ 24.6%] Step 15,300 | Loss: 1.3125 | PPL: 3.72
+  [ 26.1%] Step 15,400 | Loss: 1.3109 | PPL: 3.71
+  [ 27.6%] Step 15,500 | Loss: 1.3097 | PPL: 3.71
+  [ 29.0%] Step 15,600 | Loss: 1.3096 | PPL: 3.70
+  [ 30.5%] Step 15,700 | Loss: 1.3054 | PPL: 3.69
+  [ 32.0%] Step 15,800 | Loss: 1.3051 | PPL: 3.69
+  [ 33.4%] Step 15,900 | Loss: 1.3048 | PPL: 3.69
+  [ 34.9%] Step 16,000 | Loss: 1.3034 | PPL: 3.68
+  [ 36.4%] Step 16,100 | Loss: 1.3034 | PPL: 3.68
+  [ 37.9%] Step 16,200 | Loss: 1.2993 | PPL: 3.67
+  [ 39.3%] Step 16,300 | Loss: 1.2983 | PPL: 3.66
+  [ 40.8%] Step 16,400 | Loss: 1.2961 | PPL: 3.65
+  [ 42.3%] Step 16,500 | Loss: 1.2969 | PPL: 3.66
+  [ 43.7%] Step 16,600 | Loss: 1.2952 | PPL: 3.65
+  [ 45.2%] Step 16,700 | Loss: 1.2968 | PPL: 3.66
+  [ 46.7%] Step 16,800 | Loss: 1.2986 | PPL: 3.66
+  [ 48.1%] Step 16,900 | Loss: 1.2921 | PPL: 3.64
+  [ 49.6%] Step 17,000 | Loss: 1.2875 | PPL: 3.62
+  [ 51.1%] Step 17,100 | Loss: 1.2891 | PPL: 3.63
+  [ 52.5%] Step 17,200 | Loss: 1.2891 | PPL: 3.63
+  [ 54.0%] Step 17,300 | Loss: 1.2888 | PPL: 3.63
+  [ 55.5%] Step 17,400 | Loss: 1.2925 | PPL: 3.64
+  [ 56.9%] Step 17,500 | Loss: 1.2863 | PPL: 3.62
+  [ 58.4%] Step 17,600 | Loss: 1.2847 | PPL: 3.61
+  [ 59.9%] Step 17,700 | Loss: 1.2840 | PPL: 3.61
+  [ 61.3%] Step 17,800 | Loss: 1.2868 | PPL: 3.62
+  [ 62.8%] Step 17,900 | Loss: 1.2820 | PPL: 3.60
+  [ 64.3%] Step 18,000 | Loss: 1.2821 | PPL: 3.60
+  [ 65.7%] Step 18,100 | Loss: 1.2816 | PPL: 3.60
+  [ 67.2%] Step 18,200 | Loss: 1.2785 | PPL: 3.59
+  [ 68.7%] Step 18,300 | Loss: 1.2801 | PPL: 3.60
+  [ 70.2%] Step 18,400 | Loss: 1.2759 | PPL: 3.58
+  [ 71.6%] Step 18,500 | Loss: 1.2765 | PPL: 3.58
+  [ 73.1%] Step 18,600 | Loss: 1.2742 | PPL: 3.58
+  [ 74.6%] Step 18,700 | Loss: 1.2737 | PPL: 3.57
+  [ 76.0%] Step 18,800 | Loss: 1.2713 | PPL: 3.57
+  [ 77.5%] Step 18,900 | Loss: 1.2749 | PPL: 3.58
+  [ 79.0%] Step 19,000 | Loss: 1.2718 | PPL: 3.57
+  [ 80.4%] Step 19,100 | Loss: 1.2709 | PPL: 3.56
+  [ 81.9%] Step 19,200 | Loss: 1.2667 | PPL: 3.55
+  [ 83.4%] Step 19,300 | Loss: 1.2707 | PPL: 3.56
+  [ 84.8%] Step 19,400 | Loss: 1.2667 | PPL: 3.55
+  [ 86.3%] Step 19,500 | Loss: 1.2658 | PPL: 3.55
+  [ 87.8%] Step 19,600 | Loss: 1.2648 | PPL: 3.54
+  [ 89.2%] Step 19,700 | Loss: 1.2649 | PPL: 3.54
+  [ 90.7%] Step 19,800 | Loss: 1.2663 | PPL: 3.55
+  [ 92.2%] Step 19,900 | Loss: 1.2610 | PPL: 3.53
+  [ 93.6%] Step 20,000 | Loss: 1.2590 | PPL: 3.52
+  [ 95.1%] Step 20,100 | Loss: 1.2590 | PPL: 3.52
+  [ 96.6%] Step 20,200 | Loss: 1.2566 | PPL: 3.51
+  [ 98.0%] Step 20,300 | Loss: 1.2619 | PPL: 3.53
+  [ 99.5%] Step 20,400 | Loss: 1.2600 | PPL: 3.53
+  [100.0%] Step 20,433 | Loss: 1.2570 | PPL: 3.51
+[Epoch 3/3] Validating...
+[Epoch 3/3] Loss: 1.4492 | PPL: 4.26
+  -> Saved best model to checkpoints_pilot_c\tr_best.pt
+============================================================
+Training complete. Running final evaluation...
+============================================================
+
+Final Test Loss: 1.5549 | Test PPL: 4.73
+Done!
+--- c/tr end rc=0 Fri Aug 14 16:59:56 PDT 2026 ---
+--- c/az start Fri Aug 14 16:59:56 PDT 2026 ---
+Loading data from corpora_pilot_c\oscar_az_ipa.txt...
+  Loaded: 2,494,688 chars total
+  Train: 1,746,281 chars
+  Val: 374,203 chars
+  Test: 374,204 chars
+Building vocab from training text...
+  Vocab size: 40
+============================================================
+Training config
+============================================================
+  Language: Azerbaijani (az)
+  Mode: Train from scratch
+  Device: cuda
+  Batch size: 256
+  Workers: 0
+  Pin memory: True
+  Epochs: 3
+  LR: 0.0001
+  Seed: 1234
+  Freeze embed: False
+  Output: checkpoints_pilot_c\az_best.pt
+Creating data loaders...
+  Train batches: 6,822
+  Val batches: 1,462
+
+Model config
+  Device: cuda
+  Embed dim: 128
+  Hidden dim: 256
+  Layers: 2
+  Parameters: 937,000
+  Optimizer: Adam (lr=0.0001)
+============================================================
+Starting training: 3 epochs, 6822 batches/epoch
+============================================================
+[Epoch 1/3] Starting...
+  [  1.5%] Step 100 | Loss: 3.3216 | PPL: 27.71
+  [  2.9%] Step 200 | Loss: 2.9388 | PPL: 18.89
+  [  4.4%] Step 300 | Loss: 2.6101 | PPL: 13.60
+  [  5.9%] Step 400 | Loss: 2.4378 | PPL: 11.45
+  [  7.3%] Step 500 | Loss: 2.3390 | PPL: 10.37
+  [  8.8%] Step 600 | Loss: 2.2616 | PPL: 9.60
+  [ 10.3%] Step 700 | Loss: 2.1955 | PPL: 8.98
+  [ 11.7%] Step 800 | Loss: 2.1396 | PPL: 8.50
+  [ 13.2%] Step 900 | Loss: 2.0868 | PPL: 8.06
+  [ 14.7%] Step 1,000 | Loss: 2.0399 | PPL: 7.69
+  [ 16.1%] Step 1,100 | Loss: 1.9990 | PPL: 7.38
+  [ 17.6%] Step 1,200 | Loss: 1.9601 | PPL: 7.10
+  [ 19.1%] Step 1,300 | Loss: 1.9254 | PPL: 6.86
+  [ 20.5%] Step 1,400 | Loss: 1.8929 | PPL: 6.64
+  [ 22.0%] Step 1,500 | Loss: 1.8665 | PPL: 6.47
+  [ 23.5%] Step 1,600 | Loss: 1.8363 | PPL: 6.27
+  [ 24.9%] Step 1,700 | Loss: 1.8103 | PPL: 6.11
+  [ 26.4%] Step 1,800 | Loss: 1.7860 | PPL: 5.97
+  [ 27.9%] Step 1,900 | Loss: 1.7627 | PPL: 5.83
+  [ 29.3%] Step 2,000 | Loss: 1.7418 | PPL: 5.71
+  [ 30.8%] Step 2,100 | Loss: 1.7233 | PPL: 5.60
+  [ 32.2%] Step 2,200 | Loss: 1.7033 | PPL: 5.49
+  [ 33.7%] Step 2,300 | Loss: 1.6898 | PPL: 5.42
+  [ 35.2%] Step 2,400 | Loss: 1.6715 | PPL: 5.32
+  [ 36.6%] Step 2,500 | Loss: 1.6572 | PPL: 5.24
+  [ 38.1%] Step 2,600 | Loss: 1.6434 | PPL: 5.17
+  [ 39.6%] Step 2,700 | Loss: 1.6250 | PPL: 5.08
+  [ 41.0%] Step 2,800 | Loss: 1.6100 | PPL: 5.00
+  [ 42.5%] Step 2,900 | Loss: 1.6020 | PPL: 4.96
+  [ 44.0%] Step 3,000 | Loss: 1.5908 | PPL: 4.91
+  [ 45.4%] Step 3,100 | Loss: 1.5827 | PPL: 4.87
+  [ 46.9%] Step 3,200 | Loss: 1.5687 | PPL: 4.80
+  [ 48.4%] Step 3,300 | Loss: 1.5620 | PPL: 4.77
+  [ 49.8%] Step 3,400 | Loss: 1.5491 | PPL: 4.71
+  [ 51.3%] Step 3,500 | Loss: 1.5389 | PPL: 4.66
+  [ 52.8%] Step 3,600 | Loss: 1.5315 | PPL: 4.63
+  [ 54.2%] Step 3,700 | Loss: 1.5226 | PPL: 4.58
+  [ 55.7%] Step 3,800 | Loss: 1.5150 | PPL: 4.55
+  [ 57.2%] Step 3,900 | Loss: 1.5058 | PPL: 4.51
+  [ 58.6%] Step 4,000 | Loss: 1.4996 | PPL: 4.48
+  [ 60.1%] Step 4,100 | Loss: 1.4940 | PPL: 4.46
+  [ 61.6%] Step 4,200 | Loss: 1.4874 | PPL: 4.43
+  [ 63.0%] Step 4,300 | Loss: 1.4799 | PPL: 4.39
+  [ 64.5%] Step 4,400 | Loss: 1.4753 | PPL: 4.37
+  [ 66.0%] Step 4,500 | Loss: 1.4629 | PPL: 4.32
+  [ 67.4%] Step 4,600 | Loss: 1.4633 | PPL: 4.32
+  [ 68.9%] Step 4,700 | Loss: 1.4594 | PPL: 4.30
+  [ 70.4%] Step 4,800 | Loss: 1.4507 | PPL: 4.27
+  [ 71.8%] Step 4,900 | Loss: 1.4408 | PPL: 4.22
+  [ 73.3%] Step 5,000 | Loss: 1.4410 | PPL: 4.22
+  [ 74.8%] Step 5,100 | Loss: 1.4322 | PPL: 4.19
+  [ 76.2%] Step 5,200 | Loss: 1.4314 | PPL: 4.18
+  [ 77.7%] Step 5,300 | Loss: 1.4249 | PPL: 4.16
+  [ 79.2%] Step 5,400 | Loss: 1.4151 | PPL: 4.12
+  [ 80.6%] Step 5,500 | Loss: 1.4120 | PPL: 4.10
+  [ 82.1%] Step 5,600 | Loss: 1.4063 | PPL: 4.08
+  [ 83.6%] Step 5,700 | Loss: 1.4061 | PPL: 4.08
+  [ 85.0%] Step 5,800 | Loss: 1.3982 | PPL: 4.05
+  [ 86.5%] Step 5,900 | Loss: 1.3984 | PPL: 4.05
+  [ 88.0%] Step 6,000 | Loss: 1.3919 | PPL: 4.02
+  [ 89.4%] Step 6,100 | Loss: 1.3915 | PPL: 4.02
+  [ 90.9%] Step 6,200 | Loss: 1.3841 | PPL: 3.99
+  [ 92.3%] Step 6,300 | Loss: 1.3806 | PPL: 3.98
+  [ 93.8%] Step 6,400 | Loss: 1.3748 | PPL: 3.95
+  [ 95.3%] Step 6,500 | Loss: 1.3711 | PPL: 3.94
+  [ 96.7%] Step 6,600 | Loss: 1.3705 | PPL: 3.94
+  [ 98.2%] Step 6,700 | Loss: 1.3643 | PPL: 3.91
+  [ 99.7%] Step 6,800 | Loss: 1.3571 | PPL: 3.89
+  [100.0%] Step 6,822 | Loss: 1.3601 | PPL: 3.90
+[Epoch 1/3] Validating...
+[Epoch 1/3] Loss: 1.4485 | PPL: 4.26
+  -> Saved best model to checkpoints_pilot_c\az_best.pt
+[Epoch 2/3] Starting...
+  [  1.1%] Step 6,900 | Loss: 1.3609 | PPL: 3.90
+  [  2.6%] Step 7,000 | Loss: 1.3549 | PPL: 3.88
+  [  4.1%] Step 7,100 | Loss: 1.3510 | PPL: 3.86
+  [  5.5%] Step 7,200 | Loss: 1.3460 | PPL: 3.84
+  [  7.0%] Step 7,300 | Loss: 1.3464 | PPL: 3.84
+  [  8.5%] Step 7,400 | Loss: 1.3434 | PPL: 3.83
+  [  9.9%] Step 7,500 | Loss: 1.3381 | PPL: 3.81
+  [ 11.4%] Step 7,600 | Loss: 1.3359 | PPL: 3.80
+  [ 12.9%] Step 7,700 | Loss: 1.3336 | PPL: 3.79
+  [ 14.3%] Step 7,800 | Loss: 1.3341 | PPL: 3.80
+  [ 15.8%] Step 7,900 | Loss: 1.3278 | PPL: 3.77
+  [ 17.3%] Step 8,000 | Loss: 1.3217 | PPL: 3.75
+  [ 18.7%] Step 8,100 | Loss: 1.3283 | PPL: 3.77
+  [ 20.2%] Step 8,200 | Loss: 1.3181 | PPL: 3.74
+  [ 21.7%] Step 8,300 | Loss: 1.3127 | PPL: 3.72
+  [ 23.1%] Step 8,400 | Loss: 1.3174 | PPL: 3.73
+  [ 24.6%] Step 8,500 | Loss: 1.3111 | PPL: 3.71
+  [ 26.1%] Step 8,600 | Loss: 1.3090 | PPL: 3.70
+  [ 27.5%] Step 8,700 | Loss: 1.3041 | PPL: 3.68
+  [ 29.0%] Step 8,800 | Loss: 1.3061 | PPL: 3.69
+  [ 30.5%] Step 8,900 | Loss: 1.3015 | PPL: 3.67
+  [ 31.9%] Step 9,000 | Loss: 1.2980 | PPL: 3.66
+  [ 33.4%] Step 9,100 | Loss: 1.3012 | PPL: 3.67
+  [ 34.9%] Step 9,200 | Loss: 1.2904 | PPL: 3.63
+  [ 36.3%] Step 9,300 | Loss: 1.2974 | PPL: 3.66
+  [ 37.8%] Step 9,400 | Loss: 1.2885 | PPL: 3.63
+  [ 39.3%] Step 9,500 | Loss: 1.2920 | PPL: 3.64
+  [ 40.7%] Step 9,600 | Loss: 1.2861 | PPL: 3.62
+  [ 42.2%] Step 9,700 | Loss: 1.2825 | PPL: 3.61
+  [ 43.7%] Step 9,800 | Loss: 1.2798 | PPL: 3.60
+  [ 45.1%] Step 9,900 | Loss: 1.2796 | PPL: 3.60
+  [ 46.6%] Step 10,000 | Loss: 1.2804 | PPL: 3.60
+  [ 48.1%] Step 10,100 | Loss: 1.2769 | PPL: 3.59
+  [ 49.5%] Step 10,200 | Loss: 1.2699 | PPL: 3.56
+  [ 51.0%] Step 10,300 | Loss: 1.2706 | PPL: 3.56
+  [ 52.4%] Step 10,400 | Loss: 1.2674 | PPL: 3.55
+  [ 53.9%] Step 10,500 | Loss: 1.2699 | PPL: 3.56
+  [ 55.4%] Step 10,600 | Loss: 1.2634 | PPL: 3.54
+  [ 56.8%] Step 10,700 | Loss: 1.2621 | PPL: 3.53
+  [ 58.3%] Step 10,800 | Loss: 1.2631 | PPL: 3.54
+  [ 59.8%] Step 10,900 | Loss: 1.2623 | PPL: 3.53
+  [ 61.2%] Step 11,000 | Loss: 1.2556 | PPL: 3.51
+  [ 62.7%] Step 11,100 | Loss: 1.2559 | PPL: 3.51
+  [ 64.2%] Step 11,200 | Loss: 1.2596 | PPL: 3.52
+  [ 65.6%] Step 11,300 | Loss: 1.2542 | PPL: 3.50
+  [ 67.1%] Step 11,400 | Loss: 1.2510 | PPL: 3.49
+  [ 68.6%] Step 11,500 | Loss: 1.2478 | PPL: 3.48
+  [ 70.0%] Step 11,600 | Loss: 1.2468 | PPL: 3.48
+  [ 71.5%] Step 11,700 | Loss: 1.2506 | PPL: 3.49
+  [ 73.0%] Step 11,800 | Loss: 1.2386 | PPL: 3.45
+  [ 74.4%] Step 11,900 | Loss: 1.2454 | PPL: 3.47
+  [ 75.9%] Step 12,000 | Loss: 1.2422 | PPL: 3.46
+  [ 77.4%] Step 12,100 | Loss: 1.2393 | PPL: 3.45
+  [ 78.8%] Step 12,200 | Loss: 1.2346 | PPL: 3.44
+  [ 80.3%] Step 12,300 | Loss: 1.2334 | PPL: 3.43
+  [ 81.8%] Step 12,400 | Loss: 1.2358 | PPL: 3.44
+  [ 83.2%] Step 12,500 | Loss: 1.2322 | PPL: 3.43
+  [ 84.7%] Step 12,600 | Loss: 1.2308 | PPL: 3.42
+  [ 86.2%] Step 12,700 | Loss: 1.2304 | PPL: 3.42
+  [ 87.6%] Step 12,800 | Loss: 1.2277 | PPL: 3.41
+  [ 89.1%] Step 12,900 | Loss: 1.2266 | PPL: 3.41
+  [ 90.6%] Step 13,000 | Loss: 1.2264 | PPL: 3.41
+  [ 92.0%] Step 13,100 | Loss: 1.2212 | PPL: 3.39
+  [ 93.5%] Step 13,200 | Loss: 1.2264 | PPL: 3.41
+  [ 95.0%] Step 13,300 | Loss: 1.2243 | PPL: 3.40
+  [ 96.4%] Step 13,400 | Loss: 1.2181 | PPL: 3.38
+  [ 97.9%] Step 13,500 | Loss: 1.2154 | PPL: 3.37
+  [ 99.4%] Step 13,600 | Loss: 1.2202 | PPL: 3.39
+  [100.0%] Step 13,644 | Loss: 1.2189 | PPL: 3.38
+[Epoch 2/3] Validating...
+[Epoch 2/3] Loss: 1.3621 | PPL: 3.90
+  -> Saved best model to checkpoints_pilot_c\az_best.pt
+[Epoch 3/3] Starting...
+  [  0.8%] Step 13,700 | Loss: 1.2159 | PPL: 3.37
+  [  2.3%] Step 13,800 | Loss: 1.2118 | PPL: 3.36
+  [  3.8%] Step 13,900 | Loss: 1.2091 | PPL: 3.35
+  [  5.2%] Step 14,000 | Loss: 1.2099 | PPL: 3.35
+  [  6.7%] Step 14,100 | Loss: 1.2108 | PPL: 3.36
+  [  8.2%] Step 14,200 | Loss: 1.2085 | PPL: 3.35
+  [  9.6%] Step 14,300 | Loss: 1.2045 | PPL: 3.34
+  [ 11.1%] Step 14,400 | Loss: 1.1989 | PPL: 3.32
+  [ 12.5%] Step 14,500 | Loss: 1.2042 | PPL: 3.33
+  [ 14.0%] Step 14,600 | Loss: 1.2019 | PPL: 3.33
+  [ 15.5%] Step 14,700 | Loss: 1.2003 | PPL: 3.32
+  [ 16.9%] Step 14,800 | Loss: 1.1993 | PPL: 3.32
+  [ 18.4%] Step 14,900 | Loss: 1.1994 | PPL: 3.32
+  [ 19.9%] Step 15,000 | Loss: 1.1964 | PPL: 3.31
+  [ 21.3%] Step 15,100 | Loss: 1.1933 | PPL: 3.30
+  [ 22.8%] Step 15,200 | Loss: 1.1946 | PPL: 3.30
+  [ 24.3%] Step 15,300 | Loss: 1.1933 | PPL: 3.30
+  [ 25.7%] Step 15,400 | Loss: 1.1967 | PPL: 3.31
+  [ 27.2%] Step 15,500 | Loss: 1.1919 | PPL: 3.29
+  [ 28.7%] Step 15,600 | Loss: 1.1907 | PPL: 3.29
+  [ 30.1%] Step 15,700 | Loss: 1.1901 | PPL: 3.29
+  [ 31.6%] Step 15,800 | Loss: 1.1887 | PPL: 3.28
+  [ 33.1%] Step 15,900 | Loss: 1.1845 | PPL: 3.27
+  [ 34.5%] Step 16,000 | Loss: 1.1836 | PPL: 3.27
+  [ 36.0%] Step 16,100 | Loss: 1.1817 | PPL: 3.26
+  [ 37.5%] Step 16,200 | Loss: 1.1799 | PPL: 3.25
+  [ 38.9%] Step 16,300 | Loss: 1.1836 | PPL: 3.27
+  [ 40.4%] Step 16,400 | Loss: 1.1805 | PPL: 3.26
+  [ 41.9%] Step 16,500 | Loss: 1.1840 | PPL: 3.27
+  [ 43.3%] Step 16,600 | Loss: 1.1762 | PPL: 3.24
+  [ 44.8%] Step 16,700 | Loss: 1.1781 | PPL: 3.25
+  [ 46.3%] Step 16,800 | Loss: 1.1764 | PPL: 3.24
+  [ 47.7%] Step 16,900 | Loss: 1.1772 | PPL: 3.25
+  [ 49.2%] Step 17,000 | Loss: 1.1741 | PPL: 3.24
+  [ 50.7%] Step 17,100 | Loss: 1.1708 | PPL: 3.22
+  [ 52.1%] Step 17,200 | Loss: 1.1712 | PPL: 3.23
+  [ 53.6%] Step 17,300 | Loss: 1.1683 | PPL: 3.22
+  [ 55.1%] Step 17,400 | Loss: 1.1687 | PPL: 3.22
+  [ 56.5%] Step 17,500 | Loss: 1.1674 | PPL: 3.21
+  [ 58.0%] Step 17,600 | Loss: 1.1671 | PPL: 3.21
+  [ 59.5%] Step 17,700 | Loss: 1.1623 | PPL: 3.20
+  [ 60.9%] Step 17,800 | Loss: 1.1648 | PPL: 3.21
+  [ 62.4%] Step 17,900 | Loss: 1.1615 | PPL: 3.19
+  [ 63.9%] Step 18,000 | Loss: 1.1672 | PPL: 3.21
+  [ 65.3%] Step 18,100 | Loss: 1.1563 | PPL: 3.18
+  [ 66.8%] Step 18,200 | Loss: 1.1635 | PPL: 3.20
+  [ 68.2%] Step 18,300 | Loss: 1.1611 | PPL: 3.19
+  [ 69.7%] Step 18,400 | Loss: 1.1593 | PPL: 3.19
+  [ 71.2%] Step 18,500 | Loss: 1.1550 | PPL: 3.17
+  [ 72.6%] Step 18,600 | Loss: 1.1544 | PPL: 3.17
+  [ 74.1%] Step 18,700 | Loss: 1.1589 | PPL: 3.19
+  [ 75.6%] Step 18,800 | Loss: 1.1577 | PPL: 3.18
+  [ 77.0%] Step 18,900 | Loss: 1.1552 | PPL: 3.17
+  [ 78.5%] Step 19,000 | Loss: 1.1510 | PPL: 3.16
+  [ 80.0%] Step 19,100 | Loss: 1.1506 | PPL: 3.16
+  [ 81.4%] Step 19,200 | Loss: 1.1476 | PPL: 3.15
+  [ 82.9%] Step 19,300 | Loss: 1.1510 | PPL: 3.16
+  [ 84.4%] Step 19,400 | Loss: 1.1468 | PPL: 3.15
+  [ 85.8%] Step 19,500 | Loss: 1.1463 | PPL: 3.15
+  [ 87.3%] Step 19,600 | Loss: 1.1423 | PPL: 3.13
+  [ 88.8%] Step 19,700 | Loss: 1.1422 | PPL: 3.13
+  [ 90.2%] Step 19,800 | Loss: 1.1447 | PPL: 3.14
+  [ 91.7%] Step 19,900 | Loss: 1.1440 | PPL: 3.14
+  [ 93.2%] Step 20,000 | Loss: 1.1447 | PPL: 3.14
+  [ 94.6%] Step 20,100 | Loss: 1.1374 | PPL: 3.12
+  [ 96.1%] Step 20,200 | Loss: 1.1417 | PPL: 3.13
+  [ 97.6%] Step 20,300 | Loss: 1.1401 | PPL: 3.13
+  [ 99.0%] Step 20,400 | Loss: 1.1377 | PPL: 3.12
+  [100.0%] Step 20,466 | Loss: 1.1360 | PPL: 3.11
+[Epoch 3/3] Validating...
+[Epoch 3/3] Loss: 1.3341 | PPL: 3.80
+  -> Saved best model to checkpoints_pilot_c\az_best.pt
+============================================================
+Training complete. Running final evaluation...
+============================================================
+
+Final Test Loss: 1.1660 | Test PPL: 3.21
+Done!
+--- c/az end rc=0 Fri Aug 14 17:21:29 PDT 2026 ---
+--- c/kk start Fri Aug 14 17:21:29 PDT 2026 ---
+Loading data from corpora_pilot_c\oscar_kk_ipa.txt...
+  Loaded: 2,494,785 chars total
+  Train: 1,746,349 chars
+  Val: 374,218 chars
+  Test: 374,218 chars
+Building vocab from training text...
+  Vocab size: 49
+============================================================
+Training config
+============================================================
+  Language: Kazakh (kk)
+  Mode: Train from scratch
+  Device: cuda
+  Batch size: 256
+  Workers: 0
+  Pin memory: True
+  Epochs: 3
+  LR: 0.0001
+  Seed: 1234
+  Freeze embed: False
+  Output: checkpoints_pilot_c\kk_best.pt
+Creating data loaders...
+  Train batches: 6,822
+  Val batches: 1,462
+
+Model config
+  Device: cuda
+  Embed dim: 128
+  Hidden dim: 256
+  Layers: 2
+  Parameters: 940,465
+  Optimizer: Adam (lr=0.0001)
+============================================================
+Starting training: 3 epochs, 6822 batches/epoch
+============================================================
+[Epoch 1/3] Starting...
+  [  1.5%] Step 100 | Loss: 3.4297 | PPL: 30.87
+  [  2.9%] Step 200 | Loss: 2.9958 | PPL: 20.00
+  [  4.4%] Step 300 | Loss: 2.6893 | PPL: 14.72
+  [  5.9%] Step 400 | Loss: 2.5034 | PPL: 12.22
+  [  7.3%] Step 500 | Loss: 2.3986 | PPL: 11.01
+  [  8.8%] Step 600 | Loss: 2.3179 | PPL: 10.15
+  [ 10.3%] Step 700 | Loss: 2.2507 | PPL: 9.49
+  [ 11.7%] Step 800 | Loss: 2.1877 | PPL: 8.91
+  [ 13.2%] Step 900 | Loss: 2.1299 | PPL: 8.41
+  [ 14.7%] Step 1,000 | Loss: 2.0754 | PPL: 7.97
+  [ 16.1%] Step 1,100 | Loss: 2.0339 | PPL: 7.64
+  [ 17.6%] Step 1,200 | Loss: 1.9922 | PPL: 7.33
+  [ 19.1%] Step 1,300 | Loss: 1.9515 | PPL: 7.04
+  [ 20.5%] Step 1,400 | Loss: 1.9162 | PPL: 6.79
+  [ 22.0%] Step 1,500 | Loss: 1.8886 | PPL: 6.61
+  [ 23.5%] Step 1,600 | Loss: 1.8580 | PPL: 6.41
+  [ 24.9%] Step 1,700 | Loss: 1.8318 | PPL: 6.25
+  [ 26.4%] Step 1,800 | Loss: 1.8063 | PPL: 6.09
+  [ 27.9%] Step 1,900 | Loss: 1.7844 | PPL: 5.96
+  [ 29.3%] Step 2,000 | Loss: 1.7646 | PPL: 5.84
+  [ 30.8%] Step 2,100 | Loss: 1.7475 | PPL: 5.74
+  [ 32.2%] Step 2,200 | Loss: 1.7280 | PPL: 5.63
+  [ 33.7%] Step 2,300 | Loss: 1.7120 | PPL: 5.54
+  [ 35.2%] Step 2,400 | Loss: 1.6984 | PPL: 5.47
+  [ 36.6%] Step 2,500 | Loss: 1.6799 | PPL: 5.36
+  [ 38.1%] Step 2,600 | Loss: 1.6662 | PPL: 5.29
+  [ 39.6%] Step 2,700 | Loss: 1.6502 | PPL: 5.21
+  [ 41.0%] Step 2,800 | Loss: 1.6350 | PPL: 5.13
+  [ 42.5%] Step 2,900 | Loss: 1.6247 | PPL: 5.08
+  [ 44.0%] Step 3,000 | Loss: 1.6187 | PPL: 5.05
+  [ 45.4%] Step 3,100 | Loss: 1.6064 | PPL: 4.98
+  [ 46.9%] Step 3,200 | Loss: 1.5977 | PPL: 4.94
+  [ 48.4%] Step 3,300 | Loss: 1.5835 | PPL: 4.87
+  [ 49.8%] Step 3,400 | Loss: 1.5743 | PPL: 4.83
+  [ 51.3%] Step 3,500 | Loss: 1.5614 | PPL: 4.77
+  [ 52.8%] Step 3,600 | Loss: 1.5532 | PPL: 4.73
+  [ 54.2%] Step 3,700 | Loss: 1.5440 | PPL: 4.68
+  [ 55.7%] Step 3,800 | Loss: 1.5351 | PPL: 4.64
+  [ 57.2%] Step 3,900 | Loss: 1.5297 | PPL: 4.62
+  [ 58.6%] Step 4,000 | Loss: 1.5252 | PPL: 4.60
+  [ 60.1%] Step 4,100 | Loss: 1.5093 | PPL: 4.52
+  [ 61.6%] Step 4,200 | Loss: 1.5029 | PPL: 4.49
+  [ 63.0%] Step 4,300 | Loss: 1.5020 | PPL: 4.49
+  [ 64.5%] Step 4,400 | Loss: 1.4939 | PPL: 4.45
+  [ 66.0%] Step 4,500 | Loss: 1.4874 | PPL: 4.43
+  [ 67.4%] Step 4,600 | Loss: 1.4772 | PPL: 4.38
+  [ 68.9%] Step 4,700 | Loss: 1.4733 | PPL: 4.36
+  [ 70.4%] Step 4,800 | Loss: 1.4639 | PPL: 4.32
+  [ 71.8%] Step 4,900 | Loss: 1.4539 | PPL: 4.28
+  [ 73.3%] Step 5,000 | Loss: 1.4535 | PPL: 4.28
+  [ 74.8%] Step 5,100 | Loss: 1.4478 | PPL: 4.25
+  [ 76.2%] Step 5,200 | Loss: 1.4441 | PPL: 4.24
+  [ 77.7%] Step 5,300 | Loss: 1.4375 | PPL: 4.21
+  [ 79.2%] Step 5,400 | Loss: 1.4278 | PPL: 4.17
+  [ 80.6%] Step 5,500 | Loss: 1.4233 | PPL: 4.15
+  [ 82.1%] Step 5,600 | Loss: 1.4164 | PPL: 4.12
+  [ 83.6%] Step 5,700 | Loss: 1.4114 | PPL: 4.10
+  [ 85.0%] Step 5,800 | Loss: 1.4077 | PPL: 4.09
+  [ 86.5%] Step 5,900 | Loss: 1.4044 | PPL: 4.07
+  [ 88.0%] Step 6,000 | Loss: 1.4059 | PPL: 4.08
+  [ 89.4%] Step 6,100 | Loss: 1.3913 | PPL: 4.02
+  [ 90.9%] Step 6,200 | Loss: 1.3897 | PPL: 4.01
+  [ 92.3%] Step 6,300 | Loss: 1.3872 | PPL: 4.00
+  [ 93.8%] Step 6,400 | Loss: 1.3784 | PPL: 3.97
+  [ 95.3%] Step 6,500 | Loss: 1.3806 | PPL: 3.98
+  [ 96.7%] Step 6,600 | Loss: 1.3727 | PPL: 3.95
+  [ 98.2%] Step 6,700 | Loss: 1.3695 | PPL: 3.93
+  [ 99.7%] Step 6,800 | Loss: 1.3642 | PPL: 3.91
+  [100.0%] Step 6,822 | Loss: 1.3507 | PPL: 3.86
+[Epoch 1/3] Validating...
+[Epoch 1/3] Loss: 1.3786 | PPL: 3.97
+  -> Saved best model to checkpoints_pilot_c\kk_best.pt
+[Epoch 2/3] Starting...
+  [  1.1%] Step 6,900 | Loss: 1.3586 | PPL: 3.89
+  [  2.6%] Step 7,000 | Loss: 1.3598 | PPL: 3.90
+  [  4.1%] Step 7,100 | Loss: 1.3498 | PPL: 3.86
+  [  5.5%] Step 7,200 | Loss: 1.3492 | PPL: 3.85
+  [  7.0%] Step 7,300 | Loss: 1.3440 | PPL: 3.83
+  [  8.5%] Step 7,400 | Loss: 1.3435 | PPL: 3.83
+  [  9.9%] Step 7,500 | Loss: 1.3361 | PPL: 3.80
+  [ 11.4%] Step 7,600 | Loss: 1.3316 | PPL: 3.79
+  [ 12.9%] Step 7,700 | Loss: 1.3313 | PPL: 3.79
+  [ 14.3%] Step 7,800 | Loss: 1.3223 | PPL: 3.75
+  [ 15.8%] Step 7,900 | Loss: 1.3216 | PPL: 3.75
+  [ 17.3%] Step 8,000 | Loss: 1.3228 | PPL: 3.75
+  [ 18.7%] Step 8,100 | Loss: 1.3172 | PPL: 3.73
+  [ 20.2%] Step 8,200 | Loss: 1.3161 | PPL: 3.73
+  [ 21.7%] Step 8,300 | Loss: 1.3071 | PPL: 3.70
+  [ 23.1%] Step 8,400 | Loss: 1.3074 | PPL: 3.70
+  [ 24.6%] Step 8,500 | Loss: 1.3034 | PPL: 3.68
+  [ 26.1%] Step 8,600 | Loss: 1.2955 | PPL: 3.65
+  [ 27.5%] Step 8,700 | Loss: 1.2944 | PPL: 3.65
+  [ 29.0%] Step 8,800 | Loss: 1.2960 | PPL: 3.65
+  [ 30.5%] Step 8,900 | Loss: 1.2924 | PPL: 3.64
+  [ 31.9%] Step 9,000 | Loss: 1.2816 | PPL: 3.60
+  [ 33.4%] Step 9,100 | Loss: 1.2873 | PPL: 3.62
+  [ 34.9%] Step 9,200 | Loss: 1.2816 | PPL: 3.60
+  [ 36.3%] Step 9,300 | Loss: 1.2767 | PPL: 3.58
+  [ 37.8%] Step 9,400 | Loss: 1.2781 | PPL: 3.59
+  [ 39.3%] Step 9,500 | Loss: 1.2755 | PPL: 3.58
+  [ 40.7%] Step 9,600 | Loss: 1.2709 | PPL: 3.56
+  [ 42.2%] Step 9,700 | Loss: 1.2680 | PPL: 3.55
+  [ 43.7%] Step 9,800 | Loss: 1.2658 | PPL: 3.55
+  [ 45.1%] Step 9,900 | Loss: 1.2624 | PPL: 3.53
+  [ 46.6%] Step 10,000 | Loss: 1.2551 | PPL: 3.51
+  [ 48.1%] Step 10,100 | Loss: 1.2558 | PPL: 3.51
+  [ 49.5%] Step 10,200 | Loss: 1.2486 | PPL: 3.49
+  [ 51.0%] Step 10,300 | Loss: 1.2501 | PPL: 3.49
+  [ 52.4%] Step 10,400 | Loss: 1.2473 | PPL: 3.48
+  [ 53.9%] Step 10,500 | Loss: 1.2466 | PPL: 3.48
+  [ 55.4%] Step 10,600 | Loss: 1.2431 | PPL: 3.47
+  [ 56.8%] Step 10,700 | Loss: 1.2406 | PPL: 3.46
+  [ 58.3%] Step 10,800 | Loss: 1.2322 | PPL: 3.43
+  [ 59.8%] Step 10,900 | Loss: 1.2391 | PPL: 3.45
+  [ 61.2%] Step 11,000 | Loss: 1.2362 | PPL: 3.44
+  [ 62.7%] Step 11,100 | Loss: 1.2285 | PPL: 3.42
+  [ 64.2%] Step 11,200 | Loss: 1.2312 | PPL: 3.43
+  [ 65.6%] Step 11,300 | Loss: 1.2268 | PPL: 3.41
+  [ 67.1%] Step 11,400 | Loss: 1.2279 | PPL: 3.41
+  [ 68.6%] Step 11,500 | Loss: 1.2234 | PPL: 3.40
+  [ 70.0%] Step 11,600 | Loss: 1.2126 | PPL: 3.36
+  [ 71.5%] Step 11,700 | Loss: 1.2163 | PPL: 3.37
+  [ 73.0%] Step 11,800 | Loss: 1.2174 | PPL: 3.38
+  [ 74.4%] Step 11,900 | Loss: 1.2140 | PPL: 3.37
+  [ 75.9%] Step 12,000 | Loss: 1.2166 | PPL: 3.38
+  [ 77.4%] Step 12,100 | Loss: 1.2078 | PPL: 3.35
+  [ 78.8%] Step 12,200 | Loss: 1.2071 | PPL: 3.34
+  [ 80.3%] Step 12,300 | Loss: 1.2040 | PPL: 3.33
+  [ 81.8%] Step 12,400 | Loss: 1.2043 | PPL: 3.33
+  [ 83.2%] Step 12,500 | Loss: 1.2016 | PPL: 3.33
+  [ 84.7%] Step 12,600 | Loss: 1.2020 | PPL: 3.33
+  [ 86.2%] Step 12,700 | Loss: 1.1939 | PPL: 3.30
+  [ 87.6%] Step 12,800 | Loss: 1.1939 | PPL: 3.30
+  [ 89.1%] Step 12,900 | Loss: 1.1914 | PPL: 3.29
+  [ 90.6%] Step 13,000 | Loss: 1.1965 | PPL: 3.31
+  [ 92.0%] Step 13,100 | Loss: 1.1887 | PPL: 3.28
+  [ 93.5%] Step 13,200 | Loss: 1.1890 | PPL: 3.28
+  [ 95.0%] Step 13,300 | Loss: 1.1901 | PPL: 3.29
+  [ 96.4%] Step 13,400 | Loss: 1.1837 | PPL: 3.27
+  [ 97.9%] Step 13,500 | Loss: 1.1764 | PPL: 3.24
+  [ 99.4%] Step 13,600 | Loss: 1.1820 | PPL: 3.26
+  [100.0%] Step 13,644 | Loss: 1.1820 | PPL: 3.26
+[Epoch 2/3] Validating...
+[Epoch 2/3] Loss: 1.2941 | PPL: 3.65
+  -> Saved best model to checkpoints_pilot_c\kk_best.pt
+[Epoch 3/3] Starting...
+  [  0.8%] Step 13,700 | Loss: 1.1755 | PPL: 3.24
+  [  2.3%] Step 13,800 | Loss: 1.1759 | PPL: 3.24
+  [  3.8%] Step 13,900 | Loss: 1.1687 | PPL: 3.22
+  [  5.2%] Step 14,000 | Loss: 1.1687 | PPL: 3.22
+  [  6.7%] Step 14,100 | Loss: 1.1673 | PPL: 3.21
+  [  8.2%] Step 14,200 | Loss: 1.1639 | PPL: 3.20
+  [  9.6%] Step 14,300 | Loss: 1.1698 | PPL: 3.22
+  [ 11.1%] Step 14,400 | Loss: 1.1672 | PPL: 3.21
+  [ 12.5%] Step 14,500 | Loss: 1.1660 | PPL: 3.21
+  [ 14.0%] Step 14,600 | Loss: 1.1583 | PPL: 3.18
+  [ 15.5%] Step 14,700 | Loss: 1.1597 | PPL: 3.19
+  [ 16.9%] Step 14,800 | Loss: 1.1624 | PPL: 3.20
+  [ 18.4%] Step 14,900 | Loss: 1.1575 | PPL: 3.18
+  [ 19.9%] Step 15,000 | Loss: 1.1534 | PPL: 3.17
+  [ 21.3%] Step 15,100 | Loss: 1.1516 | PPL: 3.16
+  [ 22.8%] Step 15,200 | Loss: 1.1517 | PPL: 3.16
+  [ 24.3%] Step 15,300 | Loss: 1.1545 | PPL: 3.17
+  [ 25.7%] Step 15,400 | Loss: 1.1515 | PPL: 3.16
+  [ 27.2%] Step 15,500 | Loss: 1.1478 | PPL: 3.15
+  [ 28.7%] Step 15,600 | Loss: 1.1496 | PPL: 3.16
+  [ 30.1%] Step 15,700 | Loss: 1.1479 | PPL: 3.15
+  [ 31.6%] Step 15,800 | Loss: 1.1423 | PPL: 3.13
+  [ 33.1%] Step 15,900 | Loss: 1.1398 | PPL: 3.13
+  [ 34.5%] Step 16,000 | Loss: 1.1396 | PPL: 3.13
+  [ 36.0%] Step 16,100 | Loss: 1.1363 | PPL: 3.12
+  [ 37.5%] Step 16,200 | Loss: 1.1336 | PPL: 3.11
+  [ 38.9%] Step 16,300 | Loss: 1.1362 | PPL: 3.11
+  [ 40.4%] Step 16,400 | Loss: 1.1370 | PPL: 3.12
+  [ 41.9%] Step 16,500 | Loss: 1.1253 | PPL: 3.08
+  [ 43.3%] Step 16,600 | Loss: 1.1304 | PPL: 3.10
+  [ 44.8%] Step 16,700 | Loss: 1.1326 | PPL: 3.10
+  [ 46.3%] Step 16,800 | Loss: 1.1317 | PPL: 3.10
+  [ 47.7%] Step 16,900 | Loss: 1.1292 | PPL: 3.09
+  [ 49.2%] Step 17,000 | Loss: 1.1256 | PPL: 3.08
+  [ 50.7%] Step 17,100 | Loss: 1.1248 | PPL: 3.08
+  [ 52.1%] Step 17,200 | Loss: 1.1224 | PPL: 3.07
+  [ 53.6%] Step 17,300 | Loss: 1.1229 | PPL: 3.07
+  [ 55.1%] Step 17,400 | Loss: 1.1152 | PPL: 3.05
+  [ 56.5%] Step 17,500 | Loss: 1.1206 | PPL: 3.07
+  [ 58.0%] Step 17,600 | Loss: 1.1146 | PPL: 3.05
+  [ 59.5%] Step 17,700 | Loss: 1.1172 | PPL: 3.06
+  [ 60.9%] Step 17,800 | Loss: 1.1142 | PPL: 3.05
+  [ 62.4%] Step 17,900 | Loss: 1.1121 | PPL: 3.04
+  [ 63.9%] Step 18,000 | Loss: 1.1101 | PPL: 3.03
+  [ 65.3%] Step 18,100 | Loss: 1.1096 | PPL: 3.03
+  [ 66.8%] Step 18,200 | Loss: 1.1071 | PPL: 3.03
+  [ 68.2%] Step 18,300 | Loss: 1.1085 | PPL: 3.03
+  [ 69.7%] Step 18,400 | Loss: 1.1049 | PPL: 3.02
+  [ 71.2%] Step 18,500 | Loss: 1.1021 | PPL: 3.01
+  [ 72.6%] Step 18,600 | Loss: 1.1045 | PPL: 3.02
+  [ 74.1%] Step 18,700 | Loss: 1.1017 | PPL: 3.01
+  [ 75.6%] Step 18,800 | Loss: 1.0956 | PPL: 2.99
+  [ 77.0%] Step 18,900 | Loss: 1.0962 | PPL: 2.99
+  [ 78.5%] Step 19,000 | Loss: 1.0954 | PPL: 2.99
+  [ 80.0%] Step 19,100 | Loss: 1.1014 | PPL: 3.01
+  [ 81.4%] Step 19,200 | Loss: 1.0969 | PPL: 2.99
+  [ 82.9%] Step 19,300 | Loss: 1.0988 | PPL: 3.00
+  [ 84.4%] Step 19,400 | Loss: 1.0894 | PPL: 2.97
+  [ 85.8%] Step 19,500 | Loss: 1.0911 | PPL: 2.98
+  [ 87.3%] Step 19,600 | Loss: 1.0903 | PPL: 2.98
+  [ 88.8%] Step 19,700 | Loss: 1.0893 | PPL: 2.97
+  [ 90.2%] Step 19,800 | Loss: 1.0888 | PPL: 2.97
+  [ 91.7%] Step 19,900 | Loss: 1.0901 | PPL: 2.97
+  [ 93.2%] Step 20,000 | Loss: 1.0899 | PPL: 2.97
+  [ 94.6%] Step 20,100 | Loss: 1.0841 | PPL: 2.96
+  [ 96.1%] Step 20,200 | Loss: 1.0881 | PPL: 2.97
+  [ 97.6%] Step 20,300 | Loss: 1.0812 | PPL: 2.95
+  [ 99.0%] Step 20,400 | Loss: 1.0845 | PPL: 2.96
+  [100.0%] Step 20,466 | Loss: 1.0811 | PPL: 2.95
+[Epoch 3/3] Validating...
+[Epoch 3/3] Loss: 1.2637 | PPL: 3.54
+  -> Saved best model to checkpoints_pilot_c\kk_best.pt
+============================================================
+Training complete. Running final evaluation...
+============================================================
+
+Final Test Loss: 1.0899 | Test PPL: 2.97
+Done!
+--- c/kk end rc=0 Fri Aug 14 17:43:11 PDT 2026 ---
+--- c/ky start Fri Aug 14 17:43:11 PDT 2026 ---
+Loading data from corpora_pilot_c\oscar_ky_ipa.txt...
+  Loaded: 2,494,366 chars total
+  Train: 1,746,056 chars
+  Val: 374,155 chars
+  Test: 374,155 chars
+Building vocab from training text...
+  Vocab size: 52
+============================================================
+Training config
+============================================================
+  Language: Kyrgyz (ky)
+  Mode: Train from scratch
+  Device: cuda
+  Batch size: 256
+  Workers: 0
+  Pin memory: True
+  Epochs: 3
+  LR: 0.0001
+  Seed: 1234
+  Freeze embed: False
+  Output: checkpoints_pilot_c\ky_best.pt
+Creating data loaders...
+  Train batches: 6,821
+  Val batches: 1,462
+
+Model config
+  Device: cuda
+  Embed dim: 128
+  Hidden dim: 256
+  Layers: 2
+  Parameters: 941,620
+  Optimizer: Adam (lr=0.0001)
+============================================================
+Starting training: 3 epochs, 6821 batches/epoch
+============================================================
+[Epoch 1/3] Starting...
+  [  1.5%] Step 100 | Loss: 3.4476 | PPL: 31.42
+  [  2.9%] Step 200 | Loss: 3.0444 | PPL: 21.00
+  [  4.4%] Step 300 | Loss: 2.7288 | PPL: 15.32
+  [  5.9%] Step 400 | Loss: 2.4348 | PPL: 11.41
+  [  7.3%] Step 500 | Loss: 2.2897 | PPL: 9.87
+  [  8.8%] Step 600 | Loss: 2.2008 | PPL: 9.03
+  [ 10.3%] Step 700 | Loss: 2.1363 | PPL: 8.47
+  [ 11.7%] Step 800 | Loss: 2.0843 | PPL: 8.04
+  [ 13.2%] Step 900 | Loss: 2.0334 | PPL: 7.64
+  [ 14.7%] Step 1,000 | Loss: 1.9911 | PPL: 7.32
+  [ 16.1%] Step 1,100 | Loss: 1.9533 | PPL: 7.05
+  [ 17.6%] Step 1,200 | Loss: 1.9199 | PPL: 6.82
+  [ 19.1%] Step 1,300 | Loss: 1.8883 | PPL: 6.61
+  [ 20.5%] Step 1,400 | Loss: 1.8591 | PPL: 6.42
+  [ 22.0%] Step 1,500 | Loss: 1.8341 | PPL: 6.26
+  [ 23.5%] Step 1,600 | Loss: 1.8049 | PPL: 6.08
+  [ 24.9%] Step 1,700 | Loss: 1.7822 | PPL: 5.94
+  [ 26.4%] Step 1,800 | Loss: 1.7627 | PPL: 5.83
+  [ 27.9%] Step 1,900 | Loss: 1.7399 | PPL: 5.70
+  [ 29.3%] Step 2,000 | Loss: 1.7194 | PPL: 5.58
+  [ 30.8%] Step 2,100 | Loss: 1.7026 | PPL: 5.49
+  [ 32.3%] Step 2,200 | Loss: 1.6856 | PPL: 5.40
+  [ 33.7%] Step 2,300 | Loss: 1.6653 | PPL: 5.29
+  [ 35.2%] Step 2,400 | Loss: 1.6508 | PPL: 5.21
+  [ 36.7%] Step 2,500 | Loss: 1.6384 | PPL: 5.15
+  [ 38.1%] Step 2,600 | Loss: 1.6213 | PPL: 5.06
+  [ 39.6%] Step 2,700 | Loss: 1.6103 | PPL: 5.00
+  [ 41.0%] Step 2,800 | Loss: 1.5971 | PPL: 4.94
+  [ 42.5%] Step 2,900 | Loss: 1.5906 | PPL: 4.91
+  [ 44.0%] Step 3,000 | Loss: 1.5802 | PPL: 4.86
+  [ 45.4%] Step 3,100 | Loss: 1.5695 | PPL: 4.80
+  [ 46.9%] Step 3,200 | Loss: 1.5588 | PPL: 4.75
+  [ 48.4%] Step 3,300 | Loss: 1.5485 | PPL: 4.70
+  [ 49.8%] Step 3,400 | Loss: 1.5375 | PPL: 4.65
+  [ 51.3%] Step 3,500 | Loss: 1.5284 | PPL: 4.61
+  [ 52.8%] Step 3,600 | Loss: 1.5272 | PPL: 4.61
+  [ 54.2%] Step 3,700 | Loss: 1.5135 | PPL: 4.54
+  [ 55.7%] Step 3,800 | Loss: 1.5076 | PPL: 4.52
+  [ 57.2%] Step 3,900 | Loss: 1.4976 | PPL: 4.47
+  [ 58.6%] Step 4,000 | Loss: 1.4936 | PPL: 4.45
+  [ 60.1%] Step 4,100 | Loss: 1.4859 | PPL: 4.42
+  [ 61.6%] Step 4,200 | Loss: 1.4808 | PPL: 4.40
+  [ 63.0%] Step 4,300 | Loss: 1.4728 | PPL: 4.36
+  [ 64.5%] Step 4,400 | Loss: 1.4693 | PPL: 4.35
+  [ 66.0%] Step 4,500 | Loss: 1.4616 | PPL: 4.31
+  [ 67.4%] Step 4,600 | Loss: 1.4577 | PPL: 4.30
+  [ 68.9%] Step 4,700 | Loss: 1.4519 | PPL: 4.27
+  [ 70.4%] Step 4,800 | Loss: 1.4431 | PPL: 4.23
+  [ 71.8%] Step 4,900 | Loss: 1.4415 | PPL: 4.23
+  [ 73.3%] Step 5,000 | Loss: 1.4362 | PPL: 4.20
+  [ 74.8%] Step 5,100 | Loss: 1.4287 | PPL: 4.17
+  [ 76.2%] Step 5,200 | Loss: 1.4259 | PPL: 4.16
+  [ 77.7%] Step 5,300 | Loss: 1.4219 | PPL: 4.15
+  [ 79.2%] Step 5,400 | Loss: 1.4143 | PPL: 4.11
+  [ 80.6%] Step 5,500 | Loss: 1.4124 | PPL: 4.11
+  [ 82.1%] Step 5,600 | Loss: 1.4049 | PPL: 4.08
+  [ 83.6%] Step 5,700 | Loss: 1.4025 | PPL: 4.07
+  [ 85.0%] Step 5,800 | Loss: 1.4014 | PPL: 4.06
+  [ 86.5%] Step 5,900 | Loss: 1.3926 | PPL: 4.03
+  [ 88.0%] Step 6,000 | Loss: 1.3871 | PPL: 4.00
+  [ 89.4%] Step 6,100 | Loss: 1.3887 | PPL: 4.01
+  [ 90.9%] Step 6,200 | Loss: 1.3852 | PPL: 4.00
+  [ 92.4%] Step 6,300 | Loss: 1.3795 | PPL: 3.97
+  [ 93.8%] Step 6,400 | Loss: 1.3762 | PPL: 3.96
+  [ 95.3%] Step 6,500 | Loss: 1.3732 | PPL: 3.95
+  [ 96.8%] Step 6,600 | Loss: 1.3689 | PPL: 3.93
+  [ 98.2%] Step 6,700 | Loss: 1.3618 | PPL: 3.90
+  [ 99.7%] Step 6,800 | Loss: 1.3614 | PPL: 3.90
+  [100.0%] Step 6,821 | Loss: 1.3611 | PPL: 3.90
+[Epoch 1/3] Validating...
+[Epoch 1/3] Loss: 1.3748 | PPL: 3.95
+  -> Saved best model to checkpoints_pilot_c\ky_best.pt
+[Epoch 2/3] Starting...
+  [  1.2%] Step 6,900 | Loss: 1.3571 | PPL: 3.88
+  [  2.6%] Step 7,000 | Loss: 1.3524 | PPL: 3.87
+  [  4.1%] Step 7,100 | Loss: 1.3472 | PPL: 3.85
+  [  5.6%] Step 7,200 | Loss: 1.3476 | PPL: 3.85
+  [  7.0%] Step 7,300 | Loss: 1.3424 | PPL: 3.83
+  [  8.5%] Step 7,400 | Loss: 1.3396 | PPL: 3.82
+  [ 10.0%] Step 7,500 | Loss: 1.3397 | PPL: 3.82
+  [ 11.4%] Step 7,600 | Loss: 1.3371 | PPL: 3.81
+  [ 12.9%] Step 7,700 | Loss: 1.3318 | PPL: 3.79
+  [ 14.4%] Step 7,800 | Loss: 1.3290 | PPL: 3.78
+  [ 15.8%] Step 7,900 | Loss: 1.3282 | PPL: 3.77
+  [ 17.3%] Step 8,000 | Loss: 1.3230 | PPL: 3.75
+  [ 18.8%] Step 8,100 | Loss: 1.3207 | PPL: 3.75
+  [ 20.2%] Step 8,200 | Loss: 1.3196 | PPL: 3.74
+  [ 21.7%] Step 8,300 | Loss: 1.3141 | PPL: 3.72
+  [ 23.1%] Step 8,400 | Loss: 1.3112 | PPL: 3.71
+  [ 24.6%] Step 8,500 | Loss: 1.3115 | PPL: 3.71
+  [ 26.1%] Step 8,600 | Loss: 1.3096 | PPL: 3.70
+  [ 27.5%] Step 8,700 | Loss: 1.3038 | PPL: 3.68
+  [ 29.0%] Step 8,800 | Loss: 1.3013 | PPL: 3.67
+  [ 30.5%] Step 8,900 | Loss: 1.3027 | PPL: 3.68
+  [ 31.9%] Step 9,000 | Loss: 1.3011 | PPL: 3.67
+  [ 33.4%] Step 9,100 | Loss: 1.2964 | PPL: 3.66
+  [ 34.9%] Step 9,200 | Loss: 1.2898 | PPL: 3.63
+  [ 36.3%] Step 9,300 | Loss: 1.2918 | PPL: 3.64
+  [ 37.8%] Step 9,400 | Loss: 1.2889 | PPL: 3.63
+  [ 39.3%] Step 9,500 | Loss: 1.2874 | PPL: 3.62
+  [ 40.7%] Step 9,600 | Loss: 1.2854 | PPL: 3.62
+  [ 42.2%] Step 9,700 | Loss: 1.2791 | PPL: 3.59
+  [ 43.7%] Step 9,800 | Loss: 1.2804 | PPL: 3.60
+  [ 45.1%] Step 9,900 | Loss: 1.2759 | PPL: 3.58
+  [ 46.6%] Step 10,000 | Loss: 1.2751 | PPL: 3.58
+  [ 48.1%] Step 10,100 | Loss: 1.2746 | PPL: 3.58
+  [ 49.5%] Step 10,200 | Loss: 1.2707 | PPL: 3.56
+  [ 51.0%] Step 10,300 | Loss: 1.2695 | PPL: 3.56
+  [ 52.5%] Step 10,400 | Loss: 1.2660 | PPL: 3.55
+  [ 53.9%] Step 10,500 | Loss: 1.2675 | PPL: 3.55
+  [ 55.4%] Step 10,600 | Loss: 1.2625 | PPL: 3.53
+  [ 56.9%] Step 10,700 | Loss: 1.2587 | PPL: 3.52
+  [ 58.3%] Step 10,800 | Loss: 1.2597 | PPL: 3.52
+  [ 59.8%] Step 10,900 | Loss: 1.2574 | PPL: 3.52
+  [ 61.3%] Step 11,000 | Loss: 1.2554 | PPL: 3.51
+  [ 62.7%] Step 11,100 | Loss: 1.2528 | PPL: 3.50
+  [ 64.2%] Step 11,200 | Loss: 1.2523 | PPL: 3.50
+  [ 65.7%] Step 11,300 | Loss: 1.2505 | PPL: 3.49
+  [ 67.1%] Step 11,400 | Loss: 1.2490 | PPL: 3.49
+  [ 68.6%] Step 11,500 | Loss: 1.2452 | PPL: 3.47
+  [ 70.1%] Step 11,600 | Loss: 1.2402 | PPL: 3.46
+  [ 71.5%] Step 11,700 | Loss: 1.2408 | PPL: 3.46
+  [ 73.0%] Step 11,800 | Loss: 1.2399 | PPL: 3.46
+  [ 74.5%] Step 11,900 | Loss: 1.2383 | PPL: 3.45
+  [ 75.9%] Step 12,000 | Loss: 1.2358 | PPL: 3.44
+  [ 77.4%] Step 12,100 | Loss: 1.2300 | PPL: 3.42
+  [ 78.9%] Step 12,200 | Loss: 1.2326 | PPL: 3.43
+  [ 80.3%] Step 12,300 | Loss: 1.2317 | PPL: 3.43
+  [ 81.8%] Step 12,400 | Loss: 1.2334 | PPL: 3.43
+  [ 83.3%] Step 12,500 | Loss: 1.2276 | PPL: 3.41
+  [ 84.7%] Step 12,600 | Loss: 1.2262 | PPL: 3.41
+  [ 86.2%] Step 12,700 | Loss: 1.2270 | PPL: 3.41
+  [ 87.7%] Step 12,800 | Loss: 1.2201 | PPL: 3.39
+  [ 89.1%] Step 12,900 | Loss: 1.2244 | PPL: 3.40
+  [ 90.6%] Step 13,000 | Loss: 1.2191 | PPL: 3.38
+  [ 92.1%] Step 13,100 | Loss: 1.2189 | PPL: 3.38
+  [ 93.5%] Step 13,200 | Loss: 1.2164 | PPL: 3.37
+  [ 95.0%] Step 13,300 | Loss: 1.2176 | PPL: 3.38
+  [ 96.5%] Step 13,400 | Loss: 1.2147 | PPL: 3.37
+  [ 97.9%] Step 13,500 | Loss: 1.2118 | PPL: 3.36
+  [ 99.4%] Step 13,600 | Loss: 1.2114 | PPL: 3.36
+  [100.0%] Step 13,642 | Loss: 1.2137 | PPL: 3.37
+[Epoch 2/3] Validating...
+[Epoch 2/3] Loss: 1.2651 | PPL: 3.54
+  -> Saved best model to checkpoints_pilot_c\ky_best.pt
+[Epoch 3/3] Starting...
+  [  0.9%] Step 13,700 | Loss: 1.2053 | PPL: 3.34
+  [  2.3%] Step 13,800 | Loss: 1.2032 | PPL: 3.33
+  [  3.8%] Step 13,900 | Loss: 1.2063 | PPL: 3.34
+  [  5.2%] Step 14,000 | Loss: 1.2039 | PPL: 3.33
+  [  6.7%] Step 14,100 | Loss: 1.1994 | PPL: 3.32
+  [  8.2%] Step 14,200 | Loss: 1.2014 | PPL: 3.32
+  [  9.6%] Step 14,300 | Loss: 1.1982 | PPL: 3.31
+  [ 11.1%] Step 14,400 | Loss: 1.1981 | PPL: 3.31
+  [ 12.6%] Step 14,500 | Loss: 1.1987 | PPL: 3.32
+  [ 14.0%] Step 14,600 | Loss: 1.1970 | PPL: 3.31
+  [ 15.5%] Step 14,700 | Loss: 1.1964 | PPL: 3.31
+  [ 17.0%] Step 14,800 | Loss: 1.1926 | PPL: 3.30
+  [ 18.4%] Step 14,900 | Loss: 1.1917 | PPL: 3.29
+  [ 19.9%] Step 15,000 | Loss: 1.1876 | PPL: 3.28
+  [ 21.4%] Step 15,100 | Loss: 1.1914 | PPL: 3.29
+  [ 22.8%] Step 15,200 | Loss: 1.1905 | PPL: 3.29
+  [ 24.3%] Step 15,300 | Loss: 1.1829 | PPL: 3.26
+  [ 25.8%] Step 15,400 | Loss: 1.1849 | PPL: 3.27
+  [ 27.2%] Step 15,500 | Loss: 1.1850 | PPL: 3.27
+  [ 28.7%] Step 15,600 | Loss: 1.1816 | PPL: 3.26
+  [ 30.2%] Step 15,700 | Loss: 1.1773 | PPL: 3.25
+  [ 31.6%] Step 15,800 | Loss: 1.1783 | PPL: 3.25
+  [ 33.1%] Step 15,900 | Loss: 1.1801 | PPL: 3.25
+  [ 34.6%] Step 16,000 | Loss: 1.1762 | PPL: 3.24
+  [ 36.0%] Step 16,100 | Loss: 1.1750 | PPL: 3.24
+  [ 37.5%] Step 16,200 | Loss: 1.1789 | PPL: 3.25
+  [ 39.0%] Step 16,300 | Loss: 1.1777 | PPL: 3.25
+  [ 40.4%] Step 16,400 | Loss: 1.1724 | PPL: 3.23
+  [ 41.9%] Step 16,500 | Loss: 1.1725 | PPL: 3.23
+  [ 43.4%] Step 16,600 | Loss: 1.1708 | PPL: 3.22
+  [ 44.8%] Step 16,700 | Loss: 1.1710 | PPL: 3.23
+  [ 46.3%] Step 16,800 | Loss: 1.1670 | PPL: 3.21
+  [ 47.8%] Step 16,900 | Loss: 1.1675 | PPL: 3.21
+  [ 49.2%] Step 17,000 | Loss: 1.1645 | PPL: 3.20
+  [ 50.7%] Step 17,100 | Loss: 1.1632 | PPL: 3.20
+  [ 52.2%] Step 17,200 | Loss: 1.1636 | PPL: 3.20
+  [ 53.6%] Step 17,300 | Loss: 1.1598 | PPL: 3.19
+  [ 55.1%] Step 17,400 | Loss: 1.1611 | PPL: 3.19
+  [ 56.6%] Step 17,500 | Loss: 1.1589 | PPL: 3.19
+  [ 58.0%] Step 17,600 | Loss: 1.1553 | PPL: 3.17
+  [ 59.5%] Step 17,700 | Loss: 1.1599 | PPL: 3.19
+  [ 61.0%] Step 17,800 | Loss: 1.1565 | PPL: 3.18
+  [ 62.4%] Step 17,900 | Loss: 1.1543 | PPL: 3.17
+  [ 63.9%] Step 18,000 | Loss: 1.1523 | PPL: 3.17
+  [ 65.4%] Step 18,100 | Loss: 1.1529 | PPL: 3.17
+  [ 66.8%] Step 18,200 | Loss: 1.1525 | PPL: 3.17
+  [ 68.3%] Step 18,300 | Loss: 1.1534 | PPL: 3.17
+  [ 69.8%] Step 18,400 | Loss: 1.1500 | PPL: 3.16
+  [ 71.2%] Step 18,500 | Loss: 1.1496 | PPL: 3.16
+  [ 72.7%] Step 18,600 | Loss: 1.1480 | PPL: 3.15
+  [ 74.2%] Step 18,700 | Loss: 1.1463 | PPL: 3.15
+  [ 75.6%] Step 18,800 | Loss: 1.1453 | PPL: 3.14
+  [ 77.1%] Step 18,900 | Loss: 1.1451 | PPL: 3.14
+  [ 78.6%] Step 19,000 | Loss: 1.1428 | PPL: 3.14
+  [ 80.0%] Step 19,100 | Loss: 1.1413 | PPL: 3.13
+  [ 81.5%] Step 19,200 | Loss: 1.1384 | PPL: 3.12
+  [ 82.9%] Step 19,300 | Loss: 1.1410 | PPL: 3.13
+  [ 84.4%] Step 19,400 | Loss: 1.1388 | PPL: 3.12
+  [ 85.9%] Step 19,500 | Loss: 1.1398 | PPL: 3.13
+  [ 87.3%] Step 19,600 | Loss: 1.1375 | PPL: 3.12
+  [ 88.8%] Step 19,700 | Loss: 1.1377 | PPL: 3.12
+  [ 90.3%] Step 19,800 | Loss: 1.1372 | PPL: 3.12
+  [ 91.7%] Step 19,900 | Loss: 1.1343 | PPL: 3.11
+  [ 93.2%] Step 20,000 | Loss: 1.1360 | PPL: 3.11
+  [ 94.7%] Step 20,100 | Loss: 1.1336 | PPL: 3.11
+  [ 96.1%] Step 20,200 | Loss: 1.1335 | PPL: 3.11
+  [ 97.6%] Step 20,300 | Loss: 1.1296 | PPL: 3.09
+  [ 99.1%] Step 20,400 | Loss: 1.1301 | PPL: 3.10
+  [100.0%] Step 20,463 | Loss: 1.1299 | PPL: 3.10
+[Epoch 3/3] Validating...
+[Epoch 3/3] Loss: 1.2249 | PPL: 3.40
+  -> Saved best model to checkpoints_pilot_c\ky_best.pt
+============================================================
+Training complete. Running final evaluation...
+============================================================
+
+Final Test Loss: 1.3059 | Test PPL: 3.69
+Done!
+--- c/ky end rc=0 Fri Aug 14 18:03:57 PDT 2026 ---
+--- c/uz start Fri Aug 14 18:03:57 PDT 2026 ---
+Loading data from corpora_pilot_c\oscar_uz_ipa.txt...
+  Loaded: 2,496,701 chars total
+  Train: 1,747,690 chars
+  Val: 374,505 chars
+  Test: 374,506 chars
+Building vocab from training text...
+  Vocab size: 41
+============================================================
+Training config
+============================================================
+  Language: Uzbek (uz)
+  Mode: Train from scratch
+  Device: cuda
+  Batch size: 256
+  Workers: 0
+  Pin memory: True
+  Epochs: 3
+  LR: 0.0001
+  Seed: 1234
+  Freeze embed: False
+  Output: checkpoints_pilot_c\uz_best.pt
+Creating data loaders...
+  Train batches: 6,827
+  Val batches: 1,463
+
+Model config
+  Device: cuda
+  Embed dim: 128
+  Hidden dim: 256
+  Layers: 2
+  Parameters: 937,385
+  Optimizer: Adam (lr=0.0001)
+============================================================
+Starting training: 3 epochs, 6827 batches/epoch
+============================================================
+[Epoch 1/3] Starting...
+  [  1.5%] Step 100 | Loss: 3.2605 | PPL: 26.06
+  [  2.9%] Step 200 | Loss: 2.8413 | PPL: 17.14
+  [  4.4%] Step 300 | Loss: 2.5472 | PPL: 12.77
+  [  5.9%] Step 400 | Loss: 2.4055 | PPL: 11.08
+  [  7.3%] Step 500 | Loss: 2.3230 | PPL: 10.21
+  [  8.8%] Step 600 | Loss: 2.2601 | PPL: 9.58
+  [ 10.3%] Step 700 | Loss: 2.2086 | PPL: 9.10
+  [ 11.7%] Step 800 | Loss: 2.1667 | PPL: 8.73
+  [ 13.2%] Step 900 | Loss: 2.1221 | PPL: 8.35
+  [ 14.6%] Step 1,000 | Loss: 2.0877 | PPL: 8.07
+  [ 16.1%] Step 1,100 | Loss: 2.0485 | PPL: 7.76
+  [ 17.6%] Step 1,200 | Loss: 2.0186 | PPL: 7.53
+  [ 19.0%] Step 1,300 | Loss: 1.9867 | PPL: 7.29
+  [ 20.5%] Step 1,400 | Loss: 1.9597 | PPL: 7.10
+  [ 22.0%] Step 1,500 | Loss: 1.9337 | PPL: 6.91
+  [ 23.4%] Step 1,600 | Loss: 1.9083 | PPL: 6.74
+  [ 24.9%] Step 1,700 | Loss: 1.8862 | PPL: 6.59
+  [ 26.4%] Step 1,800 | Loss: 1.8644 | PPL: 6.45
+  [ 27.8%] Step 1,900 | Loss: 1.8444 | PPL: 6.32
+  [ 29.3%] Step 2,000 | Loss: 1.8247 | PPL: 6.20
+  [ 30.8%] Step 2,100 | Loss: 1.8068 | PPL: 6.09
+  [ 32.2%] Step 2,200 | Loss: 1.7917 | PPL: 6.00
+  [ 33.7%] Step 2,300 | Loss: 1.7749 | PPL: 5.90
+  [ 35.2%] Step 2,400 | Loss: 1.7577 | PPL: 5.80
+  [ 36.6%] Step 2,500 | Loss: 1.7456 | PPL: 5.73
+  [ 38.1%] Step 2,600 | Loss: 1.7297 | PPL: 5.64
+  [ 39.5%] Step 2,700 | Loss: 1.7212 | PPL: 5.59
+  [ 41.0%] Step 2,800 | Loss: 1.7064 | PPL: 5.51
+  [ 42.5%] Step 2,900 | Loss: 1.6963 | PPL: 5.45
+  [ 43.9%] Step 3,000 | Loss: 1.6856 | PPL: 5.40
+  [ 45.4%] Step 3,100 | Loss: 1.6740 | PPL: 5.33
+  [ 46.9%] Step 3,200 | Loss: 1.6643 | PPL: 5.28
+  [ 48.3%] Step 3,300 | Loss: 1.6557 | PPL: 5.24
+  [ 49.8%] Step 3,400 | Loss: 1.6460 | PPL: 5.19
+  [ 51.3%] Step 3,500 | Loss: 1.6360 | PPL: 5.13
+  [ 52.7%] Step 3,600 | Loss: 1.6289 | PPL: 5.10
+  [ 54.2%] Step 3,700 | Loss: 1.6243 | PPL: 5.07
+  [ 55.7%] Step 3,800 | Loss: 1.6147 | PPL: 5.03
+  [ 57.1%] Step 3,900 | Loss: 1.6056 | PPL: 4.98
+  [ 58.6%] Step 4,000 | Loss: 1.6002 | PPL: 4.95
+  [ 60.1%] Step 4,100 | Loss: 1.5930 | PPL: 4.92
+  [ 61.5%] Step 4,200 | Loss: 1.5890 | PPL: 4.90
+  [ 63.0%] Step 4,300 | Loss: 1.5818 | PPL: 4.86
+  [ 64.4%] Step 4,400 | Loss: 1.5753 | PPL: 4.83
+  [ 65.9%] Step 4,500 | Loss: 1.5722 | PPL: 4.82
+  [ 67.4%] Step 4,600 | Loss: 1.5645 | PPL: 4.78
+  [ 68.8%] Step 4,700 | Loss: 1.5574 | PPL: 4.75
+  [ 70.3%] Step 4,800 | Loss: 1.5508 | PPL: 4.72
+  [ 71.8%] Step 4,900 | Loss: 1.5493 | PPL: 4.71
+  [ 73.2%] Step 5,000 | Loss: 1.5446 | PPL: 4.69
+  [ 74.7%] Step 5,100 | Loss: 1.5375 | PPL: 4.65
+  [ 76.2%] Step 5,200 | Loss: 1.5325 | PPL: 4.63
+  [ 77.6%] Step 5,300 | Loss: 1.5256 | PPL: 4.60
+  [ 79.1%] Step 5,400 | Loss: 1.5230 | PPL: 4.59
+  [ 80.6%] Step 5,500 | Loss: 1.5166 | PPL: 4.56
+  [ 82.0%] Step 5,600 | Loss: 1.5121 | PPL: 4.54
+  [ 83.5%] Step 5,700 | Loss: 1.5131 | PPL: 4.54
+  [ 85.0%] Step 5,800 | Loss: 1.5059 | PPL: 4.51
+  [ 86.4%] Step 5,900 | Loss: 1.4997 | PPL: 4.48
+  [ 87.9%] Step 6,000 | Loss: 1.4951 | PPL: 4.46
+  [ 89.4%] Step 6,100 | Loss: 1.4902 | PPL: 4.44
+  [ 90.8%] Step 6,200 | Loss: 1.4863 | PPL: 4.42
+  [ 92.3%] Step 6,300 | Loss: 1.4806 | PPL: 4.40
+  [ 93.7%] Step 6,400 | Loss: 1.4791 | PPL: 4.39
+  [ 95.2%] Step 6,500 | Loss: 1.4780 | PPL: 4.38
+  [ 96.7%] Step 6,600 | Loss: 1.4740 | PPL: 4.37
+  [ 98.1%] Step 6,700 | Loss: 1.4694 | PPL: 4.35
+  [ 99.6%] Step 6,800 | Loss: 1.4636 | PPL: 4.32
+  [100.0%] Step 6,827 | Loss: 1.4612 | PPL: 4.31
+[Epoch 1/3] Validating...
+[Epoch 1/3] Loss: 1.5848 | PPL: 4.88
+  -> Saved best model to checkpoints_pilot_c\uz_best.pt
+[Epoch 2/3] Starting...
+  [  1.1%] Step 6,900 | Loss: 1.4604 | PPL: 4.31
+  [  2.5%] Step 7,000 | Loss: 1.4580 | PPL: 4.30
+  [  4.0%] Step 7,100 | Loss: 1.4555 | PPL: 4.29
+  [  5.5%] Step 7,200 | Loss: 1.4542 | PPL: 4.28
+  [  6.9%] Step 7,300 | Loss: 1.4466 | PPL: 4.25
+  [  8.4%] Step 7,400 | Loss: 1.4454 | PPL: 4.24
+  [  9.9%] Step 7,500 | Loss: 1.4409 | PPL: 4.22
+  [ 11.3%] Step 7,600 | Loss: 1.4389 | PPL: 4.22
+  [ 12.8%] Step 7,700 | Loss: 1.4339 | PPL: 4.19
+  [ 14.3%] Step 7,800 | Loss: 1.4331 | PPL: 4.19
+  [ 15.7%] Step 7,900 | Loss: 1.4285 | PPL: 4.17
+  [ 17.2%] Step 8,000 | Loss: 1.4268 | PPL: 4.17
+  [ 18.6%] Step 8,100 | Loss: 1.4234 | PPL: 4.15
+  [ 20.1%] Step 8,200 | Loss: 1.4168 | PPL: 4.12
+  [ 21.6%] Step 8,300 | Loss: 1.4167 | PPL: 4.12
+  [ 23.0%] Step 8,400 | Loss: 1.4124 | PPL: 4.11
+  [ 24.5%] Step 8,500 | Loss: 1.4152 | PPL: 4.12
+  [ 26.0%] Step 8,600 | Loss: 1.4100 | PPL: 4.10
+  [ 27.4%] Step 8,700 | Loss: 1.4073 | PPL: 4.08
+  [ 28.9%] Step 8,800 | Loss: 1.4004 | PPL: 4.06
+  [ 30.4%] Step 8,900 | Loss: 1.4022 | PPL: 4.06
+  [ 31.8%] Step 9,000 | Loss: 1.3996 | PPL: 4.05
+  [ 33.3%] Step 9,100 | Loss: 1.3975 | PPL: 4.05
+  [ 34.8%] Step 9,200 | Loss: 1.3925 | PPL: 4.03
+  [ 36.2%] Step 9,300 | Loss: 1.3944 | PPL: 4.03
+  [ 37.7%] Step 9,400 | Loss: 1.3883 | PPL: 4.01
+  [ 39.2%] Step 9,500 | Loss: 1.3855 | PPL: 4.00
+  [ 40.6%] Step 9,600 | Loss: 1.3826 | PPL: 3.99
+  [ 42.1%] Step 9,700 | Loss: 1.3822 | PPL: 3.98
+  [ 43.5%] Step 9,800 | Loss: 1.3763 | PPL: 3.96
+  [ 45.0%] Step 9,900 | Loss: 1.3765 | PPL: 3.96
+  [ 46.5%] Step 10,000 | Loss: 1.3744 | PPL: 3.95
+  [ 47.9%] Step 10,100 | Loss: 1.3748 | PPL: 3.95
+  [ 49.4%] Step 10,200 | Loss: 1.3723 | PPL: 3.94
+  [ 50.9%] Step 10,300 | Loss: 1.3707 | PPL: 3.94
+  [ 52.3%] Step 10,400 | Loss: 1.3668 | PPL: 3.92
+  [ 53.8%] Step 10,500 | Loss: 1.3641 | PPL: 3.91
+  [ 55.3%] Step 10,600 | Loss: 1.3635 | PPL: 3.91
+  [ 56.7%] Step 10,700 | Loss: 1.3602 | PPL: 3.90
+  [ 58.2%] Step 10,800 | Loss: 1.3584 | PPL: 3.89
+  [ 59.7%] Step 10,900 | Loss: 1.3527 | PPL: 3.87
+  [ 61.1%] Step 11,000 | Loss: 1.3561 | PPL: 3.88
+  [ 62.6%] Step 11,100 | Loss: 1.3513 | PPL: 3.86
+  [ 64.1%] Step 11,200 | Loss: 1.3492 | PPL: 3.85
+  [ 65.5%] Step 11,300 | Loss: 1.3505 | PPL: 3.86
+  [ 67.0%] Step 11,400 | Loss: 1.3424 | PPL: 3.83
+  [ 68.4%] Step 11,500 | Loss: 1.3408 | PPL: 3.82
+  [ 69.9%] Step 11,600 | Loss: 1.3409 | PPL: 3.82
+  [ 71.4%] Step 11,700 | Loss: 1.3390 | PPL: 3.82
+  [ 72.8%] Step 11,800 | Loss: 1.3391 | PPL: 3.82
+  [ 74.3%] Step 11,900 | Loss: 1.3363 | PPL: 3.81
+  [ 75.8%] Step 12,000 | Loss: 1.3311 | PPL: 3.79
+  [ 77.2%] Step 12,100 | Loss: 1.3328 | PPL: 3.79
+  [ 78.7%] Step 12,200 | Loss: 1.3305 | PPL: 3.78
+  [ 80.2%] Step 12,300 | Loss: 1.3286 | PPL: 3.78
+  [ 81.6%] Step 12,400 | Loss: 1.3296 | PPL: 3.78
+  [ 83.1%] Step 12,500 | Loss: 1.3272 | PPL: 3.77
+  [ 84.6%] Step 12,600 | Loss: 1.3260 | PPL: 3.77
+  [ 86.0%] Step 12,700 | Loss: 1.3215 | PPL: 3.75
+  [ 87.5%] Step 12,800 | Loss: 1.3182 | PPL: 3.74
+  [ 89.0%] Step 12,900 | Loss: 1.3208 | PPL: 3.75
+  [ 90.4%] Step 13,000 | Loss: 1.3200 | PPL: 3.74
+  [ 91.9%] Step 13,100 | Loss: 1.3163 | PPL: 3.73
+  [ 93.3%] Step 13,200 | Loss: 1.3140 | PPL: 3.72
+  [ 94.8%] Step 13,300 | Loss: 1.3184 | PPL: 3.74
+  [ 96.3%] Step 13,400 | Loss: 1.3107 | PPL: 3.71
+  [ 97.7%] Step 13,500 | Loss: 1.3096 | PPL: 3.70
+  [ 99.2%] Step 13,600 | Loss: 1.3100 | PPL: 3.71
+  [100.0%] Step 13,654 | Loss: 1.3041 | PPL: 3.68
+[Epoch 2/3] Validating...
+[Epoch 2/3] Loss: 1.4948 | PPL: 4.46
+  -> Saved best model to checkpoints_pilot_c\uz_best.pt
+[Epoch 3/3] Starting...
+  [  0.7%] Step 13,700 | Loss: 1.3025 | PPL: 3.68
+  [  2.1%] Step 13,800 | Loss: 1.3057 | PPL: 3.69
+  [  3.6%] Step 13,900 | Loss: 1.3068 | PPL: 3.69
+  [  5.1%] Step 14,000 | Loss: 1.3037 | PPL: 3.68
+  [  6.5%] Step 14,100 | Loss: 1.3021 | PPL: 3.68
+  [  8.0%] Step 14,200 | Loss: 1.3049 | PPL: 3.69
+  [  9.5%] Step 14,300 | Loss: 1.2991 | PPL: 3.67
+  [ 10.9%] Step 14,400 | Loss: 1.2948 | PPL: 3.65
+  [ 12.4%] Step 14,500 | Loss: 1.2945 | PPL: 3.65
+  [ 13.9%] Step 14,600 | Loss: 1.2934 | PPL: 3.65
+  [ 15.3%] Step 14,700 | Loss: 1.2926 | PPL: 3.64
+  [ 16.8%] Step 14,800 | Loss: 1.2930 | PPL: 3.64
+  [ 18.3%] Step 14,900 | Loss: 1.2911 | PPL: 3.64
+  [ 19.7%] Step 15,000 | Loss: 1.2865 | PPL: 3.62
+  [ 21.2%] Step 15,100 | Loss: 1.2885 | PPL: 3.63
+  [ 22.6%] Step 15,200 | Loss: 1.2858 | PPL: 3.62
+  [ 24.1%] Step 15,300 | Loss: 1.2836 | PPL: 3.61
+  [ 25.6%] Step 15,400 | Loss: 1.2846 | PPL: 3.61
+  [ 27.0%] Step 15,500 | Loss: 1.2805 | PPL: 3.60
+  [ 28.5%] Step 15,600 | Loss: 1.2808 | PPL: 3.60
+  [ 30.0%] Step 15,700 | Loss: 1.2789 | PPL: 3.59
+  [ 31.4%] Step 15,800 | Loss: 1.2761 | PPL: 3.58
+  [ 32.9%] Step 15,900 | Loss: 1.2775 | PPL: 3.59
+  [ 34.4%] Step 16,000 | Loss: 1.2811 | PPL: 3.60
+  [ 35.8%] Step 16,100 | Loss: 1.2775 | PPL: 3.59
+  [ 37.3%] Step 16,200 | Loss: 1.2743 | PPL: 3.58
+  [ 38.8%] Step 16,300 | Loss: 1.2742 | PPL: 3.58
+  [ 40.2%] Step 16,400 | Loss: 1.2692 | PPL: 3.56
+  [ 41.7%] Step 16,500 | Loss: 1.2724 | PPL: 3.57
+  [ 43.2%] Step 16,600 | Loss: 1.2684 | PPL: 3.56
+  [ 44.6%] Step 16,700 | Loss: 1.2686 | PPL: 3.56
+  [ 46.1%] Step 16,800 | Loss: 1.2680 | PPL: 3.55
+  [ 47.5%] Step 16,900 | Loss: 1.2663 | PPL: 3.55
+  [ 49.0%] Step 17,000 | Loss: 1.2616 | PPL: 3.53
+  [ 50.5%] Step 17,100 | Loss: 1.2653 | PPL: 3.54
+  [ 51.9%] Step 17,200 | Loss: 1.2596 | PPL: 3.52
+  [ 53.4%] Step 17,300 | Loss: 1.2636 | PPL: 3.54
+  [ 54.9%] Step 17,400 | Loss: 1.2591 | PPL: 3.52
+  [ 56.3%] Step 17,500 | Loss: 1.2586 | PPL: 3.52
+  [ 57.8%] Step 17,600 | Loss: 1.2550 | PPL: 3.51
+  [ 59.3%] Step 17,700 | Loss: 1.2581 | PPL: 3.52
+  [ 60.7%] Step 17,800 | Loss: 1.2522 | PPL: 3.50
+  [ 62.2%] Step 17,900 | Loss: 1.2533 | PPL: 3.50
+  [ 63.7%] Step 18,000 | Loss: 1.2520 | PPL: 3.50
+  [ 65.1%] Step 18,100 | Loss: 1.2511 | PPL: 3.49
+  [ 66.6%] Step 18,200 | Loss: 1.2498 | PPL: 3.49
+  [ 68.1%] Step 18,300 | Loss: 1.2461 | PPL: 3.48
+  [ 69.5%] Step 18,400 | Loss: 1.2520 | PPL: 3.50
+  [ 71.0%] Step 18,500 | Loss: 1.2471 | PPL: 3.48
+  [ 72.4%] Step 18,600 | Loss: 1.2454 | PPL: 3.47
+  [ 73.9%] Step 18,700 | Loss: 1.2456 | PPL: 3.48
+  [ 75.4%] Step 18,800 | Loss: 1.2464 | PPL: 3.48
+  [ 76.8%] Step 18,900 | Loss: 1.2413 | PPL: 3.46
+  [ 78.3%] Step 19,000 | Loss: 1.2439 | PPL: 3.47
+  [ 79.8%] Step 19,100 | Loss: 1.2381 | PPL: 3.45
+  [ 81.2%] Step 19,200 | Loss: 1.2378 | PPL: 3.45
+  [ 82.7%] Step 19,300 | Loss: 1.2396 | PPL: 3.45
+  [ 84.2%] Step 19,400 | Loss: 1.2362 | PPL: 3.44
+  [ 85.6%] Step 19,500 | Loss: 1.2373 | PPL: 3.45
+  [ 87.1%] Step 19,600 | Loss: 1.2370 | PPL: 3.45
+  [ 88.6%] Step 19,700 | Loss: 1.2301 | PPL: 3.42
+  [ 90.0%] Step 19,800 | Loss: 1.2330 | PPL: 3.43
+  [ 91.5%] Step 19,900 | Loss: 1.2372 | PPL: 3.45
+  [ 93.0%] Step 20,000 | Loss: 1.2394 | PPL: 3.45
+  [ 94.4%] Step 20,100 | Loss: 1.2325 | PPL: 3.43
+  [ 95.9%] Step 20,200 | Loss: 1.2303 | PPL: 3.42
+  [ 97.3%] Step 20,300 | Loss: 1.2293 | PPL: 3.42
+  [ 98.8%] Step 20,400 | Loss: 1.2280 | PPL: 3.41
+  [100.0%] Step 20,481 | Loss: 1.2312 | PPL: 3.43
+[Epoch 3/3] Validating...
+[Epoch 3/3] Loss: 1.4685 | PPL: 4.34
+  -> Saved best model to checkpoints_pilot_c\uz_best.pt
+============================================================
+Training complete. Running final evaluation...
+============================================================
+
+Final Test Loss: 1.3312 | Test PPL: 3.79
+Done!
+--- c/uz end rc=0 Fri Aug 14 18:23:48 PDT 2026 ---
+--- c/ug start Fri Aug 14 18:23:48 PDT 2026 ---
+Loading data from corpora_pilot_c\oscar_ug_ipa.txt...
+  Loaded: 2,498,468 chars total
+  Train: 1,748,927 chars
+  Val: 374,770 chars
+  Test: 374,771 chars
+Building vocab from training text...
+  Vocab size: 43
+============================================================
+Training config
+============================================================
+  Language: Uyghur (ug)
+  Mode: Train from scratch
+  Device: cuda
+  Batch size: 256
+  Workers: 0
+  Pin memory: True
+  Epochs: 3
+  LR: 0.0001
+  Seed: 1234
+  Freeze embed: False
+  Output: checkpoints_pilot_c\ug_best.pt
+Creating data loaders...
+  Train batches: 6,832
+  Val batches: 1,464
+
+Model config
+  Device: cuda
+  Embed dim: 128
+  Hidden dim: 256
+  Layers: 2
+  Parameters: 938,155
+  Optimizer: Adam (lr=0.0001)
+============================================================
+Starting training: 3 epochs, 6832 batches/epoch
+============================================================
+[Epoch 1/3] Starting...
+  [  1.5%] Step 100 | Loss: 3.3144 | PPL: 27.51
+  [  2.9%] Step 200 | Loss: 2.9082 | PPL: 18.32
+  [  4.4%] Step 300 | Loss: 2.6029 | PPL: 13.50
+  [  5.9%] Step 400 | Loss: 2.4671 | PPL: 11.79
+  [  7.3%] Step 500 | Loss: 2.3874 | PPL: 10.88
+  [  8.8%] Step 600 | Loss: 2.3266 | PPL: 10.24
+  [ 10.2%] Step 700 | Loss: 2.2741 | PPL: 9.72
+  [ 11.7%] Step 800 | Loss: 2.2319 | PPL: 9.32
+  [ 13.2%] Step 900 | Loss: 2.1895 | PPL: 8.93
+  [ 14.6%] Step 1,000 | Loss: 2.1522 | PPL: 8.60
+  [ 16.1%] Step 1,100 | Loss: 2.1172 | PPL: 8.31
+  [ 17.6%] Step 1,200 | Loss: 2.0839 | PPL: 8.04
+  [ 19.0%] Step 1,300 | Loss: 2.0526 | PPL: 7.79
+  [ 20.5%] Step 1,400 | Loss: 2.0242 | PPL: 7.57
+  [ 22.0%] Step 1,500 | Loss: 1.9968 | PPL: 7.37
+  [ 23.4%] Step 1,600 | Loss: 1.9689 | PPL: 7.16
+  [ 24.9%] Step 1,700 | Loss: 1.9485 | PPL: 7.02
+  [ 26.3%] Step 1,800 | Loss: 1.9249 | PPL: 6.85
+  [ 27.8%] Step 1,900 | Loss: 1.9035 | PPL: 6.71
+  [ 29.3%] Step 2,000 | Loss: 1.8867 | PPL: 6.60
+  [ 30.7%] Step 2,100 | Loss: 1.8676 | PPL: 6.47
+  [ 32.2%] Step 2,200 | Loss: 1.8493 | PPL: 6.36
+  [ 33.7%] Step 2,300 | Loss: 1.8311 | PPL: 6.24
+  [ 35.1%] Step 2,400 | Loss: 1.8174 | PPL: 6.16
+  [ 36.6%] Step 2,500 | Loss: 1.7967 | PPL: 6.03
+  [ 38.1%] Step 2,600 | Loss: 1.7839 | PPL: 5.95
+  [ 39.5%] Step 2,700 | Loss: 1.7685 | PPL: 5.86
+  [ 41.0%] Step 2,800 | Loss: 1.7576 | PPL: 5.80
+  [ 42.4%] Step 2,900 | Loss: 1.7430 | PPL: 5.71
+  [ 43.9%] Step 3,000 | Loss: 1.7298 | PPL: 5.64
+  [ 45.4%] Step 3,100 | Loss: 1.7174 | PPL: 5.57
+  [ 46.8%] Step 3,200 | Loss: 1.7092 | PPL: 5.52
+  [ 48.3%] Step 3,300 | Loss: 1.6955 | PPL: 5.45
+  [ 49.8%] Step 3,400 | Loss: 1.6874 | PPL: 5.41
+  [ 51.2%] Step 3,500 | Loss: 1.6773 | PPL: 5.35
+  [ 52.7%] Step 3,600 | Loss: 1.6655 | PPL: 5.29
+  [ 54.2%] Step 3,700 | Loss: 1.6549 | PPL: 5.23
+  [ 55.6%] Step 3,800 | Loss: 1.6457 | PPL: 5.18
+  [ 57.1%] Step 3,900 | Loss: 1.6400 | PPL: 5.16
+  [ 58.5%] Step 4,000 | Loss: 1.6300 | PPL: 5.10
+  [ 60.0%] Step 4,100 | Loss: 1.6193 | PPL: 5.05
+  [ 61.5%] Step 4,200 | Loss: 1.6132 | PPL: 5.02
+  [ 62.9%] Step 4,300 | Loss: 1.6019 | PPL: 4.96
+  [ 64.4%] Step 4,400 | Loss: 1.6006 | PPL: 4.96
+  [ 65.9%] Step 4,500 | Loss: 1.5913 | PPL: 4.91
+  [ 67.3%] Step 4,600 | Loss: 1.5808 | PPL: 4.86
+  [ 68.8%] Step 4,700 | Loss: 1.5732 | PPL: 4.82
+  [ 70.3%] Step 4,800 | Loss: 1.5696 | PPL: 4.80
+  [ 71.7%] Step 4,900 | Loss: 1.5620 | PPL: 4.77
+  [ 73.2%] Step 5,000 | Loss: 1.5609 | PPL: 4.76
+  [ 74.6%] Step 5,100 | Loss: 1.5493 | PPL: 4.71
+  [ 76.1%] Step 5,200 | Loss: 1.5418 | PPL: 4.67
+  [ 77.6%] Step 5,300 | Loss: 1.5384 | PPL: 4.66
+  [ 79.0%] Step 5,400 | Loss: 1.5323 | PPL: 4.63
+  [ 80.5%] Step 5,500 | Loss: 1.5257 | PPL: 4.60
+  [ 82.0%] Step 5,600 | Loss: 1.5184 | PPL: 4.56
+  [ 83.4%] Step 5,700 | Loss: 1.5129 | PPL: 4.54
+  [ 84.9%] Step 5,800 | Loss: 1.5065 | PPL: 4.51
+  [ 86.4%] Step 5,900 | Loss: 1.5040 | PPL: 4.50
+  [ 87.8%] Step 6,000 | Loss: 1.4978 | PPL: 4.47
+  [ 89.3%] Step 6,100 | Loss: 1.4922 | PPL: 4.45
+  [ 90.7%] Step 6,200 | Loss: 1.4883 | PPL: 4.43
+  [ 92.2%] Step 6,300 | Loss: 1.4863 | PPL: 4.42
+  [ 93.7%] Step 6,400 | Loss: 1.4793 | PPL: 4.39
+  [ 95.1%] Step 6,500 | Loss: 1.4761 | PPL: 4.38
+  [ 96.6%] Step 6,600 | Loss: 1.4682 | PPL: 4.34
+  [ 98.1%] Step 6,700 | Loss: 1.4694 | PPL: 4.35
+  [ 99.5%] Step 6,800 | Loss: 1.4605 | PPL: 4.31
+  [100.0%] Step 6,832 | Loss: 1.4606 | PPL: 4.31
+[Epoch 1/3] Validating...
+[Epoch 1/3] Loss: 1.5082 | PPL: 4.52
+  -> Saved best model to checkpoints_pilot_c\ug_best.pt
+[Epoch 2/3] Starting...
+  [  1.0%] Step 6,900 | Loss: 1.4592 | PPL: 4.30
+  [  2.5%] Step 7,000 | Loss: 1.4547 | PPL: 4.28
+  [  3.9%] Step 7,100 | Loss: 1.4493 | PPL: 4.26
+  [  5.4%] Step 7,200 | Loss: 1.4443 | PPL: 4.24
+  [  6.9%] Step 7,300 | Loss: 1.4430 | PPL: 4.23
+  [  8.3%] Step 7,400 | Loss: 1.4365 | PPL: 4.21
+  [  9.8%] Step 7,500 | Loss: 1.4300 | PPL: 4.18
+  [ 11.2%] Step 7,600 | Loss: 1.4331 | PPL: 4.19
+  [ 12.7%] Step 7,700 | Loss: 1.4259 | PPL: 4.16
+  [ 14.2%] Step 7,800 | Loss: 1.4253 | PPL: 4.16
+  [ 15.6%] Step 7,900 | Loss: 1.4150 | PPL: 4.12
+  [ 17.1%] Step 8,000 | Loss: 1.4172 | PPL: 4.13
+  [ 18.6%] Step 8,100 | Loss: 1.4123 | PPL: 4.11
+  [ 20.0%] Step 8,200 | Loss: 1.4115 | PPL: 4.10
+  [ 21.5%] Step 8,300 | Loss: 1.4086 | PPL: 4.09
+  [ 23.0%] Step 8,400 | Loss: 1.4022 | PPL: 4.06
+  [ 24.4%] Step 8,500 | Loss: 1.3935 | PPL: 4.03
+  [ 25.9%] Step 8,600 | Loss: 1.3951 | PPL: 4.04
+  [ 27.3%] Step 8,700 | Loss: 1.3923 | PPL: 4.02
+  [ 28.8%] Step 8,800 | Loss: 1.3882 | PPL: 4.01
+  [ 30.3%] Step 8,900 | Loss: 1.3824 | PPL: 3.98
+  [ 31.7%] Step 9,000 | Loss: 1.3809 | PPL: 3.98
+  [ 33.2%] Step 9,100 | Loss: 1.3780 | PPL: 3.97
+  [ 34.7%] Step 9,200 | Loss: 1.3766 | PPL: 3.96
+  [ 36.1%] Step 9,300 | Loss: 1.3721 | PPL: 3.94
+  [ 37.6%] Step 9,400 | Loss: 1.3703 | PPL: 3.94
+  [ 39.1%] Step 9,500 | Loss: 1.3663 | PPL: 3.92
+  [ 40.5%] Step 9,600 | Loss: 1.3644 | PPL: 3.91
+  [ 42.0%] Step 9,700 | Loss: 1.3644 | PPL: 3.91
+  [ 43.4%] Step 9,800 | Loss: 1.3598 | PPL: 3.90
+  [ 44.9%] Step 9,900 | Loss: 1.3601 | PPL: 3.90
+  [ 46.4%] Step 10,000 | Loss: 1.3567 | PPL: 3.88
+  [ 47.8%] Step 10,100 | Loss: 1.3499 | PPL: 3.86
+  [ 49.3%] Step 10,200 | Loss: 1.3472 | PPL: 3.85
+  [ 50.8%] Step 10,300 | Loss: 1.3487 | PPL: 3.85
+  [ 52.2%] Step 10,400 | Loss: 1.3441 | PPL: 3.83
+  [ 53.7%] Step 10,500 | Loss: 1.3437 | PPL: 3.83
+  [ 55.2%] Step 10,600 | Loss: 1.3395 | PPL: 3.82
+  [ 56.6%] Step 10,700 | Loss: 1.3378 | PPL: 3.81
+  [ 58.1%] Step 10,800 | Loss: 1.3353 | PPL: 3.80
+  [ 59.5%] Step 10,900 | Loss: 1.3331 | PPL: 3.79
+  [ 61.0%] Step 11,000 | Loss: 1.3252 | PPL: 3.76
+  [ 62.5%] Step 11,100 | Loss: 1.3317 | PPL: 3.79
+  [ 63.9%] Step 11,200 | Loss: 1.3244 | PPL: 3.76
+  [ 65.4%] Step 11,300 | Loss: 1.3232 | PPL: 3.76
+  [ 66.9%] Step 11,400 | Loss: 1.3215 | PPL: 3.75
+  [ 68.3%] Step 11,500 | Loss: 1.3193 | PPL: 3.74
+  [ 69.8%] Step 11,600 | Loss: 1.3189 | PPL: 3.74
+  [ 71.3%] Step 11,700 | Loss: 1.3100 | PPL: 3.71
+  [ 72.7%] Step 11,800 | Loss: 1.3125 | PPL: 3.72
+  [ 74.2%] Step 11,900 | Loss: 1.3121 | PPL: 3.71
+  [ 75.6%] Step 12,000 | Loss: 1.3104 | PPL: 3.71
+  [ 77.1%] Step 12,100 | Loss: 1.3068 | PPL: 3.69
+  [ 78.6%] Step 12,200 | Loss: 1.3037 | PPL: 3.68
+  [ 80.0%] Step 12,300 | Loss: 1.3017 | PPL: 3.68
+  [ 81.5%] Step 12,400 | Loss: 1.2998 | PPL: 3.67
+  [ 83.0%] Step 12,500 | Loss: 1.2987 | PPL: 3.66
+  [ 84.4%] Step 12,600 | Loss: 1.2949 | PPL: 3.65
+  [ 85.9%] Step 12,700 | Loss: 1.2957 | PPL: 3.65
+  [ 87.4%] Step 12,800 | Loss: 1.2890 | PPL: 3.63
+  [ 88.8%] Step 12,900 | Loss: 1.2914 | PPL: 3.64
+  [ 90.3%] Step 13,000 | Loss: 1.2886 | PPL: 3.63
+  [ 91.7%] Step 13,100 | Loss: 1.2938 | PPL: 3.65
+  [ 93.2%] Step 13,200 | Loss: 1.2897 | PPL: 3.63
+  [ 94.7%] Step 13,300 | Loss: 1.2851 | PPL: 3.61
+  [ 96.1%] Step 13,400 | Loss: 1.2813 | PPL: 3.60
+  [ 97.6%] Step 13,500 | Loss: 1.2820 | PPL: 3.60
+  [ 99.1%] Step 13,600 | Loss: 1.2751 | PPL: 3.58
+  [100.0%] Step 13,664 | Loss: 1.2714 | PPL: 3.57
+[Epoch 2/3] Validating...
+[Epoch 2/3] Loss: 1.3823 | PPL: 3.98
+  -> Saved best model to checkpoints_pilot_c\ug_best.pt
+[Epoch 3/3] Starting...
+  [  0.5%] Step 13,700 | Loss: 1.2732 | PPL: 3.57
+  [  2.0%] Step 13,800 | Loss: 1.2722 | PPL: 3.57
+  [  3.5%] Step 13,900 | Loss: 1.2730 | PPL: 3.57
+  [  4.9%] Step 14,000 | Loss: 1.2690 | PPL: 3.56
+  [  6.4%] Step 14,100 | Loss: 1.2680 | PPL: 3.55
+  [  7.8%] Step 14,200 | Loss: 1.2717 | PPL: 3.57
+  [  9.3%] Step 14,300 | Loss: 1.2645 | PPL: 3.54
+  [ 10.8%] Step 14,400 | Loss: 1.2634 | PPL: 3.54
+  [ 12.2%] Step 14,500 | Loss: 1.2643 | PPL: 3.54
+  [ 13.7%] Step 14,600 | Loss: 1.2613 | PPL: 3.53
+  [ 15.2%] Step 14,700 | Loss: 1.2588 | PPL: 3.52
+  [ 16.6%] Step 14,800 | Loss: 1.2590 | PPL: 3.52
+  [ 18.1%] Step 14,900 | Loss: 1.2564 | PPL: 3.51
+  [ 19.6%] Step 15,000 | Loss: 1.2535 | PPL: 3.50
+  [ 21.0%] Step 15,100 | Loss: 1.2526 | PPL: 3.50
+  [ 22.5%] Step 15,200 | Loss: 1.2516 | PPL: 3.50
+  [ 23.9%] Step 15,300 | Loss: 1.2512 | PPL: 3.49
+  [ 25.4%] Step 15,400 | Loss: 1.2468 | PPL: 3.48
+  [ 26.9%] Step 15,500 | Loss: 1.2469 | PPL: 3.48
+  [ 28.3%] Step 15,600 | Loss: 1.2473 | PPL: 3.48
+  [ 29.8%] Step 15,700 | Loss: 1.2448 | PPL: 3.47
+  [ 31.3%] Step 15,800 | Loss: 1.2466 | PPL: 3.48
+  [ 32.7%] Step 15,900 | Loss: 1.2421 | PPL: 3.46
+  [ 34.2%] Step 16,000 | Loss: 1.2390 | PPL: 3.45
+  [ 35.7%] Step 16,100 | Loss: 1.2368 | PPL: 3.44
+  [ 37.1%] Step 16,200 | Loss: 1.2361 | PPL: 3.44
+  [ 38.6%] Step 16,300 | Loss: 1.2317 | PPL: 3.43
+  [ 40.0%] Step 16,400 | Loss: 1.2386 | PPL: 3.45
+  [ 41.5%] Step 16,500 | Loss: 1.2342 | PPL: 3.44
+  [ 43.0%] Step 16,600 | Loss: 1.2314 | PPL: 3.43
+  [ 44.4%] Step 16,700 | Loss: 1.2291 | PPL: 3.42
+  [ 45.9%] Step 16,800 | Loss: 1.2308 | PPL: 3.42
+  [ 47.4%] Step 16,900 | Loss: 1.2288 | PPL: 3.42
+  [ 48.8%] Step 17,000 | Loss: 1.2279 | PPL: 3.41
+  [ 50.3%] Step 17,100 | Loss: 1.2256 | PPL: 3.41
+  [ 51.8%] Step 17,200 | Loss: 1.2219 | PPL: 3.39
+  [ 53.2%] Step 17,300 | Loss: 1.2242 | PPL: 3.40
+  [ 54.7%] Step 17,400 | Loss: 1.2179 | PPL: 3.38
+  [ 56.1%] Step 17,500 | Loss: 1.2194 | PPL: 3.39
+  [ 57.6%] Step 17,600 | Loss: 1.2182 | PPL: 3.38
+  [ 59.1%] Step 17,700 | Loss: 1.2199 | PPL: 3.39
+  [ 60.5%] Step 17,800 | Loss: 1.2195 | PPL: 3.39
+  [ 62.0%] Step 17,900 | Loss: 1.2156 | PPL: 3.37
+  [ 63.5%] Step 18,000 | Loss: 1.2141 | PPL: 3.37
+  [ 64.9%] Step 18,100 | Loss: 1.2152 | PPL: 3.37
+  [ 66.4%] Step 18,200 | Loss: 1.2095 | PPL: 3.35
+  [ 67.9%] Step 18,300 | Loss: 1.2133 | PPL: 3.36
+  [ 69.3%] Step 18,400 | Loss: 1.2051 | PPL: 3.34
+  [ 70.8%] Step 18,500 | Loss: 1.2059 | PPL: 3.34
+  [ 72.2%] Step 18,600 | Loss: 1.2062 | PPL: 3.34
+  [ 73.7%] Step 18,700 | Loss: 1.2060 | PPL: 3.34
+  [ 75.2%] Step 18,800 | Loss: 1.2036 | PPL: 3.33
+  [ 76.6%] Step 18,900 | Loss: 1.2067 | PPL: 3.34
+  [ 78.1%] Step 19,000 | Loss: 1.2012 | PPL: 3.32
+  [ 79.6%] Step 19,100 | Loss: 1.1964 | PPL: 3.31
+  [ 81.0%] Step 19,200 | Loss: 1.2001 | PPL: 3.32
+  [ 82.5%] Step 19,300 | Loss: 1.2002 | PPL: 3.32
+  [ 84.0%] Step 19,400 | Loss: 1.1961 | PPL: 3.31
+  [ 85.4%] Step 19,500 | Loss: 1.1934 | PPL: 3.30
+  [ 86.9%] Step 19,600 | Loss: 1.1967 | PPL: 3.31
+  [ 88.3%] Step 19,700 | Loss: 1.1962 | PPL: 3.31
+  [ 89.8%] Step 19,800 | Loss: 1.1948 | PPL: 3.30
+  [ 91.3%] Step 19,900 | Loss: 1.1916 | PPL: 3.29
+  [ 92.7%] Step 20,000 | Loss: 1.1922 | PPL: 3.29
+  [ 94.2%] Step 20,100 | Loss: 1.1852 | PPL: 3.27
+  [ 95.7%] Step 20,200 | Loss: 1.1864 | PPL: 3.28
+  [ 97.1%] Step 20,300 | Loss: 1.1881 | PPL: 3.28
+  [ 98.6%] Step 20,400 | Loss: 1.1848 | PPL: 3.27
+  [100.0%] Step 20,496 | Loss: 1.1862 | PPL: 3.27
+[Epoch 3/3] Validating...
+[Epoch 3/3] Loss: 1.3400 | PPL: 3.82
+  -> Saved best model to checkpoints_pilot_c\ug_best.pt
+============================================================
+Training complete. Running final evaluation...
+============================================================
+
+Final Test Loss: 1.2500 | Test PPL: 3.49
+Done!
+--- c/ug end rc=0 Fri Aug 14 18:43:30 PDT 2026 ---
+--- c/fi start Fri Aug 14 18:43:30 PDT 2026 ---
+Loading data from corpora_pilot_c\oscar_fi_ipa.txt...
+  Loaded: 2,056,030 chars total
+  Train: 1,439,221 chars
+  Val: 308,404 chars
+  Test: 308,405 chars
+Building vocab from training text...
+  Vocab size: 31
+============================================================
+Training config
+============================================================
+  Language: Finnish (fi)
+  Mode: Train from scratch
+  Device: cuda
+  Batch size: 256
+  Workers: 0
+  Pin memory: True
+  Epochs: 3
+  LR: 0.0001
+  Seed: 1234
+  Freeze embed: False
+  Output: checkpoints_pilot_c\fi_best.pt
+Creating data loaders...
+  Train batches: 5,622
+  Val batches: 1,205
+
+Model config
+  Device: cuda
+  Embed dim: 128
+  Hidden dim: 256
+  Layers: 2
+  Parameters: 933,535
+  Optimizer: Adam (lr=0.0001)
+============================================================
+Starting training: 3 epochs, 5622 batches/epoch
+============================================================
+[Epoch 1/3] Starting...
+  [  1.8%] Step 100 | Loss: 3.0833 | PPL: 21.83
+  [  3.6%] Step 200 | Loss: 2.7372 | PPL: 15.44
+  [  5.3%] Step 300 | Loss: 2.4785 | PPL: 11.92
+  [  7.1%] Step 400 | Loss: 2.3479 | PPL: 10.46
+  [  8.9%] Step 500 | Loss: 2.2797 | PPL: 9.77
+  [ 10.7%] Step 600 | Loss: 2.2265 | PPL: 9.27
+  [ 12.5%] Step 700 | Loss: 2.1812 | PPL: 8.86
+  [ 14.2%] Step 800 | Loss: 2.1414 | PPL: 8.51
+  [ 16.0%] Step 900 | Loss: 2.0998 | PPL: 8.16
+  [ 17.8%] Step 1,000 | Loss: 2.0701 | PPL: 7.93
+  [ 19.6%] Step 1,100 | Loss: 2.0343 | PPL: 7.65
+  [ 21.3%] Step 1,200 | Loss: 2.0070 | PPL: 7.44
+  [ 23.1%] Step 1,300 | Loss: 1.9776 | PPL: 7.23
+  [ 24.9%] Step 1,400 | Loss: 1.9519 | PPL: 7.04
+  [ 26.7%] Step 1,500 | Loss: 1.9275 | PPL: 6.87
+  [ 28.5%] Step 1,600 | Loss: 1.9057 | PPL: 6.72
+  [ 30.2%] Step 1,700 | Loss: 1.8852 | PPL: 6.59
+  [ 32.0%] Step 1,800 | Loss: 1.8673 | PPL: 6.47
+  [ 33.8%] Step 1,900 | Loss: 1.8521 | PPL: 6.37
+  [ 35.6%] Step 2,000 | Loss: 1.8303 | PPL: 6.24
+  [ 37.4%] Step 2,100 | Loss: 1.8162 | PPL: 6.15
+  [ 39.1%] Step 2,200 | Loss: 1.8007 | PPL: 6.05
+  [ 40.9%] Step 2,300 | Loss: 1.7874 | PPL: 5.97
+  [ 42.7%] Step 2,400 | Loss: 1.7750 | PPL: 5.90
+  [ 44.5%] Step 2,500 | Loss: 1.7628 | PPL: 5.83
+  [ 46.2%] Step 2,600 | Loss: 1.7482 | PPL: 5.74
+  [ 48.0%] Step 2,700 | Loss: 1.7383 | PPL: 5.69
+  [ 49.8%] Step 2,800 | Loss: 1.7260 | PPL: 5.62
+  [ 51.6%] Step 2,900 | Loss: 1.7198 | PPL: 5.58
+  [ 53.4%] Step 3,000 | Loss: 1.7070 | PPL: 5.51
+  [ 55.1%] Step 3,100 | Loss: 1.6977 | PPL: 5.46
+  [ 56.9%] Step 3,200 | Loss: 1.6849 | PPL: 5.39
+  [ 58.7%] Step 3,300 | Loss: 1.6792 | PPL: 5.36
+  [ 60.5%] Step 3,400 | Loss: 1.6683 | PPL: 5.30
+  [ 62.3%] Step 3,500 | Loss: 1.6609 | PPL: 5.26
+  [ 64.0%] Step 3,600 | Loss: 1.6548 | PPL: 5.23
+  [ 65.8%] Step 3,700 | Loss: 1.6501 | PPL: 5.21
+  [ 67.6%] Step 3,800 | Loss: 1.6420 | PPL: 5.17
+  [ 69.4%] Step 3,900 | Loss: 1.6326 | PPL: 5.12
+  [ 71.1%] Step 4,000 | Loss: 1.6304 | PPL: 5.11
+  [ 72.9%] Step 4,100 | Loss: 1.6185 | PPL: 5.05
+  [ 74.7%] Step 4,200 | Loss: 1.6129 | PPL: 5.02
+  [ 76.5%] Step 4,300 | Loss: 1.6058 | PPL: 4.98
+  [ 78.3%] Step 4,400 | Loss: 1.6026 | PPL: 4.97
+  [ 80.0%] Step 4,500 | Loss: 1.5957 | PPL: 4.93
+  [ 81.8%] Step 4,600 | Loss: 1.5901 | PPL: 4.90
+  [ 83.6%] Step 4,700 | Loss: 1.5830 | PPL: 4.87
+  [ 85.4%] Step 4,800 | Loss: 1.5799 | PPL: 4.85
+  [ 87.2%] Step 4,900 | Loss: 1.5752 | PPL: 4.83
+  [ 88.9%] Step 5,000 | Loss: 1.5648 | PPL: 4.78
+  [ 90.7%] Step 5,100 | Loss: 1.5625 | PPL: 4.77
+  [ 92.5%] Step 5,200 | Loss: 1.5559 | PPL: 4.74
+  [ 94.3%] Step 5,300 | Loss: 1.5544 | PPL: 4.73
+  [ 96.1%] Step 5,400 | Loss: 1.5530 | PPL: 4.73
+  [ 97.8%] Step 5,500 | Loss: 1.5447 | PPL: 4.69
+  [ 99.6%] Step 5,600 | Loss: 1.5388 | PPL: 4.66
+  [100.0%] Step 5,622 | Loss: 1.5384 | PPL: 4.66
+[Epoch 1/3] Validating...
+[Epoch 1/3] Loss: 1.6234 | PPL: 5.07
+  -> Saved best model to checkpoints_pilot_c\fi_best.pt
+[Epoch 2/3] Starting...
+  [  1.4%] Step 5,700 | Loss: 1.5334 | PPL: 4.63
+  [  3.2%] Step 5,800 | Loss: 1.5335 | PPL: 4.63
+  [  4.9%] Step 5,900 | Loss: 1.5250 | PPL: 4.60
+  [  6.7%] Step 6,000 | Loss: 1.5214 | PPL: 4.58
+  [  8.5%] Step 6,100 | Loss: 1.5201 | PPL: 4.57
+  [ 10.3%] Step 6,200 | Loss: 1.5178 | PPL: 4.56
+  [ 12.1%] Step 6,300 | Loss: 1.5106 | PPL: 4.53
+  [ 13.8%] Step 6,400 | Loss: 1.5066 | PPL: 4.51
+  [ 15.6%] Step 6,500 | Loss: 1.5016 | PPL: 4.49
+  [ 17.4%] Step 6,600 | Loss: 1.5020 | PPL: 4.49
+  [ 19.2%] Step 6,700 | Loss: 1.4939 | PPL: 4.45
+  [ 21.0%] Step 6,800 | Loss: 1.4932 | PPL: 4.45
+  [ 22.7%] Step 6,900 | Loss: 1.4910 | PPL: 4.44
+  [ 24.5%] Step 7,000 | Loss: 1.4899 | PPL: 4.44
+  [ 26.3%] Step 7,100 | Loss: 1.4850 | PPL: 4.41
+  [ 28.1%] Step 7,200 | Loss: 1.4760 | PPL: 4.38
+  [ 29.8%] Step 7,300 | Loss: 1.4786 | PPL: 4.39
+  [ 31.6%] Step 7,400 | Loss: 1.4743 | PPL: 4.37
+  [ 33.4%] Step 7,500 | Loss: 1.4673 | PPL: 4.34
+  [ 35.2%] Step 7,600 | Loss: 1.4690 | PPL: 4.35
+  [ 37.0%] Step 7,700 | Loss: 1.4610 | PPL: 4.31
+  [ 38.7%] Step 7,800 | Loss: 1.4568 | PPL: 4.29
+  [ 40.5%] Step 7,900 | Loss: 1.4521 | PPL: 4.27
+  [ 42.3%] Step 8,000 | Loss: 1.4545 | PPL: 4.28
+  [ 44.1%] Step 8,100 | Loss: 1.4520 | PPL: 4.27
+  [ 45.9%] Step 8,200 | Loss: 1.4464 | PPL: 4.25
+  [ 47.6%] Step 8,300 | Loss: 1.4467 | PPL: 4.25
+  [ 49.4%] Step 8,400 | Loss: 1.4439 | PPL: 4.24
+  [ 51.2%] Step 8,500 | Loss: 1.4397 | PPL: 4.22
+  [ 53.0%] Step 8,600 | Loss: 1.4368 | PPL: 4.21
+  [ 54.7%] Step 8,700 | Loss: 1.4365 | PPL: 4.21
+  [ 56.5%] Step 8,800 | Loss: 1.4337 | PPL: 4.19
+  [ 58.3%] Step 8,900 | Loss: 1.4304 | PPL: 4.18
+  [ 60.1%] Step 9,000 | Loss: 1.4317 | PPL: 4.19
+  [ 61.9%] Step 9,100 | Loss: 1.4269 | PPL: 4.17
+  [ 63.6%] Step 9,200 | Loss: 1.4194 | PPL: 4.13
+  [ 65.4%] Step 9,300 | Loss: 1.4214 | PPL: 4.14
+  [ 67.2%] Step 9,400 | Loss: 1.4156 | PPL: 4.12
+  [ 69.0%] Step 9,500 | Loss: 1.4176 | PPL: 4.13
+  [ 70.8%] Step 9,600 | Loss: 1.4117 | PPL: 4.10
+  [ 72.5%] Step 9,700 | Loss: 1.4115 | PPL: 4.10
+  [ 74.3%] Step 9,800 | Loss: 1.4049 | PPL: 4.07
+  [ 76.1%] Step 9,900 | Loss: 1.4097 | PPL: 4.09
+  [ 77.9%] Step 10,000 | Loss: 1.4009 | PPL: 4.06
+  [ 79.7%] Step 10,100 | Loss: 1.4038 | PPL: 4.07
+  [ 81.4%] Step 10,200 | Loss: 1.4011 | PPL: 4.06
+  [ 83.2%] Step 10,300 | Loss: 1.3960 | PPL: 4.04
+  [ 85.0%] Step 10,400 | Loss: 1.3959 | PPL: 4.04
+  [ 86.8%] Step 10,500 | Loss: 1.3928 | PPL: 4.03
+  [ 88.5%] Step 10,600 | Loss: 1.3899 | PPL: 4.01
+  [ 90.3%] Step 10,700 | Loss: 1.3865 | PPL: 4.00
+  [ 92.1%] Step 10,800 | Loss: 1.3884 | PPL: 4.01
+  [ 93.9%] Step 10,900 | Loss: 1.3846 | PPL: 3.99
+  [ 95.7%] Step 11,000 | Loss: 1.3814 | PPL: 3.98
+  [ 97.4%] Step 11,100 | Loss: 1.3810 | PPL: 3.98
+  [ 99.2%] Step 11,200 | Loss: 1.3783 | PPL: 3.97
+  [100.0%] Step 11,244 | Loss: 1.3791 | PPL: 3.97
+[Epoch 2/3] Validating...
+[Epoch 2/3] Loss: 1.5435 | PPL: 4.68
+  -> Saved best model to checkpoints_pilot_c\fi_best.pt
+[Epoch 3/3] Starting...
+  [  1.0%] Step 11,300 | Loss: 1.3732 | PPL: 3.95
+  [  2.8%] Step 11,400 | Loss: 1.3724 | PPL: 3.94
+  [  4.6%] Step 11,500 | Loss: 1.3768 | PPL: 3.96
+  [  6.3%] Step 11,600 | Loss: 1.3720 | PPL: 3.94
+  [  8.1%] Step 11,700 | Loss: 1.3714 | PPL: 3.94
+  [  9.9%] Step 11,800 | Loss: 1.3692 | PPL: 3.93
+  [ 11.7%] Step 11,900 | Loss: 1.3690 | PPL: 3.93
+  [ 13.4%] Step 12,000 | Loss: 1.3613 | PPL: 3.90
+  [ 15.2%] Step 12,100 | Loss: 1.3658 | PPL: 3.92
+  [ 17.0%] Step 12,200 | Loss: 1.3602 | PPL: 3.90
+  [ 18.8%] Step 12,300 | Loss: 1.3594 | PPL: 3.89
+  [ 20.6%] Step 12,400 | Loss: 1.3572 | PPL: 3.89
+  [ 22.3%] Step 12,500 | Loss: 1.3545 | PPL: 3.87
+  [ 24.1%] Step 12,600 | Loss: 1.3531 | PPL: 3.87
+  [ 25.9%] Step 12,700 | Loss: 1.3509 | PPL: 3.86
+  [ 27.7%] Step 12,800 | Loss: 1.3500 | PPL: 3.86
+  [ 29.5%] Step 12,900 | Loss: 1.3514 | PPL: 3.86
+  [ 31.2%] Step 13,000 | Loss: 1.3454 | PPL: 3.84
+  [ 33.0%] Step 13,100 | Loss: 1.3438 | PPL: 3.83
+  [ 34.8%] Step 13,200 | Loss: 1.3443 | PPL: 3.84
+  [ 36.6%] Step 13,300 | Loss: 1.3404 | PPL: 3.82
+  [ 38.3%] Step 13,400 | Loss: 1.3412 | PPL: 3.82
+  [ 40.1%] Step 13,500 | Loss: 1.3395 | PPL: 3.82
+  [ 41.9%] Step 13,600 | Loss: 1.3348 | PPL: 3.80
+  [ 43.7%] Step 13,700 | Loss: 1.3365 | PPL: 3.81
+  [ 45.5%] Step 13,800 | Loss: 1.3315 | PPL: 3.79
+  [ 47.2%] Step 13,900 | Loss: 1.3324 | PPL: 3.79
+  [ 49.0%] Step 14,000 | Loss: 1.3306 | PPL: 3.78
+  [ 50.8%] Step 14,100 | Loss: 1.3290 | PPL: 3.78
+  [ 52.6%] Step 14,200 | Loss: 1.3282 | PPL: 3.77
+  [ 54.4%] Step 14,300 | Loss: 1.3261 | PPL: 3.77
+  [ 56.1%] Step 14,400 | Loss: 1.3268 | PPL: 3.77
+  [ 57.9%] Step 14,500 | Loss: 1.3248 | PPL: 3.76
+  [ 59.7%] Step 14,600 | Loss: 1.3182 | PPL: 3.74
+  [ 61.5%] Step 14,700 | Loss: 1.3174 | PPL: 3.73
+  [ 63.3%] Step 14,800 | Loss: 1.3207 | PPL: 3.75
+  [ 65.0%] Step 14,900 | Loss: 1.3186 | PPL: 3.74
+  [ 66.8%] Step 15,000 | Loss: 1.3179 | PPL: 3.74
+  [ 68.6%] Step 15,100 | Loss: 1.3175 | PPL: 3.73
+  [ 70.4%] Step 15,200 | Loss: 1.3121 | PPL: 3.71
+  [ 72.1%] Step 15,300 | Loss: 1.3111 | PPL: 3.71
+  [ 73.9%] Step 15,400 | Loss: 1.3092 | PPL: 3.70
+  [ 75.7%] Step 15,500 | Loss: 1.3103 | PPL: 3.71
+  [ 77.5%] Step 15,600 | Loss: 1.3063 | PPL: 3.69
+  [ 79.3%] Step 15,700 | Loss: 1.3018 | PPL: 3.68
+  [ 81.0%] Step 15,800 | Loss: 1.3039 | PPL: 3.68
+  [ 82.8%] Step 15,900 | Loss: 1.3038 | PPL: 3.68
+  [ 84.6%] Step 16,000 | Loss: 1.3031 | PPL: 3.68
+  [ 86.4%] Step 16,100 | Loss: 1.3002 | PPL: 3.67
+  [ 88.2%] Step 16,200 | Loss: 1.2998 | PPL: 3.67
+  [ 89.9%] Step 16,300 | Loss: 1.3020 | PPL: 3.68
+  [ 91.7%] Step 16,400 | Loss: 1.2978 | PPL: 3.66
+  [ 93.5%] Step 16,500 | Loss: 1.2954 | PPL: 3.65
+  [ 95.3%] Step 16,600 | Loss: 1.2965 | PPL: 3.66
+  [ 97.0%] Step 16,700 | Loss: 1.2929 | PPL: 3.64
+  [ 98.8%] Step 16,800 | Loss: 1.2923 | PPL: 3.64
+  [100.0%] Step 16,866 | Loss: 1.2880 | PPL: 3.63
+[Epoch 3/3] Validating...
+[Epoch 3/3] Loss: 1.5258 | PPL: 4.60
+  -> Saved best model to checkpoints_pilot_c\fi_best.pt
+============================================================
+Training complete. Running final evaluation...
+============================================================
+
+Final Test Loss: 1.5796 | Test PPL: 4.85
+Done!
+--- c/fi end rc=0 Fri Aug 14 19:00:05 PDT 2026 ---
+=== pilot lane2 end Fri Aug 14 19:00:05 PDT 2026 ===

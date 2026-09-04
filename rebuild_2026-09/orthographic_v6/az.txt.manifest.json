@@ -1,0 +1,23 @@
+{
+  "driver": "oscar",
+  "filter_language": "azj",
+  "language": "az",
+  "language_identification": {
+    "model_id": "lid218e",
+    "script_aware": true,
+    "threshold": 0.95,
+    "weights_bytes": 1176355829,
+    "weights_path": "C:\\Users\\Test\\PROJECTS\\turkic-transliteration\\src\\turkic_translit\\lid218e.bin"
+  },
+  "license": "CC0-1.0",
+  "lines_seen": 10001,
+  "lines_written": 10000,
+  "normalization": {
+    "folds_sha256": "721010b8496a02333bae132f8b7453851af4a31875aad90846246a4740c7f023",
+    "format_category": "Cf",
+    "unicode_version": "14.0.0"
+  },
+  "output_path": "C:\\Users\\Test\\PROJECTS\\LSTM\\rebuild_2026-09\\orthographic_v6\\az.txt",
+  "output_sha256": "c2c18bbe5068f63cd2f810d2cc2bb1d1755837cd7065423b4654630bd42cea92",
+  "source_id": "oscar-2301"
+}

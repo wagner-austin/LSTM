@@ -1,0 +1,43 @@
+{
+  "experiment": "turkic-char-lstm-base-training",
+  "label": "corpora_clean_v4:63cd9a8dda95",
+  "fingerprint": {
+    "image_digest": "",
+    "gpu_model": "NVIDIA GeForce RTX 3090 Ti",
+    "driver_version": "12.4",
+    "determinism": {
+      "stack": "none",
+      "settings": {}
+    },
+    "host": {
+      "platform": "Windows-10-10.0.26200-SP0",
+      "machine": "AMD64",
+      "logical_cores": 24
+    },
+    "packages": [
+      {
+        "name": "numpy",
+        "version": "2.3.5"
+      },
+      {
+        "name": "torch",
+        "version": "2.6.0+cu124"
+      }
+    ]
+  },
+  "observations": [
+    {
+      "name": "best_val_loss",
+      "value": 1.0933578344862154
+    },
+    {
+      "name": "epochs_run",
+      "value": 3.0
+    },
+    {
+      "name": "vocab_size",
+      "value": 36.0
+    }
+  ],
+  "payload_digest": "1c3d1c738c24f9979c9b7b1c6f8ad15d3a8e46f041822c1111c0dacd493e0c8e"
+}

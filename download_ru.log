@@ -1,0 +1,1 @@
+<frozen runpy>:128: RuntimeWarning: 'turkic_translit.cli.download_corpus' found in sys.modules after import of package 'turkic_translit.cli', but prior to execution of 'turkic_translit.cli.download_corpus'; this may result in unpredictable behaviour

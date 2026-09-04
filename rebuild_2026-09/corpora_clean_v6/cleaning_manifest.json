@@ -1,0 +1,107 @@
+{
+  "min_line_chars": 30,
+  "min_ipa_ratio": 0.95,
+  "equalized_char_budget": 11658775,
+  "budget_language": "uz",
+  "rules_fingerprint": {
+    "az_ipa.rules": "3a9660ad145d28b062f05d30f5fa8686499f40bb922a1f099432991283e81b75",
+    "fi_ipa.rules": "01c9dc983d7b7aedc4a75c3413d987bf8c0b5ba8d91925a665ebedffc40160c1",
+    "kk_ipa.rules": "c2d4eeec01032ba6f7fc1cb38c27c86513e8f8fd4d1818d9a146a1e60948dc26",
+    "ky_ipa.rules": "3de0bd10bd8c81cc83a59d15da57bae1b44f530a0b6003d729a3c9180b7b75dd",
+    "ru_ipa.rules": "205bcbe1f6473dc4b88d96c840652b8ff64d20553fe31073bdf42747aacfd681",
+    "tr_ipa.rules": "b0e0c3278404ef50a779f2da22d957c3e1374b78e55c336400a5950121641ebd",
+    "ug_ipa.rules": "298f4a1f95dd913bc61829cf541e89cd902ec7a7047da2e0f0df7bcc5b3f3991",
+    "uz_ipa.rules": "d84f2b98405bff6ccfa3677239a4d8d045320be71d433f8eb29a1e75cd71a4d8",
+    "symbol_map": "9a3b98c8e1fd3e31ca4e653ec7557073324ddc2e189f184f949d0fbeeca8324d"
+  },
+  "languages": {
+    "az": {
+      "lines_in": 10000,
+      "dropped_duplicate": 1278,
+      "dropped_short": 11,
+      "dropped_low_ipa": 237,
+      "dropped_foreign_tokens": 38066,
+      "chars_replaced": 2154829,
+      "lines_kept": 8474,
+      "chars_kept": 39304668,
+      "chars_written": 11654146
+    },
+    "fi": {
+      "lines_in": 10000,
+      "dropped_duplicate": 857,
+      "dropped_short": 0,
+      "dropped_low_ipa": 45,
+      "dropped_foreign_tokens": 5364,
+      "chars_replaced": 2778199,
+      "lines_kept": 9098,
+      "chars_kept": 49099341,
+      "chars_written": 11653442
+    },
+    "kk": {
+      "lines_in": 10000,
+      "dropped_duplicate": 1237,
+      "dropped_short": 8,
+      "dropped_low_ipa": 247,
+      "dropped_foreign_tokens": 169735,
+      "chars_replaced": 2705797,
+      "lines_kept": 8508,
+      "chars_kept": 43391112,
+      "chars_written": 11658133
+    },
+    "ky": {
+      "lines_in": 10000,
+      "dropped_duplicate": 1071,
+      "dropped_short": 0,
+      "dropped_low_ipa": 266,
+      "dropped_foreign_tokens": 171862,
+      "chars_replaced": 1904752,
+      "lines_kept": 8663,
+      "chars_kept": 35581503,
+      "chars_written": 11654991
+    },
+    "ru": {
+      "lines_in": 10000,
+      "dropped_duplicate": 267,
+      "dropped_short": 0,
+      "dropped_low_ipa": 131,
+      "dropped_foreign_tokens": 220230,
+      "chars_replaced": 2987106,
+      "lines_kept": 9602,
+      "chars_kept": 67470196,
+      "chars_written": 11642181
+    },
+    "tr": {
+      "lines_in": 10000,
+      "dropped_duplicate": 370,
+      "dropped_short": 7,
+      "dropped_low_ipa": 37,
+      "dropped_foreign_tokens": 66019,
+      "chars_replaced": 2221771,
+      "lines_kept": 9586,
+      "chars_kept": 47975541,
+      "chars_written": 11553129
+    },
+    "ug": {
+      "lines_in": 10000,
+      "dropped_duplicate": 1320,
+      "dropped_short": 0,
+      "dropped_low_ipa": 402,
+      "dropped_foreign_tokens": 138798,
+      "chars_replaced": 1643651,
+      "lines_kept": 8278,
+      "chars_kept": 41386767,
+      "chars_written": 11654491
+    },
+    "uz": {
+      "lines_in": 7708,
+      "dropped_duplicate": 4374,
+      "dropped_short": 1,
+      "dropped_low_ipa": 179,
+      "dropped_foreign_tokens": 28494,
+      "chars_replaced": 640232,
+      "lines_kept": 3154,
+      "chars_kept": 11658775,
+      "chars_written": 11658775
+    }
+  }
+}

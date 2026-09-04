@@ -203,17 +203,42 @@ rule files is the ‹щ› line, and new-rules was checked against
 old-rules-then-substitute over 2,944 exhaustive probes per language with
 zero mismatches.
 
-## Use `rebuild_2026-09/corpora_clean_v4/`
+## Use `rebuild_2026-09/corpora_clean_v6/`
 
-It is what the paper reports and what recent training used.
+It is the only generation in which every language carries a manifest pinning
+its own `output_sha256` and naming the normaliser that shaped it. Train and
+evaluate from it; cite numbers from the arm that produced them, not from the
+newest arm.
 
-- `overleaf-tu-paper/LM_MI_LSA_template.tex` states 11,658,775 characters with
-  Uzbek binding, and every language's `chars_written` matches its file exactly.
-- `train_v3.log` trained against it.
-- On HPC3 it is staged at
-  `/pub/wagnera3/LSTM/rebuild_2026-08/corpora_clean_v3`, digest-verified
-  against `API/tools/hpc3/runs/turkic-v3-corpus-digests.txt`, and it is what
-  `runs/sweep-turkic-bases.json` trains from.
+- The equalised budget it reports, 11,658,775 characters with Uzbek binding,
+  is the same one `overleaf-tu-paper/LM_MI_LSA_template.tex` states, and every
+  language's `chars_written` matches its file exactly. The budget has not
+  moved since v3, so the paper's corpus sentence is still true of v6.
+- Checkpoints: `checkpoints_v6/` holds the three bases retrained on it (fi,
+  kk, tr — the three whose cleaned corpora changed), and
+  `checkpoints_v6_matrix/` holds the seven perception languages assembled for
+  the 7x7 evaluation. Russian is a base, not a matrix member: no human
+  intelligibility ratings were collected for it, so it has no row or column to
+  score against.
+- Evaluation output: `results/v6_full_skip.csv` and
+  `results/v6_full_skip_asymmetry.csv`.
+
+**The three superseded generations are not interchangeable with it, and the
+difference is not cosmetic.** v3 and everything before it transcribe ‹щ› as
+ɕː in Kazakh, Kyrgyz and Uzbek-Cyrillic, which is a segment no evaluation
+snippet contains; correcting it to ʃː in v4 moved Kyrgyz-as-reader by 0.22
+and removed roughly two thirds of one of the draft's reported asymmetries.
+Numbers computed on v3 and numbers computed on v4 or later are not
+subtractable. The personal wiki records the measurement at
+`transcription-error-inflated-a-directional-asymmetry`.
+
+**On HPC3 only v3 is staged**, at
+`/pub/wagnera3/LSTM/rebuild_2026-08/corpora_clean_v3`, digest-verified
+against `API/tools/hpc3/runs/turkic-v3-corpus-digests.txt`, and it is what
+`runs/sweep-turkic-bases.json` trains from. That sweep therefore trains the
+uncorrected corpus and its seven members predate Russian. Staging v6 and
+repointing the sweep is open work, not something this file describes as
+done.
 
 ## Why the other two are still here
 

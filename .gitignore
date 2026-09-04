@@ -26,7 +26,24 @@ corpora_clean/
 
 # Windows NUL device artifact
 nul
-rebuild_2026-08/orthographic/*.txt
-rebuild_2026-08/corpora_raw_v2/*.txt
-rebuild_2026-09/corpora_raw_v4/*.txt
-rebuild_2026-09/corpora_clean_v4/*.txt
+# Corpus text and model weights. Both are large and both are reproducible —
+# the corpora from the download manifest beside them, the checkpoints because
+# training on this stack reproduces bitwise from a seed. What is NOT
+# reproducible is the record of what produced them, so the manifests, the
+# vocabularies and the RunRecord sidecars stay tracked and sit in the same
+# directories.
+#
+# Patterns rather than per-generation paths, deliberately. This block used to
+# name four exact directories, so every new generation needed a new line and
+# nobody added one — v3, v5 and v6 were all untracked in full, manifests
+# included, which is the state this replaces.
+rebuild_*/**/*.txt
+corpora_pilot_*/*.txt
+corpora_variant_b/*.txt
+data/perception_pilot_*/*.txt
+data/perception_variant_b/*.txt
+checkpoints_*/*.pt
+checkpoints_*/*.pt.resume
+
+# Build output
+dist/
