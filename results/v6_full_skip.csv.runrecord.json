@@ -1,0 +1,227 @@
+{
+  "experiment": "turkic-zero-shot-excess-ce",
+  "label": "skip",
+  "fingerprint": {
+    "image_digest": "",
+    "gpu_model": "",
+    "driver_version": "",
+    "determinism": {
+      "stack": "none",
+      "settings": {}
+    },
+    "host": {
+      "platform": "Windows-10-10.0.26200-SP0",
+      "machine": "AMD64",
+      "logical_cores": 24
+    },
+    "packages": [
+      {
+        "name": "numpy",
+        "version": "2.3.5"
+      },
+      {
+        "name": "torch",
+        "version": "2.6.0+cu124"
+      }
+    ]
+  },
+  "observations": [
+    {
+      "name": "excess_ce.az.az",
+      "value": 0.0
+    },
+    {
+      "name": "excess_ce.az.fi",
+      "value": 2.38845376742424
+    },
+    {
+      "name": "excess_ce.az.kk",
+      "value": 2.4445933865425284
+    },
+    {
+      "name": "excess_ce.az.ky",
+      "value": 2.08946684111386
+    },
+    {
+      "name": "excess_ce.az.tr",
+      "value": 1.600859648605873
+    },
+    {
+      "name": "excess_ce.az.ug",
+      "value": 2.027590992356192
+    },
+    {
+      "name": "excess_ce.az.uz",
+      "value": 2.42143405977434
+    },
+    {
+      "name": "excess_ce.fi.az",
+      "value": 2.470736405406365
+    },
+    {
+      "name": "excess_ce.fi.fi",
+      "value": 0.0
+    },
+    {
+      "name": "excess_ce.fi.kk",
+      "value": 2.0099036007488094
+    },
+    {
+      "name": "excess_ce.fi.ky",
+      "value": 2.3139293217369636
+    },
+    {
+      "name": "excess_ce.fi.tr",
+      "value": 2.2680082544787172
+    },
+    {
+      "name": "excess_ce.fi.ug",
+      "value": 2.514431491035512
+    },
+    {
+      "name": "excess_ce.fi.uz",
+      "value": 2.475430513386467
+    },
+    {
+      "name": "excess_ce.kk.az",
+      "value": 2.1141000588988286
+    },
+    {
+      "name": "excess_ce.kk.fi",
+      "value": 2.326798136611141
+    },
+    {
+      "name": "excess_ce.kk.kk",
+      "value": 0.0
+    },
+    {
+      "name": "excess_ce.kk.ky",
+      "value": 1.82440126113827
+    },
+    {
+      "name": "excess_ce.kk.tr",
+      "value": 2.093936544484106
+    },
+    {
+      "name": "excess_ce.kk.ug",
+      "value": 2.2770123381944627
+    },
+    {
+      "name": "excess_ce.kk.uz",
+      "value": 2.2720696153933835
+    },
+    {
+      "name": "excess_ce.ky.az",
+      "value": 2.1538015018423007
+    },
+    {
+      "name": "excess_ce.ky.fi",
+      "value": 2.508497251159609
+    },
+    {
+      "name": "excess_ce.ky.kk",
+      "value": 1.3923795312867129
+    },
+    {
+      "name": "excess_ce.ky.ky",
+      "value": 0.0
+    },
+    {
+      "name": "excess_ce.ky.tr",
+      "value": 2.112092786065463
+    },
+    {
+      "name": "excess_ce.ky.ug",
+      "value": 2.0016858519606036
+    },
+    {
+      "name": "excess_ce.ky.uz",
+      "value": 2.0768772107207747
+    },
+    {
+      "name": "excess_ce.tr.az",
+      "value": 1.3755714384887032
+    },
+    {
+      "name": "excess_ce.tr.fi",
+      "value": 2.244088645571047
+    },
+    {
+      "name": "excess_ce.tr.kk",
+      "value": 1.824002456925784
+    },
+    {
+      "name": "excess_ce.tr.ky",
+      "value": 1.7155180566902386
+    },
+    {
+      "name": "excess_ce.tr.tr",
+      "value": 0.0
+    },
+    {
+      "name": "excess_ce.tr.ug",
+      "value": 1.8748098588054385
+    },
+    {
+      "name": "excess_ce.tr.uz",
+      "value": 2.1690748724249804
+    },
+    {
+      "name": "excess_ce.ug.az",
+      "value": 1.7943129048516198
+    },
+    {
+      "name": "excess_ce.ug.fi",
+      "value": 2.478739660771317
+    },
+    {
+      "name": "excess_ce.ug.kk",
+      "value": 2.1597847198674063
+    },
+    {
+      "name": "excess_ce.ug.ky",
+      "value": 1.8974243818687375
+    },
+    {
+      "name": "excess_ce.ug.tr",
+      "value": 2.073770478347252
+    },
+    {
+      "name": "excess_ce.ug.ug",
+      "value": 0.0
+    },
+    {
+      "name": "excess_ce.ug.uz",
+      "value": 1.9417549250537338
+    },
+    {
+      "name": "excess_ce.uz.az",
+      "value": 1.8263581032429224
+    },
+    {
+      "name": "excess_ce.uz.fi",
+      "value": 2.199036954479224
+    },
+    {
+      "name": "excess_ce.uz.kk",
+      "value": 1.939519385483195
+    },
+    {
+      "name": "excess_ce.uz.ky",
+      "value": 1.9794711275286434
+    },
+    {
+      "name": "excess_ce.uz.tr",
+      "value": 1.998990238584321
+    },
+    {
+      "name": "excess_ce.uz.ug",
+      "value": 1.3530633227046092
+    },
+    {
+      "name": "excess_ce.uz.uz",
+      "value": 0.0
+    }
+  ],
+  "payload_digest": "05bcf0b446cb3613517dd0099e7f00eb949053134319b9b9a456522eff122ae3"
+}

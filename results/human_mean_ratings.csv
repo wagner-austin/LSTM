@@ -1,0 +1,21 @@
+listener_language,text_language,mean_human_rating,provenance
+az,kk,2.20,TurkicMI_draft.docx prose
+az,ky,2.57,"Figure 4 human-ce-FINAL.pdf vector geometry, +0.01 calibration"
+az,tr,6.98,TurkicMI_draft.docx prose
+az,ug,2.80,"Figure 4 human-ce-FINAL.pdf vector geometry, +0.01 calibration"
+az,uz,3.27,"Figure 4 human-ce-FINAL.pdf vector geometry, +0.01 calibration"
+kk,az,1.75,TurkicMI_draft.docx prose
+kk,ky,5.28,TurkicMI_draft.docx prose
+kk,tr,1.83,TurkicMI_draft.docx prose
+kk,ug,3.36,TurkicMI_draft.docx prose
+kk,uz,2.86,TurkicMI_draft.docx prose
+ky,az,2.25,TurkicMI_draft.docx prose
+ky,kk,4.89,TurkicMI_draft.docx prose
+ky,tr,2.32,TurkicMI_draft.docx prose
+ky,ug,2.75,TurkicMI_draft.docx prose
+ky,uz,3.34,TurkicMI_draft.docx prose
+tr,az,5.92,TurkicMI_draft.docx prose
+tr,kk,1.79,TurkicMI_draft.docx prose
+tr,ky,2.19,"Figure 4 human-ce-FINAL.pdf vector geometry, +0.01 calibration"
+tr,ug,2.04,"Figure 4 human-ce-FINAL.pdf vector geometry, +0.01 calibration"
+tr,uz,2.17,"Figure 4 human-ce-FINAL.pdf vector geometry, +0.01 calibration"
