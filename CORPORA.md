@@ -80,12 +80,45 @@ data one. `rebuild_2026-08/orthographic/kk.txt.manifest.json` states
 | uz | 7,708 | 7,708 |
 
 Six of seven agree, and Uzbek's 7,708 is the source running out, which is
-exactly why it binds the budget. So the real cap was 10,000 and kk's
-manifest is a leftover from an abandoned 150,000-line run whose file was
-replaced without rewriting the manifest. The cleaned corpora are unaffected
-because cleaning reads the `.txt`, and every `.txt` is consistent. What is
-affected is the answer to "where did kk's raw text come from", which that
-manifest currently answers wrongly. Russian's manifest matches its file.
+exactly why it binds the budget. So the real cap was 10,000.
+
+**This first read as an abandoned run's leftover manifest. It is not, and
+the difference matters.** Re-running the download with every parameter the
+manifest records, on classifier weights whose byte count still matches it
+exactly, produced text that differs from `kk.txt` at line 0. Only 10 of
+10,000 lines coincide. The archived file is not the first 10,000 lines of
+that stream, so it was not produced by truncating a longer run of it either.
+
+**The pipeline is not the problem, and that was measured rather than
+assumed.** Two fresh Kazakh downloads run back to back are byte-identical
+to each other, 97,598,509 bytes, SHA-256 `9effd770764aad4d7157...`. The
+downloader is deterministic: same parameters, same bytes. `hub.shard_paths`
+orders shards by part number rather than as text, so the stream order is
+fixed.
+
+What follows is narrower and worse than "the count is stale": `kk.txt` was
+produced by some step nobody recorded, and no parameters exist that
+reproduce it. Its selection is unknown, not merely undocumented.
+
+Consequences, stated exactly:
+
+- The cleaned corpora are unaffected. Cleaning reads the `.txt`, every
+  `.txt` is internally consistent, and every cleaned file is digest-pinned.
+- Every model stays reproducible **from the cleaned corpus**, which is what
+  training actually consumes.
+- What is lost is the ability to regenerate Kazakh's raw text from scratch.
+- **Do not "fix" this by re-downloading kk.** A fresh download is different
+  text, which would change the cleaned Kazakh corpus, which would invalidate
+  every Kazakh checkpoint and the paper's Kazakh numbers. The gap is worth
+  less than that.
+- No manifest was rewritten to look correct. There is no set of fields that
+  would be true, and inventing one is the failure the manifest module's own
+  docstring exists to prevent.
+
+Future runs cannot repeat this. `CorpusRunManifest` now carries a required
+`output_sha256` taken from the bytes on disk after the writer closes, so a
+manifest that stops describing its file fails to verify instead of going
+unnoticed. Russian's manifest matches its file, and carries that digest.
 
 ## v4 corrects a segment that was outside the Kazakh inventory
 
