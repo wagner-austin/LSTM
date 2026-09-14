@@ -9,8 +9,11 @@ from pathlib import Path
 
 import pytest
 import torch
+from platform_core.json_utils import load_json_str
+from platform_core.run_record import decode_run_record
 from scripts.zero_shot_eval import (
     ASYMMETRY_CSV_HEADER,
+    ASYMMETRY_EXPERIMENT,
     CSV_HEADER,
     DEFAULT_ASSIMILATION_CSV,
     DEFAULT_CHECKPOINT_DIR,
@@ -20,6 +23,7 @@ from scripts.zero_shot_eval import (
     DEFAULT_SEED,
     DEFAULT_SNIPPET_DIR,
     DEFAULT_SNIPPET_TEMPLATE,
+    EXPERIMENT,
     OOV_MODES,
     AsymmetryResult,
     EvalArgs,
@@ -28,6 +32,7 @@ from scripts.zero_shot_eval import (
     SectionScore,
     _build_masks,
     _extract_args,
+    asymmetry_observations,
     asymmetry_results,
     attested_chars,
     bootstrap_asymmetry,
@@ -49,6 +54,7 @@ from scripts.zero_shot_eval import (
 
 from char_lstm.data import UNK, save_vocab_json
 from char_lstm.model import CharLSTM
+from char_lstm.provenance import sidecar_path
 
 # Tiny architecture used across tests for fast model construction.
 TEST_VOCAB_SIZE = 5  # 4 chars + UNK
@@ -545,6 +551,69 @@ def test_main_end_to_end(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> 
     out = capsys.readouterr().out
     assert "Wrote 6 pair(s)" in out
     assert args["output_csv"].read_text(encoding="utf-8").startswith(CSV_HEADER)
+
+
+def test_main_writes_a_sidecar_beside_each_csv(tmp_path: Path) -> None:
+    """Both files get provenance, under different experiments, from one fingerprint.
+
+    The asymmetry CSV had none until 2026-09-14: it was written by the same
+    run as a matrix that carried one and was indistinguishable in ``results/``
+    from an evaluation with provenance. This asserts what the script WRITES,
+    which the end-to-end test above never did for either file.
+    """
+    args = _setup_eval_dirs(tmp_path)
+    assert (
+        main(
+            [
+                "--checkpoint-dir",
+                str(args["checkpoint_dir"]),
+                "--snippet-dir",
+                str(args["snippet_dir"]),
+                "--output-csv",
+                str(args["output_csv"]),
+                "--oov-mode",
+                "skip",
+                "--n-boot",
+                "10",
+            ]
+        )
+        == 0
+    )
+
+    asymmetry_csv = args["output_csv"].with_name(args["output_csv"].stem + "_asymmetry.csv")
+    matrix = decode_run_record(load_json_str(sidecar_path(args["output_csv"]).read_text("utf-8")))
+    asymmetry = decode_run_record(load_json_str(sidecar_path(asymmetry_csv).read_text("utf-8")))
+
+    assert matrix["experiment"] == EXPERIMENT
+    assert asymmetry["experiment"] == ASYMMETRY_EXPERIMENT
+    assert matrix["label"] == asymmetry["label"] == "skip"
+    assert matrix["fingerprint"] == asymmetry["fingerprint"]
+    assert {o["name"].split(".")[0] for o in asymmetry["observations"]} == {
+        "asymmetry",
+        "asymmetry_lo",
+        "asymmetry_hi",
+    }
+
+
+def test_asymmetry_observations_name_the_estimate_and_both_bounds() -> None:
+    """The interval is the verdict, so it travels with the estimate."""
+    row: AsymmetryResult = {
+        "lang_a": "az",
+        "lang_b": "tr",
+        "mode": "skip",
+        "excess_ab": 1.7885,
+        "excess_ba": 1.3070,
+        "difference": 0.4815,
+        "difference_lo": 0.2,
+        "difference_hi": 0.75,
+        "excludes_zero": True,
+    }
+
+    assert asymmetry_observations([row]) == (
+        {"name": "asymmetry.az.tr", "value": 0.4815},
+        {"name": "asymmetry_lo.az.tr", "value": 0.2},
+        {"name": "asymmetry_hi.az.tr", "value": 0.75},
+    )
 
 
 def test_module_entrypoint(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:

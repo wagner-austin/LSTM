@@ -637,6 +637,40 @@ def excess_observations(results: list[PairResult]) -> tuple[Observation, ...]:
     )
 
 
+#: The asymmetry record's experiment, distinct from the matrix's on purpose. A
+#: matrix row is a LEVEL (one model's excess cross-entropy reading one text)
+#: and an asymmetry row is a DIFFERENCE between two of them with its own
+#: interval; ``compare_run_records`` refuses to subtract records from different
+#: experiments, which is exactly the refusal wanted between a level and a
+#: difference of levels.
+ASYMMETRY_EXPERIMENT = "turkic-zero-shot-asymmetry"
+
+
+def asymmetry_observations(results: list[AsymmetryResult]) -> tuple[Observation, ...]:
+    """Name every asymmetry number so two runs can be paired by it.
+
+    Three observations per unordered pair rather than one: the difference is
+    the estimate and the interval is the verdict, and a record carrying only
+    the estimate could be compared against another run without either reader
+    being able to tell whether the sign had ever excluded zero.
+
+    Args:
+        results: One entry per unordered language pair.
+
+    Returns:
+        The observations, named ``asymmetry.<a>.<b>``,
+        ``asymmetry_lo.<a>.<b>`` and ``asymmetry_hi.<a>.<b>``. Sorting is
+        left to :func:`~platform_core.run_record.run_record`.
+    """
+    observations: list[Observation] = []
+    for r in results:
+        pair = f"{r['lang_a']}.{r['lang_b']}"
+        observations.append(Observation(name=f"asymmetry.{pair}", value=r["difference"]))
+        observations.append(Observation(name=f"asymmetry_lo.{pair}", value=r["difference_lo"]))
+        observations.append(Observation(name=f"asymmetry_hi.{pair}", value=r["difference_hi"]))
+    return tuple(observations)
+
+
 ASYMMETRY_CSV_HEADER = (
     "language_a,language_b,scoring_mode,excess_a_reading_b,excess_b_reading_a,"
     "difference,difference_confidence_interval_low,difference_confidence_interval_high,"
@@ -953,17 +987,33 @@ def run(args: EvalArgs) -> list[PairResult]:
         f"{significant} interval(s) exclude zero"
     )
 
-    # The CSV keeps its shape; the provenance goes beside it. Every number in
-    # it is a subtraction, and until this sidecar existed the only record of
-    # what produced them was the filename.
+    # The CSVs keep their shape; the provenance goes beside each. Every number
+    # in them is a subtraction, and until these sidecars existed the only
+    # record of what produced them was the filename. One fingerprint for both:
+    # the same process scored both files, and a second capture would only be
+    # a chance to disagree with the first.
+    fingerprint = scoring_fingerprint()
     sidecar = write_run_record(
         args["output_csv"],
         EXPERIMENT,
         args["oov_mode"],
         excess_observations(results),
-        scoring_fingerprint(),
+        fingerprint,
     )
     print(f"Wrote provenance to {sidecar}")
+    # The asymmetry file had none until 2026-09-14. It was written by this
+    # same function, on the same day as a matrix that had one, and sat in
+    # results/ indistinguishable from an evaluation that carried provenance;
+    # docs/RESEARCH.md in the api monorepo caught it by counting sidecars
+    # against CSVs.
+    asymmetry_sidecar = write_run_record(
+        asymmetry_csv,
+        ASYMMETRY_EXPERIMENT,
+        args["oov_mode"],
+        asymmetry_observations(asymmetries),
+        fingerprint,
+    )
+    print(f"Wrote provenance to {asymmetry_sidecar}")
     return results
 
 
