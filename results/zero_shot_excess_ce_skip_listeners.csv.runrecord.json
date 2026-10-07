@@ -1,0 +1,1291 @@
+{
+  "experiment": "turkic-zero-shot-listener-difference",
+  "label": "skip",
+  "fingerprint": {
+    "image_digest": "",
+    "gpu_model": "",
+    "driver_version": "",
+    "determinism": {
+      "stack": "none",
+      "settings": {}
+    },
+    "host": {
+      "platform": "Windows-10-10.0.26200-SP0",
+      "machine": "AMD64",
+      "logical_cores": 24
+    },
+    "packages": [
+      {
+        "name": "numpy",
+        "version": "2.3.5"
+      },
+      {
+        "name": "torch",
+        "version": "2.6.0+cu124"
+      }
+    ]
+  },
+  "observations": [
+    {
+      "name": "listener_difference.az.fi.kk",
+      "value": 0.4126526274382427
+    },
+    {
+      "name": "listener_difference.az.fi.ky",
+      "value": 0.0056642451723285525
+    },
+    {
+      "name": "listener_difference.az.fi.tr",
+      "value": 1.2979223998157159
+    },
+    {
+      "name": "listener_difference.az.fi.ug",
+      "value": 0.5285202727866594
+    },
+    {
+      "name": "listener_difference.az.fi.uz",
+      "value": 0.4696072416885224
+    },
+    {
+      "name": "listener_difference.az.kk.ky",
+      "value": -0.40698838226591416
+    },
+    {
+      "name": "listener_difference.az.kk.tr",
+      "value": 0.8852697723774732
+    },
+    {
+      "name": "listener_difference.az.kk.ug",
+      "value": 0.11586764534841665
+    },
+    {
+      "name": "listener_difference.az.kk.uz",
+      "value": 0.0569546142502797
+    },
+    {
+      "name": "listener_difference.az.ky.tr",
+      "value": 1.2922581546433873
+    },
+    {
+      "name": "listener_difference.az.ky.ug",
+      "value": 0.5228560276143308
+    },
+    {
+      "name": "listener_difference.az.ky.uz",
+      "value": 0.46394299651619386
+    },
+    {
+      "name": "listener_difference.az.tr.ug",
+      "value": -0.7694021270290565
+    },
+    {
+      "name": "listener_difference.az.tr.uz",
+      "value": -0.8283151581271935
+    },
+    {
+      "name": "listener_difference.az.ug.uz",
+      "value": -0.05891303109813695
+    },
+    {
+      "name": "listener_difference.fi.az.kk",
+      "value": -0.24553194483268914
+    },
+    {
+      "name": "listener_difference.fi.az.ky",
+      "value": -0.42728726600921085
+    },
+    {
+      "name": "listener_difference.fi.az.tr",
+      "value": -0.0072681280464630404
+    },
+    {
+      "name": "listener_difference.fi.az.ug",
+      "value": -0.5528394942537709
+    },
+    {
+      "name": "listener_difference.fi.az.uz",
+      "value": -0.32735561290490445
+    },
+    {
+      "name": "listener_difference.fi.kk.ky",
+      "value": -0.1817553211765217
+    },
+    {
+      "name": "listener_difference.fi.kk.tr",
+      "value": 0.2382638167862261
+    },
+    {
+      "name": "listener_difference.fi.kk.ug",
+      "value": -0.30730754942108174
+    },
+    {
+      "name": "listener_difference.fi.kk.uz",
+      "value": -0.0818236680722153
+    },
+    {
+      "name": "listener_difference.fi.ky.tr",
+      "value": 0.4200191379627478
+    },
+    {
+      "name": "listener_difference.fi.ky.ug",
+      "value": -0.12555222824456003
+    },
+    {
+      "name": "listener_difference.fi.ky.uz",
+      "value": 0.0999316531043064
+    },
+    {
+      "name": "listener_difference.fi.tr.ug",
+      "value": -0.5455713662073078
+    },
+    {
+      "name": "listener_difference.fi.tr.uz",
+      "value": -0.3200874848584414
+    },
+    {
+      "name": "listener_difference.fi.ug.uz",
+      "value": 0.22548388134886643
+    },
+    {
+      "name": "listener_difference.kk.az.fi",
+      "value": -0.14039219897138366
+    },
+    {
+      "name": "listener_difference.kk.az.ky",
+      "value": 0.3353763030799328
+    },
+    {
+      "name": "listener_difference.kk.az.tr",
+      "value": 0.10869772219865359
+    },
+    {
+      "name": "listener_difference.kk.az.ug",
+      "value": -0.20310439596320595
+    },
+    {
+      "name": "listener_difference.kk.az.uz",
+      "value": -0.15582356036496936
+    },
+    {
+      "name": "listener_difference.kk.fi.ky",
+      "value": 0.4757685020513165
+    },
+    {
+      "name": "listener_difference.kk.fi.tr",
+      "value": 0.24908992117003725
+    },
+    {
+      "name": "listener_difference.kk.fi.ug",
+      "value": -0.06271219699182229
+    },
+    {
+      "name": "listener_difference.kk.fi.uz",
+      "value": -0.015431361393585696
+    },
+    {
+      "name": "listener_difference.kk.ky.tr",
+      "value": -0.22667858088127923
+    },
+    {
+      "name": "listener_difference.kk.ky.ug",
+      "value": -0.5384806990431388
+    },
+    {
+      "name": "listener_difference.kk.ky.uz",
+      "value": -0.4911998634449022
+    },
+    {
+      "name": "listener_difference.kk.tr.ug",
+      "value": -0.31180211816185954
+    },
+    {
+      "name": "listener_difference.kk.tr.uz",
+      "value": -0.26452128256362295
+    },
+    {
+      "name": "listener_difference.kk.ug.uz",
+      "value": 0.04728083559823659
+    },
+    {
+      "name": "listener_difference.ky.az.fi",
+      "value": -0.5011048162794165
+    },
+    {
+      "name": "listener_difference.ky.az.kk",
+      "value": -0.06922487324828408
+    },
+    {
+      "name": "listener_difference.ky.az.tr",
+      "value": -0.036886259863607496
+    },
+    {
+      "name": "listener_difference.ky.az.ug",
+      "value": -0.19354988021595365
+    },
+    {
+      "name": "listener_difference.ky.az.uz",
+      "value": -0.3940370234358668
+    },
+    {
+      "name": "listener_difference.ky.fi.kk",
+      "value": 0.4318799430311324
+    },
+    {
+      "name": "listener_difference.ky.fi.tr",
+      "value": 0.464218556415809
+    },
+    {
+      "name": "listener_difference.ky.fi.ug",
+      "value": 0.30755493606346285
+    },
+    {
+      "name": "listener_difference.ky.fi.uz",
+      "value": 0.10706779284354973
+    },
+    {
+      "name": "listener_difference.ky.kk.tr",
+      "value": 0.032338613384676584
+    },
+    {
+      "name": "listener_difference.ky.kk.ug",
+      "value": -0.12432500696766957
+    },
+    {
+      "name": "listener_difference.ky.kk.uz",
+      "value": -0.3248121501875827
+    },
+    {
+      "name": "listener_difference.ky.tr.ug",
+      "value": -0.15666362035234616
+    },
+    {
+      "name": "listener_difference.ky.tr.uz",
+      "value": -0.3571507635722593
+    },
+    {
+      "name": "listener_difference.ky.ug.uz",
+      "value": -0.20048714321991312
+    },
+    {
+      "name": "listener_difference.tr.az.fi",
+      "value": -0.8821532301934774
+    },
+    {
+      "name": "listener_difference.tr.az.kk",
+      "value": -0.7068710019924498
+    },
+    {
+      "name": "listener_difference.tr.az.ky",
+      "value": -0.5518981769740985
+    },
+    {
+      "name": "listener_difference.tr.az.ug",
+      "value": -0.7762793378381923
+    },
+    {
+      "name": "listener_difference.tr.az.uz",
+      "value": -0.6536899889235532
+    },
+    {
+      "name": "listener_difference.tr.fi.kk",
+      "value": 0.17528222820102757
+    },
+    {
+      "name": "listener_difference.tr.fi.ky",
+      "value": 0.33025505321937887
+    },
+    {
+      "name": "listener_difference.tr.fi.ug",
+      "value": 0.1058738923552851
+    },
+    {
+      "name": "listener_difference.tr.fi.uz",
+      "value": 0.22846324126992412
+    },
+    {
+      "name": "listener_difference.tr.kk.ky",
+      "value": 0.1549728250183513
+    },
+    {
+      "name": "listener_difference.tr.kk.ug",
+      "value": -0.06940833584574246
+    },
+    {
+      "name": "listener_difference.tr.kk.uz",
+      "value": 0.053181013068896554
+    },
+    {
+      "name": "listener_difference.tr.ky.ug",
+      "value": -0.22438116086409376
+    },
+    {
+      "name": "listener_difference.tr.ky.uz",
+      "value": -0.10179181194945475
+    },
+    {
+      "name": "listener_difference.tr.ug.uz",
+      "value": 0.12258934891463902
+    },
+    {
+      "name": "listener_difference.ug.az.fi",
+      "value": -0.7484886758554901
+    },
+    {
+      "name": "listener_difference.ug.az.kk",
+      "value": -0.36546545646534345
+    },
+    {
+      "name": "listener_difference.ug.az.ky",
+      "value": -0.5540463317389588
+    },
+    {
+      "name": "listener_difference.ug.az.tr",
+      "value": -0.09366070890780032
+    },
+    {
+      "name": "listener_difference.ug.az.uz",
+      "value": 0.18968965264561355
+    },
+    {
+      "name": "listener_difference.ug.fi.kk",
+      "value": 0.3830232193901466
+    },
+    {
+      "name": "listener_difference.ug.fi.ky",
+      "value": 0.19444234411653127
+    },
+    {
+      "name": "listener_difference.ug.fi.tr",
+      "value": 0.6548279669476897
+    },
+    {
+      "name": "listener_difference.ug.fi.uz",
+      "value": 0.9381783285011036
+    },
+    {
+      "name": "listener_difference.ug.kk.ky",
+      "value": -0.18858087527361533
+    },
+    {
+      "name": "listener_difference.ug.kk.tr",
+      "value": 0.27180474755754314
+    },
+    {
+      "name": "listener_difference.ug.kk.uz",
+      "value": 0.555155109110957
+    },
+    {
+      "name": "listener_difference.ug.ky.tr",
+      "value": 0.46038562283115847
+    },
+    {
+      "name": "listener_difference.ug.ky.uz",
+      "value": 0.7437359843845723
+    },
+    {
+      "name": "listener_difference.ug.tr.uz",
+      "value": 0.28335036155341387
+    },
+    {
+      "name": "listener_difference.uz.az.fi",
+      "value": -0.6467090204514774
+    },
+    {
+      "name": "listener_difference.uz.az.kk",
+      "value": -0.2267435241334983
+    },
+    {
+      "name": "listener_difference.uz.az.ky",
+      "value": -0.19590741499271758
+    },
+    {
+      "name": "listener_difference.uz.az.tr",
+      "value": -0.23684248364625482
+    },
+    {
+      "name": "listener_difference.uz.az.ug",
+      "value": 0.23112914033083798
+    },
+    {
+      "name": "listener_difference.uz.fi.kk",
+      "value": 0.4199654963179791
+    },
+    {
+      "name": "listener_difference.uz.fi.ky",
+      "value": 0.4508016054587598
+    },
+    {
+      "name": "listener_difference.uz.fi.tr",
+      "value": 0.40986653680522256
+    },
+    {
+      "name": "listener_difference.uz.fi.ug",
+      "value": 0.8778381607823154
+    },
+    {
+      "name": "listener_difference.uz.kk.ky",
+      "value": 0.03083610914078072
+    },
+    {
+      "name": "listener_difference.uz.kk.tr",
+      "value": -0.010098959512756522
+    },
+    {
+      "name": "listener_difference.uz.kk.ug",
+      "value": 0.4578726644643363
+    },
+    {
+      "name": "listener_difference.uz.ky.tr",
+      "value": -0.04093506865353724
+    },
+    {
+      "name": "listener_difference.uz.ky.ug",
+      "value": 0.42703655532355556
+    },
+    {
+      "name": "listener_difference.uz.tr.ug",
+      "value": 0.4679716239770928
+    },
+    {
+      "name": "listener_difference_hi.az.fi.kk",
+      "value": 0.49032753099614723
+    },
+    {
+      "name": "listener_difference_hi.az.fi.ky",
+      "value": 0.12648286210729687
+    },
+    {
+      "name": "listener_difference_hi.az.fi.tr",
+      "value": 1.3955245856794893
+    },
+    {
+      "name": "listener_difference_hi.az.fi.ug",
+      "value": 0.6195267025334452
+    },
+    {
+      "name": "listener_difference_hi.az.fi.uz",
+      "value": 0.5738737201231441
+    },
+    {
+      "name": "listener_difference_hi.az.kk.ky",
+      "value": -0.30459485497758143
+    },
+    {
+      "name": "listener_difference_hi.az.kk.tr",
+      "value": 0.9772635329450428
+    },
+    {
+      "name": "listener_difference_hi.az.kk.ug",
+      "value": 0.19661979379932282
+    },
+    {
+      "name": "listener_difference_hi.az.kk.uz",
+      "value": 0.1345814049093792
+    },
+    {
+      "name": "listener_difference_hi.az.ky.tr",
+      "value": 1.3953958322164495
+    },
+    {
+      "name": "listener_difference_hi.az.ky.ug",
+      "value": 0.634851994851104
+    },
+    {
+      "name": "listener_difference_hi.az.ky.uz",
+      "value": 0.5816160595659872
+    },
+    {
+      "name": "listener_difference_hi.az.tr.ug",
+      "value": -0.691969412657744
+    },
+    {
+      "name": "listener_difference_hi.az.tr.uz",
+      "value": -0.7593579068757701
+    },
+    {
+      "name": "listener_difference_hi.az.ug.uz",
+      "value": 0.020693335093382892
+    },
+    {
+      "name": "listener_difference_hi.fi.az.kk",
+      "value": -0.1897066532339089
+    },
+    {
+      "name": "listener_difference_hi.fi.az.ky",
+      "value": -0.36170799602259684
+    },
+    {
+      "name": "listener_difference_hi.fi.az.tr",
+      "value": 0.043614783922286016
+    },
+    {
+      "name": "listener_difference_hi.fi.az.ug",
+      "value": -0.4774777983187737
+    },
+    {
+      "name": "listener_difference_hi.fi.az.uz",
+      "value": -0.24719847868439793
+    },
+    {
+      "name": "listener_difference_hi.fi.kk.ky",
+      "value": -0.10569793756759438
+    },
+    {
+      "name": "listener_difference_hi.fi.kk.tr",
+      "value": 0.2936636282651479
+    },
+    {
+      "name": "listener_difference_hi.fi.kk.ug",
+      "value": -0.22364154541777737
+    },
+    {
+      "name": "listener_difference_hi.fi.kk.uz",
+      "value": 0.004760990297891343
+    },
+    {
+      "name": "listener_difference_hi.fi.ky.tr",
+      "value": 0.48798060087564377
+    },
+    {
+      "name": "listener_difference_hi.fi.ky.ug",
+      "value": -0.039985307952760785
+    },
+    {
+      "name": "listener_difference_hi.fi.ky.uz",
+      "value": 0.16034422045245922
+    },
+    {
+      "name": "listener_difference_hi.fi.tr.ug",
+      "value": -0.4819636706057193
+    },
+    {
+      "name": "listener_difference_hi.fi.tr.uz",
+      "value": -0.2468518919299263
+    },
+    {
+      "name": "listener_difference_hi.fi.ug.uz",
+      "value": 0.3091244260397694
+    },
+    {
+      "name": "listener_difference_hi.kk.az.fi",
+      "value": -0.042208858458741894
+    },
+    {
+      "name": "listener_difference_hi.kk.az.ky",
+      "value": 0.40305683440011064
+    },
+    {
+      "name": "listener_difference_hi.kk.az.tr",
+      "value": 0.17680095944179364
+    },
+    {
+      "name": "listener_difference_hi.kk.az.ug",
+      "value": -0.13435837354407099
+    },
+    {
+      "name": "listener_difference_hi.kk.az.uz",
+      "value": -0.06252092142781329
+    },
+    {
+      "name": "listener_difference_hi.kk.fi.ky",
+      "value": 0.5811321698557652
+    },
+    {
+      "name": "listener_difference_hi.kk.fi.tr",
+      "value": 0.3340049206093192
+    },
+    {
+      "name": "listener_difference_hi.kk.fi.ug",
+      "value": 0.02846524006611606
+    },
+    {
+      "name": "listener_difference_hi.kk.fi.uz",
+      "value": 0.06355846767803142
+    },
+    {
+      "name": "listener_difference_hi.kk.ky.tr",
+      "value": -0.15627250295852857
+    },
+    {
+      "name": "listener_difference_hi.kk.ky.ug",
+      "value": -0.45405214773434865
+    },
+    {
+      "name": "listener_difference_hi.kk.ky.uz",
+      "value": -0.38746475239017064
+    },
+    {
+      "name": "listener_difference_hi.kk.tr.ug",
+      "value": -0.24772504876473267
+    },
+    {
+      "name": "listener_difference_hi.kk.tr.uz",
+      "value": -0.17454516949431298
+    },
+    {
+      "name": "listener_difference_hi.kk.ug.uz",
+      "value": 0.15626100267161602
+    },
+    {
+      "name": "listener_difference_hi.ky.az.fi",
+      "value": -0.42290924241912387
+    },
+    {
+      "name": "listener_difference_hi.ky.az.kk",
+      "value": 0.008444806049519471
+    },
+    {
+      "name": "listener_difference_hi.ky.az.tr",
+      "value": 0.021371017492471722
+    },
+    {
+      "name": "listener_difference_hi.ky.az.ug",
+      "value": -0.11402803569443631
+    },
+    {
+      "name": "listener_difference_hi.ky.az.uz",
+      "value": -0.3093669855786638
+    },
+    {
+      "name": "listener_difference_hi.ky.fi.kk",
+      "value": 0.5025182969540378
+    },
+    {
+      "name": "listener_difference_hi.ky.fi.tr",
+      "value": 0.5324935603127949
+    },
+    {
+      "name": "listener_difference_hi.ky.fi.ug",
+      "value": 0.4133835945810591
+    },
+    {
+      "name": "listener_difference_hi.ky.fi.uz",
+      "value": 0.19742575388203987
+    },
+    {
+      "name": "listener_difference_hi.ky.kk.tr",
+      "value": 0.13021085603261406
+    },
+    {
+      "name": "listener_difference_hi.ky.kk.ug",
+      "value": -0.012726502349411195
+    },
+    {
+      "name": "listener_difference_hi.ky.kk.uz",
+      "value": -0.24263349956172764
+    },
+    {
+      "name": "listener_difference_hi.ky.tr.ug",
+      "value": -0.06414962657301615
+    },
+    {
+      "name": "listener_difference_hi.ky.tr.uz",
+      "value": -0.2592774613340294
+    },
+    {
+      "name": "listener_difference_hi.ky.ug.uz",
+      "value": -0.08440112111925391
+    },
+    {
+      "name": "listener_difference_hi.tr.az.fi",
+      "value": -0.8163445404670235
+    },
+    {
+      "name": "listener_difference_hi.tr.az.kk",
+      "value": -0.6053205584376642
+    },
+    {
+      "name": "listener_difference_hi.tr.az.ky",
+      "value": -0.47253459931448427
+    },
+    {
+      "name": "listener_difference_hi.tr.az.ug",
+      "value": -0.6926343943974747
+    },
+    {
+      "name": "listener_difference_hi.tr.az.uz",
+      "value": -0.5839668113460506
+    },
+    {
+      "name": "listener_difference_hi.tr.fi.kk",
+      "value": 0.2764767777547439
+    },
+    {
+      "name": "listener_difference_hi.tr.fi.ky",
+      "value": 0.40494712889528905
+    },
+    {
+      "name": "listener_difference_hi.tr.fi.ug",
+      "value": 0.17546247625026545
+    },
+    {
+      "name": "listener_difference_hi.tr.fi.uz",
+      "value": 0.3033597769345078
+    },
+    {
+      "name": "listener_difference_hi.tr.kk.ky",
+      "value": 0.22689243592759922
+    },
+    {
+      "name": "listener_difference_hi.tr.kk.ug",
+      "value": 0.039616224592935456
+    },
+    {
+      "name": "listener_difference_hi.tr.kk.uz",
+      "value": 0.12955060594986545
+    },
+    {
+      "name": "listener_difference_hi.tr.ky.ug",
+      "value": -0.1520392845198204
+    },
+    {
+      "name": "listener_difference_hi.tr.ky.uz",
+      "value": -0.03632241408974579
+    },
+    {
+      "name": "listener_difference_hi.tr.ug.uz",
+      "value": 0.21110906270493945
+    },
+    {
+      "name": "listener_difference_hi.ug.az.fi",
+      "value": -0.6494562077559292
+    },
+    {
+      "name": "listener_difference_hi.ug.az.kk",
+      "value": -0.2733324876099914
+    },
+    {
+      "name": "listener_difference_hi.ug.az.ky",
+      "value": -0.41802405630325423
+    },
+    {
+      "name": "listener_difference_hi.ug.az.tr",
+      "value": -0.031607623039339394
+    },
+    {
+      "name": "listener_difference_hi.ug.az.uz",
+      "value": 0.30108582077624346
+    },
+    {
+      "name": "listener_difference_hi.ug.fi.kk",
+      "value": 0.45860533135705417
+    },
+    {
+      "name": "listener_difference_hi.ug.fi.ky",
+      "value": 0.28942926566807614
+    },
+    {
+      "name": "listener_difference_hi.ug.fi.tr",
+      "value": 0.7567870858320274
+    },
+    {
+      "name": "listener_difference_hi.ug.fi.uz",
+      "value": 1.0246503942153036
+    },
+    {
+      "name": "listener_difference_hi.ug.kk.ky",
+      "value": -0.0777149423087149
+    },
+    {
+      "name": "listener_difference_hi.ug.kk.tr",
+      "value": 0.3446284563594135
+    },
+    {
+      "name": "listener_difference_hi.ug.kk.uz",
+      "value": 0.6281872575539407
+    },
+    {
+      "name": "listener_difference_hi.ug.ky.tr",
+      "value": 0.5605805930294738
+    },
+    {
+      "name": "listener_difference_hi.ug.ky.uz",
+      "value": 0.8544434008955146
+    },
+    {
+      "name": "listener_difference_hi.ug.tr.uz",
+      "value": 0.3734544160609241
+    },
+    {
+      "name": "listener_difference_hi.uz.az.fi",
+      "value": -0.5524356623496045
+    },
+    {
+      "name": "listener_difference_hi.uz.az.kk",
+      "value": -0.1440700925324161
+    },
+    {
+      "name": "listener_difference_hi.uz.az.ky",
+      "value": -0.12115328928994762
+    },
+    {
+      "name": "listener_difference_hi.uz.az.tr",
+      "value": -0.18619679928506194
+    },
+    {
+      "name": "listener_difference_hi.uz.az.ug",
+      "value": 0.3052514958579029
+    },
+    {
+      "name": "listener_difference_hi.uz.fi.kk",
+      "value": 0.504377802803814
+    },
+    {
+      "name": "listener_difference_hi.uz.fi.ky",
+      "value": 0.5455428322592932
+    },
+    {
+      "name": "listener_difference_hi.uz.fi.tr",
+      "value": 0.4974988994202345
+    },
+    {
+      "name": "listener_difference_hi.uz.fi.ug",
+      "value": 0.9838041844688652
+    },
+    {
+      "name": "listener_difference_hi.uz.kk.ky",
+      "value": 0.08790587094856672
+    },
+    {
+      "name": "listener_difference_hi.uz.kk.tr",
+      "value": 0.05282173869237283
+    },
+    {
+      "name": "listener_difference_hi.uz.kk.ug",
+      "value": 0.5401425590957971
+    },
+    {
+      "name": "listener_difference_hi.uz.ky.tr",
+      "value": 0.010329787795607892
+    },
+    {
+      "name": "listener_difference_hi.uz.ky.ug",
+      "value": 0.49952552303045494
+    },
+    {
+      "name": "listener_difference_hi.uz.tr.ug",
+      "value": 0.546681163601175
+    },
+    {
+      "name": "listener_difference_lo.az.fi.kk",
+      "value": 0.3403286269358139
+    },
+    {
+      "name": "listener_difference_lo.az.fi.ky",
+      "value": -0.10754627284852614
+    },
+    {
+      "name": "listener_difference_lo.az.fi.tr",
+      "value": 1.2075695645502447
+    },
+    {
+      "name": "listener_difference_lo.az.fi.ug",
+      "value": 0.4374511958031375
+    },
+    {
+      "name": "listener_difference_lo.az.fi.uz",
+      "value": 0.368590183562568
+    },
+    {
+      "name": "listener_difference_lo.az.kk.ky",
+      "value": -0.5128822188279356
+    },
+    {
+      "name": "listener_difference_lo.az.kk.tr",
+      "value": 0.7986363041674127
+    },
+    {
+      "name": "listener_difference_lo.az.kk.ug",
+      "value": 0.03214726604932894
+    },
+    {
+      "name": "listener_difference_lo.az.kk.uz",
+      "value": -0.03326389604543989
+    },
+    {
+      "name": "listener_difference_lo.az.ky.tr",
+      "value": 1.1940417541965127
+    },
+    {
+      "name": "listener_difference_lo.az.ky.ug",
+      "value": 0.41023354634751374
+    },
+    {
+      "name": "listener_difference_lo.az.ky.uz",
+      "value": 0.3526792951769089
+    },
+    {
+      "name": "listener_difference_lo.az.tr.ug",
+      "value": -0.8556354607134997
+    },
+    {
+      "name": "listener_difference_lo.az.tr.uz",
+      "value": -0.8997383332925155
+    },
+    {
+      "name": "listener_difference_lo.az.ug.uz",
+      "value": -0.13015557538065003
+    },
+    {
+      "name": "listener_difference_lo.fi.az.kk",
+      "value": -0.30055033786983465
+    },
+    {
+      "name": "listener_difference_lo.fi.az.ky",
+      "value": -0.49116178973008484
+    },
+    {
+      "name": "listener_difference_lo.fi.az.tr",
+      "value": -0.061371895813540966
+    },
+    {
+      "name": "listener_difference_lo.fi.az.ug",
+      "value": -0.6250054693841314
+    },
+    {
+      "name": "listener_difference_lo.fi.az.uz",
+      "value": -0.4103536730441446
+    },
+    {
+      "name": "listener_difference_lo.fi.kk.ky",
+      "value": -0.2639871885023819
+    },
+    {
+      "name": "listener_difference_lo.fi.kk.tr",
+      "value": 0.18531382297100585
+    },
+    {
+      "name": "listener_difference_lo.fi.kk.ug",
+      "value": -0.3849553935694563
+    },
+    {
+      "name": "listener_difference_lo.fi.kk.uz",
+      "value": -0.16031309340241506
+    },
+    {
+      "name": "listener_difference_lo.fi.ky.tr",
+      "value": 0.35451319503552003
+    },
+    {
+      "name": "listener_difference_lo.fi.ky.ug",
+      "value": -0.2121512503734282
+    },
+    {
+      "name": "listener_difference_lo.fi.ky.uz",
+      "value": 0.037723584406706756
+    },
+    {
+      "name": "listener_difference_lo.fi.tr.ug",
+      "value": -0.6156046404562416
+    },
+    {
+      "name": "listener_difference_lo.fi.tr.uz",
+      "value": -0.38848726295534775
+    },
+    {
+      "name": "listener_difference_lo.fi.ug.uz",
+      "value": 0.14857010726504605
+    },
+    {
+      "name": "listener_difference_lo.kk.az.fi",
+      "value": -0.2277652623140054
+    },
+    {
+      "name": "listener_difference_lo.kk.az.ky",
+      "value": 0.26474689731936474
+    },
+    {
+      "name": "listener_difference_lo.kk.az.tr",
+      "value": 0.03358882998650836
+    },
+    {
+      "name": "listener_difference_lo.kk.az.ug",
+      "value": -0.27263524666903205
+    },
+    {
+      "name": "listener_difference_lo.kk.az.uz",
+      "value": -0.24853174055837757
+    },
+    {
+      "name": "listener_difference_lo.kk.fi.ky",
+      "value": 0.369246503101476
+    },
+    {
+      "name": "listener_difference_lo.kk.fi.tr",
+      "value": 0.16570504631925198
+    },
+    {
+      "name": "listener_difference_lo.kk.fi.ug",
+      "value": -0.1570828944076723
+    },
+    {
+      "name": "listener_difference_lo.kk.fi.uz",
+      "value": -0.08893960775788301
+    },
+    {
+      "name": "listener_difference_lo.kk.ky.tr",
+      "value": -0.3038556826040124
+    },
+    {
+      "name": "listener_difference_lo.kk.ky.ug",
+      "value": -0.6241872746742976
+    },
+    {
+      "name": "listener_difference_lo.kk.ky.uz",
+      "value": -0.6014128638257921
+    },
+    {
+      "name": "listener_difference_lo.kk.tr.ug",
+      "value": -0.38017037864426806
+    },
+    {
+      "name": "listener_difference_lo.kk.tr.uz",
+      "value": -0.3477663366542254
+    },
+    {
+      "name": "listener_difference_lo.kk.ug.uz",
+      "value": -0.06060047759852294
+    },
+    {
+      "name": "listener_difference_lo.ky.az.fi",
+      "value": -0.5755461337091723
+    },
+    {
+      "name": "listener_difference_lo.ky.az.kk",
+      "value": -0.14266296605121465
+    },
+    {
+      "name": "listener_difference_lo.ky.az.tr",
+      "value": -0.10057460834791643
+    },
+    {
+      "name": "listener_difference_lo.ky.az.ug",
+      "value": -0.27938896679131053
+    },
+    {
+      "name": "listener_difference_lo.ky.az.uz",
+      "value": -0.4733246032141172
+    },
+    {
+      "name": "listener_difference_lo.ky.fi.kk",
+      "value": 0.36072304253533627
+    },
+    {
+      "name": "listener_difference_lo.ky.fi.tr",
+      "value": 0.3857536540191997
+    },
+    {
+      "name": "listener_difference_lo.ky.fi.ug",
+      "value": 0.2055947068065498
+    },
+    {
+      "name": "listener_difference_lo.ky.fi.uz",
+      "value": 0.0074148057382315
+    },
+    {
+      "name": "listener_difference_lo.ky.kk.tr",
+      "value": -0.06268143672948234
+    },
+    {
+      "name": "listener_difference_lo.ky.kk.ug",
+      "value": -0.22954196617251577
+    },
+    {
+      "name": "listener_difference_lo.ky.kk.uz",
+      "value": -0.4166380414593487
+    },
+    {
+      "name": "listener_difference_lo.ky.tr.ug",
+      "value": -0.2533677005637005
+    },
+    {
+      "name": "listener_difference_lo.ky.tr.uz",
+      "value": -0.45158761962962646
+    },
+    {
+      "name": "listener_difference_lo.ky.ug.uz",
+      "value": -0.30772167758634517
+    },
+    {
+      "name": "listener_difference_lo.tr.az.fi",
+      "value": -0.9505616102831973
+    },
+    {
+      "name": "listener_difference_lo.tr.az.kk",
+      "value": -0.805672014033584
+    },
+    {
+      "name": "listener_difference_lo.tr.az.ky",
+      "value": -0.6336640461218721
+    },
+    {
+      "name": "listener_difference_lo.tr.az.ug",
+      "value": -0.8572508523389801
+    },
+    {
+      "name": "listener_difference_lo.tr.az.uz",
+      "value": -0.7230866767990756
+    },
+    {
+      "name": "listener_difference_lo.tr.fi.kk",
+      "value": 0.08377990072654562
+    },
+    {
+      "name": "listener_difference_lo.tr.fi.ky",
+      "value": 0.2578825711322352
+    },
+    {
+      "name": "listener_difference_lo.tr.fi.ug",
+      "value": 0.0362132266486368
+    },
+    {
+      "name": "listener_difference_lo.tr.fi.uz",
+      "value": 0.15588175670793092
+    },
+    {
+      "name": "listener_difference_lo.tr.kk.ky",
+      "value": 0.07969424479409204
+    },
+    {
+      "name": "listener_difference_lo.tr.kk.ug",
+      "value": -0.1630033493557912
+    },
+    {
+      "name": "listener_difference_lo.tr.kk.uz",
+      "value": -0.017371524191651666
+    },
+    {
+      "name": "listener_difference_lo.tr.ky.ug",
+      "value": -0.2993284836699144
+    },
+    {
+      "name": "listener_difference_lo.tr.ky.uz",
+      "value": -0.16322181592756846
+    },
+    {
+      "name": "listener_difference_lo.tr.ug.uz",
+      "value": 0.033721220349375525
+    },
+    {
+      "name": "listener_difference_lo.ug.az.fi",
+      "value": -0.8704546810101863
+    },
+    {
+      "name": "listener_difference_lo.ug.az.kk",
+      "value": -0.46347098348368254
+    },
+    {
+      "name": "listener_difference_lo.ug.az.ky",
+      "value": -0.6763215683798756
+    },
+    {
+      "name": "listener_difference_lo.ug.az.tr",
+      "value": -0.1631091003508769
+    },
+    {
+      "name": "listener_difference_lo.ug.az.uz",
+      "value": 0.07461225697385432
+    },
+    {
+      "name": "listener_difference_lo.ug.fi.kk",
+      "value": 0.3078521128450884
+    },
+    {
+      "name": "listener_difference_lo.ug.fi.ky",
+      "value": 0.10509642462824242
+    },
+    {
+      "name": "listener_difference_lo.ug.fi.tr",
+      "value": 0.5692025034453949
+    },
+    {
+      "name": "listener_difference_lo.ug.fi.uz",
+      "value": 0.8454807471711676
+    },
+    {
+      "name": "listener_difference_lo.ug.kk.ky",
+      "value": -0.28791784173002233
+    },
+    {
+      "name": "listener_difference_lo.ug.kk.tr",
+      "value": 0.20130481815817358
+    },
+    {
+      "name": "listener_difference_lo.ug.kk.uz",
+      "value": 0.48228947360284535
+    },
+    {
+      "name": "listener_difference_lo.ug.ky.tr",
+      "value": 0.3475891187263258
+    },
+    {
+      "name": "listener_difference_lo.ug.ky.uz",
+      "value": 0.6272964927916542
+    },
+    {
+      "name": "listener_difference_lo.ug.tr.uz",
+      "value": 0.1857869637579883
+    },
+    {
+      "name": "listener_difference_lo.uz.az.fi",
+      "value": -0.7433253602545142
+    },
+    {
+      "name": "listener_difference_lo.uz.az.kk",
+      "value": -0.2996091851462648
+    },
+    {
+      "name": "listener_difference_lo.uz.az.ky",
+      "value": -0.27183895406173075
+    },
+    {
+      "name": "listener_difference_lo.uz.az.tr",
+      "value": -0.28873921238250944
+    },
+    {
+      "name": "listener_difference_lo.uz.az.ug",
+      "value": 0.15477339529312362
+    },
+    {
+      "name": "listener_difference_lo.uz.fi.kk",
+      "value": 0.3392893287416321
+    },
+    {
+      "name": "listener_difference_lo.uz.fi.ky",
+      "value": 0.35516824846212325
+    },
+    {
+      "name": "listener_difference_lo.uz.fi.tr",
+      "value": 0.3250125338593959
+    },
+    {
+      "name": "listener_difference_lo.uz.fi.ug",
+      "value": 0.7729060536986818
+    },
+    {
+      "name": "listener_difference_lo.uz.kk.ky",
+      "value": -0.032951165676392336
+    },
+    {
+      "name": "listener_difference_lo.uz.kk.tr",
+      "value": -0.07305917157813369
+    },
+    {
+      "name": "listener_difference_lo.uz.kk.ug",
+      "value": 0.37427219574671144
+    },
+    {
+      "name": "listener_difference_lo.uz.ky.tr",
+      "value": -0.09195382751290948
+    },
+    {
+      "name": "listener_difference_lo.uz.ky.ug",
+      "value": 0.3590116152300813
+    },
+    {
+      "name": "listener_difference_lo.uz.tr.ug",
+      "value": 0.3889331350248637
+    }
+  ],
+  "payload_digest": "c7e1b3ba81eb6cd98295ea10ff637c11a20508f5809ed0583c042cab0f3935bc"
+}

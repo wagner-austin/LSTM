@@ -1,0 +1,5164 @@
+{
+ "mode": "skip",
+ "pairs": [
+  {
+   "listener": "az",
+   "text": "az",
+   "sections": [
+    {
+     "loss_sum": 200.3685302734375,
+     "n_scored": 193,
+     "n_total": 272
+    },
+    {
+     "loss_sum": 194.74087524414062,
+     "n_scored": 174,
+     "n_total": 237
+    },
+    {
+     "loss_sum": 149.09576416015625,
+     "n_scored": 157,
+     "n_total": 224
+    },
+    {
+     "loss_sum": 234.88107299804688,
+     "n_scored": 219,
+     "n_total": 329
+    },
+    {
+     "loss_sum": 176.5443878173828,
+     "n_scored": 151,
+     "n_total": 219
+    },
+    {
+     "loss_sum": 169.81040954589844,
+     "n_scored": 141,
+     "n_total": 196
+    },
+    {
+     "loss_sum": 192.9593048095703,
+     "n_scored": 186,
+     "n_total": 263
+    },
+    {
+     "loss_sum": 184.45169067382812,
+     "n_scored": 181,
+     "n_total": 264
+    },
+    {
+     "loss_sum": 197.22694396972656,
+     "n_scored": 200,
+     "n_total": 278
+    },
+    {
+     "loss_sum": 130.24008178710938,
+     "n_scored": 99,
+     "n_total": 151
+    },
+    {
+     "loss_sum": 132.07818603515625,
+     "n_scored": 109,
+     "n_total": 158
+    },
+    {
+     "loss_sum": 186.95799255371094,
+     "n_scored": 148,
+     "n_total": 208
+    },
+    {
+     "loss_sum": 299.1984558105469,
+     "n_scored": 211,
+     "n_total": 311
+    },
+    {
+     "loss_sum": 166.7465057373047,
+     "n_scored": 132,
+     "n_total": 200
+    },
+    {
+     "loss_sum": 197.77224731445312,
+     "n_scored": 148,
+     "n_total": 205
+    },
+    {
+     "loss_sum": 140.3131103515625,
+     "n_scored": 149,
+     "n_total": 215
+    },
+    {
+     "loss_sum": 187.1797332763672,
+     "n_scored": 183,
+     "n_total": 287
+    },
+    {
+     "loss_sum": 206.90550231933594,
+     "n_scored": 190,
+     "n_total": 275
+    },
+    {
+     "loss_sum": 193.9281768798828,
+     "n_scored": 164,
+     "n_total": 234
+    },
+    {
+     "loss_sum": 121.81063842773438,
+     "n_scored": 106,
+     "n_total": 150
+    }
+   ]
+  },
+  {
+   "listener": "az",
+   "text": "fi",
+   "sections": [
+    {
+     "loss_sum": 622.6621704101562,
+     "n_scored": 183,
+     "n_total": 236
+    },
+    {
+     "loss_sum": 630.9631958007812,
+     "n_scored": 183,
+     "n_total": 247
+    },
+    {
+     "loss_sum": 484.5846862792969,
+     "n_scored": 146,
+     "n_total": 194
+    },
+    {
+     "loss_sum": 824.3756713867188,
+     "n_scored": 245,
+     "n_total": 333
+    },
+    {
+     "loss_sum": 569.7091064453125,
+     "n_scored": 172,
+     "n_total": 227
+    },
+    {
+     "loss_sum": 483.5791320800781,
+     "n_scored": 146,
+     "n_total": 182
+    },
+    {
+     "loss_sum": 630.3751220703125,
+     "n_scored": 190,
+     "n_total": 233
+    },
+    {
+     "loss_sum": 570.7598876953125,
+     "n_scored": 166,
+     "n_total": 220
+    },
+    {
+     "loss_sum": 668.334228515625,
+     "n_scored": 192,
+     "n_total": 260
+    },
+    {
+     "loss_sum": 378.6063537597656,
+     "n_scored": 110,
+     "n_total": 151
+    },
+    {
+     "loss_sum": 335.893798828125,
+     "n_scored": 102,
+     "n_total": 136
+    },
+    {
+     "loss_sum": 465.05572509765625,
+     "n_scored": 142,
+     "n_total": 194
+    },
+    {
+     "loss_sum": 669.385009765625,
+     "n_scored": 197,
+     "n_total": 274
+    },
+    {
+     "loss_sum": 460.58465576171875,
+     "n_scored": 143,
+     "n_total": 199
+    },
+    {
+     "loss_sum": 467.3170471191406,
+     "n_scored": 145,
+     "n_total": 198
+    },
+    {
+     "loss_sum": 453.4849853515625,
+     "n_scored": 137,
+     "n_total": 184
+    },
+    {
+     "loss_sum": 600.9374389648438,
+     "n_scored": 171,
+     "n_total": 223
+    },
+    {
+     "loss_sum": 670.2054443359375,
+     "n_scored": 201,
+     "n_total": 270
+    },
+    {
+     "loss_sum": 446.4058532714844,
+     "n_scored": 140,
+     "n_total": 197
+    },
+    {
+     "loss_sum": 392.3169250488281,
+     "n_scored": 117,
+     "n_total": 155
+    }
+   ]
+  },
+  {
+   "listener": "az",
+   "text": "kk",
+   "sections": [
+    {
+     "loss_sum": 535.5806884765625,
+     "n_scored": 165,
+     "n_total": 239
+    },
+    {
+     "loss_sum": 539.9923095703125,
+     "n_scored": 165,
+     "n_total": 238
+    },
+    {
+     "loss_sum": 460.5793762207031,
+     "n_scored": 140,
+     "n_total": 199
+    },
+    {
+     "loss_sum": 672.103271484375,
+     "n_scored": 202,
+     "n_total": 297
+    },
+    {
+     "loss_sum": 403.4607849121094,
+     "n_scored": 128,
+     "n_total": 204
+    },
+    {
+     "loss_sum": 433.66546630859375,
+     "n_scored": 140,
+     "n_total": 209
+    },
+    {
+     "loss_sum": 476.2187805175781,
+     "n_scored": 145,
+     "n_total": 193
+    },
+    {
+     "loss_sum": 544.3180541992188,
+     "n_scored": 164,
+     "n_total": 265
+    },
+    {
+     "loss_sum": 612.8121337890625,
+     "n_scored": 169,
+     "n_total": 260
+    },
+    {
+     "loss_sum": 456.2218322753906,
+     "n_scored": 139,
+     "n_total": 223
+    },
+    {
+     "loss_sum": 365.1029052734375,
+     "n_scored": 107,
+     "n_total": 179
+    },
+    {
+     "loss_sum": 517.9913940429688,
+     "n_scored": 152,
+     "n_total": 230
+    },
+    {
+     "loss_sum": 697.7489013671875,
+     "n_scored": 211,
+     "n_total": 330
+    },
+    {
+     "loss_sum": 431.5781555175781,
+     "n_scored": 134,
+     "n_total": 204
+    },
+    {
+     "loss_sum": 595.5250854492188,
+     "n_scored": 181,
+     "n_total": 314
+    },
+    {
+     "loss_sum": 443.80303955078125,
+     "n_scored": 140,
+     "n_total": 225
+    },
+    {
+     "loss_sum": 577.8746337890625,
+     "n_scored": 194,
+     "n_total": 281
+    },
+    {
+     "loss_sum": 588.3629150390625,
+     "n_scored": 177,
+     "n_total": 284
+    },
+    {
+     "loss_sum": 476.83648681640625,
+     "n_scored": 135,
+     "n_total": 237
+    },
+    {
+     "loss_sum": 369.2253112792969,
+     "n_scored": 115,
+     "n_total": 186
+    }
+   ]
+  },
+  {
+   "listener": "az",
+   "text": "ky",
+   "sections": [
+    {
+     "loss_sum": 560.4845581054688,
+     "n_scored": 189,
+     "n_total": 251
+    },
+    {
+     "loss_sum": 570.1676025390625,
+     "n_scored": 194,
+     "n_total": 254
+    },
+    {
+     "loss_sum": 487.3578186035156,
+     "n_scored": 152,
+     "n_total": 215
+    },
+    {
+     "loss_sum": 817.5052490234375,
+     "n_scored": 254,
+     "n_total": 327
+    },
+    {
+     "loss_sum": 576.1778564453125,
+     "n_scored": 184,
+     "n_total": 230
+    },
+    {
+     "loss_sum": 576.7080078125,
+     "n_scored": 175,
+     "n_total": 231
+    },
+    {
+     "loss_sum": 715.0615234375,
+     "n_scored": 228,
+     "n_total": 307
+    },
+    {
+     "loss_sum": 648.7774047851562,
+     "n_scored": 207,
+     "n_total": 277
+    },
+    {
+     "loss_sum": 566.500732421875,
+     "n_scored": 186,
+     "n_total": 252
+    },
+    {
+     "loss_sum": 370.6692810058594,
+     "n_scored": 109,
+     "n_total": 151
+    },
+    {
+     "loss_sum": 375.7310791015625,
+     "n_scored": 118,
+     "n_total": 147
+    },
+    {
+     "loss_sum": 545.382080078125,
+     "n_scored": 179,
+     "n_total": 247
+    },
+    {
+     "loss_sum": 765.296630859375,
+     "n_scored": 227,
+     "n_total": 322
+    },
+    {
+     "loss_sum": 512.0506591796875,
+     "n_scored": 170,
+     "n_total": 219
+    },
+    {
+     "loss_sum": 478.69415283203125,
+     "n_scored": 149,
+     "n_total": 206
+    },
+    {
+     "loss_sum": 472.82635498046875,
+     "n_scored": 164,
+     "n_total": 236
+    },
+    {
+     "loss_sum": 592.2257080078125,
+     "n_scored": 198,
+     "n_total": 279
+    },
+    {
+     "loss_sum": 612.439697265625,
+     "n_scored": 187,
+     "n_total": 280
+    },
+    {
+     "loss_sum": 554.1177368164062,
+     "n_scored": 193,
+     "n_total": 253
+    },
+    {
+     "loss_sum": 377.5834045410156,
+     "n_scored": 125,
+     "n_total": 172
+    }
+   ]
+  },
+  {
+   "listener": "az",
+   "text": "tr",
+   "sections": [
+    {
+     "loss_sum": 534.9443969726562,
+     "n_scored": 206,
+     "n_total": 265
+    },
+    {
+     "loss_sum": 526.4699096679688,
+     "n_scored": 188,
+     "n_total": 257
+    },
+    {
+     "loss_sum": 503.01568603515625,
+     "n_scored": 195,
+     "n_total": 246
+    },
+    {
+     "loss_sum": 744.8214111328125,
+     "n_scored": 260,
+     "n_total": 320
+    },
+    {
+     "loss_sum": 535.7074584960938,
+     "n_scored": 185,
+     "n_total": 250
+    },
+    {
+     "loss_sum": 390.48895263671875,
+     "n_scored": 146,
+     "n_total": 189
+    },
+    {
+     "loss_sum": 519.46533203125,
+     "n_scored": 194,
+     "n_total": 258
+    },
+    {
+     "loss_sum": 623.276123046875,
+     "n_scored": 234,
+     "n_total": 317
+    },
+    {
+     "loss_sum": 582.8380737304688,
+     "n_scored": 220,
+     "n_total": 281
+    },
+    {
+     "loss_sum": 362.01861572265625,
+     "n_scored": 139,
+     "n_total": 181
+    },
+    {
+     "loss_sum": 329.7701416015625,
+     "n_scored": 119,
+     "n_total": 144
+    },
+    {
+     "loss_sum": 414.4306945800781,
+     "n_scored": 166,
+     "n_total": 213
+    },
+    {
+     "loss_sum": 569.8740234375,
+     "n_scored": 229,
+     "n_total": 321
+    },
+    {
+     "loss_sum": 364.2962646484375,
+     "n_scored": 138,
+     "n_total": 178
+    },
+    {
+     "loss_sum": 399.8138427734375,
+     "n_scored": 159,
+     "n_total": 215
+    },
+    {
+     "loss_sum": 388.1343994140625,
+     "n_scored": 161,
+     "n_total": 215
+    },
+    {
+     "loss_sum": 555.7556762695312,
+     "n_scored": 210,
+     "n_total": 300
+    },
+    {
+     "loss_sum": 649.197998046875,
+     "n_scored": 225,
+     "n_total": 289
+    },
+    {
+     "loss_sum": 609.6455078125,
+     "n_scored": 212,
+     "n_total": 246
+    },
+    {
+     "loss_sum": 373.3573303222656,
+     "n_scored": 139,
+     "n_total": 169
+    }
+   ]
+  },
+  {
+   "listener": "az",
+   "text": "ug",
+   "sections": [
+    {
+     "loss_sum": 511.97418212890625,
+     "n_scored": 193,
+     "n_total": 262
+    },
+    {
+     "loss_sum": 629.7522583007812,
+     "n_scored": 226,
+     "n_total": 287
+    },
+    {
+     "loss_sum": 716.832763671875,
+     "n_scored": 262,
+     "n_total": 347
+    },
+    {
+     "loss_sum": 1165.4215087890625,
+     "n_scored": 374,
+     "n_total": 469
+    },
+    {
+     "loss_sum": 682.7898559570312,
+     "n_scored": 230,
+     "n_total": 305
+    },
+    {
+     "loss_sum": 493.8304443359375,
+     "n_scored": 169,
+     "n_total": 217
+    },
+    {
+     "loss_sum": 493.6187744140625,
+     "n_scored": 168,
+     "n_total": 233
+    },
+    {
+     "loss_sum": 1180.64501953125,
+     "n_scored": 389,
+     "n_total": 506
+    },
+    {
+     "loss_sum": 363.70831298828125,
+     "n_scored": 129,
+     "n_total": 167
+    },
+    {
+     "loss_sum": 293.45831298828125,
+     "n_scored": 91,
+     "n_total": 126
+    },
+    {
+     "loss_sum": 423.18896484375,
+     "n_scored": 139,
+     "n_total": 179
+    },
+    {
+     "loss_sum": 728.5570678710938,
+     "n_scored": 236,
+     "n_total": 307
+    },
+    {
+     "loss_sum": 641.2252197265625,
+     "n_scored": 228,
+     "n_total": 323
+    },
+    {
+     "loss_sum": 483.03155517578125,
+     "n_scored": 170,
+     "n_total": 227
+    },
+    {
+     "loss_sum": 686.0552368164062,
+     "n_scored": 232,
+     "n_total": 312
+    },
+    {
+     "loss_sum": 424.4637451171875,
+     "n_scored": 150,
+     "n_total": 193
+    },
+    {
+     "loss_sum": 663.2635498046875,
+     "n_scored": 220,
+     "n_total": 291
+    },
+    {
+     "loss_sum": 732.5609741210938,
+     "n_scored": 241,
+     "n_total": 334
+    },
+    {
+     "loss_sum": 399.9474792480469,
+     "n_scored": 124,
+     "n_total": 161
+    },
+    {
+     "loss_sum": 682.9849853515625,
+     "n_scored": 212,
+     "n_total": 277
+    }
+   ]
+  },
+  {
+   "listener": "az",
+   "text": "uz",
+   "sections": [
+    {
+     "loss_sum": 599.6045532226562,
+     "n_scored": 184,
+     "n_total": 244
+    },
+    {
+     "loss_sum": 648.0136108398438,
+     "n_scored": 200,
+     "n_total": 259
+    },
+    {
+     "loss_sum": 610.8432006835938,
+     "n_scored": 182,
+     "n_total": 253
+    },
+    {
+     "loss_sum": 885.315185546875,
+     "n_scored": 252,
+     "n_total": 335
+    },
+    {
+     "loss_sum": 704.1609497070312,
+     "n_scored": 209,
+     "n_total": 284
+    },
+    {
+     "loss_sum": 512.7019653320312,
+     "n_scored": 149,
+     "n_total": 205
+    },
+    {
+     "loss_sum": 682.7303466796875,
+     "n_scored": 212,
+     "n_total": 288
+    },
+    {
+     "loss_sum": 657.1446533203125,
+     "n_scored": 197,
+     "n_total": 263
+    },
+    {
+     "loss_sum": 817.219482421875,
+     "n_scored": 266,
+     "n_total": 340
+    },
+    {
+     "loss_sum": 398.008056640625,
+     "n_scored": 133,
+     "n_total": 163
+    },
+    {
+     "loss_sum": 612.8590087890625,
+     "n_scored": 187,
+     "n_total": 235
+    },
+    {
+     "loss_sum": 790.5586547851562,
+     "n_scored": 243,
+     "n_total": 317
+    },
+    {
+     "loss_sum": 527.302490234375,
+     "n_scored": 162,
+     "n_total": 213
+    },
+    {
+     "loss_sum": 424.4647521972656,
+     "n_scored": 126,
+     "n_total": 172
+    },
+    {
+     "loss_sum": 432.99993896484375,
+     "n_scored": 163,
+     "n_total": 208
+    },
+    {
+     "loss_sum": 632.0777587890625,
+     "n_scored": 197,
+     "n_total": 274
+    },
+    {
+     "loss_sum": 684.285888671875,
+     "n_scored": 197,
+     "n_total": 271
+    },
+    {
+     "loss_sum": 528.3385620117188,
+     "n_scored": 162,
+     "n_total": 218
+    },
+    {
+     "loss_sum": 337.2585754394531,
+     "n_scored": 98,
+     "n_total": 139
+    }
+   ]
+  },
+  {
+   "listener": "fi",
+   "text": "az",
+   "sections": [
+    {
+     "loss_sum": 775.0457763671875,
+     "n_scored": 193,
+     "n_total": 272
+    },
+    {
+     "loss_sum": 677.2908325195312,
+     "n_scored": 174,
+     "n_total": 237
+    },
+    {
+     "loss_sum": 637.1275634765625,
+     "n_scored": 157,
+     "n_total": 224
+    },
+    {
+     "loss_sum": 866.0394287109375,
+     "n_scored": 219,
+     "n_total": 329
+    },
+    {
+     "loss_sum": 604.2919921875,
+     "n_scored": 151,
+     "n_total": 219
+    },
+    {
+     "loss_sum": 549.0133666992188,
+     "n_scored": 141,
+     "n_total": 196
+    },
+    {
+     "loss_sum": 725.9950561523438,
+     "n_scored": 186,
+     "n_total": 263
+    },
+    {
+     "loss_sum": 728.0613403320312,
+     "n_scored": 181,
+     "n_total": 264
+    },
+    {
+     "loss_sum": 717.1195678710938,
+     "n_scored": 200,
+     "n_total": 278
+    },
+    {
+     "loss_sum": 383.3166198730469,
+     "n_scored": 99,
+     "n_total": 151
+    },
+    {
+     "loss_sum": 440.379638671875,
+     "n_scored": 109,
+     "n_total": 158
+    },
+    {
+     "loss_sum": 504.993408203125,
+     "n_scored": 148,
+     "n_total": 208
+    },
+    {
+     "loss_sum": 760.5272216796875,
+     "n_scored": 211,
+     "n_total": 311
+    },
+    {
+     "loss_sum": 500.8276062011719,
+     "n_scored": 132,
+     "n_total": 200
+    },
+    {
+     "loss_sum": 544.2942504882812,
+     "n_scored": 148,
+     "n_total": 205
+    },
+    {
+     "loss_sum": 544.3653564453125,
+     "n_scored": 149,
+     "n_total": 215
+    },
+    {
+     "loss_sum": 648.8369750976562,
+     "n_scored": 183,
+     "n_total": 287
+    },
+    {
+     "loss_sum": 705.908203125,
+     "n_scored": 190,
+     "n_total": 275
+    },
+    {
+     "loss_sum": 596.7523193359375,
+     "n_scored": 164,
+     "n_total": 234
+    },
+    {
+     "loss_sum": 387.2667541503906,
+     "n_scored": 106,
+     "n_total": 150
+    }
+   ]
+  },
+  {
+   "listener": "fi",
+   "text": "fi",
+   "sections": [
+    {
+     "loss_sum": 219.3516845703125,
+     "n_scored": 183,
+     "n_total": 236
+    },
+    {
+     "loss_sum": 212.19888305664062,
+     "n_scored": 183,
+     "n_total": 247
+    },
+    {
+     "loss_sum": 183.4834442138672,
+     "n_scored": 146,
+     "n_total": 194
+    },
+    {
+     "loss_sum": 259.390869140625,
+     "n_scored": 245,
+     "n_total": 333
+    },
+    {
+     "loss_sum": 225.9765625,
+     "n_scored": 172,
+     "n_total": 227
+    },
+    {
+     "loss_sum": 202.36273193359375,
+     "n_scored": 146,
+     "n_total": 182
+    },
+    {
+     "loss_sum": 230.52325439453125,
+     "n_scored": 190,
+     "n_total": 233
+    },
+    {
+     "loss_sum": 239.42747497558594,
+     "n_scored": 166,
+     "n_total": 220
+    },
+    {
+     "loss_sum": 241.46823120117188,
+     "n_scored": 192,
+     "n_total": 260
+    },
+    {
+     "loss_sum": 192.65213012695312,
+     "n_scored": 110,
+     "n_total": 151
+    },
+    {
+     "loss_sum": 126.01414489746094,
+     "n_scored": 102,
+     "n_total": 136
+    },
+    {
+     "loss_sum": 208.28369140625,
+     "n_scored": 142,
+     "n_total": 194
+    },
+    {
+     "loss_sum": 285.1462097167969,
+     "n_scored": 197,
+     "n_total": 274
+    },
+    {
+     "loss_sum": 194.0135040283203,
+     "n_scored": 143,
+     "n_total": 199
+    },
+    {
+     "loss_sum": 210.8955078125,
+     "n_scored": 145,
+     "n_total": 198
+    },
+    {
+     "loss_sum": 169.75265502929688,
+     "n_scored": 137,
+     "n_total": 184
+    },
+    {
+     "loss_sum": 252.04037475585938,
+     "n_scored": 171,
+     "n_total": 223
+    },
+    {
+     "loss_sum": 233.51296997070312,
+     "n_scored": 201,
+     "n_total": 270
+    },
+    {
+     "loss_sum": 178.40187072753906,
+     "n_scored": 140,
+     "n_total": 197
+    },
+    {
+     "loss_sum": 144.66461181640625,
+     "n_scored": 117,
+     "n_total": 155
+    }
+   ]
+  },
+  {
+   "listener": "fi",
+   "text": "kk",
+   "sections": [
+    {
+     "loss_sum": 545.3841552734375,
+     "n_scored": 165,
+     "n_total": 239
+    },
+    {
+     "loss_sum": 598.4016723632812,
+     "n_scored": 165,
+     "n_total": 238
+    },
+    {
+     "loss_sum": 468.39971923828125,
+     "n_scored": 140,
+     "n_total": 199
+    },
+    {
+     "loss_sum": 655.6239013671875,
+     "n_scored": 202,
+     "n_total": 297
+    },
+    {
+     "loss_sum": 441.14642333984375,
+     "n_scored": 128,
+     "n_total": 204
+    },
+    {
+     "loss_sum": 453.82135009765625,
+     "n_scored": 140,
+     "n_total": 209
+    },
+    {
+     "loss_sum": 490.0443420410156,
+     "n_scored": 145,
+     "n_total": 193
+    },
+    {
+     "loss_sum": 536.5137329101562,
+     "n_scored": 164,
+     "n_total": 265
+    },
+    {
+     "loss_sum": 554.1612548828125,
+     "n_scored": 169,
+     "n_total": 260
+    },
+    {
+     "loss_sum": 467.873779296875,
+     "n_scored": 139,
+     "n_total": 223
+    },
+    {
+     "loss_sum": 386.46661376953125,
+     "n_scored": 107,
+     "n_total": 179
+    },
+    {
+     "loss_sum": 495.0542907714844,
+     "n_scored": 152,
+     "n_total": 230
+    },
+    {
+     "loss_sum": 729.86962890625,
+     "n_scored": 211,
+     "n_total": 330
+    },
+    {
+     "loss_sum": 479.77520751953125,
+     "n_scored": 134,
+     "n_total": 204
+    },
+    {
+     "loss_sum": 641.0443115234375,
+     "n_scored": 181,
+     "n_total": 314
+    },
+    {
+     "loss_sum": 498.6729431152344,
+     "n_scored": 140,
+     "n_total": 225
+    },
+    {
+     "loss_sum": 672.6316528320312,
+     "n_scored": 194,
+     "n_total": 281
+    },
+    {
+     "loss_sum": 604.2655639648438,
+     "n_scored": 177,
+     "n_total": 284
+    },
+    {
+     "loss_sum": 512.3228759765625,
+     "n_scored": 135,
+     "n_total": 237
+    },
+    {
+     "loss_sum": 403.16510009765625,
+     "n_scored": 115,
+     "n_total": 186
+    }
+   ]
+  },
+  {
+   "listener": "fi",
+   "text": "ky",
+   "sections": [
+    {
+     "loss_sum": 649.78515625,
+     "n_scored": 189,
+     "n_total": 251
+    },
+    {
+     "loss_sum": 710.1314086914062,
+     "n_scored": 194,
+     "n_total": 254
+    },
+    {
+     "loss_sum": 594.3576049804688,
+     "n_scored": 152,
+     "n_total": 215
+    },
+    {
+     "loss_sum": 912.8375244140625,
+     "n_scored": 254,
+     "n_total": 327
+    },
+    {
+     "loss_sum": 706.0433349609375,
+     "n_scored": 184,
+     "n_total": 230
+    },
+    {
+     "loss_sum": 598.28857421875,
+     "n_scored": 175,
+     "n_total": 231
+    },
+    {
+     "loss_sum": 792.89306640625,
+     "n_scored": 228,
+     "n_total": 307
+    },
+    {
+     "loss_sum": 762.80224609375,
+     "n_scored": 207,
+     "n_total": 277
+    },
+    {
+     "loss_sum": 680.4201049804688,
+     "n_scored": 186,
+     "n_total": 252
+    },
+    {
+     "loss_sum": 404.0355224609375,
+     "n_scored": 109,
+     "n_total": 151
+    },
+    {
+     "loss_sum": 419.123046875,
+     "n_scored": 118,
+     "n_total": 147
+    },
+    {
+     "loss_sum": 667.8323974609375,
+     "n_scored": 179,
+     "n_total": 247
+    },
+    {
+     "loss_sum": 848.5795288085938,
+     "n_scored": 227,
+     "n_total": 322
+    },
+    {
+     "loss_sum": 621.1062622070312,
+     "n_scored": 170,
+     "n_total": 219
+    },
+    {
+     "loss_sum": 537.241943359375,
+     "n_scored": 149,
+     "n_total": 206
+    },
+    {
+     "loss_sum": 549.36865234375,
+     "n_scored": 164,
+     "n_total": 236
+    },
+    {
+     "loss_sum": 754.9031372070312,
+     "n_scored": 198,
+     "n_total": 279
+    },
+    {
+     "loss_sum": 679.5113525390625,
+     "n_scored": 187,
+     "n_total": 280
+    },
+    {
+     "loss_sum": 668.33203125,
+     "n_scored": 193,
+     "n_total": 253
+    },
+    {
+     "loss_sum": 416.12872314453125,
+     "n_scored": 125,
+     "n_total": 172
+    }
+   ]
+  },
+  {
+   "listener": "fi",
+   "text": "tr",
+   "sections": [
+    {
+     "loss_sum": 727.30615234375,
+     "n_scored": 206,
+     "n_total": 265
+    },
+    {
+     "loss_sum": 679.1673583984375,
+     "n_scored": 188,
+     "n_total": 257
+    },
+    {
+     "loss_sum": 665.7470703125,
+     "n_scored": 195,
+     "n_total": 246
+    },
+    {
+     "loss_sum": 917.6273193359375,
+     "n_scored": 260,
+     "n_total": 320
+    },
+    {
+     "loss_sum": 664.772216796875,
+     "n_scored": 185,
+     "n_total": 250
+    },
+    {
+     "loss_sum": 516.604736328125,
+     "n_scored": 146,
+     "n_total": 189
+    },
+    {
+     "loss_sum": 702.5819091796875,
+     "n_scored": 194,
+     "n_total": 258
+    },
+    {
+     "loss_sum": 849.803955078125,
+     "n_scored": 234,
+     "n_total": 317
+    },
+    {
+     "loss_sum": 792.875732421875,
+     "n_scored": 220,
+     "n_total": 281
+    },
+    {
+     "loss_sum": 541.971923828125,
+     "n_scored": 139,
+     "n_total": 181
+    },
+    {
+     "loss_sum": 435.6252746582031,
+     "n_scored": 119,
+     "n_total": 144
+    },
+    {
+     "loss_sum": 553.43994140625,
+     "n_scored": 166,
+     "n_total": 213
+    },
+    {
+     "loss_sum": 802.7101440429688,
+     "n_scored": 229,
+     "n_total": 321
+    },
+    {
+     "loss_sum": 475.74542236328125,
+     "n_scored": 138,
+     "n_total": 178
+    },
+    {
+     "loss_sum": 525.0565795898438,
+     "n_scored": 159,
+     "n_total": 215
+    },
+    {
+     "loss_sum": 553.0335083007812,
+     "n_scored": 161,
+     "n_total": 215
+    },
+    {
+     "loss_sum": 780.3746337890625,
+     "n_scored": 210,
+     "n_total": 300
+    },
+    {
+     "loss_sum": 869.208251953125,
+     "n_scored": 225,
+     "n_total": 289
+    },
+    {
+     "loss_sum": 742.714111328125,
+     "n_scored": 212,
+     "n_total": 246
+    },
+    {
+     "loss_sum": 466.97637939453125,
+     "n_scored": 139,
+     "n_total": 169
+    }
+   ]
+  },
+  {
+   "listener": "fi",
+   "text": "ug",
+   "sections": [
+    {
+     "loss_sum": 756.872314453125,
+     "n_scored": 193,
+     "n_total": 262
+    },
+    {
+     "loss_sum": 852.9344482421875,
+     "n_scored": 226,
+     "n_total": 287
+    },
+    {
+     "loss_sum": 1048.04443359375,
+     "n_scored": 262,
+     "n_total": 347
+    },
+    {
+     "loss_sum": 1436.18701171875,
+     "n_scored": 374,
+     "n_total": 469
+    },
+    {
+     "loss_sum": 896.6033935546875,
+     "n_scored": 230,
+     "n_total": 305
+    },
+    {
+     "loss_sum": 607.752197265625,
+     "n_scored": 169,
+     "n_total": 217
+    },
+    {
+     "loss_sum": 652.0311279296875,
+     "n_scored": 168,
+     "n_total": 233
+    },
+    {
+     "loss_sum": 1390.980224609375,
+     "n_scored": 389,
+     "n_total": 506
+    },
+    {
+     "loss_sum": 465.6896667480469,
+     "n_scored": 129,
+     "n_total": 167
+    },
+    {
+     "loss_sum": 368.3689270019531,
+     "n_scored": 91,
+     "n_total": 126
+    },
+    {
+     "loss_sum": 486.8457946777344,
+     "n_scored": 139,
+     "n_total": 179
+    },
+    {
+     "loss_sum": 851.6800537109375,
+     "n_scored": 236,
+     "n_total": 307
+    },
+    {
+     "loss_sum": 791.4791870117188,
+     "n_scored": 228,
+     "n_total": 323
+    },
+    {
+     "loss_sum": 587.0921020507812,
+     "n_scored": 170,
+     "n_total": 227
+    },
+    {
+     "loss_sum": 844.3924560546875,
+     "n_scored": 232,
+     "n_total": 312
+    },
+    {
+     "loss_sum": 557.5556640625,
+     "n_scored": 150,
+     "n_total": 193
+    },
+    {
+     "loss_sum": 833.1419677734375,
+     "n_scored": 220,
+     "n_total": 291
+    },
+    {
+     "loss_sum": 859.2242431640625,
+     "n_scored": 241,
+     "n_total": 334
+    },
+    {
+     "loss_sum": 466.6424255371094,
+     "n_scored": 124,
+     "n_total": 161
+    },
+    {
+     "loss_sum": 774.720703125,
+     "n_scored": 212,
+     "n_total": 277
+    }
+   ]
+  },
+  {
+   "listener": "fi",
+   "text": "uz",
+   "sections": [
+    {
+     "loss_sum": 749.4564819335938,
+     "n_scored": 184,
+     "n_total": 244
+    },
+    {
+     "loss_sum": 742.2762451171875,
+     "n_scored": 200,
+     "n_total": 259
+    },
+    {
+     "loss_sum": 762.130126953125,
+     "n_scored": 182,
+     "n_total": 253
+    },
+    {
+     "loss_sum": 1084.1031494140625,
+     "n_scored": 252,
+     "n_total": 335
+    },
+    {
+     "loss_sum": 829.084716796875,
+     "n_scored": 209,
+     "n_total": 284
+    },
+    {
+     "loss_sum": 548.5930786132812,
+     "n_scored": 149,
+     "n_total": 205
+    },
+    {
+     "loss_sum": 793.6224365234375,
+     "n_scored": 212,
+     "n_total": 288
+    },
+    {
+     "loss_sum": 778.280517578125,
+     "n_scored": 197,
+     "n_total": 263
+    },
+    {
+     "loss_sum": 1040.973876953125,
+     "n_scored": 266,
+     "n_total": 340
+    },
+    {
+     "loss_sum": 474.57781982421875,
+     "n_scored": 133,
+     "n_total": 163
+    },
+    {
+     "loss_sum": 740.8252563476562,
+     "n_scored": 187,
+     "n_total": 235
+    },
+    {
+     "loss_sum": 910.7991943359375,
+     "n_scored": 243,
+     "n_total": 317
+    },
+    {
+     "loss_sum": 628.9825439453125,
+     "n_scored": 162,
+     "n_total": 213
+    },
+    {
+     "loss_sum": 470.0784912109375,
+     "n_scored": 126,
+     "n_total": 172
+    },
+    {
+     "loss_sum": 626.9370727539062,
+     "n_scored": 163,
+     "n_total": 208
+    },
+    {
+     "loss_sum": 813.1934204101562,
+     "n_scored": 197,
+     "n_total": 274
+    },
+    {
+     "loss_sum": 757.10302734375,
+     "n_scored": 197,
+     "n_total": 271
+    },
+    {
+     "loss_sum": 606.5374755859375,
+     "n_scored": 162,
+     "n_total": 218
+    },
+    {
+     "loss_sum": 404.10174560546875,
+     "n_scored": 98,
+     "n_total": 139
+    }
+   ]
+  },
+  {
+   "listener": "kk",
+   "text": "az",
+   "sections": [
+    {
+     "loss_sum": 679.746337890625,
+     "n_scored": 193,
+     "n_total": 272
+    },
+    {
+     "loss_sum": 590.4373779296875,
+     "n_scored": 174,
+     "n_total": 237
+    },
+    {
+     "loss_sum": 534.696533203125,
+     "n_scored": 157,
+     "n_total": 224
+    },
+    {
+     "loss_sum": 721.1158447265625,
+     "n_scored": 219,
+     "n_total": 329
+    },
+    {
+     "loss_sum": 537.7053833007812,
+     "n_scored": 151,
+     "n_total": 219
+    },
+    {
+     "loss_sum": 487.1463623046875,
+     "n_scored": 141,
+     "n_total": 196
+    },
+    {
+     "loss_sum": 659.0350341796875,
+     "n_scored": 186,
+     "n_total": 263
+    },
+    {
+     "loss_sum": 622.0389404296875,
+     "n_scored": 181,
+     "n_total": 264
+    },
+    {
+     "loss_sum": 679.0384521484375,
+     "n_scored": 200,
+     "n_total": 278
+    },
+    {
+     "loss_sum": 346.0206604003906,
+     "n_scored": 99,
+     "n_total": 151
+    },
+    {
+     "loss_sum": 359.6258239746094,
+     "n_scored": 109,
+     "n_total": 158
+    },
+    {
+     "loss_sum": 475.6257629394531,
+     "n_scored": 148,
+     "n_total": 208
+    },
+    {
+     "loss_sum": 668.0465698242188,
+     "n_scored": 211,
+     "n_total": 311
+    },
+    {
+     "loss_sum": 456.3529968261719,
+     "n_scored": 132,
+     "n_total": 200
+    },
+    {
+     "loss_sum": 508.4921875,
+     "n_scored": 148,
+     "n_total": 205
+    },
+    {
+     "loss_sum": 458.919921875,
+     "n_scored": 149,
+     "n_total": 215
+    },
+    {
+     "loss_sum": 613.7154541015625,
+     "n_scored": 183,
+     "n_total": 287
+    },
+    {
+     "loss_sum": 673.5220336914062,
+     "n_scored": 190,
+     "n_total": 275
+    },
+    {
+     "loss_sum": 548.065673828125,
+     "n_scored": 164,
+     "n_total": 234
+    },
+    {
+     "loss_sum": 340.6987609863281,
+     "n_scored": 106,
+     "n_total": 150
+    }
+   ]
+  },
+  {
+   "listener": "kk",
+   "text": "fi",
+   "sections": [
+    {
+     "loss_sum": 688.7520141601562,
+     "n_scored": 183,
+     "n_total": 236
+    },
+    {
+     "loss_sum": 665.866943359375,
+     "n_scored": 183,
+     "n_total": 247
+    },
+    {
+     "loss_sum": 508.7825927734375,
+     "n_scored": 146,
+     "n_total": 194
+    },
+    {
+     "loss_sum": 885.9684448242188,
+     "n_scored": 245,
+     "n_total": 333
+    },
+    {
+     "loss_sum": 591.2955322265625,
+     "n_scored": 172,
+     "n_total": 227
+    },
+    {
+     "loss_sum": 519.3751831054688,
+     "n_scored": 146,
+     "n_total": 182
+    },
+    {
+     "loss_sum": 676.4952392578125,
+     "n_scored": 190,
+     "n_total": 233
+    },
+    {
+     "loss_sum": 587.9581298828125,
+     "n_scored": 166,
+     "n_total": 220
+    },
+    {
+     "loss_sum": 686.8113403320312,
+     "n_scored": 192,
+     "n_total": 260
+    },
+    {
+     "loss_sum": 405.96575927734375,
+     "n_scored": 110,
+     "n_total": 151
+    },
+    {
+     "loss_sum": 345.72222900390625,
+     "n_scored": 102,
+     "n_total": 136
+    },
+    {
+     "loss_sum": 516.4498901367188,
+     "n_scored": 142,
+     "n_total": 194
+    },
+    {
+     "loss_sum": 747.4761352539062,
+     "n_scored": 197,
+     "n_total": 274
+    },
+    {
+     "loss_sum": 524.37548828125,
+     "n_scored": 143,
+     "n_total": 199
+    },
+    {
+     "loss_sum": 522.3615112304688,
+     "n_scored": 145,
+     "n_total": 198
+    },
+    {
+     "loss_sum": 509.80841064453125,
+     "n_scored": 137,
+     "n_total": 184
+    },
+    {
+     "loss_sum": 601.9309692382812,
+     "n_scored": 171,
+     "n_total": 223
+    },
+    {
+     "loss_sum": 736.2664184570312,
+     "n_scored": 201,
+     "n_total": 270
+    },
+    {
+     "loss_sum": 462.316650390625,
+     "n_scored": 140,
+     "n_total": 197
+    },
+    {
+     "loss_sum": 434.1346740722656,
+     "n_scored": 117,
+     "n_total": 155
+    }
+   ]
+  },
+  {
+   "listener": "kk",
+   "text": "kk",
+   "sections": [
+    {
+     "loss_sum": 260.1695861816406,
+     "n_scored": 165,
+     "n_total": 239
+    },
+    {
+     "loss_sum": 274.08160400390625,
+     "n_scored": 165,
+     "n_total": 238
+    },
+    {
+     "loss_sum": 198.46170043945312,
+     "n_scored": 140,
+     "n_total": 199
+    },
+    {
+     "loss_sum": 344.924072265625,
+     "n_scored": 202,
+     "n_total": 297
+    },
+    {
+     "loss_sum": 233.88426208496094,
+     "n_scored": 128,
+     "n_total": 204
+    },
+    {
+     "loss_sum": 216.2903289794922,
+     "n_scored": 140,
+     "n_total": 209
+    },
+    {
+     "loss_sum": 261.67584228515625,
+     "n_scored": 145,
+     "n_total": 193
+    },
+    {
+     "loss_sum": 259.8023681640625,
+     "n_scored": 164,
+     "n_total": 265
+    },
+    {
+     "loss_sum": 281.9831848144531,
+     "n_scored": 169,
+     "n_total": 260
+    },
+    {
+     "loss_sum": 283.14532470703125,
+     "n_scored": 139,
+     "n_total": 223
+    },
+    {
+     "loss_sum": 207.70816040039062,
+     "n_scored": 107,
+     "n_total": 179
+    },
+    {
+     "loss_sum": 265.084716796875,
+     "n_scored": 152,
+     "n_total": 230
+    },
+    {
+     "loss_sum": 400.3958435058594,
+     "n_scored": 211,
+     "n_total": 330
+    },
+    {
+     "loss_sum": 248.8452911376953,
+     "n_scored": 134,
+     "n_total": 204
+    },
+    {
+     "loss_sum": 289.7754211425781,
+     "n_scored": 181,
+     "n_total": 314
+    },
+    {
+     "loss_sum": 255.50930786132812,
+     "n_scored": 140,
+     "n_total": 225
+    },
+    {
+     "loss_sum": 302.7068786621094,
+     "n_scored": 194,
+     "n_total": 281
+    },
+    {
+     "loss_sum": 352.73321533203125,
+     "n_scored": 177,
+     "n_total": 284
+    },
+    {
+     "loss_sum": 309.6943054199219,
+     "n_scored": 135,
+     "n_total": 237
+    },
+    {
+     "loss_sum": 215.82766723632812,
+     "n_scored": 115,
+     "n_total": 186
+    }
+   ]
+  },
+  {
+   "listener": "kk",
+   "text": "ky",
+   "sections": [
+    {
+     "loss_sum": 527.8489379882812,
+     "n_scored": 189,
+     "n_total": 251
+    },
+    {
+     "loss_sum": 592.1726684570312,
+     "n_scored": 194,
+     "n_total": 254
+    },
+    {
+     "loss_sum": 552.0115356445312,
+     "n_scored": 152,
+     "n_total": 215
+    },
+    {
+     "loss_sum": 855.0425415039062,
+     "n_scored": 254,
+     "n_total": 327
+    },
+    {
+     "loss_sum": 573.280029296875,
+     "n_scored": 184,
+     "n_total": 230
+    },
+    {
+     "loss_sum": 508.6612548828125,
+     "n_scored": 175,
+     "n_total": 231
+    },
+    {
+     "loss_sum": 715.354736328125,
+     "n_scored": 228,
+     "n_total": 307
+    },
+    {
+     "loss_sum": 647.159912109375,
+     "n_scored": 207,
+     "n_total": 277
+    },
+    {
+     "loss_sum": 604.8433837890625,
+     "n_scored": 186,
+     "n_total": 252
+    },
+    {
+     "loss_sum": 370.61444091796875,
+     "n_scored": 109,
+     "n_total": 151
+    },
+    {
+     "loss_sum": 396.86920166015625,
+     "n_scored": 118,
+     "n_total": 147
+    },
+    {
+     "loss_sum": 604.887939453125,
+     "n_scored": 179,
+     "n_total": 247
+    },
+    {
+     "loss_sum": 759.5391845703125,
+     "n_scored": 227,
+     "n_total": 322
+    },
+    {
+     "loss_sum": 524.7522583007812,
+     "n_scored": 170,
+     "n_total": 219
+    },
+    {
+     "loss_sum": 510.8990478515625,
+     "n_scored": 149,
+     "n_total": 206
+    },
+    {
+     "loss_sum": 466.25811767578125,
+     "n_scored": 164,
+     "n_total": 236
+    },
+    {
+     "loss_sum": 631.4768676757812,
+     "n_scored": 198,
+     "n_total": 279
+    },
+    {
+     "loss_sum": 602.9244995117188,
+     "n_scored": 187,
+     "n_total": 280
+    },
+    {
+     "loss_sum": 590.10693359375,
+     "n_scored": 193,
+     "n_total": 253
+    },
+    {
+     "loss_sum": 389.4328918457031,
+     "n_scored": 125,
+     "n_total": 172
+    }
+   ]
+  },
+  {
+   "listener": "kk",
+   "text": "tr",
+   "sections": [
+    {
+     "loss_sum": 653.8536987304688,
+     "n_scored": 206,
+     "n_total": 265
+    },
+    {
+     "loss_sum": 622.673095703125,
+     "n_scored": 188,
+     "n_total": 257
+    },
+    {
+     "loss_sum": 633.6107177734375,
+     "n_scored": 195,
+     "n_total": 246
+    },
+    {
+     "loss_sum": 845.2129516601562,
+     "n_scored": 260,
+     "n_total": 320
+    },
+    {
+     "loss_sum": 658.0713500976562,
+     "n_scored": 185,
+     "n_total": 250
+    },
+    {
+     "loss_sum": 564.2727661132812,
+     "n_scored": 146,
+     "n_total": 189
+    },
+    {
+     "loss_sum": 670.3519287109375,
+     "n_scored": 194,
+     "n_total": 258
+    },
+    {
+     "loss_sum": 846.9854736328125,
+     "n_scored": 234,
+     "n_total": 317
+    },
+    {
+     "loss_sum": 794.0973510742188,
+     "n_scored": 220,
+     "n_total": 281
+    },
+    {
+     "loss_sum": 442.3204040527344,
+     "n_scored": 139,
+     "n_total": 181
+    },
+    {
+     "loss_sum": 358.07366943359375,
+     "n_scored": 119,
+     "n_total": 144
+    },
+    {
+     "loss_sum": 579.7705078125,
+     "n_scored": 166,
+     "n_total": 213
+    },
+    {
+     "loss_sum": 767.200439453125,
+     "n_scored": 229,
+     "n_total": 321
+    },
+    {
+     "loss_sum": 446.6394958496094,
+     "n_scored": 138,
+     "n_total": 178
+    },
+    {
+     "loss_sum": 544.8568725585938,
+     "n_scored": 159,
+     "n_total": 215
+    },
+    {
+     "loss_sum": 548.4900512695312,
+     "n_scored": 161,
+     "n_total": 215
+    },
+    {
+     "loss_sum": 686.64990234375,
+     "n_scored": 210,
+     "n_total": 300
+    },
+    {
+     "loss_sum": 772.56396484375,
+     "n_scored": 225,
+     "n_total": 289
+    },
+    {
+     "loss_sum": 710.795654296875,
+     "n_scored": 212,
+     "n_total": 246
+    },
+    {
+     "loss_sum": 463.926025390625,
+     "n_scored": 139,
+     "n_total": 169
+    }
+   ]
+  },
+  {
+   "listener": "kk",
+   "text": "ug",
+   "sections": [
+    {
+     "loss_sum": 669.85009765625,
+     "n_scored": 193,
+     "n_total": 262
+    },
+    {
+     "loss_sum": 725.6237182617188,
+     "n_scored": 226,
+     "n_total": 287
+    },
+    {
+     "loss_sum": 869.6552124023438,
+     "n_scored": 262,
+     "n_total": 347
+    },
+    {
+     "loss_sum": 1253.361328125,
+     "n_scored": 374,
+     "n_total": 469
+    },
+    {
+     "loss_sum": 785.7607421875,
+     "n_scored": 230,
+     "n_total": 305
+    },
+    {
+     "loss_sum": 537.847412109375,
+     "n_scored": 169,
+     "n_total": 217
+    },
+    {
+     "loss_sum": 582.9228515625,
+     "n_scored": 168,
+     "n_total": 233
+    },
+    {
+     "loss_sum": 1275.018310546875,
+     "n_scored": 389,
+     "n_total": 506
+    },
+    {
+     "loss_sum": 416.5840759277344,
+     "n_scored": 129,
+     "n_total": 167
+    },
+    {
+     "loss_sum": 323.5946960449219,
+     "n_scored": 91,
+     "n_total": 126
+    },
+    {
+     "loss_sum": 436.15716552734375,
+     "n_scored": 139,
+     "n_total": 179
+    },
+    {
+     "loss_sum": 770.6141967773438,
+     "n_scored": 236,
+     "n_total": 307
+    },
+    {
+     "loss_sum": 792.9746704101562,
+     "n_scored": 228,
+     "n_total": 323
+    },
+    {
+     "loss_sum": 538.4371948242188,
+     "n_scored": 170,
+     "n_total": 227
+    },
+    {
+     "loss_sum": 800.8154296875,
+     "n_scored": 232,
+     "n_total": 312
+    },
+    {
+     "loss_sum": 517.5376586914062,
+     "n_scored": 150,
+     "n_total": 193
+    },
+    {
+     "loss_sum": 776.0994873046875,
+     "n_scored": 220,
+     "n_total": 291
+    },
+    {
+     "loss_sum": 785.71337890625,
+     "n_scored": 241,
+     "n_total": 334
+    },
+    {
+     "loss_sum": 377.8637390136719,
+     "n_scored": 124,
+     "n_total": 161
+    },
+    {
+     "loss_sum": 689.620849609375,
+     "n_scored": 212,
+     "n_total": 277
+    }
+   ]
+  },
+  {
+   "listener": "kk",
+   "text": "uz",
+   "sections": [
+    {
+     "loss_sum": 609.933349609375,
+     "n_scored": 184,
+     "n_total": 244
+    },
+    {
+     "loss_sum": 719.1878051757812,
+     "n_scored": 200,
+     "n_total": 259
+    },
+    {
+     "loss_sum": 635.8071899414062,
+     "n_scored": 182,
+     "n_total": 253
+    },
+    {
+     "loss_sum": 963.4588012695312,
+     "n_scored": 252,
+     "n_total": 335
+    },
+    {
+     "loss_sum": 715.2205810546875,
+     "n_scored": 209,
+     "n_total": 284
+    },
+    {
+     "loss_sum": 473.5586853027344,
+     "n_scored": 149,
+     "n_total": 205
+    },
+    {
+     "loss_sum": 742.4243774414062,
+     "n_scored": 212,
+     "n_total": 288
+    },
+    {
+     "loss_sum": 730.7958374023438,
+     "n_scored": 197,
+     "n_total": 263
+    },
+    {
+     "loss_sum": 899.3390502929688,
+     "n_scored": 266,
+     "n_total": 340
+    },
+    {
+     "loss_sum": 459.8541259765625,
+     "n_scored": 133,
+     "n_total": 163
+    },
+    {
+     "loss_sum": 664.0431518554688,
+     "n_scored": 187,
+     "n_total": 235
+    },
+    {
+     "loss_sum": 838.880126953125,
+     "n_scored": 243,
+     "n_total": 317
+    },
+    {
+     "loss_sum": 551.4838256835938,
+     "n_scored": 162,
+     "n_total": 213
+    },
+    {
+     "loss_sum": 425.7973327636719,
+     "n_scored": 126,
+     "n_total": 172
+    },
+    {
+     "loss_sum": 533.4895629882812,
+     "n_scored": 163,
+     "n_total": 208
+    },
+    {
+     "loss_sum": 720.7332153320312,
+     "n_scored": 197,
+     "n_total": 274
+    },
+    {
+     "loss_sum": 724.0457763671875,
+     "n_scored": 197,
+     "n_total": 271
+    },
+    {
+     "loss_sum": 546.2181396484375,
+     "n_scored": 162,
+     "n_total": 218
+    },
+    {
+     "loss_sum": 329.52716064453125,
+     "n_scored": 98,
+     "n_total": 139
+    }
+   ]
+  },
+  {
+   "listener": "ky",
+   "text": "az",
+   "sections": [
+    {
+     "loss_sum": 717.0767822265625,
+     "n_scored": 193,
+     "n_total": 272
+    },
+    {
+     "loss_sum": 642.8819580078125,
+     "n_scored": 174,
+     "n_total": 237
+    },
+    {
+     "loss_sum": 568.2333984375,
+     "n_scored": 157,
+     "n_total": 224
+    },
+    {
+     "loss_sum": 895.0460205078125,
+     "n_scored": 219,
+     "n_total": 329
+    },
+    {
+     "loss_sum": 549.8629150390625,
+     "n_scored": 151,
+     "n_total": 219
+    },
+    {
+     "loss_sum": 506.74774169921875,
+     "n_scored": 141,
+     "n_total": 196
+    },
+    {
+     "loss_sum": 703.7100830078125,
+     "n_scored": 186,
+     "n_total": 263
+    },
+    {
+     "loss_sum": 768.5396728515625,
+     "n_scored": 181,
+     "n_total": 264
+    },
+    {
+     "loss_sum": 819.1006469726562,
+     "n_scored": 200,
+     "n_total": 278
+    },
+    {
+     "loss_sum": 409.19769287109375,
+     "n_scored": 99,
+     "n_total": 151
+    },
+    {
+     "loss_sum": 373.3937683105469,
+     "n_scored": 109,
+     "n_total": 158
+    },
+    {
+     "loss_sum": 511.6212463378906,
+     "n_scored": 148,
+     "n_total": 208
+    },
+    {
+     "loss_sum": 782.804931640625,
+     "n_scored": 211,
+     "n_total": 311
+    },
+    {
+     "loss_sum": 509.91339111328125,
+     "n_scored": 132,
+     "n_total": 200
+    },
+    {
+     "loss_sum": 578.7971801757812,
+     "n_scored": 148,
+     "n_total": 205
+    },
+    {
+     "loss_sum": 541.6182861328125,
+     "n_scored": 149,
+     "n_total": 215
+    },
+    {
+     "loss_sum": 637.026123046875,
+     "n_scored": 183,
+     "n_total": 287
+    },
+    {
+     "loss_sum": 739.8163452148438,
+     "n_scored": 190,
+     "n_total": 275
+    },
+    {
+     "loss_sum": 611.134033203125,
+     "n_scored": 164,
+     "n_total": 234
+    },
+    {
+     "loss_sum": 412.5732421875,
+     "n_scored": 106,
+     "n_total": 150
+    }
+   ]
+  },
+  {
+   "listener": "ky",
+   "text": "fi",
+   "sections": [
+    {
+     "loss_sum": 714.6729736328125,
+     "n_scored": 183,
+     "n_total": 236
+    },
+    {
+     "loss_sum": 700.83447265625,
+     "n_scored": 183,
+     "n_total": 247
+    },
+    {
+     "loss_sum": 581.0055541992188,
+     "n_scored": 146,
+     "n_total": 194
+    },
+    {
+     "loss_sum": 997.456787109375,
+     "n_scored": 245,
+     "n_total": 333
+    },
+    {
+     "loss_sum": 634.7723999023438,
+     "n_scored": 172,
+     "n_total": 227
+    },
+    {
+     "loss_sum": 537.5055541992188,
+     "n_scored": 146,
+     "n_total": 182
+    },
+    {
+     "loss_sum": 716.831787109375,
+     "n_scored": 190,
+     "n_total": 233
+    },
+    {
+     "loss_sum": 611.2289428710938,
+     "n_scored": 166,
+     "n_total": 220
+    },
+    {
+     "loss_sum": 724.8536376953125,
+     "n_scored": 192,
+     "n_total": 260
+    },
+    {
+     "loss_sum": 405.10589599609375,
+     "n_scored": 110,
+     "n_total": 151
+    },
+    {
+     "loss_sum": 356.99224853515625,
+     "n_scored": 102,
+     "n_total": 136
+    },
+    {
+     "loss_sum": 514.6585693359375,
+     "n_scored": 142,
+     "n_total": 194
+    },
+    {
+     "loss_sum": 784.7421875,
+     "n_scored": 197,
+     "n_total": 274
+    },
+    {
+     "loss_sum": 527.6175537109375,
+     "n_scored": 143,
+     "n_total": 199
+    },
+    {
+     "loss_sum": 499.8056640625,
+     "n_scored": 145,
+     "n_total": 198
+    },
+    {
+     "loss_sum": 514.0679931640625,
+     "n_scored": 137,
+     "n_total": 184
+    },
+    {
+     "loss_sum": 692.0108642578125,
+     "n_scored": 171,
+     "n_total": 223
+    },
+    {
+     "loss_sum": 734.218994140625,
+     "n_scored": 201,
+     "n_total": 270
+    },
+    {
+     "loss_sum": 515.532958984375,
+     "n_scored": 140,
+     "n_total": 197
+    },
+    {
+     "loss_sum": 440.9046936035156,
+     "n_scored": 117,
+     "n_total": 155
+    }
+   ]
+  },
+  {
+   "listener": "ky",
+   "text": "kk",
+   "sections": [
+    {
+     "loss_sum": 470.3261413574219,
+     "n_scored": 165,
+     "n_total": 239
+    },
+    {
+     "loss_sum": 470.3678894042969,
+     "n_scored": 165,
+     "n_total": 238
+    },
+    {
+     "loss_sum": 404.3101806640625,
+     "n_scored": 140,
+     "n_total": 199
+    },
+    {
+     "loss_sum": 612.1925048828125,
+     "n_scored": 202,
+     "n_total": 297
+    },
+    {
+     "loss_sum": 336.1304626464844,
+     "n_scored": 128,
+     "n_total": 204
+    },
+    {
+     "loss_sum": 370.7919921875,
+     "n_scored": 140,
+     "n_total": 209
+    },
+    {
+     "loss_sum": 432.09747314453125,
+     "n_scored": 145,
+     "n_total": 193
+    },
+    {
+     "loss_sum": 491.9757995605469,
+     "n_scored": 164,
+     "n_total": 265
+    },
+    {
+     "loss_sum": 506.467041015625,
+     "n_scored": 169,
+     "n_total": 260
+    },
+    {
+     "loss_sum": 455.2181396484375,
+     "n_scored": 139,
+     "n_total": 223
+    },
+    {
+     "loss_sum": 318.4499206542969,
+     "n_scored": 107,
+     "n_total": 179
+    },
+    {
+     "loss_sum": 448.5184326171875,
+     "n_scored": 152,
+     "n_total": 230
+    },
+    {
+     "loss_sum": 670.4762573242188,
+     "n_scored": 211,
+     "n_total": 330
+    },
+    {
+     "loss_sum": 400.5400085449219,
+     "n_scored": 134,
+     "n_total": 204
+    },
+    {
+     "loss_sum": 515.6337890625,
+     "n_scored": 181,
+     "n_total": 314
+    },
+    {
+     "loss_sum": 430.86517333984375,
+     "n_scored": 140,
+     "n_total": 225
+    },
+    {
+     "loss_sum": 495.75469970703125,
+     "n_scored": 194,
+     "n_total": 281
+    },
+    {
+     "loss_sum": 559.0670776367188,
+     "n_scored": 177,
+     "n_total": 284
+    },
+    {
+     "loss_sum": 413.3826904296875,
+     "n_scored": 135,
+     "n_total": 237
+    },
+    {
+     "loss_sum": 355.76318359375,
+     "n_scored": 115,
+     "n_total": 186
+    }
+   ]
+  },
+  {
+   "listener": "ky",
+   "text": "ky",
+   "sections": [
+    {
+     "loss_sum": 161.5792999267578,
+     "n_scored": 189,
+     "n_total": 251
+    },
+    {
+     "loss_sum": 210.3406219482422,
+     "n_scored": 194,
+     "n_total": 254
+    },
+    {
+     "loss_sum": 187.15496826171875,
+     "n_scored": 152,
+     "n_total": 215
+    },
+    {
+     "loss_sum": 305.592041015625,
+     "n_scored": 254,
+     "n_total": 327
+    },
+    {
+     "loss_sum": 243.08645629882812,
+     "n_scored": 184,
+     "n_total": 230
+    },
+    {
+     "loss_sum": 233.3011474609375,
+     "n_scored": 175,
+     "n_total": 231
+    },
+    {
+     "loss_sum": 241.50889587402344,
+     "n_scored": 228,
+     "n_total": 307
+    },
+    {
+     "loss_sum": 241.46768188476562,
+     "n_scored": 207,
+     "n_total": 277
+    },
+    {
+     "loss_sum": 230.17112731933594,
+     "n_scored": 186,
+     "n_total": 252
+    },
+    {
+     "loss_sum": 135.62310791015625,
+     "n_scored": 109,
+     "n_total": 151
+    },
+    {
+     "loss_sum": 149.31130981445312,
+     "n_scored": 118,
+     "n_total": 147
+    },
+    {
+     "loss_sum": 257.7955017089844,
+     "n_scored": 179,
+     "n_total": 247
+    },
+    {
+     "loss_sum": 301.6894226074219,
+     "n_scored": 227,
+     "n_total": 322
+    },
+    {
+     "loss_sum": 217.48158264160156,
+     "n_scored": 170,
+     "n_total": 219
+    },
+    {
+     "loss_sum": 197.89419555664062,
+     "n_scored": 149,
+     "n_total": 206
+    },
+    {
+     "loss_sum": 170.5900421142578,
+     "n_scored": 164,
+     "n_total": 236
+    },
+    {
+     "loss_sum": 236.123291015625,
+     "n_scored": 198,
+     "n_total": 279
+    },
+    {
+     "loss_sum": 214.9225311279297,
+     "n_scored": 187,
+     "n_total": 280
+    },
+    {
+     "loss_sum": 226.97206115722656,
+     "n_scored": 193,
+     "n_total": 253
+    },
+    {
+     "loss_sum": 151.61691284179688,
+     "n_scored": 125,
+     "n_total": 172
+    }
+   ]
+  },
+  {
+   "listener": "ky",
+   "text": "tr",
+   "sections": [
+    {
+     "loss_sum": 618.9664306640625,
+     "n_scored": 206,
+     "n_total": 265
+    },
+    {
+     "loss_sum": 587.2535400390625,
+     "n_scored": 188,
+     "n_total": 257
+    },
+    {
+     "loss_sum": 586.89306640625,
+     "n_scored": 195,
+     "n_total": 246
+    },
+    {
+     "loss_sum": 866.932373046875,
+     "n_scored": 260,
+     "n_total": 320
+    },
+    {
+     "loss_sum": 627.8424072265625,
+     "n_scored": 185,
+     "n_total": 250
+    },
+    {
+     "loss_sum": 472.3227233886719,
+     "n_scored": 146,
+     "n_total": 189
+    },
+    {
+     "loss_sum": 639.010498046875,
+     "n_scored": 194,
+     "n_total": 258
+    },
+    {
+     "loss_sum": 809.6341552734375,
+     "n_scored": 234,
+     "n_total": 317
+    },
+    {
+     "loss_sum": 736.5509643554688,
+     "n_scored": 220,
+     "n_total": 281
+    },
+    {
+     "loss_sum": 460.92578125,
+     "n_scored": 139,
+     "n_total": 181
+    },
+    {
+     "loss_sum": 357.9678649902344,
+     "n_scored": 119,
+     "n_total": 144
+    },
+    {
+     "loss_sum": 502.18011474609375,
+     "n_scored": 166,
+     "n_total": 213
+    },
+    {
+     "loss_sum": 734.8529052734375,
+     "n_scored": 229,
+     "n_total": 321
+    },
+    {
+     "loss_sum": 428.8568420410156,
+     "n_scored": 138,
+     "n_total": 178
+    },
+    {
+     "loss_sum": 551.3577270507812,
+     "n_scored": 159,
+     "n_total": 215
+    },
+    {
+     "loss_sum": 507.5364990234375,
+     "n_scored": 161,
+     "n_total": 215
+    },
+    {
+     "loss_sum": 712.9400634765625,
+     "n_scored": 210,
+     "n_total": 300
+    },
+    {
+     "loss_sum": 729.2808837890625,
+     "n_scored": 225,
+     "n_total": 289
+    },
+    {
+     "loss_sum": 661.4439697265625,
+     "n_scored": 212,
+     "n_total": 246
+    },
+    {
+     "loss_sum": 440.39373779296875,
+     "n_scored": 139,
+     "n_total": 169
+    }
+   ]
+  },
+  {
+   "listener": "ky",
+   "text": "ug",
+   "sections": [
+    {
+     "loss_sum": 697.7567138671875,
+     "n_scored": 193,
+     "n_total": 262
+    },
+    {
+     "loss_sum": 836.854736328125,
+     "n_scored": 226,
+     "n_total": 287
+    },
+    {
+     "loss_sum": 957.8758544921875,
+     "n_scored": 262,
+     "n_total": 347
+    },
+    {
+     "loss_sum": 1390.947021484375,
+     "n_scored": 374,
+     "n_total": 469
+    },
+    {
+     "loss_sum": 820.3809814453125,
+     "n_scored": 230,
+     "n_total": 305
+    },
+    {
+     "loss_sum": 609.3555908203125,
+     "n_scored": 169,
+     "n_total": 217
+    },
+    {
+     "loss_sum": 606.6759033203125,
+     "n_scored": 168,
+     "n_total": 233
+    },
+    {
+     "loss_sum": 1368.7901611328125,
+     "n_scored": 389,
+     "n_total": 506
+    },
+    {
+     "loss_sum": 442.3995361328125,
+     "n_scored": 129,
+     "n_total": 167
+    },
+    {
+     "loss_sum": 325.6149597167969,
+     "n_scored": 91,
+     "n_total": 126
+    },
+    {
+     "loss_sum": 488.4783935546875,
+     "n_scored": 139,
+     "n_total": 179
+    },
+    {
+     "loss_sum": 707.1903076171875,
+     "n_scored": 236,
+     "n_total": 307
+    },
+    {
+     "loss_sum": 772.8001098632812,
+     "n_scored": 228,
+     "n_total": 323
+    },
+    {
+     "loss_sum": 553.5139770507812,
+     "n_scored": 170,
+     "n_total": 227
+    },
+    {
+     "loss_sum": 733.4163208007812,
+     "n_scored": 232,
+     "n_total": 312
+    },
+    {
+     "loss_sum": 561.8937377929688,
+     "n_scored": 150,
+     "n_total": 193
+    },
+    {
+     "loss_sum": 786.5089721679688,
+     "n_scored": 220,
+     "n_total": 291
+    },
+    {
+     "loss_sum": 924.0877685546875,
+     "n_scored": 241,
+     "n_total": 334
+    },
+    {
+     "loss_sum": 422.7352294921875,
+     "n_scored": 124,
+     "n_total": 161
+    },
+    {
+     "loss_sum": 707.6097412109375,
+     "n_scored": 212,
+     "n_total": 277
+    }
+   ]
+  },
+  {
+   "listener": "ky",
+   "text": "uz",
+   "sections": [
+    {
+     "loss_sum": 619.6441650390625,
+     "n_scored": 184,
+     "n_total": 244
+    },
+    {
+     "loss_sum": 687.7766723632812,
+     "n_scored": 200,
+     "n_total": 259
+    },
+    {
+     "loss_sum": 631.724853515625,
+     "n_scored": 182,
+     "n_total": 253
+    },
+    {
+     "loss_sum": 982.6220092773438,
+     "n_scored": 252,
+     "n_total": 335
+    },
+    {
+     "loss_sum": 718.099365234375,
+     "n_scored": 209,
+     "n_total": 284
+    },
+    {
+     "loss_sum": 537.2515869140625,
+     "n_scored": 149,
+     "n_total": 205
+    },
+    {
+     "loss_sum": 723.2003173828125,
+     "n_scored": 212,
+     "n_total": 288
+    },
+    {
+     "loss_sum": 731.787353515625,
+     "n_scored": 197,
+     "n_total": 263
+    },
+    {
+     "loss_sum": 841.271240234375,
+     "n_scored": 266,
+     "n_total": 340
+    },
+    {
+     "loss_sum": 461.2702941894531,
+     "n_scored": 133,
+     "n_total": 163
+    },
+    {
+     "loss_sum": 665.7747192382812,
+     "n_scored": 187,
+     "n_total": 235
+    },
+    {
+     "loss_sum": 830.0140380859375,
+     "n_scored": 243,
+     "n_total": 317
+    },
+    {
+     "loss_sum": 507.972412109375,
+     "n_scored": 162,
+     "n_total": 213
+    },
+    {
+     "loss_sum": 401.0405578613281,
+     "n_scored": 126,
+     "n_total": 172
+    },
+    {
+     "loss_sum": 519.1287231445312,
+     "n_scored": 163,
+     "n_total": 208
+    },
+    {
+     "loss_sum": 700.6663818359375,
+     "n_scored": 197,
+     "n_total": 274
+    },
+    {
+     "loss_sum": 709.4111328125,
+     "n_scored": 197,
+     "n_total": 271
+    },
+    {
+     "loss_sum": 556.39892578125,
+     "n_scored": 162,
+     "n_total": 218
+    },
+    {
+     "loss_sum": 350.2310791015625,
+     "n_scored": 98,
+     "n_total": 139
+    }
+   ]
+  },
+  {
+   "listener": "tr",
+   "text": "az",
+   "sections": [
+    {
+     "loss_sum": 530.072021484375,
+     "n_scored": 193,
+     "n_total": 272
+    },
+    {
+     "loss_sum": 410.16705322265625,
+     "n_scored": 174,
+     "n_total": 237
+    },
+    {
+     "loss_sum": 419.9794006347656,
+     "n_scored": 157,
+     "n_total": 224
+    },
+    {
+     "loss_sum": 582.2269897460938,
+     "n_scored": 219,
+     "n_total": 329
+    },
+    {
+     "loss_sum": 359.3570556640625,
+     "n_scored": 151,
+     "n_total": 219
+    },
+    {
+     "loss_sum": 312.6400146484375,
+     "n_scored": 141,
+     "n_total": 196
+    },
+    {
+     "loss_sum": 475.4456481933594,
+     "n_scored": 186,
+     "n_total": 263
+    },
+    {
+     "loss_sum": 463.1653747558594,
+     "n_scored": 181,
+     "n_total": 264
+    },
+    {
+     "loss_sum": 502.9632873535156,
+     "n_scored": 200,
+     "n_total": 278
+    },
+    {
+     "loss_sum": 265.57818603515625,
+     "n_scored": 99,
+     "n_total": 151
+    },
+    {
+     "loss_sum": 242.97064208984375,
+     "n_scored": 109,
+     "n_total": 158
+    },
+    {
+     "loss_sum": 326.89483642578125,
+     "n_scored": 148,
+     "n_total": 208
+    },
+    {
+     "loss_sum": 549.2675170898438,
+     "n_scored": 211,
+     "n_total": 311
+    },
+    {
+     "loss_sum": 321.6304626464844,
+     "n_scored": 132,
+     "n_total": 200
+    },
+    {
+     "loss_sum": 316.19610595703125,
+     "n_scored": 148,
+     "n_total": 205
+    },
+    {
+     "loss_sum": 367.9486083984375,
+     "n_scored": 149,
+     "n_total": 215
+    },
+    {
+     "loss_sum": 456.6661376953125,
+     "n_scored": 183,
+     "n_total": 287
+    },
+    {
+     "loss_sum": 523.0891723632812,
+     "n_scored": 190,
+     "n_total": 275
+    },
+    {
+     "loss_sum": 396.02630615234375,
+     "n_scored": 164,
+     "n_total": 234
+    },
+    {
+     "loss_sum": 268.6019592285156,
+     "n_scored": 106,
+     "n_total": 150
+    }
+   ]
+  },
+  {
+   "listener": "tr",
+   "text": "fi",
+   "sections": [
+    {
+     "loss_sum": 666.2852783203125,
+     "n_scored": 183,
+     "n_total": 236
+    },
+    {
+     "loss_sum": 612.3429565429688,
+     "n_scored": 183,
+     "n_total": 247
+    },
+    {
+     "loss_sum": 496.8985290527344,
+     "n_scored": 146,
+     "n_total": 194
+    },
+    {
+     "loss_sum": 837.935302734375,
+     "n_scored": 245,
+     "n_total": 333
+    },
+    {
+     "loss_sum": 563.1387329101562,
+     "n_scored": 172,
+     "n_total": 227
+    },
+    {
+     "loss_sum": 470.9122619628906,
+     "n_scored": 146,
+     "n_total": 182
+    },
+    {
+     "loss_sum": 652.5932006835938,
+     "n_scored": 190,
+     "n_total": 233
+    },
+    {
+     "loss_sum": 556.4313354492188,
+     "n_scored": 166,
+     "n_total": 220
+    },
+    {
+     "loss_sum": 634.3440551757812,
+     "n_scored": 192,
+     "n_total": 260
+    },
+    {
+     "loss_sum": 369.7294921875,
+     "n_scored": 110,
+     "n_total": 151
+    },
+    {
+     "loss_sum": 334.367919921875,
+     "n_scored": 102,
+     "n_total": 136
+    },
+    {
+     "loss_sum": 471.3995361328125,
+     "n_scored": 142,
+     "n_total": 194
+    },
+    {
+     "loss_sum": 657.347900390625,
+     "n_scored": 197,
+     "n_total": 274
+    },
+    {
+     "loss_sum": 488.0041198730469,
+     "n_scored": 143,
+     "n_total": 199
+    },
+    {
+     "loss_sum": 474.64520263671875,
+     "n_scored": 145,
+     "n_total": 198
+    },
+    {
+     "loss_sum": 475.3662109375,
+     "n_scored": 137,
+     "n_total": 184
+    },
+    {
+     "loss_sum": 587.8776245117188,
+     "n_scored": 171,
+     "n_total": 223
+    },
+    {
+     "loss_sum": 668.192138671875,
+     "n_scored": 201,
+     "n_total": 270
+    },
+    {
+     "loss_sum": 461.70526123046875,
+     "n_scored": 140,
+     "n_total": 197
+    },
+    {
+     "loss_sum": 369.48089599609375,
+     "n_scored": 117,
+     "n_total": 155
+    }
+   ]
+  },
+  {
+   "listener": "tr",
+   "text": "kk",
+   "sections": [
+    {
+     "loss_sum": 489.17596435546875,
+     "n_scored": 165,
+     "n_total": 239
+    },
+    {
+     "loss_sum": 517.7073364257812,
+     "n_scored": 165,
+     "n_total": 238
+    },
+    {
+     "loss_sum": 445.61871337890625,
+     "n_scored": 140,
+     "n_total": 199
+    },
+    {
+     "loss_sum": 648.970703125,
+     "n_scored": 202,
+     "n_total": 297
+    },
+    {
+     "loss_sum": 384.0526428222656,
+     "n_scored": 128,
+     "n_total": 204
+    },
+    {
+     "loss_sum": 426.2363586425781,
+     "n_scored": 140,
+     "n_total": 209
+    },
+    {
+     "loss_sum": 448.0289306640625,
+     "n_scored": 145,
+     "n_total": 193
+    },
+    {
+     "loss_sum": 489.2301940917969,
+     "n_scored": 164,
+     "n_total": 265
+    },
+    {
+     "loss_sum": 559.4721069335938,
+     "n_scored": 169,
+     "n_total": 260
+    },
+    {
+     "loss_sum": 458.32763671875,
+     "n_scored": 139,
+     "n_total": 223
+    },
+    {
+     "loss_sum": 329.08477783203125,
+     "n_scored": 107,
+     "n_total": 179
+    },
+    {
+     "loss_sum": 487.75030517578125,
+     "n_scored": 152,
+     "n_total": 230
+    },
+    {
+     "loss_sum": 717.572998046875,
+     "n_scored": 211,
+     "n_total": 330
+    },
+    {
+     "loss_sum": 478.0255126953125,
+     "n_scored": 134,
+     "n_total": 204
+    },
+    {
+     "loss_sum": 550.0042724609375,
+     "n_scored": 181,
+     "n_total": 314
+    },
+    {
+     "loss_sum": 424.303955078125,
+     "n_scored": 140,
+     "n_total": 225
+    },
+    {
+     "loss_sum": 601.493408203125,
+     "n_scored": 194,
+     "n_total": 281
+    },
+    {
+     "loss_sum": 578.8492431640625,
+     "n_scored": 177,
+     "n_total": 284
+    },
+    {
+     "loss_sum": 453.71923828125,
+     "n_scored": 135,
+     "n_total": 237
+    },
+    {
+     "loss_sum": 374.08819580078125,
+     "n_scored": 115,
+     "n_total": 186
+    }
+   ]
+  },
+  {
+   "listener": "tr",
+   "text": "ky",
+   "sections": [
+    {
+     "loss_sum": 578.7369995117188,
+     "n_scored": 189,
+     "n_total": 251
+    },
+    {
+     "loss_sum": 582.5886840820312,
+     "n_scored": 194,
+     "n_total": 254
+    },
+    {
+     "loss_sum": 496.8549499511719,
+     "n_scored": 152,
+     "n_total": 215
+    },
+    {
+     "loss_sum": 849.8804931640625,
+     "n_scored": 254,
+     "n_total": 327
+    },
+    {
+     "loss_sum": 593.2168579101562,
+     "n_scored": 184,
+     "n_total": 230
+    },
+    {
+     "loss_sum": 594.4814453125,
+     "n_scored": 175,
+     "n_total": 231
+    },
+    {
+     "loss_sum": 694.52783203125,
+     "n_scored": 228,
+     "n_total": 307
+    },
+    {
+     "loss_sum": 631.7265014648438,
+     "n_scored": 207,
+     "n_total": 277
+    },
+    {
+     "loss_sum": 570.3382568359375,
+     "n_scored": 186,
+     "n_total": 252
+    },
+    {
+     "loss_sum": 376.79791259765625,
+     "n_scored": 109,
+     "n_total": 151
+    },
+    {
+     "loss_sum": 342.56549072265625,
+     "n_scored": 118,
+     "n_total": 147
+    },
+    {
+     "loss_sum": 551.7940063476562,
+     "n_scored": 179,
+     "n_total": 247
+    },
+    {
+     "loss_sum": 762.8233642578125,
+     "n_scored": 227,
+     "n_total": 322
+    },
+    {
+     "loss_sum": 514.4458618164062,
+     "n_scored": 170,
+     "n_total": 219
+    },
+    {
+     "loss_sum": 450.69384765625,
+     "n_scored": 149,
+     "n_total": 206
+    },
+    {
+     "loss_sum": 501.168701171875,
+     "n_scored": 164,
+     "n_total": 236
+    },
+    {
+     "loss_sum": 673.0562744140625,
+     "n_scored": 198,
+     "n_total": 279
+    },
+    {
+     "loss_sum": 616.1032104492188,
+     "n_scored": 187,
+     "n_total": 280
+    },
+    {
+     "loss_sum": 568.98095703125,
+     "n_scored": 193,
+     "n_total": 253
+    },
+    {
+     "loss_sum": 357.32379150390625,
+     "n_scored": 125,
+     "n_total": 172
+    }
+   ]
+  },
+  {
+   "listener": "tr",
+   "text": "tr",
+   "sections": [
+    {
+     "loss_sum": 207.75306701660156,
+     "n_scored": 206,
+     "n_total": 265
+    },
+    {
+     "loss_sum": 220.45591735839844,
+     "n_scored": 188,
+     "n_total": 257
+    },
+    {
+     "loss_sum": 200.00064086914062,
+     "n_scored": 195,
+     "n_total": 246
+    },
+    {
+     "loss_sum": 289.34393310546875,
+     "n_scored": 260,
+     "n_total": 320
+    },
+    {
+     "loss_sum": 197.3888702392578,
+     "n_scored": 185,
+     "n_total": 250
+    },
+    {
+     "loss_sum": 156.71441650390625,
+     "n_scored": 146,
+     "n_total": 189
+    },
+    {
+     "loss_sum": 208.9969024658203,
+     "n_scored": 194,
+     "n_total": 258
+    },
+    {
+     "loss_sum": 236.69097900390625,
+     "n_scored": 234,
+     "n_total": 317
+    },
+    {
+     "loss_sum": 216.57205200195312,
+     "n_scored": 220,
+     "n_total": 281
+    },
+    {
+     "loss_sum": 159.31393432617188,
+     "n_scored": 139,
+     "n_total": 181
+    },
+    {
+     "loss_sum": 135.29843139648438,
+     "n_scored": 119,
+     "n_total": 144
+    },
+    {
+     "loss_sum": 214.239990234375,
+     "n_scored": 166,
+     "n_total": 213
+    },
+    {
+     "loss_sum": 277.1697998046875,
+     "n_scored": 229,
+     "n_total": 321
+    },
+    {
+     "loss_sum": 172.38671875,
+     "n_scored": 138,
+     "n_total": 178
+    },
+    {
+     "loss_sum": 219.94973754882812,
+     "n_scored": 159,
+     "n_total": 215
+    },
+    {
+     "loss_sum": 182.56787109375,
+     "n_scored": 161,
+     "n_total": 215
+    },
+    {
+     "loss_sum": 228.80154418945312,
+     "n_scored": 210,
+     "n_total": 300
+    },
+    {
+     "loss_sum": 243.32264709472656,
+     "n_scored": 225,
+     "n_total": 289
+    },
+    {
+     "loss_sum": 255.5560302734375,
+     "n_scored": 212,
+     "n_total": 246
+    },
+    {
+     "loss_sum": 158.61354064941406,
+     "n_scored": 139,
+     "n_total": 169
+    }
+   ]
+  },
+  {
+   "listener": "tr",
+   "text": "ug",
+   "sections": [
+    {
+     "loss_sum": 624.2305908203125,
+     "n_scored": 193,
+     "n_total": 262
+    },
+    {
+     "loss_sum": 678.4031372070312,
+     "n_scored": 226,
+     "n_total": 287
+    },
+    {
+     "loss_sum": 764.6494140625,
+     "n_scored": 262,
+     "n_total": 347
+    },
+    {
+     "loss_sum": 1196.4483642578125,
+     "n_scored": 374,
+     "n_total": 469
+    },
+    {
+     "loss_sum": 692.138427734375,
+     "n_scored": 230,
+     "n_total": 305
+    },
+    {
+     "loss_sum": 486.4124755859375,
+     "n_scored": 169,
+     "n_total": 217
+    },
+    {
+     "loss_sum": 495.81060791015625,
+     "n_scored": 168,
+     "n_total": 233
+    },
+    {
+     "loss_sum": 1164.8162841796875,
+     "n_scored": 389,
+     "n_total": 506
+    },
+    {
+     "loss_sum": 358.11614990234375,
+     "n_scored": 129,
+     "n_total": 167
+    },
+    {
+     "loss_sum": 291.6031494140625,
+     "n_scored": 91,
+     "n_total": 126
+    },
+    {
+     "loss_sum": 416.1614990234375,
+     "n_scored": 139,
+     "n_total": 179
+    },
+    {
+     "loss_sum": 751.387939453125,
+     "n_scored": 236,
+     "n_total": 307
+    },
+    {
+     "loss_sum": 696.5654296875,
+     "n_scored": 228,
+     "n_total": 323
+    },
+    {
+     "loss_sum": 503.32177734375,
+     "n_scored": 170,
+     "n_total": 227
+    },
+    {
+     "loss_sum": 706.0810546875,
+     "n_scored": 232,
+     "n_total": 312
+    },
+    {
+     "loss_sum": 461.32904052734375,
+     "n_scored": 150,
+     "n_total": 193
+    },
+    {
+     "loss_sum": 653.0361328125,
+     "n_scored": 220,
+     "n_total": 291
+    },
+    {
+     "loss_sum": 781.333984375,
+     "n_scored": 241,
+     "n_total": 334
+    },
+    {
+     "loss_sum": 406.7938232421875,
+     "n_scored": 124,
+     "n_total": 161
+    },
+    {
+     "loss_sum": 660.4536743164062,
+     "n_scored": 212,
+     "n_total": 277
+    }
+   ]
+  },
+  {
+   "listener": "tr",
+   "text": "uz",
+   "sections": [
+    {
+     "loss_sum": 655.6190185546875,
+     "n_scored": 184,
+     "n_total": 244
+    },
+    {
+     "loss_sum": 701.4969482421875,
+     "n_scored": 200,
+     "n_total": 259
+    },
+    {
+     "loss_sum": 647.8755493164062,
+     "n_scored": 182,
+     "n_total": 253
+    },
+    {
+     "loss_sum": 981.9022216796875,
+     "n_scored": 252,
+     "n_total": 335
+    },
+    {
+     "loss_sum": 721.0164794921875,
+     "n_scored": 209,
+     "n_total": 284
+    },
+    {
+     "loss_sum": 516.4467163085938,
+     "n_scored": 149,
+     "n_total": 205
+    },
+    {
+     "loss_sum": 745.0576171875,
+     "n_scored": 212,
+     "n_total": 288
+    },
+    {
+     "loss_sum": 696.5906982421875,
+     "n_scored": 197,
+     "n_total": 263
+    },
+    {
+     "loss_sum": 876.2327880859375,
+     "n_scored": 266,
+     "n_total": 340
+    },
+    {
+     "loss_sum": 456.9864807128906,
+     "n_scored": 133,
+     "n_total": 163
+    },
+    {
+     "loss_sum": 692.0045166015625,
+     "n_scored": 187,
+     "n_total": 235
+    },
+    {
+     "loss_sum": 843.9681396484375,
+     "n_scored": 243,
+     "n_total": 317
+    },
+    {
+     "loss_sum": 539.3621826171875,
+     "n_scored": 162,
+     "n_total": 213
+    },
+    {
+     "loss_sum": 425.768310546875,
+     "n_scored": 126,
+     "n_total": 172
+    },
+    {
+     "loss_sum": 494.3104248046875,
+     "n_scored": 163,
+     "n_total": 208
+    },
+    {
+     "loss_sum": 678.0204467773438,
+     "n_scored": 197,
+     "n_total": 274
+    },
+    {
+     "loss_sum": 711.4769897460938,
+     "n_scored": 197,
+     "n_total": 271
+    },
+    {
+     "loss_sum": 574.867919921875,
+     "n_scored": 162,
+     "n_total": 218
+    },
+    {
+     "loss_sum": 360.3328857421875,
+     "n_scored": 98,
+     "n_total": 139
+    }
+   ]
+  },
+  {
+   "listener": "ug",
+   "text": "az",
+   "sections": [
+    {
+     "loss_sum": 655.3726196289062,
+     "n_scored": 193,
+     "n_total": 272
+    },
+    {
+     "loss_sum": 556.7415771484375,
+     "n_scored": 174,
+     "n_total": 237
+    },
+    {
+     "loss_sum": 477.2211608886719,
+     "n_scored": 157,
+     "n_total": 224
+    },
+    {
+     "loss_sum": 733.5071411132812,
+     "n_scored": 219,
+     "n_total": 329
+    },
+    {
+     "loss_sum": 557.0267944335938,
+     "n_scored": 151,
+     "n_total": 219
+    },
+    {
+     "loss_sum": 434.1201171875,
+     "n_scored": 141,
+     "n_total": 196
+    },
+    {
+     "loss_sum": 609.5189819335938,
+     "n_scored": 186,
+     "n_total": 263
+    },
+    {
+     "loss_sum": 598.8719482421875,
+     "n_scored": 181,
+     "n_total": 264
+    },
+    {
+     "loss_sum": 617.384033203125,
+     "n_scored": 200,
+     "n_total": 278
+    },
+    {
+     "loss_sum": 348.7957763671875,
+     "n_scored": 99,
+     "n_total": 151
+    },
+    {
+     "loss_sum": 347.76885986328125,
+     "n_scored": 109,
+     "n_total": 158
+    },
+    {
+     "loss_sum": 418.0968017578125,
+     "n_scored": 148,
+     "n_total": 208
+    },
+    {
+     "loss_sum": 691.95556640625,
+     "n_scored": 211,
+     "n_total": 311
+    },
+    {
+     "loss_sum": 432.20758056640625,
+     "n_scored": 132,
+     "n_total": 200
+    },
+    {
+     "loss_sum": 468.8096618652344,
+     "n_scored": 148,
+     "n_total": 205
+    },
+    {
+     "loss_sum": 496.3324279785156,
+     "n_scored": 149,
+     "n_total": 215
+    },
+    {
+     "loss_sum": 610.789306640625,
+     "n_scored": 183,
+     "n_total": 287
+    },
+    {
+     "loss_sum": 636.5177612304688,
+     "n_scored": 190,
+     "n_total": 275
+    },
+    {
+     "loss_sum": 520.0676879882812,
+     "n_scored": 164,
+     "n_total": 234
+    },
+    {
+     "loss_sum": 373.41326904296875,
+     "n_scored": 106,
+     "n_total": 150
+    }
+   ]
+  },
+  {
+   "listener": "ug",
+   "text": "fi",
+   "sections": [
+    {
+     "loss_sum": 744.24853515625,
+     "n_scored": 183,
+     "n_total": 236
+    },
+    {
+     "loss_sum": 684.8302612304688,
+     "n_scored": 183,
+     "n_total": 247
+    },
+    {
+     "loss_sum": 571.3133544921875,
+     "n_scored": 146,
+     "n_total": 194
+    },
+    {
+     "loss_sum": 1008.2777099609375,
+     "n_scored": 245,
+     "n_total": 333
+    },
+    {
+     "loss_sum": 648.1358642578125,
+     "n_scored": 172,
+     "n_total": 227
+    },
+    {
+     "loss_sum": 539.3916625976562,
+     "n_scored": 146,
+     "n_total": 182
+    },
+    {
+     "loss_sum": 732.7412109375,
+     "n_scored": 190,
+     "n_total": 233
+    },
+    {
+     "loss_sum": 620.6300048828125,
+     "n_scored": 166,
+     "n_total": 220
+    },
+    {
+     "loss_sum": 813.1083374023438,
+     "n_scored": 192,
+     "n_total": 260
+    },
+    {
+     "loss_sum": 425.282470703125,
+     "n_scored": 110,
+     "n_total": 151
+    },
+    {
+     "loss_sum": 386.1404113769531,
+     "n_scored": 102,
+     "n_total": 136
+    },
+    {
+     "loss_sum": 555.5140991210938,
+     "n_scored": 142,
+     "n_total": 194
+    },
+    {
+     "loss_sum": 748.2860107421875,
+     "n_scored": 197,
+     "n_total": 274
+    },
+    {
+     "loss_sum": 573.873046875,
+     "n_scored": 143,
+     "n_total": 199
+    },
+    {
+     "loss_sum": 555.5709838867188,
+     "n_scored": 145,
+     "n_total": 198
+    },
+    {
+     "loss_sum": 528.0288696289062,
+     "n_scored": 137,
+     "n_total": 184
+    },
+    {
+     "loss_sum": 672.824951171875,
+     "n_scored": 171,
+     "n_total": 223
+    },
+    {
+     "loss_sum": 821.1171875,
+     "n_scored": 201,
+     "n_total": 270
+    },
+    {
+     "loss_sum": 547.55615234375,
+     "n_scored": 140,
+     "n_total": 197
+    },
+    {
+     "loss_sum": 433.231201171875,
+     "n_scored": 117,
+     "n_total": 155
+    }
+   ]
+  },
+  {
+   "listener": "ug",
+   "text": "kk",
+   "sections": [
+    {
+     "loss_sum": 556.04052734375,
+     "n_scored": 165,
+     "n_total": 239
+    },
+    {
+     "loss_sum": 587.6638793945312,
+     "n_scored": 165,
+     "n_total": 238
+    },
+    {
+     "loss_sum": 483.33941650390625,
+     "n_scored": 140,
+     "n_total": 199
+    },
+    {
+     "loss_sum": 701.332763671875,
+     "n_scored": 202,
+     "n_total": 297
+    },
+    {
+     "loss_sum": 405.24072265625,
+     "n_scored": 128,
+     "n_total": 204
+    },
+    {
+     "loss_sum": 473.14892578125,
+     "n_scored": 140,
+     "n_total": 209
+    },
+    {
+     "loss_sum": 557.4364013671875,
+     "n_scored": 145,
+     "n_total": 193
+    },
+    {
+     "loss_sum": 562.143310546875,
+     "n_scored": 164,
+     "n_total": 265
+    },
+    {
+     "loss_sum": 647.151123046875,
+     "n_scored": 169,
+     "n_total": 260
+    },
+    {
+     "loss_sum": 465.16876220703125,
+     "n_scored": 139,
+     "n_total": 223
+    },
+    {
+     "loss_sum": 372.60491943359375,
+     "n_scored": 107,
+     "n_total": 179
+    },
+    {
+     "loss_sum": 521.0829467773438,
+     "n_scored": 152,
+     "n_total": 230
+    },
+    {
+     "loss_sum": 770.962158203125,
+     "n_scored": 211,
+     "n_total": 330
+    },
+    {
+     "loss_sum": 496.22320556640625,
+     "n_scored": 134,
+     "n_total": 204
+    },
+    {
+     "loss_sum": 595.8947143554688,
+     "n_scored": 181,
+     "n_total": 314
+    },
+    {
+     "loss_sum": 481.96929931640625,
+     "n_scored": 140,
+     "n_total": 225
+    },
+    {
+     "loss_sum": 659.6919555664062,
+     "n_scored": 194,
+     "n_total": 281
+    },
+    {
+     "loss_sum": 621.8510131835938,
+     "n_scored": 177,
+     "n_total": 284
+    },
+    {
+     "loss_sum": 474.38787841796875,
+     "n_scored": 135,
+     "n_total": 237
+    },
+    {
+     "loss_sum": 395.9005432128906,
+     "n_scored": 115,
+     "n_total": 186
+    }
+   ]
+  },
+  {
+   "listener": "ug",
+   "text": "ky",
+   "sections": [
+    {
+     "loss_sum": 552.7566528320312,
+     "n_scored": 189,
+     "n_total": 251
+    },
+    {
+     "loss_sum": 580.138916015625,
+     "n_scored": 194,
+     "n_total": 254
+    },
+    {
+     "loss_sum": 498.54290771484375,
+     "n_scored": 152,
+     "n_total": 215
+    },
+    {
+     "loss_sum": 870.3345336914062,
+     "n_scored": 254,
+     "n_total": 327
+    },
+    {
+     "loss_sum": 634.6887817382812,
+     "n_scored": 184,
+     "n_total": 230
+    },
+    {
+     "loss_sum": 614.4759521484375,
+     "n_scored": 175,
+     "n_total": 231
+    },
+    {
+     "loss_sum": 726.7418823242188,
+     "n_scored": 228,
+     "n_total": 307
+    },
+    {
+     "loss_sum": 763.412353515625,
+     "n_scored": 207,
+     "n_total": 277
+    },
+    {
+     "loss_sum": 642.093017578125,
+     "n_scored": 186,
+     "n_total": 252
+    },
+    {
+     "loss_sum": 413.4430236816406,
+     "n_scored": 109,
+     "n_total": 151
+    },
+    {
+     "loss_sum": 358.66912841796875,
+     "n_scored": 118,
+     "n_total": 147
+    },
+    {
+     "loss_sum": 543.1546020507812,
+     "n_scored": 179,
+     "n_total": 247
+    },
+    {
+     "loss_sum": 746.2869873046875,
+     "n_scored": 227,
+     "n_total": 322
+    },
+    {
+     "loss_sum": 552.6337890625,
+     "n_scored": 170,
+     "n_total": 219
+    },
+    {
+     "loss_sum": 505.8343200683594,
+     "n_scored": 149,
+     "n_total": 206
+    },
+    {
+     "loss_sum": 494.68414306640625,
+     "n_scored": 164,
+     "n_total": 236
+    },
+    {
+     "loss_sum": 650.4063110351562,
+     "n_scored": 198,
+     "n_total": 279
+    },
+    {
+     "loss_sum": 674.893310546875,
+     "n_scored": 187,
+     "n_total": 280
+    },
+    {
+     "loss_sum": 649.4982299804688,
+     "n_scored": 193,
+     "n_total": 253
+    },
+    {
+     "loss_sum": 397.5256652832031,
+     "n_scored": 125,
+     "n_total": 172
+    }
+   ]
+  },
+  {
+   "listener": "ug",
+   "text": "tr",
+   "sections": [
+    {
+     "loss_sum": 688.397705078125,
+     "n_scored": 206,
+     "n_total": 265
+    },
+    {
+     "loss_sum": 645.1978759765625,
+     "n_scored": 188,
+     "n_total": 257
+    },
+    {
+     "loss_sum": 624.9843139648438,
+     "n_scored": 195,
+     "n_total": 246
+    },
+    {
+     "loss_sum": 898.1284790039062,
+     "n_scored": 260,
+     "n_total": 320
+    },
+    {
+     "loss_sum": 643.1990966796875,
+     "n_scored": 185,
+     "n_total": 250
+    },
+    {
+     "loss_sum": 457.28057861328125,
+     "n_scored": 146,
+     "n_total": 189
+    },
+    {
+     "loss_sum": 707.3624877929688,
+     "n_scored": 194,
+     "n_total": 258
+    },
+    {
+     "loss_sum": 788.7950439453125,
+     "n_scored": 234,
+     "n_total": 317
+    },
+    {
+     "loss_sum": 829.9239501953125,
+     "n_scored": 220,
+     "n_total": 281
+    },
+    {
+     "loss_sum": 482.44842529296875,
+     "n_scored": 139,
+     "n_total": 181
+    },
+    {
+     "loss_sum": 383.656005859375,
+     "n_scored": 119,
+     "n_total": 144
+    },
+    {
+     "loss_sum": 540.3451538085938,
+     "n_scored": 166,
+     "n_total": 213
+    },
+    {
+     "loss_sum": 769.6865234375,
+     "n_scored": 229,
+     "n_total": 321
+    },
+    {
+     "loss_sum": 485.1155700683594,
+     "n_scored": 138,
+     "n_total": 178
+    },
+    {
+     "loss_sum": 562.976806640625,
+     "n_scored": 159,
+     "n_total": 215
+    },
+    {
+     "loss_sum": 526.5406494140625,
+     "n_scored": 161,
+     "n_total": 215
+    },
+    {
+     "loss_sum": 777.6514892578125,
+     "n_scored": 210,
+     "n_total": 300
+    },
+    {
+     "loss_sum": 841.7250366210938,
+     "n_scored": 225,
+     "n_total": 289
+    },
+    {
+     "loss_sum": 721.3866577148438,
+     "n_scored": 212,
+     "n_total": 246
+    },
+    {
+     "loss_sum": 494.1605224609375,
+     "n_scored": 139,
+     "n_total": 169
+    }
+   ]
+  },
+  {
+   "listener": "ug",
+   "text": "ug",
+   "sections": [
+    {
+     "loss_sum": 197.25665283203125,
+     "n_scored": 193,
+     "n_total": 262
+    },
+    {
+     "loss_sum": 249.970947265625,
+     "n_scored": 226,
+     "n_total": 287
+    },
+    {
+     "loss_sum": 276.4166259765625,
+     "n_scored": 262,
+     "n_total": 347
+    },
+    {
+     "loss_sum": 444.2497253417969,
+     "n_scored": 374,
+     "n_total": 469
+    },
+    {
+     "loss_sum": 275.19293212890625,
+     "n_scored": 230,
+     "n_total": 305
+    },
+    {
+     "loss_sum": 228.21380615234375,
+     "n_scored": 169,
+     "n_total": 217
+    },
+    {
+     "loss_sum": 207.71743774414062,
+     "n_scored": 168,
+     "n_total": 233
+    },
+    {
+     "loss_sum": 553.184326171875,
+     "n_scored": 389,
+     "n_total": 506
+    },
+    {
+     "loss_sum": 178.98854064941406,
+     "n_scored": 129,
+     "n_total": 167
+    },
+    {
+     "loss_sum": 123.28334045410156,
+     "n_scored": 91,
+     "n_total": 126
+    },
+    {
+     "loss_sum": 172.7933349609375,
+     "n_scored": 139,
+     "n_total": 179
+    },
+    {
+     "loss_sum": 324.9140625,
+     "n_scored": 236,
+     "n_total": 307
+    },
+    {
+     "loss_sum": 324.59649658203125,
+     "n_scored": 228,
+     "n_total": 323
+    },
+    {
+     "loss_sum": 215.60830688476562,
+     "n_scored": 170,
+     "n_total": 227
+    },
+    {
+     "loss_sum": 318.97589111328125,
+     "n_scored": 232,
+     "n_total": 312
+    },
+    {
+     "loss_sum": 163.9696807861328,
+     "n_scored": 150,
+     "n_total": 193
+    },
+    {
+     "loss_sum": 311.7296142578125,
+     "n_scored": 220,
+     "n_total": 291
+    },
+    {
+     "loss_sum": 337.6561584472656,
+     "n_scored": 241,
+     "n_total": 334
+    },
+    {
+     "loss_sum": 147.22915649414062,
+     "n_scored": 124,
+     "n_total": 161
+    },
+    {
+     "loss_sum": 269.3662109375,
+     "n_scored": 212,
+     "n_total": 277
+    }
+   ]
+  },
+  {
+   "listener": "ug",
+   "text": "uz",
+   "sections": [
+    {
+     "loss_sum": 525.5831909179688,
+     "n_scored": 184,
+     "n_total": 244
+    },
+    {
+     "loss_sum": 589.8629150390625,
+     "n_scored": 200,
+     "n_total": 259
+    },
+    {
+     "loss_sum": 578.87744140625,
+     "n_scored": 182,
+     "n_total": 253
+    },
+    {
+     "loss_sum": 828.1031494140625,
+     "n_scored": 252,
+     "n_total": 335
+    },
+    {
+     "loss_sum": 669.4656982421875,
+     "n_scored": 209,
+     "n_total": 284
+    },
+    {
+     "loss_sum": 455.067626953125,
+     "n_scored": 149,
+     "n_total": 205
+    },
+    {
+     "loss_sum": 608.6611938476562,
+     "n_scored": 212,
+     "n_total": 288
+    },
+    {
+     "loss_sum": 650.5541381835938,
+     "n_scored": 197,
+     "n_total": 263
+    },
+    {
+     "loss_sum": 736.4801025390625,
+     "n_scored": 266,
+     "n_total": 340
+    },
+    {
+     "loss_sum": 345.2792663574219,
+     "n_scored": 133,
+     "n_total": 163
+    },
+    {
+     "loss_sum": 635.939208984375,
+     "n_scored": 187,
+     "n_total": 235
+    },
+    {
+     "loss_sum": 776.3012084960938,
+     "n_scored": 243,
+     "n_total": 317
+    },
+    {
+     "loss_sum": 449.1622314453125,
+     "n_scored": 162,
+     "n_total": 213
+    },
+    {
+     "loss_sum": 348.568603515625,
+     "n_scored": 126,
+     "n_total": 172
+    },
+    {
+     "loss_sum": 419.8648376464844,
+     "n_scored": 163,
+     "n_total": 208
+    },
+    {
+     "loss_sum": 627.480712890625,
+     "n_scored": 197,
+     "n_total": 274
+    },
+    {
+     "loss_sum": 644.7328491210938,
+     "n_scored": 197,
+     "n_total": 271
+    },
+    {
+     "loss_sum": 483.4559326171875,
+     "n_scored": 162,
+     "n_total": 218
+    },
+    {
+     "loss_sum": 299.1038818359375,
+     "n_scored": 98,
+     "n_total": 139
+    }
+   ]
+  },
+  {
+   "listener": "uz",
+   "text": "az",
+   "sections": [
+    {
+     "loss_sum": 643.2716674804688,
+     "n_scored": 193,
+     "n_total": 272
+    },
+    {
+     "loss_sum": 536.71142578125,
+     "n_scored": 174,
+     "n_total": 237
+    },
+    {
+     "loss_sum": 520.6296997070312,
+     "n_scored": 157,
+     "n_total": 224
+    },
+    {
+     "loss_sum": 766.6311645507812,
+     "n_scored": 219,
+     "n_total": 329
+    },
+    {
+     "loss_sum": 515.7819213867188,
+     "n_scored": 151,
+     "n_total": 219
+    },
+    {
+     "loss_sum": 486.291259765625,
+     "n_scored": 141,
+     "n_total": 196
+    },
+    {
+     "loss_sum": 627.4161376953125,
+     "n_scored": 186,
+     "n_total": 263
+    },
+    {
+     "loss_sum": 579.25146484375,
+     "n_scored": 181,
+     "n_total": 264
+    },
+    {
+     "loss_sum": 647.7129516601562,
+     "n_scored": 200,
+     "n_total": 278
+    },
+    {
+     "loss_sum": 335.2747497558594,
+     "n_scored": 99,
+     "n_total": 151
+    },
+    {
+     "loss_sum": 320.45770263671875,
+     "n_scored": 109,
+     "n_total": 158
+    },
+    {
+     "loss_sum": 478.9605712890625,
+     "n_scored": 148,
+     "n_total": 208
+    },
+    {
+     "loss_sum": 736.8167114257812,
+     "n_scored": 211,
+     "n_total": 311
+    },
+    {
+     "loss_sum": 445.542724609375,
+     "n_scored": 132,
+     "n_total": 200
+    },
+    {
+     "loss_sum": 472.7099304199219,
+     "n_scored": 148,
+     "n_total": 205
+    },
+    {
+     "loss_sum": 492.21551513671875,
+     "n_scored": 149,
+     "n_total": 215
+    },
+    {
+     "loss_sum": 630.292236328125,
+     "n_scored": 183,
+     "n_total": 287
+    },
+    {
+     "loss_sum": 651.0558471679688,
+     "n_scored": 190,
+     "n_total": 275
+    },
+    {
+     "loss_sum": 535.4680786132812,
+     "n_scored": 164,
+     "n_total": 234
+    },
+    {
+     "loss_sum": 352.9644470214844,
+     "n_scored": 106,
+     "n_total": 150
+    }
+   ]
+  },
+  {
+   "listener": "uz",
+   "text": "fi",
+   "sections": [
+    {
+     "loss_sum": 720.21923828125,
+     "n_scored": 183,
+     "n_total": 236
+    },
+    {
+     "loss_sum": 667.8163452148438,
+     "n_scored": 183,
+     "n_total": 247
+    },
+    {
+     "loss_sum": 550.1901245117188,
+     "n_scored": 146,
+     "n_total": 194
+    },
+    {
+     "loss_sum": 986.0014038085938,
+     "n_scored": 245,
+     "n_total": 333
+    },
+    {
+     "loss_sum": 634.34912109375,
+     "n_scored": 172,
+     "n_total": 227
+    },
+    {
+     "loss_sum": 492.43218994140625,
+     "n_scored": 146,
+     "n_total": 182
+    },
+    {
+     "loss_sum": 697.2193603515625,
+     "n_scored": 190,
+     "n_total": 233
+    },
+    {
+     "loss_sum": 546.7221069335938,
+     "n_scored": 166,
+     "n_total": 220
+    },
+    {
+     "loss_sum": 704.3135986328125,
+     "n_scored": 192,
+     "n_total": 260
+    },
+    {
+     "loss_sum": 404.75421142578125,
+     "n_scored": 110,
+     "n_total": 151
+    },
+    {
+     "loss_sum": 385.2906799316406,
+     "n_scored": 102,
+     "n_total": 136
+    },
+    {
+     "loss_sum": 528.4642333984375,
+     "n_scored": 142,
+     "n_total": 194
+    },
+    {
+     "loss_sum": 747.7901611328125,
+     "n_scored": 197,
+     "n_total": 274
+    },
+    {
+     "loss_sum": 491.1541442871094,
+     "n_scored": 143,
+     "n_total": 199
+    },
+    {
+     "loss_sum": 514.7786865234375,
+     "n_scored": 145,
+     "n_total": 198
+    },
+    {
+     "loss_sum": 511.798583984375,
+     "n_scored": 137,
+     "n_total": 184
+    },
+    {
+     "loss_sum": 650.2810668945312,
+     "n_scored": 171,
+     "n_total": 223
+    },
+    {
+     "loss_sum": 741.7847900390625,
+     "n_scored": 201,
+     "n_total": 270
+    },
+    {
+     "loss_sum": 485.720458984375,
+     "n_scored": 140,
+     "n_total": 197
+    },
+    {
+     "loss_sum": 421.15985107421875,
+     "n_scored": 117,
+     "n_total": 155
+    }
+   ]
+  },
+  {
+   "listener": "uz",
+   "text": "kk",
+   "sections": [
+    {
+     "loss_sum": 592.631591796875,
+     "n_scored": 165,
+     "n_total": 239
+    },
+    {
+     "loss_sum": 543.6751098632812,
+     "n_scored": 165,
+     "n_total": 238
+    },
+    {
+     "loss_sum": 495.87078857421875,
+     "n_scored": 140,
+     "n_total": 199
+    },
+    {
+     "loss_sum": 704.0608520507812,
+     "n_scored": 202,
+     "n_total": 297
+    },
+    {
+     "loss_sum": 474.73834228515625,
+     "n_scored": 128,
+     "n_total": 204
+    },
+    {
+     "loss_sum": 476.7406311035156,
+     "n_scored": 140,
+     "n_total": 209
+    },
+    {
+     "loss_sum": 487.4638671875,
+     "n_scored": 145,
+     "n_total": 193
+    },
+    {
+     "loss_sum": 525.0411376953125,
+     "n_scored": 164,
+     "n_total": 265
+    },
+    {
+     "loss_sum": 547.21044921875,
+     "n_scored": 169,
+     "n_total": 260
+    },
+    {
+     "loss_sum": 487.724365234375,
+     "n_scored": 139,
+     "n_total": 223
+    },
+    {
+     "loss_sum": 386.8042297363281,
+     "n_scored": 107,
+     "n_total": 179
+    },
+    {
+     "loss_sum": 509.5138244628906,
+     "n_scored": 152,
+     "n_total": 230
+    },
+    {
+     "loss_sum": 744.0250244140625,
+     "n_scored": 211,
+     "n_total": 330
+    },
+    {
+     "loss_sum": 453.385986328125,
+     "n_scored": 134,
+     "n_total": 204
+    },
+    {
+     "loss_sum": 601.9393310546875,
+     "n_scored": 181,
+     "n_total": 314
+    },
+    {
+     "loss_sum": 468.4510498046875,
+     "n_scored": 140,
+     "n_total": 225
+    },
+    {
+     "loss_sum": 673.5126342773438,
+     "n_scored": 194,
+     "n_total": 281
+    },
+    {
+     "loss_sum": 599.9596557617188,
+     "n_scored": 177,
+     "n_total": 284
+    },
+    {
+     "loss_sum": 513.1805419921875,
+     "n_scored": 135,
+     "n_total": 237
+    },
+    {
+     "loss_sum": 396.5926208496094,
+     "n_scored": 115,
+     "n_total": 186
+    }
+   ]
+  },
+  {
+   "listener": "uz",
+   "text": "ky",
+   "sections": [
+    {
+     "loss_sum": 592.3878784179688,
+     "n_scored": 189,
+     "n_total": 251
+    },
+    {
+     "loss_sum": 671.7117309570312,
+     "n_scored": 194,
+     "n_total": 254
+    },
+    {
+     "loss_sum": 568.839111328125,
+     "n_scored": 152,
+     "n_total": 215
+    },
+    {
+     "loss_sum": 903.3766479492188,
+     "n_scored": 254,
+     "n_total": 327
+    },
+    {
+     "loss_sum": 629.7649536132812,
+     "n_scored": 184,
+     "n_total": 230
+    },
+    {
+     "loss_sum": 662.2199096679688,
+     "n_scored": 175,
+     "n_total": 231
+    },
+    {
+     "loss_sum": 847.8309326171875,
+     "n_scored": 228,
+     "n_total": 307
+    },
+    {
+     "loss_sum": 748.047119140625,
+     "n_scored": 207,
+     "n_total": 277
+    },
+    {
+     "loss_sum": 608.7772827148438,
+     "n_scored": 186,
+     "n_total": 252
+    },
+    {
+     "loss_sum": 414.701171875,
+     "n_scored": 109,
+     "n_total": 151
+    },
+    {
+     "loss_sum": 439.2748718261719,
+     "n_scored": 118,
+     "n_total": 147
+    },
+    {
+     "loss_sum": 641.1251220703125,
+     "n_scored": 179,
+     "n_total": 247
+    },
+    {
+     "loss_sum": 815.8987426757812,
+     "n_scored": 227,
+     "n_total": 322
+    },
+    {
+     "loss_sum": 596.7080688476562,
+     "n_scored": 170,
+     "n_total": 219
+    },
+    {
+     "loss_sum": 560.4505004882812,
+     "n_scored": 149,
+     "n_total": 206
+    },
+    {
+     "loss_sum": 476.7137451171875,
+     "n_scored": 164,
+     "n_total": 236
+    },
+    {
+     "loss_sum": 728.443115234375,
+     "n_scored": 198,
+     "n_total": 279
+    },
+    {
+     "loss_sum": 632.9339599609375,
+     "n_scored": 187,
+     "n_total": 280
+    },
+    {
+     "loss_sum": 652.8245849609375,
+     "n_scored": 193,
+     "n_total": 253
+    },
+    {
+     "loss_sum": 397.5329284667969,
+     "n_scored": 125,
+     "n_total": 172
+    }
+   ]
+  },
+  {
+   "listener": "uz",
+   "text": "tr",
+   "sections": [
+    {
+     "loss_sum": 664.4424438476562,
+     "n_scored": 206,
+     "n_total": 265
+    },
+    {
+     "loss_sum": 628.0760498046875,
+     "n_scored": 188,
+     "n_total": 257
+    },
+    {
+     "loss_sum": 639.465576171875,
+     "n_scored": 195,
+     "n_total": 246
+    },
+    {
+     "loss_sum": 901.6639404296875,
+     "n_scored": 260,
+     "n_total": 320
+    },
+    {
+     "loss_sum": 637.3612060546875,
+     "n_scored": 185,
+     "n_total": 250
+    },
+    {
+     "loss_sum": 519.090087890625,
+     "n_scored": 146,
+     "n_total": 189
+    },
+    {
+     "loss_sum": 634.8347778320312,
+     "n_scored": 194,
+     "n_total": 258
+    },
+    {
+     "loss_sum": 763.5413208007812,
+     "n_scored": 234,
+     "n_total": 317
+    },
+    {
+     "loss_sum": 734.672119140625,
+     "n_scored": 220,
+     "n_total": 281
+    },
+    {
+     "loss_sum": 483.3354187011719,
+     "n_scored": 139,
+     "n_total": 181
+    },
+    {
+     "loss_sum": 345.6689147949219,
+     "n_scored": 119,
+     "n_total": 144
+    },
+    {
+     "loss_sum": 551.1484375,
+     "n_scored": 166,
+     "n_total": 213
+    },
+    {
+     "loss_sum": 778.2940673828125,
+     "n_scored": 229,
+     "n_total": 321
+    },
+    {
+     "loss_sum": 452.7689208984375,
+     "n_scored": 138,
+     "n_total": 178
+    },
+    {
+     "loss_sum": 535.1832275390625,
+     "n_scored": 159,
+     "n_total": 215
+    },
+    {
+     "loss_sum": 526.5682983398438,
+     "n_scored": 161,
+     "n_total": 215
+    },
+    {
+     "loss_sum": 693.4747924804688,
+     "n_scored": 210,
+     "n_total": 300
+    },
+    {
+     "loss_sum": 766.672119140625,
+     "n_scored": 225,
+     "n_total": 289
+    },
+    {
+     "loss_sum": 697.958251953125,
+     "n_scored": 212,
+     "n_total": 246
+    },
+    {
+     "loss_sum": 458.0970764160156,
+     "n_scored": 139,
+     "n_total": 169
+    }
+   ]
+  },
+  {
+   "listener": "uz",
+   "text": "ug",
+   "sections": [
+    {
+     "loss_sum": 555.1949462890625,
+     "n_scored": 193,
+     "n_total": 262
+    },
+    {
+     "loss_sum": 579.322998046875,
+     "n_scored": 226,
+     "n_total": 287
+    },
+    {
+     "loss_sum": 790.1707763671875,
+     "n_scored": 262,
+     "n_total": 347
+    },
+    {
+     "loss_sum": 1024.702392578125,
+     "n_scored": 374,
+     "n_total": 469
+    },
+    {
+     "loss_sum": 703.6370849609375,
+     "n_scored": 230,
+     "n_total": 305
+    },
+    {
+     "loss_sum": 485.8510437011719,
+     "n_scored": 169,
+     "n_total": 217
+    },
+    {
+     "loss_sum": 493.48455810546875,
+     "n_scored": 168,
+     "n_total": 233
+    },
+    {
+     "loss_sum": 1048.1126708984375,
+     "n_scored": 389,
+     "n_total": 506
+    },
+    {
+     "loss_sum": 351.87176513671875,
+     "n_scored": 129,
+     "n_total": 167
+    },
+    {
+     "loss_sum": 241.85462951660156,
+     "n_scored": 91,
+     "n_total": 126
+    },
+    {
+     "loss_sum": 355.3632507324219,
+     "n_scored": 139,
+     "n_total": 179
+    },
+    {
+     "loss_sum": 648.51953125,
+     "n_scored": 236,
+     "n_total": 307
+    },
+    {
+     "loss_sum": 688.176025390625,
+     "n_scored": 228,
+     "n_total": 323
+    },
+    {
+     "loss_sum": 393.81011962890625,
+     "n_scored": 170,
+     "n_total": 227
+    },
+    {
+     "loss_sum": 638.4869995117188,
+     "n_scored": 232,
+     "n_total": 312
+    },
+    {
+     "loss_sum": 373.686767578125,
+     "n_scored": 150,
+     "n_total": 193
+    },
+    {
+     "loss_sum": 608.5941772460938,
+     "n_scored": 220,
+     "n_total": 291
+    },
+    {
+     "loss_sum": 708.809814453125,
+     "n_scored": 241,
+     "n_total": 334
+    },
+    {
+     "loss_sum": 339.4068603515625,
+     "n_scored": 124,
+     "n_total": 161
+    },
+    {
+     "loss_sum": 574.781982421875,
+     "n_scored": 212,
+     "n_total": 277
+    }
+   ]
+  },
+  {
+   "listener": "uz",
+   "text": "uz",
+   "sections": [
+    {
+     "loss_sum": 194.65138244628906,
+     "n_scored": 184,
+     "n_total": 244
+    },
+    {
+     "loss_sum": 229.86148071289062,
+     "n_scored": 200,
+     "n_total": 259
+    },
+    {
+     "loss_sum": 174.5644073486328,
+     "n_scored": 182,
+     "n_total": 253
+    },
+    {
+     "loss_sum": 282.1634521484375,
+     "n_scored": 252,
+     "n_total": 335
+    },
+    {
+     "loss_sum": 229.39222717285156,
+     "n_scored": 209,
+     "n_total": 284
+    },
+    {
+     "loss_sum": 179.82444763183594,
+     "n_scored": 149,
+     "n_total": 205
+    },
+    {
+     "loss_sum": 211.38499450683594,
+     "n_scored": 212,
+     "n_total": 288
+    },
+    {
+     "loss_sum": 230.90750122070312,
+     "n_scored": 197,
+     "n_total": 263
+    },
+    {
+     "loss_sum": 287.06719970703125,
+     "n_scored": 266,
+     "n_total": 340
+    },
+    {
+     "loss_sum": 155.62120056152344,
+     "n_scored": 133,
+     "n_total": 163
+    },
+    {
+     "loss_sum": 226.51953125,
+     "n_scored": 187,
+     "n_total": 235
+    },
+    {
+     "loss_sum": 327.8995056152344,
+     "n_scored": 243,
+     "n_total": 317
+    },
+    {
+     "loss_sum": 210.20948791503906,
+     "n_scored": 162,
+     "n_total": 213
+    },
+    {
+     "loss_sum": 200.0525665283203,
+     "n_scored": 126,
+     "n_total": 172
+    },
+    {
+     "loss_sum": 167.91220092773438,
+     "n_scored": 163,
+     "n_total": 208
+    },
+    {
+     "loss_sum": 254.50341796875,
+     "n_scored": 197,
+     "n_total": 274
+    },
+    {
+     "loss_sum": 233.8855438232422,
+     "n_scored": 197,
+     "n_total": 271
+    },
+    {
+     "loss_sum": 228.96043395996094,
+     "n_scored": 162,
+     "n_total": 218
+    },
+    {
+     "loss_sum": 118.29634094238281,
+     "n_scored": 98,
+     "n_total": 139
+    }
+   ]
+  }
+ ]
+}
