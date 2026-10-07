@@ -11,9 +11,13 @@ import pytest
 import torch
 from platform_core.json_utils import load_json_str
 from platform_core.run_record import decode_run_record
-from scripts.zero_shot_eval import (
-    ASYMMETRY_CSV_HEADER,
+from scripts.section_scores import SECTION_SCORES_SUFFIX, load_section_score_table
+from scripts.zero_shot_comparisons import (
     ASYMMETRY_EXPERIMENT,
+    LISTENER_CSV_HEADER,
+    LISTENER_EXPERIMENT,
+)
+from scripts.zero_shot_eval import (
     CSV_HEADER,
     DEFAULT_ASSIMILATION_CSV,
     DEFAULT_CHECKPOINT_DIR,
@@ -25,27 +29,21 @@ from scripts.zero_shot_eval import (
     DEFAULT_SNIPPET_TEMPLATE,
     EXPERIMENT,
     OOV_MODES,
-    AsymmetryResult,
     EvalArgs,
     LoadedModel,
     PairResult,
-    SectionScore,
     _build_masks,
     _extract_args,
-    asymmetry_observations,
-    asymmetry_results,
     attested_chars,
-    bootstrap_asymmetry,
-    bootstrap_excess,
-    ce_from_scores,
     common_support_mask,
+    companion_path,
     infer_num_layers,
     load_assimilation_map,
     load_model_with_vocab,
     main,
+    pair_results,
     parse_args,
     parse_sections,
-    render_asymmetry_csv,
     render_results_csv,
     run,
     score_section,
@@ -256,45 +254,6 @@ def test_score_section_raises_on_mask_length_mismatch(tmp_path: Path) -> None:
     loaded = load_model_with_vocab(tmp_path / "x_best.pt", tmp_path / "x_vocab.json")
     with pytest.raises(ValueError, match="Mask length"):
         score_section(loaded, "abcd", [True])
-
-
-# ---------------------------------------------------------------------------
-# ce_from_scores / bootstrap_excess
-# ---------------------------------------------------------------------------
-
-
-def _score(loss_sum: float, n_scored: int, n_total: int) -> SectionScore:
-    """Test helper: literal SectionScore."""
-    return {"loss_sum": loss_sum, "n_scored": n_scored, "n_total": n_total}
-
-
-def test_ce_from_scores_pools_loss_over_positions() -> None:
-    scores = [_score(2.0, 2, 2), _score(4.0, 2, 4)]
-    assert ce_from_scores(scores) == 1.5
-    assert ce_from_scores(scores, [1, 1]) == 2.0
-
-
-def test_ce_from_scores_raises_on_zero_positions() -> None:
-    with pytest.raises(ValueError, match="No scored positions"):
-        ce_from_scores([_score(0.0, 0, 4)])
-
-
-def test_bootstrap_excess_is_zero_for_identical_scores() -> None:
-    scores = [_score(1.0, 1, 1), _score(3.0, 1, 1)]
-    assert bootstrap_excess(scores, scores, 50, 0) == (0.0, 0.0)
-
-
-def test_bootstrap_excess_recovers_constant_offset_exactly() -> None:
-    self_scores = [_score(1.0, 1, 1), _score(3.0, 1, 1)]
-    pair_scores = [_score(2.0, 1, 1), _score(4.0, 1, 1)]
-    lo, hi = bootstrap_excess(pair_scores, self_scores, 200, 0)
-    assert lo == pytest.approx(1.0)
-    assert hi == pytest.approx(1.0)
-
-
-def test_bootstrap_excess_rejects_mismatched_lengths() -> None:
-    with pytest.raises(ValueError, match="differ in length"):
-        bootstrap_excess([_score(1.0, 1, 1)], [], 10, 0)
 
 
 # ---------------------------------------------------------------------------
@@ -581,39 +540,55 @@ def test_main_writes_a_sidecar_beside_each_csv(tmp_path: Path) -> None:
     )
 
     asymmetry_csv = args["output_csv"].with_name(args["output_csv"].stem + "_asymmetry.csv")
+    listeners_csv = args["output_csv"].with_name(args["output_csv"].stem + "_listeners.csv")
     matrix = decode_run_record(load_json_str(sidecar_path(args["output_csv"]).read_text("utf-8")))
     asymmetry = decode_run_record(load_json_str(sidecar_path(asymmetry_csv).read_text("utf-8")))
+    listeners = decode_run_record(load_json_str(sidecar_path(listeners_csv).read_text("utf-8")))
 
     assert matrix["experiment"] == EXPERIMENT
     assert asymmetry["experiment"] == ASYMMETRY_EXPERIMENT
-    assert matrix["label"] == asymmetry["label"] == "skip"
-    assert matrix["fingerprint"] == asymmetry["fingerprint"]
+    assert listeners["experiment"] == LISTENER_EXPERIMENT
+    assert matrix["label"] == asymmetry["label"] == listeners["label"] == "skip"
+    assert matrix["fingerprint"] == asymmetry["fingerprint"] == listeners["fingerprint"]
     assert {o["name"].split(".")[0] for o in asymmetry["observations"]} == {
         "asymmetry",
         "asymmetry_lo",
         "asymmetry_hi",
     }
-
-
-def test_asymmetry_observations_name_the_estimate_and_both_bounds() -> None:
-    """The interval is the verdict, so it travels with the estimate."""
-    row: AsymmetryResult = {
-        "lang_a": "az",
-        "lang_b": "tr",
-        "mode": "skip",
-        "excess_ab": 1.7885,
-        "excess_ba": 1.3070,
-        "difference": 0.4815,
-        "difference_lo": 0.2,
-        "difference_hi": 0.75,
-        "excludes_zero": True,
+    # Three listeners (az, tr, uz) on two texts (az, tr): the text's own model
+    # is not compared, so each text has one pair of foreign listeners.
+    assert [line.split(",")[:3] for line in listeners_csv.read_text("utf-8").splitlines()] == [
+        LISTENER_CSV_HEADER.split(",")[:3],
+        ["az", "tr", "uz"],
+        ["tr", "az", "uz"],
+    ]
+    assert {o["name"] for o in listeners["observations"]} == {
+        f"listener_difference{bound}.{key}"
+        for bound in ("", "_lo", "_hi")
+        for key in ("az.tr.uz", "tr.az.uz")
     }
 
-    assert asymmetry_observations([row]) == (
-        {"name": "asymmetry.az.tr", "value": 0.4815},
-        {"name": "asymmetry_lo.az.tr", "value": 0.2},
-        {"name": "asymmetry_hi.az.tr", "value": 0.75},
-    )
+
+def test_the_section_scores_written_beside_the_matrix_re_pool_into_it(tmp_path: Path) -> None:
+    """The sidecar of section scores is the matrix's own evidence.
+
+    Re-pooling it with the run's bootstrap settings must give the matrix
+    byte for byte, which is what lets a later comparison be drawn from the
+    file instead of from a re-scoring.
+    """
+    args = _setup_eval_dirs(tmp_path)
+    args["oov_mode"] = "skip"
+    run(args)
+
+    section_scores = companion_path(args["output_csv"], SECTION_SCORES_SUFFIX)
+    assert section_scores.name == "results_section_scores.json"
+    table = load_section_score_table(section_scores.read_text(encoding="utf-8"))
+
+    assert table["mode"] == "skip"
+    assert table["listeners"] == ("az", "tr", "uz")
+    assert table["texts"] == ("az", "tr")
+    rendered = render_results_csv(pair_results(table, args["n_boot"], args["seed"]))
+    assert rendered == args["output_csv"].read_text(encoding="utf-8")
 
 
 def test_module_entrypoint(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
@@ -687,143 +662,3 @@ def test_the_mask_excludes_positions_on_unattested_characters(tmp_path: Path) ->
     assert len(mask) == len(section) - 1
     assert all(not m for ch, m in zip(section[1:], mask, strict=True) if ch == "z")
     assert any(m for ch, m in zip(section[1:], mask, strict=True) if ch in "ab")
-
-
-# ---------------------------------------------------------------------------
-# bootstrap_asymmetry / asymmetry_results / render_asymmetry_csv
-# ---------------------------------------------------------------------------
-
-
-def test_bootstrap_asymmetry_is_zero_when_both_directions_match() -> None:
-    """Two directions built from identical scores differ by exactly zero."""
-    scores = [_score(1.0, 1, 1), _score(3.0, 1, 1)]
-    assert bootstrap_asymmetry(scores, scores, scores, scores, 50, 0) == (0.0, 0.0)
-
-
-def test_bootstrap_asymmetry_recovers_a_constant_difference_exactly() -> None:
-    """Constant offsets per direction leave the difference free of spread.
-
-    Forward excess is a flat +2.0 and reverse a flat +0.5 whatever indices
-    are drawn, so every resample yields 1.5 and the interval collapses onto
-    it. A test with per-section variation could only assert a range, which
-    would not distinguish a correct implementation from one that resampled
-    the wrong list.
-    """
-    fwd_self = [_score(1.0, 1, 1), _score(3.0, 1, 1)]
-    fwd_pair = [_score(3.0, 1, 1), _score(5.0, 1, 1)]
-    rev_self = [_score(2.0, 1, 1), _score(4.0, 1, 1), _score(6.0, 1, 1)]
-    rev_pair = [_score(2.5, 1, 1), _score(4.5, 1, 1), _score(6.5, 1, 1)]
-    lo, hi = bootstrap_asymmetry(fwd_pair, fwd_self, rev_pair, rev_self, 200, 0)
-    assert lo == pytest.approx(1.5)
-    assert hi == pytest.approx(1.5)
-
-
-def test_bootstrap_asymmetry_accepts_directions_of_different_length() -> None:
-    """The two directions read different languages' sections.
-
-    This is the property that separates it from bootstrap_excess: there is
-    no correspondence between index i on one side and index i on the other,
-    so equal lengths must not be required and must not be assumed.
-    """
-    fwd_self = [_score(1.0, 1, 1)]
-    fwd_pair = [_score(2.0, 1, 1)]
-    rev_self = [_score(1.0, 1, 1), _score(1.0, 1, 1), _score(1.0, 1, 1)]
-    rev_pair = [_score(1.5, 1, 1), _score(1.5, 1, 1), _score(1.5, 1, 1)]
-    lo, hi = bootstrap_asymmetry(fwd_pair, fwd_self, rev_pair, rev_self, 100, 0)
-    assert lo == pytest.approx(0.5)
-    assert hi == pytest.approx(0.5)
-
-
-def test_bootstrap_asymmetry_rejects_mismatched_forward_lengths() -> None:
-    """A pair and its self-scores must cover the same sections."""
-    good = [_score(1.0, 1, 1)]
-    with pytest.raises(ValueError, match="Forward score lists differ in length"):
-        bootstrap_asymmetry([_score(1.0, 1, 1)], [], good, good, 10, 0)
-
-
-def test_bootstrap_asymmetry_rejects_mismatched_reverse_lengths() -> None:
-    """The reverse direction is checked separately, and names itself."""
-    good = [_score(1.0, 1, 1)]
-    with pytest.raises(ValueError, match="Reverse score lists differ in length"):
-        bootstrap_asymmetry(good, good, [_score(1.0, 1, 1)], [], 10, 0)
-
-
-def test_asymmetry_results_covers_every_unordered_pair_once() -> None:
-    """Three languages give three pairs, alphabetical within each."""
-    flat = [_score(1.0, 1, 1), _score(1.0, 1, 1)]
-    langs = ("ky", "az", "tr")
-    scores = {(a, b): flat for a in langs for b in langs}
-    rows = asymmetry_results(scores, langs, "skip", 20, 0)
-    assert [(r["lang_a"], r["lang_b"]) for r in rows] == [
-        ("az", "ky"),
-        ("az", "tr"),
-        ("ky", "tr"),
-    ]
-
-
-def test_asymmetry_results_reports_a_real_difference_as_excluding_zero() -> None:
-    """One direction costlier than the other, with no overlap of zero."""
-    langs = ("az", "tr")
-    scores = {
-        ("az", "az"): [_score(1.0, 1, 1), _score(1.0, 1, 1)],
-        ("tr", "tr"): [_score(1.0, 1, 1), _score(1.0, 1, 1)],
-        ("az", "tr"): [_score(4.0, 1, 1), _score(4.0, 1, 1)],
-        ("tr", "az"): [_score(2.0, 1, 1), _score(2.0, 1, 1)],
-    }
-    rows = asymmetry_results(scores, langs, "skip", 100, 0)
-    assert len(rows) == 1
-    assert rows[0]["excess_ab"] == pytest.approx(3.0)
-    assert rows[0]["excess_ba"] == pytest.approx(1.0)
-    assert rows[0]["difference"] == pytest.approx(2.0)
-    assert rows[0]["excludes_zero"] is True
-
-
-def test_asymmetry_results_reports_no_difference_as_including_zero() -> None:
-    """Symmetric directions must not be reported as directional."""
-    langs = ("az", "tr")
-    flat = [_score(2.0, 1, 1), _score(2.0, 1, 1)]
-    self_flat = [_score(1.0, 1, 1), _score(1.0, 1, 1)]
-    scores = {
-        ("az", "az"): self_flat,
-        ("tr", "tr"): self_flat,
-        ("az", "tr"): flat,
-        ("tr", "az"): flat,
-    }
-    rows = asymmetry_results(scores, langs, "skip", 100, 0)
-    assert rows[0]["difference"] == pytest.approx(0.0)
-    assert rows[0]["excludes_zero"] is False
-
-
-def test_render_asymmetry_csv_exact_row() -> None:
-    """The rendered row is the contract a reader parses."""
-    row: AsymmetryResult = {
-        "lang_a": "az",
-        "lang_b": "tr",
-        "mode": "skip",
-        "excess_ab": 1.7885,
-        "excess_ba": 1.3070,
-        "difference": 0.4815,
-        "difference_lo": 0.2,
-        "difference_hi": 0.75,
-        "excludes_zero": True,
-    }
-    text = render_asymmetry_csv([row])
-    assert text.splitlines()[0] == ASYMMETRY_CSV_HEADER
-    assert text.splitlines()[1] == ("az,tr,skip,1.788500,1.307000,0.481500,0.200000,0.750000,yes")
-    assert text.endswith("\n")
-
-
-def test_render_asymmetry_csv_writes_no_for_an_interval_spanning_zero() -> None:
-    """The flag is rendered as a word, so both values must be exercised."""
-    row: AsymmetryResult = {
-        "lang_a": "kk",
-        "lang_b": "ky",
-        "mode": "skip",
-        "excess_ab": 1.0,
-        "excess_ba": 1.0,
-        "difference": 0.0,
-        "difference_lo": -0.1,
-        "difference_hi": 0.1,
-        "excludes_zero": False,
-    }
-    assert render_asymmetry_csv([row]).splitlines()[1].endswith(",no")
