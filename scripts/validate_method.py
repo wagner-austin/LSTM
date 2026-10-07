@@ -41,12 +41,12 @@ from pathlib import Path
 from typing import TypedDict
 
 from char_lstm.corpora import CORPUS_TEMPLATE
+from scripts.zero_shot_bootstrap import ce_from_scores
 from scripts.zero_shot_eval import (
     DEFAULT_SNIPPET_TEMPLATE,
     MIN_ATTESTED,
     LoadedModel,
     attested_chars,
-    ce_from_scores,
     common_support_mask,
     load_sources,
     parse_sections,

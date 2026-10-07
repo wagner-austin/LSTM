@@ -21,6 +21,13 @@ The headline metric is excess CE: ``ce(src->tgt) - ce(tgt->tgt)`` -- how much
 more surprised the foreign model is than the target's own model on the same
 sections -- with a paired bootstrap confidence interval over sections.
 
+Beside the matrix it writes the section scores the matrix was pooled from
+(``<stem>_section_scores.json``) and two tables of differences, each with an
+interval on the difference itself: every pair read in both directions
+(``<stem>_asymmetry.csv``) and every two listeners on one text
+(``<stem>_listeners.csv``). Whether two cells differ is read from those, never
+from whether the two cells' own intervals overlap.
+
 Usage::
 
     poetry run python -m scripts.zero_shot_eval \\
@@ -35,13 +42,12 @@ from __future__ import annotations
 import argparse
 import collections
 import csv
-import math
-import random
 import re
 from pathlib import Path
 from typing import TypedDict
 
 import torch
+from platform_core.comparability import RunFingerprint
 from platform_core.run_record import Observation
 from torch import Tensor
 from torch.nn import functional
@@ -51,6 +57,23 @@ from char_lstm.corpora import CORPUS_TEMPLATE, LANGS
 from char_lstm.data import encode, load_vocab_json
 from char_lstm.model import CharLSTM
 from char_lstm.provenance import scoring_fingerprint, write_run_record
+from scripts.section_scores import (
+    SECTION_SCORES_SUFFIX,
+    SectionScoreTable,
+    encode_section_score_table,
+)
+from scripts.zero_shot_bootstrap import SectionScore, bootstrap_excess, ce_from_scores
+from scripts.zero_shot_comparisons import (
+    ASYMMETRY_EXPERIMENT,
+    LISTENER_EXPERIMENT,
+    ListenerComparison,
+    asymmetry_observations,
+    asymmetry_results,
+    listener_comparisons,
+    listener_observations,
+    render_asymmetry_csv,
+    render_listener_csv,
+)
 
 OOV_MODES: tuple[str, ...] = ("unk", "skip", "assimilate")
 
@@ -113,20 +136,6 @@ class LoadedModel(TypedDict):
     vocab_size: int
 
 
-class SectionScore(TypedDict):
-    """Cross-entropy sums for one snippet section under one (src, tgt) pair.
-
-    Attributes:
-        loss_sum: Summed per-position cross-entropy over scored positions.
-        n_scored: Number of positions actually scored.
-        n_total: Number of next-char positions in the section.
-    """
-
-    loss_sum: float
-    n_scored: int
-    n_total: int
-
-
 class PairResult(TypedDict):
     """One (src, tgt) evaluation result under a given OOV mode.
 
@@ -154,41 +163,6 @@ class PairResult(TypedDict):
     excess_hi: float
     support: float
     n_scored: int
-
-
-class AsymmetryResult(TypedDict):
-    """Whether one unordered language pair reads differently in each direction.
-
-    The paper-level claim this exists to test is that transfer is
-    directional: that a model of ``lang_a`` reading ``lang_b`` is not
-    interchangeable with the reverse. That claim is about the DIFFERENCE
-    between two excess cross-entropies, so the interval belongs to the
-    difference rather than to either side.
-
-    Attributes:
-        lang_a: First language of the unordered pair, alphabetically.
-        lang_b: Second language of the pair.
-        mode: OOV regime, one of :data:`OOV_MODES`.
-        excess_ab: Excess CE of ``lang_a`` reading ``lang_b``.
-        excess_ba: Excess CE of ``lang_b`` reading ``lang_a``.
-        difference: ``excess_ab - excess_ba``.
-        difference_lo: Lower bound of the 95% bootstrap CI for it.
-        difference_hi: Upper bound of the same interval.
-        excludes_zero: Whether that interval excludes zero, which is the
-            condition a directional claim actually needs. Stored rather
-            than left to the reader because comparing two separate
-            intervals by eye is the mistake this row exists to replace.
-    """
-
-    lang_a: str
-    lang_b: str
-    mode: str
-    excess_ab: float
-    excess_ba: float
-    difference: float
-    difference_lo: float
-    difference_hi: float
-    excludes_zero: bool
 
 
 class EvalArgs(TypedDict):
@@ -481,128 +455,74 @@ def score_section(
     }
 
 
-def ce_from_scores(scores: list[SectionScore], idx: list[int] | None = None) -> float:
-    """Pooled cross-entropy over a (re)sample of sections.
+def pair_results(table: SectionScoreTable, n_boot: int, seed: int) -> list[PairResult]:
+    """Pool a table of section scores into one matrix row per cell.
+
+    Every cell is bootstrapped with the same ``seed``, which is what the
+    published matrices did, so a table re-pooled here reproduces their
+    intervals exactly.
 
     Args:
-        scores: Per-section scores for one (src, tgt) pair.
-        idx: Section indices to pool; ``None`` pools all sections once.
+        table: Section scores for every (listener, text) cell.
+        n_boot: Number of bootstrap resamples per cell.
+        seed: RNG seed, the same for every cell.
 
     Returns:
-        Total loss divided by total scored positions.
-
-    Raises:
-        ValueError: If the selection contains zero scored positions.
+        One :class:`PairResult` per cell, listeners outer and texts inner.
     """
-    selected = scores if idx is None else [scores[i] for i in idx]
-    n = sum(s["n_scored"] for s in selected)
-    if n == 0:
-        msg = "No scored positions in selection; cannot compute cross-entropy."
-        raise ValueError(msg)
-    return sum(s["loss_sum"] for s in selected) / n
+    results: list[PairResult] = []
+    for src in table["listeners"]:
+        for tgt in table["texts"]:
+            pair = table["scores"][(src, tgt)]
+            self_scores = table["scores"][(tgt, tgt)]
+            ce = ce_from_scores(pair)
+            self_ce = ce_from_scores(self_scores)
+            lo, hi = bootstrap_excess(pair, self_scores, n_boot, seed)
+            n_scored = sum(s["n_scored"] for s in pair)
+            n_total = sum(s["n_total"] for s in pair)
+            results.append(
+                PairResult(
+                    src=src,
+                    tgt=tgt,
+                    mode=table["mode"],
+                    ce=ce,
+                    self_ce=self_ce,
+                    excess_ce=ce - self_ce,
+                    excess_lo=lo,
+                    excess_hi=hi,
+                    support=n_scored / n_total,
+                    n_scored=n_scored,
+                )
+            )
+    return results
 
 
-def bootstrap_excess(
-    pair_scores: list[SectionScore],
-    self_scores: list[SectionScore],
-    n_boot: int,
-    seed: int,
-) -> tuple[float, float]:
-    """95% paired bootstrap CI for excess CE over sections.
-
-    Each resample draws section indices with replacement and applies the
-    SAME indices to both the pair and the self scores, so per-section
-    difficulty cancels within every resample.
+def listener_results(
+    table: SectionScoreTable, results: list[PairResult], n_boot: int, seed: int
+) -> list[ListenerComparison]:
+    """Compare every two foreign listeners on every text of a matrix.
 
     Args:
-        pair_scores: Per-section scores for (src, tgt).
-        self_scores: Per-section scores for (tgt, tgt) on identical sections.
-        n_boot: Number of resamples.
-        seed: RNG seed.
+        table: The section scores the matrix was pooled from.
+        results: That matrix, from :func:`pair_results`; read for each
+            cell's own interval, which the comparison rows report beside
+            their verdict.
+        n_boot: Number of bootstrap resamples per comparison.
+        seed: Base RNG seed, offset per comparison.
 
     Returns:
-        (lower, upper) bounds of the 95% interval.
-
-    Raises:
-        ValueError: If the two score lists have different lengths.
+        The rows of :func:`~scripts.zero_shot_comparisons.listener_comparisons`.
     """
-    if len(pair_scores) != len(self_scores):
-        msg = f"Score lists differ in length: {len(pair_scores)} vs {len(self_scores)}."
-        raise ValueError(msg)
-    n = len(pair_scores)
-    rng = random.Random(seed)
-    excesses: list[float] = []
-    for _ in range(n_boot):
-        idx = [rng.randrange(n) for _ in range(n)]
-        excesses.append(ce_from_scores(pair_scores, idx) - ce_from_scores(self_scores, idx))
-    excesses.sort()
-    lo_idx = math.floor(0.025 * (n_boot - 1))
-    hi_idx = math.ceil(0.975 * (n_boot - 1))
-    return excesses[lo_idx], excesses[hi_idx]
-
-
-def bootstrap_asymmetry(
-    forward_pair: list[SectionScore],
-    forward_self: list[SectionScore],
-    reverse_pair: list[SectionScore],
-    reverse_self: list[SectionScore],
-    n_boot: int,
-    seed: int,
-) -> tuple[float, float]:
-    """95% bootstrap CI for the DIFFERENCE between two excess CEs.
-
-    The directional claim about a language pair is that ``excess(a, b)``
-    and ``excess(b, a)`` differ. Answering it by checking whether their
-    two intervals overlap is the wrong test and errs in one direction:
-    non-overlap does imply a difference, but overlap implies nothing, so
-    that check can only ever fail to detect one. This resamples the
-    difference itself, which is the quantity the claim is about.
-
-    Unlike :func:`bootstrap_excess` the two halves are NOT paired. Each
-    excess is measured over a different language's sections, so there is
-    no correspondence between index ``i`` on one side and index ``i`` on
-    the other, and reusing one index list would invent one. The two are
-    resampled independently within each iteration; each half stays
-    internally paired against its own self-scores, so per-section
-    difficulty still cancels where it genuinely can.
-
-    Args:
-        forward_pair: Per-section scores for (a, b).
-        forward_self: Per-section scores for (b, b), same sections.
-        reverse_pair: Per-section scores for (b, a).
-        reverse_self: Per-section scores for (a, a), same sections.
-        n_boot: Number of resamples.
-        seed: RNG seed.
-
-    Returns:
-        (lower, upper) bounds of the 95% interval for
-        ``excess(a, b) - excess(b, a)``. An interval excluding zero is
-        the evidence a directional asymmetry claim needs.
-
-    Raises:
-        ValueError: If either side's score lists differ in length, since
-            a pair and its self-scores must cover the same sections.
-    """
-    if len(forward_pair) != len(forward_self):
-        msg = f"Forward score lists differ in length: {len(forward_pair)} vs {len(forward_self)}."
-        raise ValueError(msg)
-    if len(reverse_pair) != len(reverse_self):
-        msg = f"Reverse score lists differ in length: {len(reverse_pair)} vs {len(reverse_self)}."
-        raise ValueError(msg)
-    n_fwd = len(forward_pair)
-    n_rev = len(reverse_pair)
-    rng = random.Random(seed)
-    diffs: list[float] = []
-    for _ in range(n_boot):
-        fwd_idx = [rng.randrange(n_fwd) for _ in range(n_fwd)]
-        rev_idx = [rng.randrange(n_rev) for _ in range(n_rev)]
-        forward = ce_from_scores(forward_pair, fwd_idx) - ce_from_scores(forward_self, fwd_idx)
-        reverse = ce_from_scores(reverse_pair, rev_idx) - ce_from_scores(reverse_self, rev_idx)
-        diffs.append(forward - reverse)
-    diffs.sort()
-    lo_idx = math.floor(0.025 * (n_boot - 1))
-    hi_idx = math.ceil(0.975 * (n_boot - 1))
-    return diffs[lo_idx], diffs[hi_idx]
+    marginals = {(r["src"], r["tgt"]): (r["excess_lo"], r["excess_hi"]) for r in results}
+    return listener_comparisons(
+        table["scores"],
+        marginals,
+        table["listeners"],
+        table["texts"],
+        table["mode"],
+        n_boot,
+        seed,
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -635,127 +555,6 @@ def excess_observations(results: list[PairResult]) -> tuple[Observation, ...]:
     return tuple(
         Observation(name=f"excess_ce.{r['src']}.{r['tgt']}", value=r["excess_ce"]) for r in results
     )
-
-
-#: The asymmetry record's experiment, distinct from the matrix's on purpose. A
-#: matrix row is a LEVEL (one model's excess cross-entropy reading one text)
-#: and an asymmetry row is a DIFFERENCE between two of them with its own
-#: interval; ``compare_run_records`` refuses to subtract records from different
-#: experiments, which is exactly the refusal wanted between a level and a
-#: difference of levels.
-ASYMMETRY_EXPERIMENT = "turkic-zero-shot-asymmetry"
-
-
-def asymmetry_observations(results: list[AsymmetryResult]) -> tuple[Observation, ...]:
-    """Name every asymmetry number so two runs can be paired by it.
-
-    Three observations per unordered pair rather than one: the difference is
-    the estimate and the interval is the verdict, and a record carrying only
-    the estimate could be compared against another run without either reader
-    being able to tell whether the sign had ever excluded zero.
-
-    Args:
-        results: One entry per unordered language pair.
-
-    Returns:
-        The observations, named ``asymmetry.<a>.<b>``,
-        ``asymmetry_lo.<a>.<b>`` and ``asymmetry_hi.<a>.<b>``. Sorting is
-        left to :func:`~platform_core.run_record.run_record`.
-    """
-    observations: list[Observation] = []
-    for r in results:
-        pair = f"{r['lang_a']}.{r['lang_b']}"
-        observations.append(Observation(name=f"asymmetry.{pair}", value=r["difference"]))
-        observations.append(Observation(name=f"asymmetry_lo.{pair}", value=r["difference_lo"]))
-        observations.append(Observation(name=f"asymmetry_hi.{pair}", value=r["difference_hi"]))
-    return tuple(observations)
-
-
-ASYMMETRY_CSV_HEADER = (
-    "language_a,language_b,scoring_mode,excess_a_reading_b,excess_b_reading_a,"
-    "difference,difference_confidence_interval_low,difference_confidence_interval_high,"
-    "interval_excludes_zero"
-)
-
-
-def render_asymmetry_csv(results: list[AsymmetryResult]) -> str:
-    """Render a list of :class:`AsymmetryResult` as a CSV string.
-
-    Args:
-        results: Asymmetry results; output rows preserve the input order.
-
-    Returns:
-        CSV text including header and trailing newline.
-    """
-    lines = [ASYMMETRY_CSV_HEADER]
-    for r in results:
-        lines.append(
-            ",".join(
-                [
-                    r["lang_a"],
-                    r["lang_b"],
-                    r["mode"],
-                    f"{r['excess_ab']:.6f}",
-                    f"{r['excess_ba']:.6f}",
-                    f"{r['difference']:.6f}",
-                    f"{r['difference_lo']:.6f}",
-                    f"{r['difference_hi']:.6f}",
-                    "yes" if r["excludes_zero"] else "no",
-                ]
-            )
-        )
-    return "\n".join(lines) + "\n"
-
-
-def asymmetry_results(
-    scores: dict[tuple[str, str], list[SectionScore]],
-    languages: tuple[str, ...],
-    mode: str,
-    n_boot: int,
-    seed: int,
-) -> list[AsymmetryResult]:
-    """Test every unordered language pair for a directional difference.
-
-    Args:
-        scores: Per-section scores keyed by ordered (source, target) pair.
-        languages: Language codes to pair up, in the order rows appear.
-        mode: OOV regime, recorded on every row.
-        n_boot: Number of bootstrap resamples per pair.
-        seed: Base RNG seed; each pair is offset from it so that two pairs
-            do not share a resampling pattern.
-
-    Returns:
-        One row per unordered pair, in alphabetical order within the pair.
-    """
-    ordered = sorted(languages)
-    rows: list[AsymmetryResult] = []
-    for offset, (a, b) in enumerate(
-        (a, b) for i, a in enumerate(ordered) for b in ordered[i + 1 :]
-    ):
-        excess_ab = ce_from_scores(scores[(a, b)]) - ce_from_scores(scores[(b, b)])
-        excess_ba = ce_from_scores(scores[(b, a)]) - ce_from_scores(scores[(a, a)])
-        lo, hi = bootstrap_asymmetry(
-            scores[(a, b)],
-            scores[(b, b)],
-            scores[(b, a)],
-            scores[(a, a)],
-            n_boot,
-            seed + offset,
-        )
-        rows.append(
-            AsymmetryResult(
-                lang_a=a,
-                lang_b=b,
-                mode=mode,
-                excess_ab=excess_ab,
-                excess_ba=excess_ba,
-                difference=excess_ab - excess_ba,
-                difference_lo=lo,
-                difference_hi=hi,
-                excludes_zero=lo > 0.0 or hi < 0.0,
-            )
-        )
-    return rows
 
 
 def render_results_csv(results: list[PairResult]) -> str:
@@ -901,6 +700,52 @@ def _build_masks(
     return masks
 
 
+def companion_path(output_csv: Path, name_suffix: str) -> Path:
+    """Name a file written beside the matrix, sharing its stem.
+
+    Args:
+        output_csv: The matrix CSV.
+        name_suffix: What follows the stem, extension included.
+
+    Returns:
+        The companion path, in the matrix's directory.
+    """
+    return output_csv.with_name(output_csv.stem + name_suffix)
+
+
+def write_listener_comparisons(
+    output_csv: Path,
+    rows: list[ListenerComparison],
+    mode: str,
+    fingerprint: RunFingerprint,
+) -> Path:
+    """Write the listener comparisons beside a matrix, with their run record.
+
+    Args:
+        output_csv: The matrix CSV the comparisons were drawn from; the
+            comparisons go to ``<stem>_listeners<suffix>`` beside it.
+        rows: The comparisons, from :func:`listener_results`.
+        mode: OOV regime, the run record's label.
+        fingerprint: What produced the numbers.
+
+    Returns:
+        The comparisons CSV's path.
+    """
+    path = companion_path(output_csv, "_listeners" + output_csv.suffix)
+    path.write_text(render_listener_csv(rows), encoding="utf-8")
+    differs = sum(1 for r in rows if r["differs"])
+    separated = sum(1 for r in rows if not r["intervals_overlap"])
+    print(
+        f"Wrote {len(rows)} listener comparison(s) to {path}; {differs} paired interval(s) "
+        f"exclude zero, where the interval-overlap rule separates {separated}"
+    )
+    sidecar = write_run_record(
+        path, LISTENER_EXPERIMENT, mode, listener_observations(rows), fingerprint
+    )
+    print(f"Wrote provenance to {sidecar}")
+    return path
+
+
 def run(args: EvalArgs) -> list[PairResult]:
     """Run zero-shot evaluation across all (src, tgt) pairs and write CSV.
 
@@ -933,39 +778,28 @@ def run(args: EvalArgs) -> list[PairResult]:
                 score_section(loaded, section, mask)
                 for section, mask in zip(pair_sections, pair_masks, strict=True)
             ]
+    table = SectionScoreTable(
+        mode=args["oov_mode"], listeners=tuple(sources), texts=tuple(targets), scores=scores
+    )
 
-    results: list[PairResult] = []
-    for src in sources:
-        for tgt in targets:
-            pair = scores[(src, tgt)]
-            self_scores = scores[(tgt, tgt)]
-            ce = ce_from_scores(pair)
-            self_ce = ce_from_scores(self_scores)
-            lo, hi = bootstrap_excess(pair, self_scores, args["n_boot"], args["seed"])
-            n_scored = sum(s["n_scored"] for s in pair)
-            n_total = sum(s["n_total"] for s in pair)
-            result: PairResult = {
-                "src": src,
-                "tgt": tgt,
-                "mode": args["oov_mode"],
-                "ce": ce,
-                "self_ce": self_ce,
-                "excess_ce": ce - self_ce,
-                "excess_lo": lo,
-                "excess_hi": hi,
-                "support": n_scored / n_total,
-                "n_scored": n_scored,
-            }
-            results.append(result)
-            print(
-                f"  {src}->{tgt} [{args['oov_mode']}] ce={ce:.4f} "
-                f"excess={ce - self_ce:+.4f} [{lo:+.4f},{hi:+.4f}] "
-                f"support={result['support']:.3f}"
-            )
+    results = pair_results(table, args["n_boot"], args["seed"])
+    for r in results:
+        print(
+            f"  {r['src']}->{r['tgt']} [{r['mode']}] ce={r['ce']:.4f} "
+            f"excess={r['excess_ce']:+.4f} [{r['excess_lo']:+.4f},{r['excess_hi']:+.4f}] "
+            f"support={r['support']:.3f}"
+        )
 
     args["output_csv"].parent.mkdir(parents=True, exist_ok=True)
     args["output_csv"].write_text(render_results_csv(results), encoding="utf-8")
     print(f"Wrote {len(results)} pair(s) to {args['output_csv']}")
+
+    # The pooled matrix is a summary, and every later question about it
+    # needs the sections it was pooled from. Kept since 2026-10-06, when
+    # re-testing the published matrix meant rebuilding the July pipeline.
+    section_scores = companion_path(args["output_csv"], SECTION_SCORES_SUFFIX)
+    section_scores.write_text(encode_section_score_table(table), encoding="utf-8")
+    print(f"Wrote section scores to {section_scores}")
 
     # The directional claim is about a DIFFERENCE, so it gets its own
     # interval rather than being read off two others. Written beside the
@@ -974,12 +808,11 @@ def run(args: EvalArgs) -> list[PairResult]:
     # Only languages that are BOTH a model and a scored target can be asked
     # the question: the reverse direction needs the other language's own
     # sections, and a target whose sections were all dropped for zero
-    # support has none to give.
-    paired = tuple(lang for lang in sources if lang in targets)
-    asymmetries = asymmetry_results(scores, paired, args["oov_mode"], args["n_boot"], args["seed"])
-    asymmetry_csv = args["output_csv"].with_name(
-        args["output_csv"].stem + "_asymmetry" + args["output_csv"].suffix
+    # support has none to give. Those are exactly the table's texts.
+    asymmetries = asymmetry_results(
+        scores, table["texts"], args["oov_mode"], args["n_boot"], args["seed"]
     )
+    asymmetry_csv = companion_path(args["output_csv"], "_asymmetry" + args["output_csv"].suffix)
     asymmetry_csv.write_text(render_asymmetry_csv(asymmetries), encoding="utf-8")
     significant = sum(1 for r in asymmetries if r["excludes_zero"])
     print(
@@ -989,10 +822,16 @@ def run(args: EvalArgs) -> list[PairResult]:
 
     # The CSVs keep their shape; the provenance goes beside each. Every number
     # in them is a subtraction, and until these sidecars existed the only
-    # record of what produced them was the filename. One fingerprint for both:
-    # the same process scored both files, and a second capture would only be
+    # record of what produced them was the filename. One fingerprint for all:
+    # the same process scored every file, and a second capture would only be
     # a chance to disagree with the first.
     fingerprint = scoring_fingerprint()
+    write_listener_comparisons(
+        args["output_csv"],
+        listener_results(table, results, args["n_boot"], args["seed"]),
+        args["oov_mode"],
+        fingerprint,
+    )
     sidecar = write_run_record(
         args["output_csv"],
         EXPERIMENT,
