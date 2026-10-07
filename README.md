@@ -164,8 +164,51 @@ has to have finished first — `make train-bases` covers that for all seven.
 | `number_of_positions_scored` | that share as a count |
 
 Sort by `excess_cross_entropy`: the three smallest off-diagonal distances are
-the within-branch pairs (az–tr, kk–ky, ug–uz); two distances differ reliably
-only when their confidence intervals don't overlap.
+the within-branch pairs (az–tr, kk–ky, ug–uz).
+
+Whether two distances differ is a question about their **difference**, and it
+is read from a file that puts an interval on the difference, never from
+whether the two rows' own intervals overlap:
+
+- **Two listeners on one text** — `<stem>_listeners.csv`, one row per text and
+  pair of foreign listeners. Both listeners were scored on the same sections
+  and positions of that text against the same native baseline, so the test is
+  a shared-index paired bootstrap (`bootstrap_listener_difference` in
+  `scripts/zero_shot_bootstrap.py`): every resample draws one list of section
+  indices and applies it to both listeners, passage difficulty cancels, and
+  `paired_interval_excludes_zero` is the verdict.
+- **One pair read in each direction** — `<stem>_asymmetry.csv`. The two
+  directions read different texts, so their sections are resampled
+  independently (`bootstrap_asymmetry`); `interval_excludes_zero` is the
+  verdict.
+
+`<stem>_section_scores.json` holds the per-section scores every interval was
+pooled from, so a later question can be asked of the same numbers without
+re-scoring.
+
+**Correction, 2026-10-06.** Until this date this section said "two distances
+differ reliably only when their confidence intervals don't overlap", which is
+the test the code's own `bootstrap_asymmetry` docstring calls wrong. Its error
+runs one way: intervals that do not overlap do imply a difference, but
+overlapping ones imply nothing, and for two listeners on one text the rule
+also discards the pairing that cancels passage difficulty. So it can only fail
+to detect a difference, never invent one. Re-decided with the paired test on
+the published matrix's own section scores
+(`results/zero_shot_excess_ce_skip_section_scores.json`, which
+`python -m scripts.compare_listeners` re-pools into
+`results/zero_shot_excess_ce_skip.csv` byte for byte before it tests
+anything), **20 of the 105 listener comparisons change verdict**: the overlap
+rule separated 69, the paired test separates 89, all 20 changes go from
+"unresolved" to "differ", and none of the 69 is reversed. By text: az 1, fi 4,
+kk 3, ky 3, tr 5, ug 3, uz 1. On the Kazakh text, of the six comparisons the
+rule left unresolved, az–fi, az–tr and az–uz now differ and fi–ug, fi–uz and
+ug–uz still do not. The headline ordering ky→kk < tr→kk was separated under
+both tests. Each interval is a 95% interval for one comparison; across 105 of
+them, roughly one in twenty comparisons with no true difference would exclude
+zero by chance, so read any single new separation with that in mind. The rows
+are in `results/zero_shot_excess_ce_skip_listeners.csv`; the July pipeline
+that produced the scores is rebuilt by
+`analysis/listener-comparisons-2026-10/dump_published_section_scores.py`.
 
 `validate_method` writes `results/validity_report.json`: it must recover the
 three sibling pairs on the perception text, replicate them on held-out corpus
@@ -197,7 +240,9 @@ Single source of truth: the `EMBED_DIM` / `HIDDEN_DIM` / `NUM_LAYERS` /
 
 - `checkpoints/{lang}_best.pt` + `{lang}_vocab.json` — the 7 base models
 - `checkpoints/{src}_to_{tgt}*.pt` — transfer fine-tunes (transfer track only)
-- `results/zero_shot_excess_ce_{skip,unk,assimilate}.csv` — eval matrices
+- `results/zero_shot_excess_ce_{skip,unk,assimilate}.csv` — eval matrices, each
+  written with `_section_scores.json`, `_asymmetry.csv` and `_listeners.csv`
+  beside it (see *Reading the results*)
 - `results/ngram_excess_ce.csv` — trigram baseline
 - `results/validity_report.json` — validity battery outcome
 
