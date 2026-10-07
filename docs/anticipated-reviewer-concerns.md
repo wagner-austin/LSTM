@@ -86,7 +86,19 @@ Drafted without the actual reviewer text in hand. These are the methodology vuln
 
 **For the camera-ready:** explicit single sentence in the CI methodology paragraph: "CIs reflect passage resampling variability, not model-initialization variability. Multi-seed replication is named as future work." This is a 1-sentence fix; no methodological change required.
 
-**Strengthening:** the paper's headline result (Kk-Ky < Kk-Tr ordering) is preserved across **three** different metrics simultaneously (CE spike, AUC, test CE) per [@baidildinova-wagner-2024-neurips, p. 3]. The probability that single-seed noise produces consistent direction across three metrics is low; the ordering result is robust without multi-seed verification, even if the absolute values aren't.
+**Withdrawn 2026-10-06.** This paragraph used to argue that the Kk-Ky < Kk-Tr ordering holds across three metrics (CE spike, AUC, test CE) [@baidildinova-wagner-2024-neurips, p. 3], and that "the probability that single-seed noise produces consistent direction across three metrics is low". That probability was never computed, and nothing here could compute it: the three metrics are three readings of the same seven models, each trained once at one seed, scored on one passage set. Their agreement is close to one piece of evidence, not three, and it says nothing about model variability, which is exactly what the reviewer is asking about. Do not use it.
+
+**The answer is replication across independently trained models.** What exists today is the ordering re-measured on five separately trained model sets, Kazakh text, skip mode, 95% intervals:
+
+| matrix | models | ky→kk | tr→kk | verdict |
+|---|---|---|---|---|
+| `results/zero_shot_excess_ce_skip.csv` (published) | `checkpoints_2026-02` | 1.191 [1.115, 1.255] | 1.418 [1.343, 1.491] | ky < tr; paired difference −0.227 [−0.304, −0.156] (`results/zero_shot_excess_ce_skip_listeners.csv`) |
+| `results/zero_shot_excess_ce_skip_2026-08-13.csv` | `checkpoints/`, retrained 2026-08-13 | 1.631 [1.531, 1.724] | 1.970 [1.893, 2.051] | ky < tr; intervals disjoint |
+| `results/v3_full_skip.csv` | `checkpoints_v3`, retrained 2026-08-15 | 1.637 [1.524, 1.742] | 1.760 [1.669, 1.837] | ky < tr in the estimate; **unresolved** (intervals overlap, and no section scores were kept for the paired test) |
+| `results/v5_full_skip.csv` | v4 models, retrained 2026-09-02/03 | 1.328 [1.206, 1.439] | 1.785 [1.694, 1.864] | ky < tr; intervals disjoint |
+| `results/v6_full_skip.csv` | kk and tr retrained 2026-09-03 on v6, ky the v4 model | 1.392 [1.280, 1.496] | 1.824 [1.707, 1.928] | ky < tr; intervals disjoint |
+
+So the direction held in five of five retrained sets and is separated in four; disjoint intervals do imply a difference, so those four need no paired test. State the limits with it, because a reviewer will: every one of these retrainings also rebuilt the corpus, every one whose training log records a seed ran at `char_lstm/train.py`'s default 1234 (the log behind `checkpoints_2026-02` records none), and the v5 and v6 matrices share their Kyrgyz model. This is replication under retraining, not a seed sweep, and it does not isolate initialization variance. The seed sweep that does (one corpus, several seeds per model, the paired test per seed) is board task b45734a7; until it reports, the honest camera-ready line is the one above, that the CIs reflect passage variability and multi-seed replication is future work, with this table as the evidence that the ordering survives retraining.
 
 ---
 
