@@ -4,18 +4,18 @@ Reproduces the shipped skip-mode evaluation exactly, then re-scores with
 every punctuation, symbol, and digit position removed from the masks.
 Nothing in the repository is modified; models, corpora, and perception
 texts are read as released.
+
+Run from the repository root, which puts ``scripts`` on the import path::
+
+    poetry run python -m analysis.punctuation-2026-08.punct_ablation
 """
 
 import csv
-import sys
 import unicodedata
 from pathlib import Path
 
-LSTM = Path(r"C:\Users\Test\PROJECTS\lstm")
-sys.path.insert(0, str(LSTM))
-
-from scripts.zero_shot_bootstrap import ce_from_scores  # noqa: E402
-from scripts.zero_shot_eval import (  # noqa: E402
+from scripts.zero_shot_bootstrap import ce_from_scores
+from scripts.zero_shot_eval import (
     CORPUS_TEMPLATE,
     MIN_ATTESTED,
     attested_chars,
@@ -24,6 +24,8 @@ from scripts.zero_shot_eval import (  # noqa: E402
     parse_sections,
     score_section,
 )
+
+LSTM = Path(__file__).resolve().parents[2]
 
 OUT = Path(
     r"C:\Users\Test\AppData\Local\Temp\claude\C--Users-Test-PROJECTS-turkic-transliteration"
