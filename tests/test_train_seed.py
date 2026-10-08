@@ -176,14 +176,16 @@ def test_the_seed_reaches_the_training_config(tmp_path: Path) -> None:
     assert build_train_config(args, use_cuda=False)["seed"] == 99
 
 
-def test_the_seed_defaults_rather_than_being_left_to_the_clock() -> None:
+def test_the_seed_defaults_rather_than_being_left_to_the_clock(tmp_path: Path) -> None:
     """Omitting the flag still produces a reproducible run."""
-    assert _extract_args(parse_args(["--lang", "tr"]))["seed"] == DEFAULT_SEED
+    argv = ["--lang", "tr", "--corpus-dir", str(tmp_path)]
+    assert _extract_args(parse_args(argv))["seed"] == DEFAULT_SEED
 
 
-def test_the_seed_flag_is_read() -> None:
+def test_the_seed_flag_is_read(tmp_path: Path) -> None:
     """A seed given on the command line reaches the parsed arguments."""
-    assert _extract_args(parse_args(["--lang", "tr", "--seed", "7"]))["seed"] == 7
+    argv = ["--lang", "tr", "--corpus-dir", str(tmp_path), "--seed", "7"]
+    assert _extract_args(parse_args(argv))["seed"] == 7
 
 
 def test_a_non_integer_seed_is_rejected() -> None:

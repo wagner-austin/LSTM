@@ -13,20 +13,25 @@ mass between two letter symbols — one common in training and absent from
 evaluation, while another is common in evaluation and absent from
 training. That paired swap is the signature of two texts written under
 different transliteration conventions, and it is what these tests refuse.
+
+The training side is read from the committed letter-rate profile
+(``data/training_letter_rates.json``, written by ``scripts.letter_rates``),
+not from the corpora, which are untracked: a clean checkout has the profile
+and not the 104 MB of text it was taken from.
 """
 
 from __future__ import annotations
 
-import collections
 import unicodedata as ud
 from pathlib import Path
 
 import pytest
+from scripts.letter_rates import DEFAULT_PROFILE, letter_rates, load_letter_rate_profile
 
-from char_lstm.corpora import CORPUS_TEMPLATE, PERCEPTION_LANGS, SNIPPET_TEMPLATE
+from char_lstm.corpora import PERCEPTION_LANGS, SNIPPET_TEMPLATE
 
 REPO = Path(__file__).resolve().parents[1]
-TRAIN_DIR = REPO / "corpora_clean"
+PROFILE = REPO / DEFAULT_PROFILE
 EVAL_DIR = REPO / "data" / "perception_clean"
 
 # Per 1,000 characters: a symbol carrying real weight on one side...
@@ -35,25 +40,6 @@ COMMON_PER_1K = 5.0
 ABSENT_PER_1K = 1.0
 
 KNOWN_MISMATCHED: frozenset[str] = frozenset()
-
-
-def letter_rates(path: Path) -> dict[str, float]:
-    """Occurrences per 1,000 characters for every letter in a file.
-
-    Case, digits and punctuation are excluded: headers contribute
-    uppercase, and genre legitimately moves punctuation. Letters are
-    where a notation difference would live.
-
-    Args:
-        path: Text file to profile.
-
-    Returns:
-        Letter to rate per 1,000 characters of the file.
-    """
-    text = path.read_text(encoding="utf-8")
-    counts = collections.Counter(ch for ch in text if ch.isalpha() and not ch.isupper())
-    scale = len(text) / 1000
-    return {ch: n / scale for ch, n in counts.items()}
 
 
 def swapped_pairs(train: dict[str, float], evaluation: dict[str, float]) -> list[str]:
@@ -91,12 +77,37 @@ def rates_for(lang: str) -> tuple[dict[str, float], dict[str, float]]:
         lang: Language code.
 
     Returns:
-        Train and evaluation rate tables.
+        Train rates from the committed profile and evaluation rates
+        taken from the perception text.
     """
-    return (
-        letter_rates(TRAIN_DIR / CORPUS_TEMPLATE.format(lang=lang)),
-        letter_rates(EVAL_DIR / SNIPPET_TEMPLATE.format(lang=lang)),
-    )
+    profile = {p["lang"]: p for p in load_letter_rate_profile(PROFILE.read_text("utf-8"))}
+    evaluation = (EVAL_DIR / SNIPPET_TEMPLATE.format(lang=lang)).read_text(encoding="utf-8")
+    return profile[lang]["rates"], letter_rates(evaluation)
+
+
+def test_the_profile_covers_every_perception_language_from_one_generation() -> None:
+    """Every evaluated language has a training profile, all from one corpus set.
+
+    A profile mixing generations would compare some evaluation texts
+    against a corpus no current model was trained on.
+    """
+    profiles = load_letter_rate_profile(PROFILE.read_text(encoding="utf-8"))
+
+    assert tuple(p["lang"] for p in profiles) == PERCEPTION_LANGS
+    assert {p["corpus"].split(":")[0] for p in profiles} == {"corpora_clean"}
+
+
+def test_a_convention_swap_is_detected() -> None:
+    """The check refuses the Kazakh w-for-u swap it was written for."""
+    train = {"w": 30.0, "a": 80.0}
+    evaluation = {"u": 30.0, "a": 80.0}
+
+    offending = swapped_pairs(train, evaluation)
+
+    assert offending == [
+        "'w' (LATIN SMALL LETTER W): train 30.0/1k, eval 0.0/1k",
+        "'u' (LATIN SMALL LETTER U): eval 30.0/1k, train 0.0/1k",
+    ]
 
 
 @pytest.mark.parametrize("lang", sorted(set(PERCEPTION_LANGS) - KNOWN_MISMATCHED))

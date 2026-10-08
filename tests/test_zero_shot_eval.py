@@ -490,22 +490,40 @@ def test_oov_modes_are_the_documented_three() -> None:
     assert OOV_MODES == ("unk", "skip", "assimilate")
 
 
+def _cli_argv(args: EvalArgs, oov_mode: str, n_boot: int) -> list[str]:
+    """Test helper: the command line naming every directory ``args`` built.
+
+    Each directory is passed, the corpora included: a flag left to its
+    default reads the workstation's untracked ``corpora_clean/``, which a
+    clean checkout does not have.
+
+    Args:
+        args: Directories from :func:`_setup_eval_dirs`.
+        oov_mode: Value of ``--oov-mode``.
+        n_boot: Value of ``--n-boot``.
+
+    Returns:
+        The argument list, without a program name.
+    """
+    return [
+        "--checkpoint-dir",
+        str(args["checkpoint_dir"]),
+        "--snippet-dir",
+        str(args["snippet_dir"]),
+        "--output-csv",
+        str(args["output_csv"]),
+        "--corpus-dir",
+        str(args["corpus_dir"]),
+        "--oov-mode",
+        oov_mode,
+        "--n-boot",
+        str(n_boot),
+    ]
+
+
 def test_main_end_to_end(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
     args = _setup_eval_dirs(tmp_path)
-    code = main(
-        [
-            "--checkpoint-dir",
-            str(args["checkpoint_dir"]),
-            "--snippet-dir",
-            str(args["snippet_dir"]),
-            "--output-csv",
-            str(args["output_csv"]),
-            "--oov-mode",
-            "skip",
-            "--n-boot",
-            "10",
-        ]
-    )
+    code = main(_cli_argv(args, "skip", 10))
     assert code == 0
     out = capsys.readouterr().out
     assert "Wrote 6 pair(s)" in out
@@ -521,23 +539,7 @@ def test_main_writes_a_sidecar_beside_each_csv(tmp_path: Path) -> None:
     which the end-to-end test above never did for either file.
     """
     args = _setup_eval_dirs(tmp_path)
-    assert (
-        main(
-            [
-                "--checkpoint-dir",
-                str(args["checkpoint_dir"]),
-                "--snippet-dir",
-                str(args["snippet_dir"]),
-                "--output-csv",
-                str(args["output_csv"]),
-                "--oov-mode",
-                "skip",
-                "--n-boot",
-                "10",
-            ]
-        )
-        == 0
-    )
+    assert main(_cli_argv(args, "skip", 10)) == 0
 
     asymmetry_csv = args["output_csv"].with_name(args["output_csv"].stem + "_asymmetry.csv")
     listeners_csv = args["output_csv"].with_name(args["output_csv"].stem + "_listeners.csv")
@@ -593,23 +595,7 @@ def test_the_section_scores_written_beside_the_matrix_re_pool_into_it(tmp_path: 
 
 def test_module_entrypoint(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     args = _setup_eval_dirs(tmp_path)
-    monkeypatch.setattr(
-        sys,
-        "argv",
-        [
-            "zero_shot_eval",
-            "--checkpoint-dir",
-            str(args["checkpoint_dir"]),
-            "--snippet-dir",
-            str(args["snippet_dir"]),
-            "--output-csv",
-            str(args["output_csv"]),
-            "--oov-mode",
-            "unk",
-            "--n-boot",
-            "5",
-        ],
-    )
+    monkeypatch.setattr(sys, "argv", ["zero_shot_eval", *_cli_argv(args, "unk", 5)])
     monkeypatch.delitem(sys.modules, "scripts.zero_shot_eval")
     with pytest.raises(SystemExit) as excinfo:
         runpy.run_module("scripts.zero_shot_eval", run_name="__main__", alter_sys=True)
