@@ -1,18 +1,26 @@
+# Each platform keeps its native shell, and every recipe below is written in
+# the intersection the two read alike: one plain command per line and make's
+# own $(VAR) for substitution. On Windows a PowerShell-launched make finds no
+# sh; on Linux there is no PowerShell, so a SHELL of powershell.exe alone
+# made this check runnable only on the fleet's one Windows node (API board
+# task e35812cc). The block is API scripts/make/shell.mk's; `-eu -c` makes a
+# failing command fail its line, as PowerShell's native exit propagation
+# does on Windows.
+ifeq ($(OS),Windows_NT)
 SHELL := powershell.exe
 .SHELLFLAGS := -NoProfile -ExecutionPolicy Bypass -Command
+else
+SHELL := /bin/sh
+.SHELLFLAGS := -eu -c
+endif
 
 .PHONY: lint test check train train-bases train-1 train-2 train-3 train-4 train-5 train-6 train-7
 
-# Lint: venv cleanup, guards, Ruff, Mypy
+# Lint: install, guards (no Any, cast, object, type:ignore), Ruff, Mypy
 lint:
-	# Clean stale venv if mypy not runnable; do not fail
-	@$$ErrorActionPreference = 'SilentlyContinue'; poetry run mypy --version | Out-Null; if (-not $$?) { Write-Host "[lint] Stale venv detected; removing..." -ForegroundColor Yellow; poetry env remove --all | Out-Null }; exit 0
-	# Ensure dependencies are installed first
 	poetry lock
 	poetry install --with dev
-	# Run guard checks (no Any, cast, object, type:ignore)
-	if ((Test-Path ".\scripts\guard.py") -or (Test-Path ".\scripts\guard\__main__.py")) { poetry run python -m scripts.guard; if ($$LASTEXITCODE -ne 0) { exit $$LASTEXITCODE } }
-	# Ruff + Mypy
+	poetry run python -m scripts.guard
 	poetry run ruff check . --fix
 	poetry run ruff format .
 	poetry run mypy src tests scripts
@@ -21,10 +29,13 @@ lint:
 test:
 	poetry lock
 	poetry install --with dev
-	$$covArgs = @("--cov-branch","--cov-report=term-missing"); $$cands = @("src","scripts"); foreach ($$c in $$cands) { if (Test-Path (Join-Path "." $$c)) { $$covArgs += "--cov=$$c" } }; poetry run pytest -n auto -v @covArgs
+	poetry run pytest -n auto -v --cov-branch --cov-report=term-missing --cov=src --cov=scripts
 
-# Check: run lint then test
+# Check: run lint then test. The banner is the last line a passing check
+# prints, and the only one the fleet verdict (API
+# tools/fleet/src/fleet/core/verdict.py) reads as a pass.
 check: lint | test
+	@echo "=== ALL CHECKS PASSED ==="
 
 # Train all experiments sequentially
 train: train-1 train-2 train-3 train-4 train-5 train-6 train-7
